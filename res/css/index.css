@@ -1,0 +1,164 @@
+@font-face {
+  font-family: "HUN";
+  src: url("../fonts/hun2.ttf");
+}
+@font-face {
+  font-family: "CB";
+  src: url("../fonts/cb.ttf");
+}
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+html {
+  background: black;
+  font-family: "HUN";
+  font-size: 24pt;
+  text-transform: uppercase;
+  color: #ff9c6b;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container .navBar {
+  font-size: 0.75rem;
+  height: 50px; /* Fixed height for the navbar */
+  width: 100%;
+  background: linear-gradient(to bottom, #300f0b 0, #4c1d0c 100%);
+  border-bottom: 2px solid #b03d1a;
+  display: flex;
+  align-items: center; /* Vertically center content */
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.container .navBar .hidden {
+  display: none;
+}
+.container .footer {
+  font-size: 0.75rem;
+  height: 50px; /* Fixed height for the footer */
+  width: 100%;
+  background: linear-gradient(to bottom, #32110e 0, #4f1a0a 100%);
+  border-top: 2px solid #bf421c;
+  box-shadow: 0 0 8px #000;
+  display: flex;
+  align-items: center; /* Vertically center content */
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.container .footer a {
+  color: #ff9c6b;
+  text-underline: 1px #ff9c6b;
+  margin: 10px;
+}
+.container .footer .icon {
+  color: #ff9c6b;
+  margin: 10px;
+}
+.container .mainContainer {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://tetr.io/res/bg/zenith/1fa.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  gap: 0.5rem;
+  padding: 10px;
+}
+.container .mainContainer .easyMode {
+  background-color: #143055;
+  border-top: 3px solid #1a5bb8;
+  border-left: 3px solid #1a489d;
+  border-bottom: 3px solid #081f40;
+  border-right: 3px solid #0d2a5d;
+  color: #6baeff;
+}
+.container .mainContainer .easyMode .conditionValue {
+  font-size: 1.25rem;
+  font-family: "CB";
+  color: white;
+  text-shadow: 0 3px #6baeff, 0 6px #6baeff, 0 6px 8px #6baeff, 0 6px 16px #6baeff;
+}
+.container .mainContainer .normalMode {
+  background-color: #532314;
+  border-top: 3px solid #b83a1b;
+  border-left: 3px solid #8d2e1b;
+  border-bottom: 3px solid #2f0a0a;
+  border-right: 3px solid #37160d;
+  transition: 0.3s background-color;
+  color: #ff9c6b;
+}
+.container .mainContainer .normalMode .conditionValue {
+  font-size: 1.25rem;
+  font-family: "CB";
+  color: #fff;
+  text-shadow: 0 3px #b83a1b, 0 6px #b83a1b, 0 6px 8px #b83a1b, 0 6px 16px #b83a1b;
+}
+.container .mainContainer .reversedMode {
+  background-color: #2a070e;
+  border-top: 3px solid #8f0d19;
+  border-left: 3px solid #5c0d0d;
+  border-bottom: 3px solid #120303;
+  border-right: 3px solid #200606;
+  color: #ff6c6c;
+  text-shadow: 0 0 16px rgba(255, 0, 89, 0.4);
+}
+.container .mainContainer .reversedMode .conditionValue {
+  font-size: 1.25rem;
+  font-family: "CB";
+  color: #fff;
+  text-shadow: 0 3px #ff0059, 0 6px #ff0059, 0 6px 8px #ff0059, 0 6px 16px #ff0059;
+}
+.container .mainContainer .zenithContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-height: 100%;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.container .mainContainer .zenithContainer .normalText {
+  font-size: 14pt;
+}
+.container .mainContainer .zenithContainer .subText {
+  font-size: 16pt;
+}
+.container .mainContainer .zenithContainer .modsContainer {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+.container .mainContainer .zenithContainer .modsContainer img {
+  width: 48px;
+  height: 48px;
+  margin: 5px;
+}
+.container .mainContainer .descriptionBox {
+  text-align: center;
+}
+.container .mainContainer .descriptionBox .conditionValue {
+  font-size: 14pt;
+  font-family: "HUN";
+  color: #fff;
+  text-shadow: 0 3px #b83a1b, 0 6px #b83a1b, 0 6px 8px #b83a1b, 0 6px 16px #b83a1b;
+}
+
+/*# sourceMappingURL=index.css.map */
