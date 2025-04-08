@@ -1,0 +1,122 @@
+.profileHeader{
+  background: linear-gradient(to bottom, #300f0b 0, #4c1d0c 100%);
+  border-bottom: 2px solid #b03d1a;
+
+  color: #ff9c6b;
+
+  padding: 10px;
+
+  a {
+    font-size: 3rem;
+  }
+}
+
+.userContainer{
+  padding: 10px;
+  color: #ff9c6b !important;
+
+  background-color: #532314;
+  border-top: 2px solid #b83a1b;
+  //border-left: 2px solid #8d2e1b;
+  border-bottom: 2px solid #2f0a0a;
+  //border-right: 2px solid #37160d;
+}
+
+
+.splitContainer{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+
+  .splitWrapper{
+    background: rgba(0,0,0,0.50);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100px;
+
+    color: white;
+    text-shadow: 2px 2px 3px black;
+
+    font-family: 'CB', "Helvetica Neue", sans-serif, serif;
+  }
+
+  .split{
+    padding: 5px;
+    margin: 5px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.floorBox{
+  padding: 5px;
+  margin: 5px;
+  width: 100%;
+}
+
+.bigNumber{
+  font-size: 20px;
+}
+
+.smallNumber{
+  font-size: 14px;
+}
+
+th{
+  font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
+}
+
+tr{
+  font-family: 'CB', "Helvetica Neue", sans-serif, serif;
+}
+
+.bigButton{
+  font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
+
+  padding-top: 15px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  text-transform: uppercase;
+
+  color: #ff9c6b !important;
+  font-size: 64pt;
+  font-weight: bold;
+
+  background-color: #532314;
+  border-top: 3px solid #b83a1b;
+  border-left: 3px solid #8d2e1b;
+  border-bottom: 3px solid #2f0a0a;
+  border-right: 3px solid #37160d;
+
+  width: 100%;
+  margin: auto;
+
+  transition: .3s transform,.3s filter,.3s box-shadow;
+
+  &:hover{
+    box-shadow: 0 6px #210707;
+    transform: translateY(2px);
+    filter: brightness(1.2);
+  }
+
+  &:active{
+    box-shadow: 0 2px #210707;
+    transform: translateY(6px);
+    filter: brightness(4);
+    transition: 50ms transform, 50ms filter, 50ms box-shadow;
+  }
+}
+

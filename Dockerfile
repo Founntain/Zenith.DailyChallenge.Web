@@ -1,17 +1,29 @@
-# Use the official Node.js image as the base
-FROM node:18-alpine
+# Step 1: Build Angular App
+FROM node:lts-slim AS build-stage
 
-# Install http server
-RUN npm install -g http-server
-
-# Set the working directory
 WORKDIR /app
 
-# Copy the rest of the application files
+COPY package.json package-lock.json ./
+
+RUN npm install -g @angular/cli
+
+RUN npm ci
+
 COPY . .
 
-# Expose the port `http-server` will run on
-EXPOSE 8080
+RUN ng build --configuration=production
 
-# Start the `http-server`
-CMD ["http-server", ""]
+# Step 2: Serve with a lightweight HTTP server
+FROM node:20 AS serve-stage
+WORKDIR /app
+
+COPY --from=build-stage /app/dist/zenith.daily-challenge.web/browser /app/dist
+
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+RUN npm install -g http-server
+
+EXPOSE 80
+
+CMD ["/start.sh"]

@@ -1,0 +1,146 @@
+$easy-text-color: #6baeff;
+$primary-text-color: #ff9c6b;
+$reverse-text-color: #ff6c6c;
+
+div {
+  gap: 10px;
+}
+
+.container{
+  padding: 20px;
+  margin: 10px;
+}
+
+.marginLeft{
+  margin-left: 10px;
+}
+
+.marginRight{
+  margin-right: 10px;
+}
+
+.flexRow{
+  display: flex;
+  flex-direction: row;
+}
+
+.flexColumn{
+  display: flex;
+  flex-direction: column;
+}
+
+.normalContainer {
+  background-color: #532314;
+
+  border-top: 3px solid #b83a1b;
+  border-left: 3px solid #8d2e1b;
+  border-bottom: 3px solid #2f0a0a;
+  border-right: 3px solid #37160d;
+  transition: .3s background-color;
+
+  color: $primary-text-color;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.highlight{
+  font-family: 'CB';
+  color: #fff;
+  text-shadow: 0 3px #b83a1b, 0 6px #b83a1b, 0 6px 8px #b83a1b, 0 6px 16px #b83a1b;
+}
+
+.clock, .date{
+  font-size: 1.5rem;
+}
+
+.challengeContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: space-between;
+
+  .challenge {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+.highlight {
+  font-size: 1.25rem;
+  font-family: 'CB';
+}
+
+.community {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  background-color: #341455;
+  border-top: 3px solid #5b1ab8;
+  border-left: 3px solid #491a9d;
+  border-bottom: 3px solid #200840;
+  border-right: 3px solid #2a0d5d;
+
+  color: #a164ff;
+
+  .highlight {
+    color: white;
+    text-shadow: 0 3px #a164ff, 0 6px #a164ff, 0 6px 8px #a164ff, 0 6px 16px #a164ff;
+  }
+}
+
+.hard {
+  background-color: #2a070e;
+  border-top: 3px solid #8f0d19;
+  border-left: 3px solid #5c0d0d;
+  border-bottom: 3px solid #120303;
+  border-right: 3px solid #200606;
+
+  color: $reverse-text-color;
+  text-shadow: 0 0 16px #ff005966;
+
+  .highlight {
+    color: #fff;
+    text-shadow: 0 3px #ff0059, 0 6px #ff0059, 0 6px 8px #ff0059, 0 6px 16px #ff0059;
+  }
+}
+
+.normal {
+  background-color: #532314;
+
+  border-top: 3px solid #b83a1b;
+  border-left: 3px solid #8d2e1b;
+  border-bottom: 3px solid #2f0a0a;
+  border-right: 3px solid #37160d;
+  transition: .3s background-color;
+
+  color: $primary-text-color;
+
+  .highlight {
+    color: #fff;
+    text-shadow: 0 3px #b83a1b, 0 6px #b83a1b, 0 6px 8px #b83a1b, 0 6px 16px #b83a1b;
+  }
+}
+
+.easy {
+  background-color: #143055;
+
+  border-top: 3px solid #1a5bb8;
+  border-left: 3px solid #1a489d;
+  border-bottom: 3px solid #081f40;
+  border-right: 3px solid #0d2a5d;
+
+  color: $easy-text-color;
+
+  .highlight {
+    color: white;
+    text-shadow: 0 3px $easy-text-color, 0 6px $easy-text-color, 0 6px 8px $easy-text-color, 0 6px 16px $easy-text-color;
+  }
+}
+

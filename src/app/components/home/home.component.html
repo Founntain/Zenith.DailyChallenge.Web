@@ -1,0 +1,39 @@
+<div class="container normalContainer">
+  <div>
+    <a class="normalText">Welcome to the Zenith Tower Daily Challenge! Here, you'll find new challenges to take on while playing QP in TETR.IO.</a>
+    <a class="normalText">To complete a challenge, you must submit a game that meets all the conditions</a> <a class="highlight"> in a single run!</a>
+  </div>
+  <div>
+   <a class="normalText">Keep your streak going—if you complete all the challenges for a day, your perfect streak will increase!</a>
+  </div>
+  <div>
+    <a class="normalText"><i>Resources belong to TETR.IO and music to DR OCELOT</i></a>
+  </div>
+  <div class="flexColumn">
+    <div class="date highlight">{{date}}</div>
+    <div class="clock highlight">TIME LEFT: {{timeLeft}}</div>
+  </div>
+
+</div>
+
+<div>
+  <div class="container challenge community">
+    <h1>COMMUNITY CHALLENGE</h1>
+    <a>SOON (tm)</a>
+    <sub><i>when its done</i></sub>
+  </div>
+</div>
+
+<div class="challengeContainer" *ngIf="dailyChallenges.length > 0">
+  <div class="marginLeft challenge hard">
+    <app-challenge [challenge]="dailyChallenges[0]"></app-challenge>
+  </div>
+
+  <div class="challenge normal">
+    <app-challenge [challenge]="dailyChallenges[1]"></app-challenge>
+  </div>
+
+  <div class="marginRight containerNoMargin challenge easy">
+    <app-challenge [challenge]="dailyChallenges[2]"></app-challenge>
+  </div>
+</div>

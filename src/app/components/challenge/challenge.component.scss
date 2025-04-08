@@ -1,0 +1,52 @@
+$easy-text-color: #6baeff;
+$primary-text-color: #ff9c6b;
+$reverse-text-color: #ff6c6c;
+
+.challengeWrapper{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+
+  .conditionsWrapper{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+
+    .valueWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      gap: 5px;
+
+      .conditionValue {
+        font-family: 'CB' !important;
+        font-size: 1.5rem;
+      }
+
+      .Easy {
+        color: white;
+        text-shadow: 0 3px $easy-text-color, 0 6px $easy-text-color, 0 6px 8px $easy-text-color, 0 6px 16px $easy-text-color;
+      }
+
+      .Normal{
+        color: #fff;
+        text-shadow: 0 3px #b83a1b, 0 6px #b83a1b, 0 6px 8px #b83a1b, 0 6px 16px #b83a1b;
+      }
+
+      .Hard{
+        color: #fff;
+        text-shadow: 0 3px #ff0059,0 6px #ff0059,0 6px 8px #ff0059,0 6px 16px #ff0059;
+      }
+    }
+  }
+}
+
+
+

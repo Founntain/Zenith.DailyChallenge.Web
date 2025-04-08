@@ -1,0 +1,13 @@
+<header>
+    <h1><a [routerLink]="['']">ZENITH DAILY CHALLENGE</a></h1>
+    <nav>
+      <div *ngIf="!isLoggedIn">
+        <a (click)="loginClick()">login</a>
+      </div>
+
+      <div class="userInfo" *ngIf="isLoggedIn && userProfileData !== undefined">
+        <img src="{{userProfileData.avatar}}"/>
+        <a [routerLink]="['/user', userProfileData.username]" >{{userProfileData.username}}</a>
+      </div>
+    </nav>
+</header>

@@ -1,0 +1,184 @@
+<div class="profileHeader">
+  <a>{{username}}'s profile</a>
+</div>
+<div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.hotel)" class="userContainer">
+  <h2>Zenith Splits</h2>
+  <div class="splitContainer">
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.hotel)" class="split hotel">
+      <div class="splitWrapper">
+        <a>HOTEL</a>
+        <a class="bigNumber">{{ dailyData.goldSplits.hotel }}</a>
+        <a class="smallNumber">{{ dailyData.splitAverages.hotel }}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.casino)" class="split casino">
+      <div class="splitWrapper">
+        <a>CASINO</a>
+        <a class="bigNumber">{{dailyData.goldSplits.casino}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.casino}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.museum)" class="split arena">
+      <div class="splitWrapper">
+        <a>ARENA</a>
+        <a class="bigNumber">{{dailyData.goldSplits.arena}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.arena}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.museum)" class="split museum">
+      <div class="splitWrapper">
+        <a>MUSEUM</a>
+        <a class="bigNumber">{{dailyData.goldSplits.museum}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.museum}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.offices)" class="split offices">
+      <div class="splitWrapper">
+        <a>OFFICES</a>
+        <a class="bigNumber">{{dailyData.goldSplits.offices}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.offices}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.laboratory)" class="split laboratory">
+      <div class="splitWrapper">
+        <a>LABORATORY</a>
+        <a class="bigNumber">{{dailyData.goldSplits.laboratory}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.laboratory}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.core)" class="split core">
+      <div class="splitWrapper">
+        <a>CORE</a>
+        <a class="bigNumber">{{dailyData.goldSplits.core}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.core}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.corruption)" class="split corruption">
+      <div class="splitWrapper">
+        <a>CORRUPTION</a>
+        <a class="bigNumber">{{dailyData.goldSplits.corruption}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.corruption}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.platformOfTheGods)" class="split potg">
+      <div class="splitWrapper">
+        <a>POTG</a>
+        <a class="bigNumber">{{dailyData.goldSplits.platformOfTheGods}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.platformOfTheGods}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dailyContainer userContainer">
+  <h3>Completed Challenges</h3>
+  <div *ngIf="dailyData !== undefined && challengeData !== undefined && challengeData.length > 0">
+    <mat-paginator *ngIf="dailyData.challengesCompleted > challengePageSize"
+                   [pageSizeOptions]="[25, 50, 100]"
+                   [pageSize]="runPageSize"
+                   [length]="dailyData.challengesCompleted"
+                   (page)="onPageChange($event, 0)"
+                   aria-label="Select page of runs">
+    </mat-paginator>
+
+    <table mat-table [dataSource]="challengeData">
+      <ng-container matColumnDef="Date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef> Completion Status </th>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <img [src]="getCompletedImage(Difficulty.Easy, element.easyCompleted)" class="mod" />
+            <img [src]="getCompletedImage(Difficulty.Normal, element.normalCompleted)" class="mod" />
+            <img [src]="getCompletedImage(Difficulty.Hard, element.hardCompleted)" class="mod" />
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row sticky *matHeaderRowDef="challengesColumns" ></tr>
+      <tr mat-row *matRowDef="let row; columns: challengesColumns;"></tr>
+    </table>
+
+    <mat-paginator *ngIf="dailyData.challengesCompleted > challengePageSize"
+                   [pageSizeOptions]="[25, 50, 100]"
+                   [pageSize]="runPageSize"
+                   [length]="dailyData.challengesCompleted"
+                   (page)="onPageChange($event, 0)"
+                   aria-label="Select page of runs">
+    </mat-paginator>
+  </div>
+
+
+</div>
+
+<div (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
+
+<div *ngIf="dailyData !== undefined && runData !== undefined && runData.length > 0" class="runs userContainer">
+  <h2>Your Runs</h2>
+
+  <mat-paginator *ngIf="dailyData.runs > runPageSize"
+                 [pageSizeOptions]="[25, 50, 100]"
+                 [pageSize]="runPageSize"
+                 [length]="dailyData.runs"
+                 (page)="onPageChange($event, 1)"
+                 aria-label="Select page of runs">
+  </mat-paginator>
+  <table mat-table [dataSource]="runData">
+<!--    <ng-container matColumnDef="ID">-->
+<!--      <th mat-header-cell *matHeaderCellDef> Run ID </th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{element.tetrioId}} </td>-->
+<!--    </ng-container>-->
+
+    <ng-container matColumnDef="Altitude">
+      <th mat-header-cell *matHeaderCellDef> Altitude </th>
+      <td mat-cell *matCellDef="let element"> {{element.altitude}} M </td>
+    </ng-container>
+
+    <ng-container matColumnDef="KOs">
+      <th mat-header-cell *matHeaderCellDef> KO's </th>
+      <td mat-cell *matCellDef="let element"> {{element.kOs}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Quads">
+      <th mat-header-cell *matHeaderCellDef> Quads </th>
+      <td mat-cell *matCellDef="let element"> {{element.quads}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Spins">
+      <th mat-header-cell *matHeaderCellDef> Spins </th>
+      <td mat-cell *matCellDef="let element"> {{element.spins}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="AllClears">
+      <th mat-header-cell *matHeaderCellDef> AllClears </th>
+      <td mat-cell *matCellDef="let element"> {{element.allClears}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Mods">
+      <th mat-header-cell *matHeaderCellDef> Mods </th>
+      <td mat-cell *matCellDef="let element"> <img *ngFor="let img of getModArray(element.mods)" [src]="getModImage(img)" class="mod" /> </td>
+    </ng-container>
+
+    <tr mat-header-row sticky *matHeaderRowDef="runColumns" ></tr>
+    <tr mat-row *matRowDef="let row; columns: runColumns;"></tr>
+  </table>
+
+  <mat-paginator *ngIf="dailyData.runs > runPageSize"
+                 [pageSizeOptions]="[25, 50, 100]"
+                 [pageSize]="runPageSize"
+                 [length]="dailyData.runs"
+                 (page)="onPageChange($event, 1)"
+                 aria-label="Select page of runs">
+  </mat-paginator>
+</div>
