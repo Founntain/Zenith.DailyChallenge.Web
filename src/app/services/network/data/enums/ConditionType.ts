@@ -3,5 +3,9 @@
   KOs,
   Quads,
   Spins,
-  AllClears
+  AllClears,
+  Apm,
+  Pps,
+  Vs,
+  Finesse
 }

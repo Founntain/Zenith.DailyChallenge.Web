@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {UserService} from '../../services/network/user.service';
 import {ZenithService} from '../../services/network/zenith.service';
 import {DailyData} from '../../services/network/data/interfaces/DailyData';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {
   MatCell,
   MatCellDef,
@@ -18,6 +18,7 @@ import {Run} from '../../services/network/data/interfaces/Run';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
 import {ChallengeCompletion} from '../../services/network/data/interfaces/ChallengeCompletion';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
+import {CookieHelper} from '../../util/CookieHelper';
 
 @Component({
   selector: 'app-user',
@@ -35,18 +36,22 @@ import {Difficulty} from '../../services/network/data/enums/Difficulty';
     MatRow,
     MatPaginator,
     MatPaginatorModule,
-    NgForOf
+    NgForOf,
+    NgClass
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnInit, AfterViewInit  {
   username!: string;
+
+  isSameUser: boolean = false;
+
   dailyData!: DailyData;
   runData: Run[] = [];
   challengeData: ChallengeCompletion[] = [];
 
-  runColumns: string[] = ['Altitude', 'KOs', 'Quads', 'Spins', 'AllClears', 'Mods'];
+  runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Finesse', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
   dataSource = new MatTableDataSource<Run>(this.runData);
 
@@ -77,6 +82,11 @@ export class UserComponent implements OnInit, AfterViewInit  {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.username = params.get('username')!;
+
+      let cookieHelper = new CookieHelper();
+      let username = cookieHelper.getCookieByName('username');
+
+      this.isSameUser = this.username == username;
 
       this.userApi.getDaily(this.username).subscribe(x => {
         this.dailyData = x;
@@ -125,8 +135,19 @@ export class UserComponent implements OnInit, AfterViewInit  {
   }
 
   submitRuns() {
-    this.zenithApi.submitRuns().subscribe(x => {
-      console.log(x)
+    this.zenithApi.submitRuns().subscribe({
+      next: (r) => {
+        window.location.reload();
+      },
+      error: (e) => {
+        if(e.status == 400){
+          alert(e.error);
+        }
+        if(e.status == 401){
+          alert(e.error + '\n\nPlease login again.');
+          // window.location.reload();
+        }
+      }
     })
   }
 
@@ -160,4 +181,16 @@ export class UserComponent implements OnInit, AfterViewInit  {
   }
 
   protected readonly Difficulty = Difficulty;
+
+  getSpeedrunCompletedClass(speedrun: boolean, speedrunSeen: boolean) {
+    if(speedrun){
+      return 'speedrun';
+    }
+
+    if(speedrunSeen){
+      return 'speedrunSeen';
+    }
+
+    return 'noSpeedrun'
+  }
 }

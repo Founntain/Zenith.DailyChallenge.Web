@@ -1,17 +1,24 @@
-<div class="container normalContainer">
-  <div>
-    <a class="normalText">Welcome to the Zenith Tower Daily Challenge! Here, you'll find new challenges to take on while playing QP in TETR.IO.</a>
-    <a class="normalText">To complete a challenge, you must submit a game that meets all the conditions</a> <a class="highlight"> in a single run!</a>
-  </div>
-  <div>
-   <a class="normalText">Keep your streak going—if you complete all the challenges for a day, your perfect streak will increase!</a>
-  </div>
-  <div>
-    <a class="normalText"><i>Resources belong to TETR.IO and music to DR OCELOT</i></a>
-  </div>
-  <div class="flexColumn">
-    <div class="date highlight">{{date}}</div>
-    <div class="clock highlight">TIME LEFT: {{timeLeft}}</div>
+<div class="normalContainer">
+  <div class="underConstruction">⚠️This is an early test version ️️expect data resets now and then⚠️</div>
+  <div class="container">
+    <div>
+      <a class="normalText">Welcome to the Zenith Tower Daily Challenge! Here, you'll find new challenges to take on while playing QP in TETR.IO.</a>
+      <a class="normalText">To complete a challenge, you must submit a game that meets all the conditions</a> <a class="highlight"> in a single run!</a>
+    </div>
+<!--    <div>-->
+<!--      <a class="normalText">Keep your streak going if you complete all the challenges for a day, your perfect streak will increase!</a>-->
+<!--    </div>-->
+    <div class="flexColumn">
+      <a class="normalText">You can submit runs by login in with your discord account and click on your profile in the top right.</a>
+      <a class="highlight">your discord account has to be linked to your tetr.io account and is publicly visible</a>
+    </div>
+    <div class="flexColumn">
+      <a class="normalText"><i>Resources belong to osk and TETR.IO</i></a>
+    </div>
+    <div class="flexColumn">
+      <div class="date highlight">{{date}}</div>
+      <div class="clock">TIME LEFT: <span class="clock highlight">{{timeLeft}}</span></div>
+    </div>
   </div>
 
 </div>
@@ -36,4 +43,21 @@
   <div class="marginRight containerNoMargin challenge easy">
     <app-challenge [challenge]="dailyChallenges[2]"></app-challenge>
   </div>
+</div>
+
+<div style="margin: 10px;" *ngIf="leaderboardData.length > 0">
+    <table mat-table [dataSource]="leaderboardData">
+      <ng-container matColumnDef="Username">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" > <a class="link" [routerLink]="['/user', element.username]">{{element.username}}</a> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef> Challenges Completed </th>
+        <td mat-cell *matCellDef="let element" > {{element.challengesCompleted}}</td>
+      </ng-container>
+
+      <tr mat-header-row sticky *matHeaderRowDef="leaderboardColumns" ></tr>
+      <tr mat-row *matRowDef="let row; columns: leaderboardColumns;" ></tr>
+    </table>
 </div>

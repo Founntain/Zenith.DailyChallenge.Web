@@ -48,7 +48,7 @@ export class ChallengeComponent implements OnChanges{
   getConditionText(type: number, value: number): string{
     switch(type){
       case ConditionType.KOs:
-        return `Get ${value} KOs`;
+        return `Get ${value} KO's`;
       case ConditionType.Height:
         return `Reach ${value}M`;
       case ConditionType.Quads:
@@ -57,14 +57,20 @@ export class ChallengeComponent implements OnChanges{
         return `Clear ${value} Spins`;
       case ConditionType.AllClears:
         return `Get ${value} All Clears`;
+      case ConditionType.Apm:
+        return `Get ${value} APM`;
+      case ConditionType.Pps:
+        return `Get ${value} PPS`;
+      case ConditionType.Vs:
+        return `Get ${value} VS`;
+      case ConditionType.Finesse:
+        return `Get ${value}% Finesse`;
       default:
         return ""
     }
   }
 
   getPrefix(type: number): string{
-    console.log('C P', type)
-
     switch(type){
       case ConditionType.KOs:
         return `Get`;
@@ -76,14 +82,20 @@ export class ChallengeComponent implements OnChanges{
         return `Clear`;
       case ConditionType.AllClears:
         return `Get`;
+      case ConditionType.Apm:
+        return `Get`;
+      case ConditionType.Pps:
+        return `Get`;
+      case ConditionType.Vs:
+        return `Get`;
+      case ConditionType.Finesse:
+        return `Achieve`;
       default:
         return ""
     }
   }
 
   getValue(type: number, value: number):any []{
-    console.log('C V', type, value)
-
     switch(type){
       case ConditionType.KOs:
         return [value, ' KOs'];
@@ -95,14 +107,20 @@ export class ChallengeComponent implements OnChanges{
         return [value, ' Spins'];
       case ConditionType.AllClears:
         return [value, ' All Clears'];
+      case ConditionType.Apm:
+        return [value, ' APM'];
+      case ConditionType.Pps:
+        return [value, ' PPS'];
+      case ConditionType.Vs:
+        return [value, ' VS'];
+      case ConditionType.Finesse:
+        return [value, '% FINESSE'];
       default:
         return []
     }
   }
 
   getDifficultyText(difficulty: number): string{
-    console.log('C D', difficulty)
-
     switch(difficulty){
       case Difficulty.VeryEasy:
         return "Very Easy";
@@ -120,14 +138,10 @@ export class ChallengeComponent implements OnChanges{
   }
 
   getModImage(mod: string) {
-    console.log('C MI', mod)
-
     return `/assets/tetrio-img/mods/${mod}.png`;
   }
 
   getModArray(mods: string) {
-    console.log('C MA', mods)
-
     if (mods?.length === 0) return [];
 
     return mods.split(' ');

@@ -3,6 +3,7 @@ import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {DailyChallenge} from './data/interfaces/DailyChallenge';
+import {DailyLeaderboard} from './data/interfaces/DailyLeaderboard';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,16 @@ export class ZenithService {
     return this.http.get<DailyChallenge[]>(this.baseUrl + 'daily');
   }
 
+  getLeaderboard(): Observable<DailyLeaderboard[]>{
+    return this.http.get<DailyLeaderboard[]>(this.baseUrl + 'daily/getLeaderboard');
+  }
+
+  getSplitLeaderboard(): Observable<DailyChallenge[]>{
+    return this.http.get<DailyChallenge[]>(this.baseUrl + 'daily/getSplitLeaderboard');
+  }
+
+
   submitRuns(): Observable<any>{
-    return this.http.post(this.baseUrl + 'daily/submit',{}, { withCredentials: true });
+    return this.http.post(this.baseUrl + 'daily/submit', {}, { withCredentials: true });
   }
 }

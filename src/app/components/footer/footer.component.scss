@@ -1,4 +1,4 @@
-header {
+﻿footer {
   .marginLeft{
     margin-left: 10px;
   }
@@ -8,7 +8,7 @@ header {
     text-decoration: none;
     cursor: pointer;
   }
-.flexHeader{
+
   width: 100%;
   background: #1976d2;
   color: white;
@@ -17,8 +17,8 @@ header {
   justify-content: space-between;
   font-size: 0.75rem;
   height: 50px;
-  background: linear-gradient(to bottom, #300f0b 0, #4c1d0c 100%);
-  border-bottom: 2px solid #b03d1a;
+  background: linear-gradient(to bottom, #32110e 0, #4f1a0a 100%);
+  border-top: 2px solid #bf421c;
   box-sizing: border-box;
 
   .hidden {
@@ -46,7 +46,20 @@ header {
       border-radius: 50%;
     }
   }
-}
 
+  .flexContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
+    gap: 10px;
+  }
+
+  .hoverContainer{
+    display: flex;
+    flex-direction: row;
+    vertical-align: center;
+    justify-content: center;
+    align-items: center;
+  }
 }

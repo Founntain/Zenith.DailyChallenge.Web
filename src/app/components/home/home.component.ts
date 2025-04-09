@@ -1,16 +1,38 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ZenithService} from '../../services/network/zenith.service';
 import {ChallengeComponent} from '../challenge/challenge.component';
-import { NgIf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
 import {interval} from 'rxjs';
 import { NgZone } from '@angular/core';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow, MatRowDef, MatTable
+} from '@angular/material/table';
+import {DailyLeaderboard} from '../../services/network/data/interfaces/DailyLeaderboard';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-home',
   imports: [
     ChallengeComponent,
-    NgIf
+    NgIf,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    MatHeaderCellDef,
+    RouterLink
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -20,22 +42,28 @@ export class HomeComponent implements OnInit, OnDestroy {
   date: string = "";
   runsUntilUnixSeconds: number = 0;
 
+  leaderboardData: DailyLeaderboard[] = [];
+  leaderboardColumns: string[] = ['Username', 'ChallengesCompleted'];
+
   private timerId: any;
   timeLeft: string = "";
-
 
   constructor(private zenithService: ZenithService, private ngZone: NgZone) {
 
   }
 
   ngOnInit(): void {
-    this.zenithService.getDailyChallenges().subscribe(x => {
-      this.dailyChallenges = x;
+    this.zenithService.getDailyChallenges().subscribe(result => {
+      this.dailyChallenges = result;
     })
 
-    this.zenithService.getDates().subscribe(x => {
-      this.date = x.dateString;
-      this.runsUntilUnixSeconds = x.runsUntilUnixSeconds;
+    this.zenithService.getLeaderboard().subscribe(result => {
+      this.leaderboardData = result;
+    })
+
+    this.zenithService.getDates().subscribe(result => {
+      this.date = result.dateString;
+      this.runsUntilUnixSeconds = result.runsUntilUnixSeconds;
 
       this.ngZone.runOutsideAngular(() => {
         this.timerId = interval(1000).subscribe(() => {

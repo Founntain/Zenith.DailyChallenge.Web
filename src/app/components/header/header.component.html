@@ -1,5 +1,6 @@
 <header>
-    <h1><a [routerLink]="['']">ZENITH DAILY CHALLENGE</a></h1>
+  <div class="flexHeader">
+    <h1 class="marginLeft"><a [routerLink]="['']">ZENITH DAILY CHALLENGE</a></h1>
     <nav>
       <div *ngIf="!isLoggedIn">
         <a (click)="loginClick()">login</a>
@@ -10,4 +11,5 @@
         <a [routerLink]="['/user', userProfileData.username]" >{{userProfileData.username}}</a>
       </div>
     </nav>
+  </div>
 </header>

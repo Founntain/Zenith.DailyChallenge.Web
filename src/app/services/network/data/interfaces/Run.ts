@@ -6,4 +6,10 @@
   spins: number;
   allcealrs: number;
   kos: number;
+  apm: number;
+  pps: number;
+  vs: number;
+  finesse: number;
+  speedrunSeen: boolean;
+  speedrunCompleted: boolean;
 }
