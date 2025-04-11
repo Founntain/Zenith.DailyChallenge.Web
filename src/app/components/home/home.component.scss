@@ -6,6 +6,22 @@ div {
   gap: 10px;
 }
 
+.simpleContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.bigText{
+  font-size: 1.5rem;
+}
+
+.bigHighlightText{
+  font-size: 2rem !important;
+}
+
 .container{
   padding: 20px;
   margin: 10px;
@@ -175,5 +191,66 @@ tr{
     color: white;
     text-shadow: 0 3px $easy-text-color, 0 6px $easy-text-color, 0 6px 8px $easy-text-color, 0 6px 16px $easy-text-color;
   }
+}
+
+.valueBar{
+  width: 33%;
+  height: 30px;
+
+  position: relative;
+
+  background: red;
+}
+
+.totalBar{
+  width: 100%;
+  height: 30px;
+
+  position: relative;
+}
+
+.progressContainer{
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.box{
+  display: block;
+  height: 10px;
+}
+
+.progressBarContainer {
+  position: relative;
+  width: 100%; /* Adjust the width as needed */
+  height: 10px; /* Ensure the height matches the height of the boxes */
+  margin: 10px;
+}
+
+.progressBar,
+.progressBarAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Adjust as necessary */
+}
+
+.progressBar {
+  background: rgba(0,0,0,0.25);
+  border: 3px solid #5b1ab8;
+
+  z-index: 1;
+}
+
+.progressBarAccent {
+  background: #5b1ab8;
+  padding: 3px;
+  transition: width 1s ease-in-out;
+  width: 0;
+  z-index: 2;
+
+  animation: scrolltex 0.5s linear infinite;
 }
 

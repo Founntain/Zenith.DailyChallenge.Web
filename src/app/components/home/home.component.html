@@ -25,9 +25,28 @@
 
 <div>
   <div class="container challenge community">
-    <h1>COMMUNITY CHALLENGE</h1>
-    <a>SOON (tm)</a>
-    <sub><i>when its done</i></sub>
+    <h1 style="margin: 5px">COMMUNITY CHALLENGE</h1>
+    <div *ngIf="communityChallengeData?.communityChallenge === undefined" class="simpleContainer">
+      <a>currently no community challenge is active</a>
+      <sub>check back later</sub>
+    </div>
+    <div *ngIf="communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" class="simpleContainer">
+      <a class="highlight">as a community</a>
+      <div class="bigText">
+        <a class="">{{getCommunityPromptPrefix()}}</a>
+        <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
+        <a class="">{{getCommunityPromptSuffix()}}</a>
+      </div>
+      <div>
+        <a class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
+        of
+        <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
+        {{getCommunityPromptProgressSuffix()}}
+      </div>
+      <div>
+        <a class="">you can contribute by submitting runs via  </a> <a class="highlight">your profile</a>
+      </div>
+    </div>
   </div>
 </div>
 
