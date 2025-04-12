@@ -1,0 +1,65 @@
+﻿footer {
+  .marginLeft{
+    margin-left: 10px;
+  }
+
+  a {
+    color: #ff9c6b !important;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  width: 100%;
+  background: #1976d2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  height: 50px;
+  background: linear-gradient(to bottom, #32110e 0, #4f1a0a 100%);
+  border-top: 2px solid #bf421c;
+  box-sizing: border-box;
+
+  .hidden {
+    display: none;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  nav .userInfo{
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+
+    img{
+      max-height: 42px;
+      border-radius: 50%;
+    }
+  }
+
+  .flexContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 10px;
+  }
+
+  .hoverContainer{
+    display: flex;
+    flex-direction: row;
+    vertical-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+}

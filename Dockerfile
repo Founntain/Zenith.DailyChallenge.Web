@@ -1,17 +1,22 @@
-# Use the official Node.js image as the base
-FROM node:18-alpine
-
-# Install http server
-RUN npm install -g http-server
-
-# Set the working directory
+FROM node:20-alpine as build
 WORKDIR /app
 
-# Copy the rest of the application files
+COPY package.json package-lock.json ./
+
+RUN npm install -g @angular/cli
+RUN npm ci
+
 COPY . .
 
-# Expose the port `http-server` will run on
-EXPOSE 8080
+RUN ng build --configuration=production
 
-# Start the `http-server`
-CMD ["http-server", ""]
+FROM nginx:alpine
+COPY --from=build /app/dist/zenith.daily-challenge.web/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY start.sh /start.sh
+
+RUN chmod +x /start.sh
+
+EXPOSE 80
+
+CMD ["/start.sh"]

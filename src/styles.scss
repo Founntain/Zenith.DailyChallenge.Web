@@ -1,0 +1,194 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+
+$easy-text-color: #6baeff;
+$primary-text-color: #ff9c6b;
+$reverse-text-color: #ff6c6c;
+
+@font-face {
+  font-family: 'HUN';
+  src: url('/assets/fonts/hun2.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CB';
+  src: url('/assets/fonts/cb.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
+  text-transform: uppercase;
+}
+
+body {
+  margin: 0;
+  font-family: 'HUN', Roboto, "Helvetica Neue", sans-serif;
+  color: white;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://tetr.io/res/bg/zenith/1fa.jpg");
+  text-transform: uppercase;
+}
+
+.hotel{
+  background: rgb(253, 230, 146)
+}
+
+.casino{
+  background: rgb(255, 199, 136)
+}
+
+.arena{
+  background: rgb(255, 183, 194)
+}
+
+.museum{
+  background: rgb(255, 186, 67)
+}
+
+.offices{
+  background: rgb(255, 145, 123)
+}
+
+.laboratory{
+  background: rgb(0, 221, 255)
+}
+
+.core{
+  background: rgb(255, 0, 111)
+}
+
+.corruption{
+  background: rgb(152, 255, 178)
+}
+
+.potg{
+  background: rgb(214, 119, 255)
+}
+
+.mod{
+  max-height: 32px;
+  max-width: 32px;
+  margin: 1px;
+}
+
+.baseContainer{
+  color: #ff9c6b !important;
+
+  background-color: #532314;
+  border-top: 3px solid #b83a1b;
+  border-left: 3px solid #8d2e1b;
+  border-bottom: 3px solid #2f0a0a;
+  border-right: 3px solid #37160d;
+}
+
+table{
+  background: transparent !important;
+}
+
+th{
+  font-size: 20pt;
+  background-color: #532314 !important;
+  border-top: 2px solid #b83a1b !important;
+  border-left: 1px solid #37160d !important;
+  border-bottom: 1px solid rgba(255, 156, 107, 0.56) !important;
+  border-right: 1px solid #37160d !important;
+}
+
+td {
+  font-size: 14pt;
+
+  background-color: #532314 !important;
+  border-top: 1px solid #2f0a0a !important;
+  border-left: 1px solid #37160d !important;
+  border-bottom: 1px solid #2f0a0a !important;
+  border-right: 1px solid #37160d !important;
+}
+
+tr{
+  color: white !important;
+  background-color: #532314 !important;
+  border-top: 3px solid #b83a1b !important;
+  border-left: 3px solid #8d2e1b !important;
+  border-bottom: 3px solid #2f0a0a !important;
+  border-right: 3px solid #37160d !important;
+}
+
+mat-form-field{
+  font-family: 'CB', "Helvetica Neue", sans-serif, serif !important;
+}
+
+.mat-mdc-select-min-line{
+  font-family: 'CB', "Helvetica Neue", sans-serif, serif !important;
+}
+
+mat-paginator{
+  font-family: 'CB', "Helvetica Neue", sans-serif, serif !important;
+
+  color: #ff9c6b !important;
+
+  background-color: #532314 !important;
+  border-top: 3px solid #b83a1b !important;
+  //border-left: 3px solid #8d2e1b !important;
+  border-bottom: 3px solid #2f0a0a !important;
+  border-right: 3px solid #37160d !important;
+}
+
+.mat-mdc-icon-button svg{
+  color: #ff9c6b ;
+  fill: #ff9c6b;
+}
+
+.mat-mdc-select-arrow{
+  color: #ff9c6b !important;
+  fill: #ff9c6b !important;
+}
+
+.mat-mdc-paginator .mat-mdc-select {
+  color: #ff9c6b !important;
+}
+
+select {
+  border: none !important;         /* Removes the border */
+  outline: none !important;        /* Prevents focus outline */
+  background: none !important;     /* Removes background if needed */
+}

@@ -1,0 +1,16 @@
+<div class="challengeWrapper">
+  <h1>{{difficultyText}}</h1>
+
+  <div class="conditionsWrapper">
+    <div *ngFor="let condition of processedConditions" class="valueWrapper">
+      <a>{{condition.prefix}}</a>
+      <div>
+        <a [ngClass]="['conditionValue', difficultyText]">{{condition.value}}</a>
+        <a class="conditionValueSuffix">{{condition.suffix}}</a>
+      </div>
+    </div>
+  </div>
+  <div style="padding: 10px">
+    <img *ngFor="let imgSrc of modImages" [src]="imgSrc" class="mod" />
+  </div>
+</div>
