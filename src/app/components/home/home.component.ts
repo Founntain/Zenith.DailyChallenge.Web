@@ -18,6 +18,7 @@ import {DailyLeaderboard} from '../../services/network/data/interfaces/DailyLead
 import {RouterLink} from '@angular/router';
 import {CommunityChallenge} from '../../services/network/data/interfaces/CommunityChallenge';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
+import {AuthService} from '../../services/network/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -40,9 +41,12 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  isLoggedIn: boolean = false;
+
   dailyChallenges: DailyChallenge[] = [];
   date: string = "";
   runsUntilUnixSeconds: number = 0;
+  communityChallengeEndDateUnixSeconds: number = 0;
 
   leaderboardData: DailyLeaderboard[] = [];
   leaderboardColumns: string[] = ['Username', 'ChallengesCompleted'];
@@ -51,8 +55,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private timerId: any;
   timeLeft: string = "";
+  communityTimeLeft: string = "";
 
-  constructor(private zenithService: ZenithService, private ngZone: NgZone) {
+  constructor(private zenithService: ZenithService, private authService: AuthService, private ngZone: NgZone) {
 
   }
 
@@ -63,6 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.zenithService.getCommunityChallenge().subscribe(result => {
       this.communityChallengeData = result;
+      this.communityChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
     })
 
     this.zenithService.getLeaderboard().subscribe(result => {
@@ -77,17 +83,38 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.timerId = interval(1000).subscribe(() => {
           this.ngZone.run(() => {
             this.updateTimeLeft();
+            this.updateCommunityTimeLeft();
           });
         });
       });
     })
+
+    this.authService.isUserAuthorized().subscribe({
+      next: (result) => {
+        if(result != null){
+          this.isLoggedIn = true;
+        }
+      },
+      error: (e) => {
+        this.isLoggedIn = false;
+      }
+    })
   }
 
-  private updateTimeLeft(){
-    if(this.runsUntilUnixSeconds == 0 && this.date == "") return;
+  private unixSecondsToString(unixSeconds: number): [number, number, number, number]{
+    const days = Math.floor(unixSeconds / (1000 * 60 * 60 * 24));
+    const seconds = Math.floor((unixSeconds / 1000) % 60);
+    const minutes = Math.floor((unixSeconds / (1000 * 60)) % 60);
+    const hours = Math.floor((unixSeconds / (1000 * 60 * 60)) % 24);
+
+    return [days, hours, minutes, seconds];
+  }
+
+  private updateCommunityTimeLeft(){
+    if(this.communityChallengeEndDateUnixSeconds == 0) return;
 
     const currentDate = new Date();
-    const targetDate = new Date(this.runsUntilUnixSeconds * 1000); // Convert Unix seconds to milliseconds
+    const targetDate = new Date(this.communityChallengeEndDateUnixSeconds * 1000);
 
     const timeDifference = targetDate.getTime() - currentDate.getTime();
 
@@ -96,18 +123,50 @@ export class HomeComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const seconds = Math.floor((timeDifference / 1000) % 60);
-    const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
-    const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
-    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    let timeTuple = this.unixSecondsToString(timeDifference);
 
-    this.timeLeft = `${hours}h ${minutes}m ${seconds}s`;
+    this.communityTimeLeft = `${timeTuple[0]}d ${timeTuple[1]}h ${timeTuple[2]}m ${timeTuple[3]}s`;
+  }
+
+  private updateTimeLeft(){
+    if(this.runsUntilUnixSeconds == 0 && this.date == "") return;
+
+    const currentDate = new Date();
+    const targetDate = new Date(this.runsUntilUnixSeconds * 1000);
+
+    const timeDifference = targetDate.getTime() - currentDate.getTime();
+
+    if (timeDifference <= 0) {
+      this.timeLeft = "Time's up!";
+      return;
+    }
+
+    let timeTuple = this.unixSecondsToString(timeDifference);
+
+    this.timeLeft = `${timeTuple[1]}h ${timeTuple[2]}m ${timeTuple[3]}s`;
   }
 
   ngOnDestroy(): void {
     if (this.timerId) {
       this.timerId.unsubscribe();
     }
+  }
+
+  submitRuns() {
+    this.zenithService.submitRuns().subscribe({
+      next: (r) => {
+        window.location.reload();
+      },
+      error: (e) => {
+        if(e.status == 400){
+          alert(e.error);
+        }
+        if(e.status == 401){
+          alert(e.error + '\n\nPlease login again.');
+          // window.location.reload();
+        }
+      }
+    })
   }
 
   getCommunityPromptPrefix() {

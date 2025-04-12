@@ -8,6 +8,7 @@ import {Overlay} from '@angular/cdk/overlay';
 import {DailyData} from './data/interfaces/DailyData';
 import {Run} from './data/interfaces/Run';
 import {ChallengeCompletion} from './data/interfaces/ChallengeCompletion';
+import {CommunityChallengeContributions} from './data/interfaces/CommunityChallengeContributions';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,14 @@ export class UserService {
     return this.http.get<any>(`${this.baseUrl}${username}/runs?page=${page}&pageSize=${pageSize}`);
   }
 
+  getCommunityContributions(username: string, page: number, pageSize: number): Observable<CommunityChallengeContributions[]>{
+    return this.http.get<any>(`${this.baseUrl}${username}/getCommunityContributions?page=${page}&pageSize=${pageSize}`);
+  }
+
   getChallenges(username: string, page: number, pageSize: number): Observable<DailyChallenge[]>{
     return this.http.get<any>(`${this.baseUrl}${username}/challenges?page=${page}&pageSize=${pageSize}`);
   }
+
   getChallengeCompletions(username: string, page: number, pageSize: number): Observable<ChallengeCompletion[]>{
     return this.http.get<any>(`${this.baseUrl}${username}/challengeCompletions?page=${page}&pageSize=${pageSize}`);
   }

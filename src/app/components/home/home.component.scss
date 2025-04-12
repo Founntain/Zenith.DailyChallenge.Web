@@ -254,3 +254,41 @@ tr{
   animation: scrolltex 0.5s linear infinite;
 }
 
+.bigButton{
+  font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
+
+  padding-top: 15px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  text-transform: uppercase;
+
+  color: #ff9c6b !important;
+  font-size: 64pt;
+  font-weight: bold;
+
+  background-color: #532314;
+  border-top: 3px solid #b83a1b;
+  border-left: 3px solid #8d2e1b;
+  border-bottom: 3px solid #2f0a0a;
+  border-right: 3px solid #37160d;
+
+  transition: .3s transform,.3s filter,.3s box-shadow;
+
+  &:hover{
+    box-shadow: 0 6px #210707;
+    transform: translateY(2px);
+    filter: brightness(1.2);
+  }
+
+  &:active{
+    box-shadow: 0 2px #210707;
+    transform: translateY(6px);
+    filter: brightness(4);
+    transition: 50ms transform, 50ms filter, 50ms box-shadow;
+  }
+}

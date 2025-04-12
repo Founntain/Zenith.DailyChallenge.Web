@@ -78,7 +78,7 @@
   </div>
 </div>
 
-<div class="dailyContainer userContainer">
+<div class="userContainer">
   <h3>Completed Challenges</h3>
   <div *ngIf="dailyData !== undefined && challengeData !== undefined && challengeData.length > 0">
     <mat-paginator *ngIf="dailyData.challengesCompleted > challengePageSize"
@@ -118,7 +118,44 @@
                    aria-label="Select page of runs">
     </mat-paginator>
   </div>
+</div>
 
+<div class="dailyContainer userContainer">
+  <h3>Community Challenge Contributions</h3>
+  <div *ngIf="communityContributionData !== undefined && communityContributionData.length > 0">
+    <mat-paginator *ngIf="communityContributionData[0].totalContributions > challengePageSize"
+                   [pageSizeOptions]="[25, 50, 100]"
+                   [pageSize]="communityChallengePageSize"
+                   [length]="communityContributionData[0].totalContributions"
+                   (page)="onPageChange($event, 1)"
+                   aria-label="Select page of runs">
+    </mat-paginator>
+
+    <table mat-table [dataSource]="communityContributionData">
+      <ng-container matColumnDef="Date">
+        <th mat-header-cell *matHeaderCellDef> Community Challenge (Date) </th>
+        <td mat-cell *matCellDef="let element"> {{element.challenge}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Contribution">
+        <th mat-header-cell *matHeaderCellDef> Contribution </th>
+        <td mat-cell *matCellDef="let element">
+          {{getCommunityContributionvalue(element.totalAmountContributed, element.conditionType)}}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row sticky *matHeaderRowDef="communityChallengeColumns" ></tr>
+      <tr mat-row *matRowDef="let row; columns: communityChallengeColumns;"></tr>
+    </table>
+
+    <mat-paginator *ngIf="communityContributionData[0].totalContributions > challengePageSize"
+                   [pageSizeOptions]="[25, 50, 100]"
+                   [pageSize]="communityChallengePageSize"
+                   [length]="communityContributionData[0].totalContributions"
+                   (page)="onPageChange($event, 1)"
+                   aria-label="Select page of runs">
+    </mat-paginator>
+  </div>
 
 </div>
 
@@ -131,7 +168,7 @@
                  [pageSizeOptions]="[25, 50, 100]"
                  [pageSize]="runPageSize"
                  [length]="dailyData.runs"
-                 (page)="onPageChange($event, 1)"
+                 (page)="onPageChange($event, 2)"
                  aria-label="Select page of runs">
   </mat-paginator>
   <table mat-table [dataSource]="runData">
@@ -193,7 +230,7 @@
                  [pageSizeOptions]="[25, 50, 100]"
                  [pageSize]="runPageSize"
                  [length]="dailyData.runs"
-                 (page)="onPageChange($event, 1)"
+                 (page)="onPageChange($event, 2)"
                  aria-label="Select page of runs">
   </mat-paginator>
 </div>

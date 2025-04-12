@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/network/user.service';
 import {ZenithService} from '../../services/network/zenith.service';
 import {DailyData} from '../../services/network/data/interfaces/DailyData';
@@ -9,16 +9,21 @@ import {
   MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow,
-  MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable, MatTableDataSource
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource
 } from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {Run} from '../../services/network/data/interfaces/Run';
-import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
 import {ChallengeCompletion} from '../../services/network/data/interfaces/ChallengeCompletion';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
 import {CookieHelper} from '../../util/CookieHelper';
+import {CommunityChallengeContributions} from '../../services/network/data/interfaces/CommunityChallengeContributions';
+import {ConditionType} from '../../services/network/data/enums/ConditionType';
 
 @Component({
   selector: 'app-user',
@@ -50,9 +55,12 @@ export class UserComponent implements OnInit, AfterViewInit  {
   dailyData!: DailyData;
   runData: Run[] = [];
   challengeData: ChallengeCompletion[] = [];
+  communityContributionData: CommunityChallengeContributions[] = [];
 
   runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Finesse', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
+  communityChallengeColumns: string[] = ['Date', 'Contribution'];
+
   dataSource = new MatTableDataSource<Run>(this.runData);
 
   runPage: number;
@@ -63,20 +71,29 @@ export class UserComponent implements OnInit, AfterViewInit  {
   challengePageSize: number;
   challengePageCount: number;
 
+  communityChallengePage: number;
+  communityChallengePageSize: number;
+  communityChallengePageCount: number;
+
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private route: ActivatedRoute, private userApi: UserService, private zenithApi: ZenithService) {
-    this.runPage = 0;
+  constructor(private route: ActivatedRoute, private userService: UserService, private zenithService: ZenithService) {
+    this.runPage = 1;
     this.runPageSize = 25;
     this.runPageCount = 1;
 
-    this.challengePage = 0;
+    this.challengePage = 1;
     this.challengePageSize = 25;
     this.challengePageCount = 1;
+
+    this.communityChallengePage = 1;
+    this.communityChallengePageSize = 25;
+    this.communityChallengePageCount = 1;
   }
 
   ngOnInit() {
@@ -88,7 +105,7 @@ export class UserComponent implements OnInit, AfterViewInit  {
 
       this.isSameUser = this.username == username;
 
-      this.userApi.getDaily(this.username).subscribe(x => {
+      this.userService.getDaily(this.username).subscribe(x => {
         this.dailyData = x;
 
         this.runPageCount = Math.ceil((this.dailyData.runs / this.runPageSize));
@@ -98,22 +115,25 @@ export class UserComponent implements OnInit, AfterViewInit  {
 
       this.loadRunData();
       this.loadChallengeData();
+      this.loadCommunityContributionData();
     })
   }
 
-  loadRunData(){
-    this.userApi.getRuns(this.username, this.runPage - 1, this.runPageSize).subscribe(x => {
-      this.runData = x;
-
-      console.log('run data', this.runData);
+  private loadRunData(){
+    this.userService.getRuns(this.username, this.runPage - 1, this.runPageSize).subscribe(result => {
+      this.runData = result;
     })
   }
 
-  loadChallengeData(){
-    this.userApi.getChallengeCompletions(this.username, this.runPage - 1, this.runPageSize).subscribe(x => {
-      this.challengeData = x;
+  private loadChallengeData(){
+    this.userService.getChallengeCompletions(this.username, this.runPage - 1, this.runPageSize).subscribe(result => {
+      this.challengeData = result;
+    })
+  }
 
-      console.log('challenge data', this.challengeData);
+  private loadCommunityContributionData() {
+    this.userService.getCommunityContributions(this.username, this.communityChallengePage - 1, this.challengePageSize).subscribe(result => {
+      this.communityContributionData = result;
     })
   }
 
@@ -126,6 +146,11 @@ export class UserComponent implements OnInit, AfterViewInit  {
 
         break;
       case 1:
+        this.communityChallengePage = event.pageIndex + 1;
+        this.communityChallengePageSize = event.pageSize;
+        this.loadCommunityContributionData();
+        break;
+      case 2:
         this.runPage = event.pageIndex + 1;
         this.runPageSize = event.pageSize;
         this.loadRunData();
@@ -135,7 +160,7 @@ export class UserComponent implements OnInit, AfterViewInit  {
   }
 
   submitRuns() {
-    this.zenithApi.submitRuns().subscribe({
+    this.zenithService.submitRuns().subscribe({
       next: (r) => {
         window.location.reload();
       },
@@ -192,5 +217,30 @@ export class UserComponent implements OnInit, AfterViewInit  {
     }
 
     return 'noSpeedrun'
+  }
+
+  getCommunityContributionvalue(totalAmountContributed: number, conditionType: ConditionType) {
+    console.log("ct", conditionType, totalAmountContributed)
+
+    switch (conditionType){
+      case ConditionType.Height:
+        return `${totalAmountContributed} M`;
+      case ConditionType.KOs:
+        return`${totalAmountContributed} KO's`;
+      case ConditionType.Quads:
+        return `${totalAmountContributed} quads`;
+      case ConditionType.Spins:
+        return `${totalAmountContributed} spins`;
+      case ConditionType.AllClears:
+        return `${totalAmountContributed} all clears`;
+      case ConditionType.Apm:
+        return `${totalAmountContributed} APM`;
+      case ConditionType.Pps:
+        return `${totalAmountContributed} PPS`;
+      case ConditionType.Vs:
+        return `${totalAmountContributed} VS`;
+      case ConditionType.Finesse:
+        return `${totalAmountContributed}%`;
+    }
   }
 }
