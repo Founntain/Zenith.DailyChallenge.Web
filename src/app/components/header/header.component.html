@@ -7,7 +7,7 @@
       </div>
 
       <div class="userInfo" *ngIf="isLoggedIn && userProfileData !== undefined">
-        <img src="{{userProfileData.avatar}}"/>
+        <img class="profilePicture" src="{{userProfileData.avatar}}"/>
         <a [routerLink]="['/user', userProfileData.username]" >{{userProfileData.username}}</a>
       </div>
     </nav>

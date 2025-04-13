@@ -65,7 +65,9 @@ body {
   margin: 0;
   font-family: 'HUN', Roboto, "Helvetica Neue", sans-serif;
   color: white;
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://tetr.io/res/bg/zenith/1fa.jpg");
+  background: url("assets/background.png") no-repeat center;
+  background-size: cover;
+
   text-transform: uppercase;
 }
 

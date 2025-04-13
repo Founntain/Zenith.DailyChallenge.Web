@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {DailyChallenge} from './data/interfaces/DailyChallenge';
 import {DailyLeaderboard} from './data/interfaces/DailyLeaderboard';
 import {CommunityChallenge} from './data/interfaces/CommunityChallenge';
+import {RecentCommunityContribution} from './data/interfaces/RecentCommunityContribution';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,10 @@ export class ZenithService {
 
   getCommunityChallenge(): Observable<CommunityChallenge>{
     return this.http.get<CommunityChallenge>(this.baseUrl + 'daily/getCommunityChallenge');
+  }
+
+  getRecentCommunityContributions(): Observable<RecentCommunityContribution[]>{
+    return this.http.get<RecentCommunityContribution[]>(this.baseUrl + 'daily/getRecentCommunityContributions');
   }
 
   getSplitLeaderboard(): Observable<DailyChallenge[]>{

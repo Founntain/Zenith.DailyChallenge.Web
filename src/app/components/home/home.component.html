@@ -1,56 +1,58 @@
 <div class="normalContainer">
   <div class="underConstruction">⚠️This is an early test version ️️expect data resets now and then⚠️</div>
   <div class="container">
+    <span class="bigHighlightText highlight">Welcome to the Zenith Tower Daily Challenge!</span>
     <div>
-      <a class="normalText">Welcome to the Zenith Tower Daily Challenge! Here, you'll find new challenges to take on while playing QP in TETR.IO.</a>
-      <a class="normalText">To complete a challenge, you must submit a game that meets all the conditions</a> <a class="highlight"> in a single run!</a>
+      <span class="normalText">Here, you'll find new challenges to take on while playing QP in TETR.IO.</span>
+      <span class="normalText">To complete a challenge, you must submit a game that meets all the conditions</span> <span class="highlight"> in a single run!</span>
     </div>
 <!--    <div>-->
 <!--      <a class="normalText">Keep your streak going if you complete all the challenges for a day, your perfect streak will increase!</a>-->
 <!--    </div>-->
     <div class="flexColumn">
-      <a class="normalText">You can submit runs by login in with your discord account and click on your profile in the top right.</a>
-      <a class="highlight">your discord account has to be linked to your tetr.io account and is publicly visible</a>
+      <span class="normalText">You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>
+      <span class="highlight">your discord account has to be linked to your tetr.io account and is publicly visible</span>
     </div>
     <div class="flexColumn">
-      <a class="normalText"><i>Resources belong to osk and TETR.IO</i></a>
+      <span class="normalText"><i>Resources belong to osk and TETR.IO</i></span>
+      <span class="normalText">Background made by <span class="highlight"><a class="highlight" href="https://linktr.ee/melisek" style="text-decoration: none">melisek</a></span></span>
     </div>
     <div class="flexColumn">
       <div class="date highlight">{{date}}</div>
       <div class="clock">TIME LEFT: <span class="clock highlight">{{timeLeft}}</span></div>
     </div>
   </div>
-  <div *ngIf="isLoggedIn" (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
-
+  <div *ngIf="isLoggedIn && communityChallengeData === undefined" (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
 </div>
 
 
-<div>
-  <div class="container challenge community">
-    <h1 style="margin: 5px">COMMUNITY CHALLENGE</h1>
-    <div *ngIf="communityChallengeData?.communityChallenge === undefined" class="simpleContainer">
-      <a>currently no community challenge is active</a>
-      <sub>check back later</sub>
+<div class="container challenge community">
+  <h1 style="margin: 5px; margin-top: 20px">COMMUNITY CHALLENGE</h1>
+  <div *ngIf="communityChallengeData?.communityChallenge === undefined" class="simpleContainer">
+    <a>currently no community challenge is active</a>
+    <sub>check back later</sub>
+  </div>
+  <div *ngIf="communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" class="simpleContainer">
+    <a class="highlight">as a community</a>
+    <div class="bigText">
+      <a class="">{{getCommunityPromptPrefix()}}</a>
+      <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
+      <a class="">{{getCommunityPromptSuffix()}}</a>
     </div>
-    <div *ngIf="communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" class="simpleContainer">
-      <a class="highlight">as a community</a>
-      <div class="bigText">
-        <a class="">{{getCommunityPromptPrefix()}}</a>
-        <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
-        <a class="">{{getCommunityPromptSuffix()}}</a>
-      </div>
-      <div>
-        <a class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
-        of
-        <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
-        {{getCommunityPromptProgressSuffix()}}
-      </div>
-      <div class="clock">TIME LEFT: <span class="clock highlight">{{communityTimeLeft}}</span></div>
-      <div>
-        <a class="">you can contribute by submitting runs via  </a> <a class="highlight">your profile</a>
+    <div>
+      <a class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
+      of
+      <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
+      {{getCommunityPromptProgressSuffix()}}
+    </div>
+    <div class="clock" style="margin-bottom: 10px">TIME LEFT: <span class="clock highlight">{{communityTimeLeft}}</span></div>
+    <div *ngIf="recentContributions.length > 0" class="recentContributionsContainer" style="text-align: justify;">
+      <div *ngFor="let contribution of recentContributions">
+        <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span>
       </div>
     </div>
   </div>
+  <div *ngIf="isLoggedIn && communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" (click)="submitRuns()" class="bigCommunityButton"><a>Submit new Runs</a></div>
 </div>
 
 <div class="challengeContainer" *ngIf="dailyChallenges.length > 0">

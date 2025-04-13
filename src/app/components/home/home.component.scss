@@ -23,7 +23,6 @@ div {
 }
 
 .container{
-  padding: 20px;
   margin: 10px;
 
   display: flex;
@@ -267,6 +266,8 @@ tr{
 
   text-transform: uppercase;
 
+  cursor: pointer;
+
   color: #ff9c6b !important;
   font-size: 64pt;
   font-weight: bold;
@@ -291,4 +292,52 @@ tr{
     filter: brightness(4);
     transition: 50ms transform, 50ms filter, 50ms box-shadow;
   }
+}
+
+.bigCommunityButton{
+  font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
+
+  padding-top: 15px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  font-size: 64pt;
+  font-weight: bold;
+
+  background-color: #341455;
+  border-top: 3px solid #5b1ab8;
+  border-left: 3px solid #491a9d;
+  border-bottom: 3px solid #200840;
+  border-right: 3px solid #2a0d5d;
+
+  color: #a164ff;
+
+  width: 100%;
+
+  transition: .3s transform,.3s filter,.3s box-shadow;
+
+  &:hover{
+    box-shadow: 0 6px #210707;
+    transform: translateY(2px);
+    filter: brightness(1.2);
+  }
+
+  &:active{
+    box-shadow: 0 2px #210707;
+    transform: translateY(6px);
+    filter: brightness(4);
+    transition: 50ms transform, 50ms filter, 50ms box-shadow;
+  }
+}
+
+.contributionName{
+  text-decoration: none;
 }

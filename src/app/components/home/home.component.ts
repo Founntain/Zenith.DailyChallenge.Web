@@ -19,6 +19,7 @@ import {RouterLink} from '@angular/router';
 import {CommunityChallenge} from '../../services/network/data/interfaces/CommunityChallenge';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {AuthService} from '../../services/network/auth.service';
+import {RecentCommunityContribution} from '../../services/network/data/interfaces/RecentCommunityContribution';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +36,8 @@ import {AuthService} from '../../services/network/auth.service';
     MatRowDef,
     MatTable,
     MatHeaderCellDef,
-    RouterLink
+    RouterLink,
+    NgForOf
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -54,14 +56,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   communityChallengeData: CommunityChallenge | undefined;
 
   private timerId: any;
+  private contributionTimerId: any;
+
   timeLeft: string = "";
   communityTimeLeft: string = "";
+
+  recentContributions: RecentCommunityContribution[] = [];
 
   constructor(private zenithService: ZenithService, private authService: AuthService, private ngZone: NgZone) {
 
   }
 
   ngOnInit(): void {
+    this.authService.isUserAuthorized().subscribe({
+      next: (result) => {
+        if(result != null){
+          this.isLoggedIn = true;
+        }
+      },
+      error: (e) => {
+        this.isLoggedIn = false;
+      }
+    })
+
+
     this.zenithService.getDailyChallenges().subscribe(result => {
       this.dailyChallenges = result;
     })
@@ -89,16 +107,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     })
 
-    this.authService.isUserAuthorized().subscribe({
-      next: (result) => {
-        if(result != null){
-          this.isLoggedIn = true;
-        }
-      },
-      error: (e) => {
-        this.isLoggedIn = false;
-      }
-    })
+    this.updateRecentContributions();
+
+    this.ngZone.runOutsideAngular(() => {
+      this.timerId = interval(10000).subscribe(() => {
+        this.ngZone.run(() => {
+          this.updateRecentContributions();
+        });
+      });
+    });
   }
 
   private unixSecondsToString(unixSeconds: number): [number, number, number, number]{
@@ -144,6 +161,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     let timeTuple = this.unixSecondsToString(timeDifference);
 
     this.timeLeft = `${timeTuple[1]}h ${timeTuple[2]}m ${timeTuple[3]}s`;
+  }
+
+  private updateRecentContributions() {
+    this.zenithService.getRecentCommunityContributions().subscribe(result => {
+      this.recentContributions = result;
+    })
   }
 
   ngOnDestroy(): void {
@@ -284,5 +307,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     return prompt;
+  }
+
+  getContributionValue(value: number, conditionType: ConditionType) {
+    switch (conditionType) {
+      case ConditionType.Height:
+        return `${value} M`
+      case ConditionType.KOs:
+        return `${value} KO's`
+      case ConditionType.Quads:
+        return `${value} quads`
+      case ConditionType.Spins:
+        return `${value} spins`
+      case ConditionType.AllClears:
+        return `${value} all clears`
+      case ConditionType.Apm:
+        return `${value} APM`
+      case ConditionType.Pps:
+        return `${value} PPS`
+      case ConditionType.Vs:
+        return `${value} VS`
+    }
+
+    return "";
   }
 }
