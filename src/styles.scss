@@ -65,8 +65,10 @@ body {
   margin: 0;
   font-family: 'HUN', Roboto, "Helvetica Neue", sans-serif;
   color: white;
-  background: url("assets/background.png") no-repeat center;
+  background-image: url("assets/background.png");
+  background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 
   text-transform: uppercase;
 }

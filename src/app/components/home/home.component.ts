@@ -107,12 +107,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     })
 
-    this.updateRecentContributions();
+    this.updateCommunityGoal();
 
     this.ngZone.runOutsideAngular(() => {
       this.timerId = interval(10000).subscribe(() => {
         this.ngZone.run(() => {
-          this.updateRecentContributions();
+          this.updateCommunityGoal();
         });
       });
     });
@@ -163,7 +163,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.timeLeft = `${timeTuple[1]}h ${timeTuple[2]}m ${timeTuple[3]}s`;
   }
 
-  private updateRecentContributions() {
+  private updateCommunityGoal() {
+    this.zenithService.getCommunityChallenge().subscribe(result => {
+      this.communityChallengeData = result;
+      this.communityChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
+    })
+
     this.zenithService.getRecentCommunityContributions().subscribe(result => {
       this.recentContributions = result;
     })
