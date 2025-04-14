@@ -183,7 +183,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   submitRuns() {
     this.zenithService.submitRuns().subscribe({
       next: (r) => {
-        window.location.reload();
+        // Do nothing
       },
       error: (e) => {
         if(e.status == 400){

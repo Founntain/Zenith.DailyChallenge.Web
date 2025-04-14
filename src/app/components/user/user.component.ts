@@ -47,7 +47,7 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
-export class UserComponent implements OnInit, AfterViewInit  {
+export class UserComponent implements OnInit, AfterViewInit {
   username!: string;
 
   isSameUser: boolean = false;
@@ -105,12 +105,10 @@ export class UserComponent implements OnInit, AfterViewInit  {
 
       this.isSameUser = this.username == username;
 
-      this.userService.getDaily(this.username).subscribe(x => {
-        this.dailyData = x;
+      this.userService.getDaily(this.username).subscribe(result => {
+        this.dailyData = result;
 
         this.runPageCount = Math.ceil((this.dailyData.runs / this.runPageSize));
-
-        console.log('daily data', this.dailyData);
       });
 
       this.loadRunData();
@@ -119,13 +117,13 @@ export class UserComponent implements OnInit, AfterViewInit  {
     })
   }
 
-  private loadRunData(){
+  private loadRunData() {
     this.userService.getRuns(this.username, this.runPage - 1, this.runPageSize).subscribe(result => {
       this.runData = result;
     })
   }
 
-  private loadChallengeData(){
+  private loadChallengeData() {
     this.userService.getChallengeCompletions(this.username, this.runPage - 1, this.runPageSize).subscribe(result => {
       this.challengeData = result;
     })
@@ -165,10 +163,10 @@ export class UserComponent implements OnInit, AfterViewInit  {
         window.location.reload();
       },
       error: (e) => {
-        if(e.status == 400){
+        if (e.status == 400) {
           alert(e.error);
         }
-        if(e.status == 401){
+        if (e.status == 401) {
           alert(e.error + '\n\nPlease login again.');
           // window.location.reload();
         }
@@ -186,33 +184,33 @@ export class UserComponent implements OnInit, AfterViewInit  {
     return mods.split(' ');
   }
 
-  getCompletedImage(difficulty: Difficulty, completed: any)
-  {
+  getCompletedImage(difficulty: Difficulty, completed: any) {
     switch (difficulty) {
       case Difficulty.Easy:
         return completed ? '/assets/clear_easy.png' : '/assets/unclear_easy.png';
       case Difficulty.Normal:
-          return completed ? '/assets/clear_normal.png' : '/assets/unclear_normal.png';
+        return completed ? '/assets/clear_normal.png' : '/assets/unclear_normal.png';
       case Difficulty.Hard:
         return completed ? '/assets/clear_hard.png' : '/assets/unclear_hard.png';
       case Difficulty.Expert:
         return completed ? '/assets/clear_expert.png' : '/assets/unclear_expert.png';
-      default: return '';
+      default:
+        return '';
     }
   }
 
-  isNotEmptyTime(time: string){
+  isNotEmptyTime(time: string) {
     return time != '00:00.000';
   }
 
   protected readonly Difficulty = Difficulty;
 
   getSpeedrunCompletedClass(speedrun: boolean, speedrunSeen: boolean) {
-    if(speedrun){
+    if (speedrun) {
       return 'speedrun';
     }
 
-    if(speedrunSeen){
+    if (speedrunSeen) {
       return 'speedrunSeen';
     }
 
@@ -222,11 +220,11 @@ export class UserComponent implements OnInit, AfterViewInit  {
   getCommunityContributionvalue(totalAmountContributed: number, conditionType: ConditionType) {
     console.log("ct", conditionType, totalAmountContributed)
 
-    switch (conditionType){
+    switch (conditionType) {
       case ConditionType.Height:
         return `${totalAmountContributed} M`;
       case ConditionType.KOs:
-        return`${totalAmountContributed} KO's`;
+        return `${totalAmountContributed} KO's`;
       case ConditionType.Quads:
         return `${totalAmountContributed} quads`;
       case ConditionType.Spins:

@@ -120,9 +120,9 @@
   </div>
 </div>
 
-<div class="dailyContainer userContainer">
+<div *ngIf="communityContributionData !== undefined && communityContributionData.length > 0" class="dailyContainer userContainer">
   <h3>Community Challenge Contributions</h3>
-  <div *ngIf="communityContributionData !== undefined && communityContributionData.length > 0">
+  <div>
     <mat-paginator *ngIf="communityContributionData[0].totalContributions > challengePageSize"
                    [pageSizeOptions]="[25, 50, 100]"
                    [pageSize]="communityChallengePageSize"

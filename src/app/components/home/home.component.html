@@ -1,3 +1,5 @@
+<!-- Welcome -->
+
 <div class="normalContainer">
   <div class="underConstruction">⚠️This is an early test version ️️expect data resets now and then⚠️</div>
   <div class="container">
@@ -14,18 +16,39 @@
       <span class="highlight">your discord account has to be linked to your tetr.io account and is publicly visible</span>
     </div>
     <div class="flexColumn">
-      <span class="normalText"><i>Resources belong to osk and TETR.IO</i></span>
+      <span class="normalText">Resources belong to <a class="highlight" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="highlight" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
       <span class="normalText">Background made by <span class="highlight"><a class="highlight" href="https://linktr.ee/melisek" style="text-decoration: none">melisek</a></span></span>
     </div>
-    <div class="flexColumn">
-      <div class="date highlight">{{date}}</div>
-      <div class="clock">TIME LEFT: <span class="clock highlight">{{timeLeft}}</span></div>
-    </div>
+
   </div>
   <div *ngIf="isLoggedIn && communityChallengeData === undefined" (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
 </div>
 
+<!-- Daily Challenges -->
+<div class="normalContainer padding">
+  <div class="flexColumn" style="margin-bottom: 10px">
+    <div>
+      <span class="date">daily challenge for </span>
+      <span class="date highlight">{{date}}</span>
+    </div>
+    <div class="clock">TIME LEFT: <span class="clock highlight">{{timeLeft}}</span></div>
+  </div>
+  <div class="challengeContainer" *ngIf="dailyChallenges.length > 0">
+    <div class="marginLeft challenge hard">
+      <app-challenge [challenge]="dailyChallenges[0]"></app-challenge>
+    </div>
 
+    <div class="challenge normal">
+      <app-challenge [challenge]="dailyChallenges[1]"></app-challenge>
+    </div>
+
+    <div class="marginRight containerNoMargin challenge easy">
+      <app-challenge [challenge]="dailyChallenges[2]"></app-challenge>
+    </div>
+  </div>
+</div>
+
+<!-- Community Challenges -->
 <div class="container challenge community">
   <h1 style="margin: 5px; margin-top: 20px">COMMUNITY CHALLENGE</h1>
   <div *ngIf="communityChallengeData?.communityChallenge === undefined" class="simpleContainer">
@@ -33,6 +56,7 @@
     <sub>check back later</sub>
   </div>
   <div *ngIf="communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" class="simpleContainer">
+    <div class="clock" style="margin-bottom: 10px">Ends in: <span class="clock highlight">{{communityTimeLeft}}</span></div>
     <a class="highlight">as a community</a>
     <div class="bigText">
       <a class="">{{getCommunityPromptPrefix()}}</a>
@@ -44,32 +68,22 @@
       of
       <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
       {{getCommunityPromptProgressSuffix()}}
+      <span>by <span class="highlight">{{communityChallengeData.communityChallenge.participants}} participants</span></span>
     </div>
-    <div class="clock" style="margin-bottom: 10px">TIME LEFT: <span class="clock highlight">{{communityTimeLeft}}</span></div>
-    <div *ngIf="recentContributions.length > 0" class="recentContributionsContainer" style="text-align: justify;">
+    <div *ngIf="recentContributions.length > 0" class="recentContributionsContainer" style="text-align: center; margin-bottom: 10px">
       <div *ngFor="let contribution of recentContributions">
         <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span>
       </div>
+    </div>
+
+    <div *ngIf="recentContributions.length > 0" class="allContributersContainer" >
+      <span *ngFor="let contributer of communityChallengeData.topContributers" class="highlight" style="cursor:pointer;" [routerLink]="['/user', contributer.username]" title="{{contributer.username}} contributed {{getContributionValue(contributer.amount, communityChallengeData.communityChallenge.conditionType)}}">{{contributer.username}}</span>
     </div>
   </div>
   <div *ngIf="isLoggedIn && communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" (click)="submitRuns()" class="bigCommunityButton"><a>Submit new Runs</a></div>
 </div>
 
-<div class="challengeContainer" *ngIf="dailyChallenges.length > 0">
-  <div class="marginLeft challenge hard">
-    <app-challenge [challenge]="dailyChallenges[0]"></app-challenge>
-  </div>
-
-  <div class="challenge normal">
-    <app-challenge [challenge]="dailyChallenges[1]"></app-challenge>
-  </div>
-
-  <div class="marginRight containerNoMargin challenge easy">
-    <app-challenge [challenge]="dailyChallenges[2]"></app-challenge>
-  </div>
-</div>
-
-<div style="margin: 10px;" *ngIf="leaderboardData.length > 0">
+<div style="margin: 10px;" class="normalContainer" *ngIf="leaderboardData.length > 0">
   <table mat-table [dataSource]="leaderboardData">
     <ng-container matColumnDef="Username">
       <th mat-header-cell *matHeaderCellDef> Name </th>

@@ -66,6 +66,10 @@ div {
   text-align: center;
 }
 
+.padding{
+  padding: 10px;
+}
+
 .underConstruction{
   color: white;
   font-family: 'CB';
@@ -338,6 +342,28 @@ tr{
   }
 }
 
+.contributionContainer{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+
+  .contributionItem{
+    flex: 1;
+  }
+}
+
 .contributionName{
   text-decoration: none;
+}
+
+.allContributersContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+
+  margin-bottom: 10px;
 }
