@@ -42,6 +42,16 @@ $reverse-text-color: #ff6c6c;
 
       .Hard{
         color: #fff;
+        text-shadow: 0 3px #e57373, 0 6px #e57373, 0 6px 8px #e57373, 0 6px 16px #e57373;
+      }
+
+      .Expert{
+        color: #fff;
+        text-shadow: 0 3px #ffc107, 0 6px #ffc107, 0 6px 8px #ffc107, 0 6px 16px #ffc107;
+      }
+
+      .Reverse{
+        color: #fff;
         text-shadow: 0 3px #ff0059,0 6px #ff0059,0 6px 8px #ff0059,0 6px 16px #ff0059;
       }
     }

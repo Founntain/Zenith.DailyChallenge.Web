@@ -132,6 +132,8 @@ export class ChallengeComponent implements OnChanges{
         return "Hard";
       case Difficulty.Expert:
         return "Expert";
+      case Difficulty.Reverse:
+        return "Reverse";
       default:
           return "";
     }

@@ -194,6 +194,8 @@ export class UserComponent implements OnInit, AfterViewInit {
         return completed ? '/assets/clear_hard.png' : '/assets/unclear_hard.png';
       case Difficulty.Expert:
         return completed ? '/assets/clear_expert.png' : '/assets/unclear_expert.png';
+      case Difficulty.Reverse:
+        return completed ? '/assets/clear_reverse.png' : '/assets/unclear_reverse.png';
       default:
         return '';
     }

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ZenithService} from '../../services/network/zenith.service';
 import {ChallengeComponent} from '../challenge/challenge.component';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {NgClass, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
 import {concatWith, interval} from 'rxjs';
 import { NgZone } from '@angular/core';
@@ -20,6 +20,7 @@ import {CommunityChallenge} from '../../services/network/data/interfaces/Communi
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {AuthService} from '../../services/network/auth.service';
 import {RecentCommunityContribution} from '../../services/network/data/interfaces/RecentCommunityContribution';
+import {Difficulty} from '../../services/network/data/enums/Difficulty';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,8 @@ import {RecentCommunityContribution} from '../../services/network/data/interface
     MatTable,
     MatHeaderCellDef,
     RouterLink,
-    NgForOf
+    NgForOf,
+    NgOptimizedImage
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -51,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   communityChallengeEndDateUnixSeconds: number = 0;
 
   leaderboardData: DailyLeaderboard[] = [];
-  leaderboardColumns: string[] = ['Username', 'ChallengesCompleted'];
+  leaderboardColumns: string[] = ['Username', 'ChallengesCompleted', 'ExpertChallengesCompleted', 'ReverseChallengesCompleted'];
 
   communityChallengeData: CommunityChallenge | undefined;
 
@@ -335,5 +337,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     return "";
+  }
+
+  protected readonly Difficulty = Difficulty;
+
+  getChallengeOfDifficulty(difficulty: Difficulty): DailyChallenge {
+    switch (difficulty) {
+      case Difficulty.Easy:
+        return this.dailyChallenges.find(x => x.points == Difficulty.Easy)!
+      case Difficulty.Normal:
+        return this.dailyChallenges.find(x => x.points == Difficulty.Normal)!
+      case Difficulty.Hard:
+        return this.dailyChallenges.find(x => x.points == Difficulty.Hard)!
+      case Difficulty.Expert:
+        return this.dailyChallenges.find(x => x.points == Difficulty.Expert)!
+      case Difficulty.Reverse:
+        return this.dailyChallenges.find(x => x.points == Difficulty.Reverse)!
+    }
+
+    return {} as DailyChallenge;
   }
 }

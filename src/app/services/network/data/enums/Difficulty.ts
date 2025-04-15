@@ -3,5 +3,6 @@
   Easy = 2,
   Normal = 3,
   Hard = 5,
-  Expert = 8
+  Expert = 8,
+  Reverse = 12
 }

@@ -1,6 +1,9 @@
 $easy-text-color: #6baeff;
 $primary-text-color: #ff9c6b;
+$hard-text-color: #e57373;
 $reverse-text-color: #ff6c6c;
+$expert-text-color: #ffc107;
+
 
 div {
   gap: 10px;
@@ -106,7 +109,6 @@ div {
   .challenge {
     flex: 1;
     text-align: center;
-    padding: 10px;
   }
 }
 
@@ -147,19 +149,19 @@ tr{
   }
 }
 
-.hard {
-  background-color: #2a070e;
-  border-top: 3px solid #8f0d19;
-  border-left: 3px solid #5c0d0d;
-  border-bottom: 3px solid #120303;
-  border-right: 3px solid #200606;
+.easy {
+  background-color: #143055;
 
-  color: $reverse-text-color;
-  text-shadow: 0 0 16px #ff005966;
+  border-top: 3px solid #1a5bb8;
+  border-left: 3px solid #1a489d;
+  border-bottom: 3px solid #081f40;
+  border-right: 3px solid #0d2a5d;
+
+  color: $easy-text-color;
 
   .highlight {
-    color: #fff;
-    text-shadow: 0 3px #ff0059, 0 6px #ff0059, 0 6px 8px #ff0059, 0 6px 16px #ff0059;
+    color: white;
+    text-shadow: 0 3px $easy-text-color, 0 6px $easy-text-color, 0 6px 8px $easy-text-color, 0 6px 16px $easy-text-color;
   }
 }
 
@@ -180,19 +182,52 @@ tr{
   }
 }
 
-.easy {
-  background-color: #143055;
+.hard {
+  background-color: #3d1014;
+  border-top: 3px solid #c85858;
+  border-left: 3px solid #a84242;
+  border-bottom: 3px solid #2f0a0a;
+  border-right: 3px solid #37160d;
 
-  border-top: 3px solid #1a5bb8;
-  border-left: 3px solid #1a489d;
-  border-bottom: 3px solid #081f40;
-  border-right: 3px solid #0d2a5d;
-
-  color: $easy-text-color;
+  color: $reverse-text-color;
+  text-shadow: 0 0 16px #e5737366;
 
   .highlight {
-    color: white;
-    text-shadow: 0 3px $easy-text-color, 0 6px $easy-text-color, 0 6px 8px $easy-text-color, 0 6px 16px $easy-text-color;
+    color: #fff;
+    text-shadow: 0 3px #e57373, 0 6px #e57373, 0 6px 8px #e57373, 0 6px 16px #e57373; // Softer red for the highlight
+  }
+}
+
+
+.expert {
+  background-color: #2a190e;
+  border-top: 3px solid #8f6b19;
+  border-left: 3px solid #8c6e0d;
+  border-bottom: 3px solid #2f250a;
+  border-right: 3px solid #372a0d;
+
+  color: $expert-text-color;
+  text-shadow: 0 0 16px #ffc10766;
+
+  .highlight {
+    color: #fff;
+    text-shadow: 0 3px #ffc107, 0 6px #ffc107, 0 6px 8px #ffc107, 0 6px 16px #ffc107; // Yellow tone for the highlight
+  }
+}
+
+.reverse {
+  background-color: #2a070e;
+  border-top: 3px solid #8f0d19;
+  border-left: 3px solid #5c0d0d;
+  border-bottom: 3px solid #120303;
+  border-right: 3px solid #200606;
+
+  color: $reverse-text-color;
+  text-shadow: 0 0 16px #ff005966;
+
+  .highlight {
+    color: #fff;
+    text-shadow: 0 3px #ff0059, 0 6px #ff0059, 0 6px 8px #ff0059, 0 6px 16px #ff0059;
   }
 }
 
@@ -302,6 +337,7 @@ tr{
   font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
 
   padding-top: 15px;
+  margin-bottom: -10px;
 
   display: flex;
   flex-direction: row;
@@ -366,4 +402,8 @@ tr{
   width: 100%;
 
   margin-bottom: 10px;
+}
+
+.headerImage{
+  margin: 2px;
 }
