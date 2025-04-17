@@ -1,5 +1,5 @@
 import {Component, Input, input, OnChanges, OnInit} from '@angular/core';
-import {NgClass, NgForOf} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
@@ -8,7 +8,8 @@ import {Difficulty} from '../../services/network/data/enums/Difficulty';
   selector: 'app-challenge',
   imports: [
     NgForOf,
-    NgClass
+    NgClass,
+    NgIf
   ],
   templateUrl: './challenge.component.html',
   styleUrl: './challenge.component.scss'
@@ -17,12 +18,15 @@ export class ChallengeComponent implements OnChanges{
   @Input() challenge!: DailyChallenge;
 
   difficultyText: string = "";
+  difficultCssClass: string = "";
+  reverseText: string = "";
   processedConditions: { prefix: string; value: string, suffix: string }[] = [];
   modImages: string[] = [];
 
 
   ngOnChanges(): void {
     this.difficultyText = this.getDifficultyText(this.challenge.points);
+    this.difficultCssClass = this.getDifficultyText(this.challenge.points, true);
 
     if (this.challenge.conditions) {
       this.challenge.conditions.sort((a, b) => a.type - b.type);
@@ -43,6 +47,11 @@ export class ChallengeComponent implements OnChanges{
     }
 
     this.modImages = this.getModArray(this.challenge.mods).map(mod => this.getModImage(mod));
+
+
+    if(this.difficultCssClass === "Reverse"){
+      this.reverseText = this.getReverseFlavorText();
+    }
   }
 
   getConditionText(type: number, value: number): string{
@@ -120,7 +129,8 @@ export class ChallengeComponent implements OnChanges{
     }
   }
 
-  getDifficultyText(difficulty: number): string{
+
+  getDifficultyText(difficulty: number, getCssClass = false): string{
     switch(difficulty){
       case Difficulty.VeryEasy:
         return "Very Easy";
@@ -133,9 +143,36 @@ export class ChallengeComponent implements OnChanges{
       case Difficulty.Expert:
         return "Expert";
       case Difficulty.Reverse:
-        return "Reverse";
+        if(getCssClass) return `Reverse`;
+
+        switch(this.challenge.mods){
+          case "expert_reversed": return "The Tyrant";
+          case "nohold_reversed": return "Asceticism";
+          case "messy_reversed": return "Loaded Dice";
+          case "gravity_reversed": return "Freefall";
+          case "volatile_reversed": return "Last Stand";
+          case "doublehole_reversed": return "Damnation";
+          case "invisible_reversed": return "The Exile";
+          case "allspin_reversed": return "The Warlock";
+          default: return ""
+        }
+
       default:
           return "";
+    }
+  }
+
+  getReverseFlavorText(): string{
+    switch (this.challenge.mods) {
+      case "expert_reversed": return "Fear, Oppression, And Limitless Ambition";
+      case "nohold_reversed": return "A Detachment From Even That Which Is Moderate";
+      case "messy_reversed": return "In A Rigged Game, Your Mind Is The Only Fair Adventage";
+      case "gravity_reversed": return "The Ground You Stood On Never Existed In The First Place";
+      case "volatile_reversed": return "Strength Isn't Necessary For Those With Nothing To Lose";
+      case "doublehole_reversed": return "Neither The Freedom Of Life Or Peace Of Death";
+      case "invisible_reversed": return "Never Underestimate Blind Faith";
+      case "allspin_reversed": return "Into Realms Beyond Heaven And Earth";
+      default: return ""
     }
   }
 

@@ -8,6 +8,19 @@ $reverse-text-color: #ff6c6c;
   text-align: center;
   justify-content: center;
 
+  .reverseTitle{
+    color: #fff;
+    font-size: 2rem;
+    text-shadow: 0 3px #ff0059,0 6px #ff0059,0 6px 8px #ff0059,0 6px 16px #ff0059;
+    letter-spacing: 7px;
+  }
+
+  .reverseFlavorText{
+    color: #ff0059;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+
   .conditionsWrapper{
     display: flex;
     text-align: center;
@@ -47,7 +60,7 @@ $reverse-text-color: #ff6c6c;
 
       .Expert{
         color: #fff;
-        text-shadow: 0 3px #ffc107, 0 6px #ffc107, 0 6px 8px #ffc107, 0 6px 16px #ffc107;
+        text-shadow: 0 3px #d49b07, 0 6px #d49b07, 0 6px 8px #d49b07, 0 6px 16px #d49b07;
       }
 
       .Reverse{

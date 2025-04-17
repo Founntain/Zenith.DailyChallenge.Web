@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   communityChallengeEndDateUnixSeconds: number = 0;
 
   leaderboardData: DailyLeaderboard[] = [];
-  leaderboardColumns: string[] = ['Username', 'ChallengesCompleted', 'ExpertChallengesCompleted', 'ReverseChallengesCompleted'];
+  leaderboardColumns: string[] = ['Username', 'Score', 'EasyChallengesCompleted', 'NormalChallengesCompleted', 'HardChallengesCompleted', 'ExpertChallengesCompleted', 'ReverseChallengesCompleted'];
 
   communityChallengeData: CommunityChallenge | undefined;
 

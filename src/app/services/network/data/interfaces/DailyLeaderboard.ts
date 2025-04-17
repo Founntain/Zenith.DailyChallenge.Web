@@ -1,4 +1,9 @@
 ﻿export interface DailyLeaderboard {
   username: string;
-  challengesCompleted: number;
+  score: number;
+  easyChallengesCompleted: number;
+  normalChallengesCompleted: number;
+  hardChallengesCompleted: number;
+  expertChallengesCompleted: number;
+  reverseChallengesCompleted: number;
 }

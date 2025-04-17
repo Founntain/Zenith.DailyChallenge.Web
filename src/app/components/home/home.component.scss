@@ -1,7 +1,7 @@
 $easy-text-color: #6baeff;
 $primary-text-color: #ff9c6b;
-$hard-text-color: #e57373;
-$reverse-text-color: #ff6c6c;
+$hard-text-color: #e75959;
+$reverse-text-color: #FFFFFF;
 $expert-text-color: #ffc107;
 
 
@@ -189,7 +189,7 @@ tr{
   border-bottom: 3px solid #2f0a0a;
   border-right: 3px solid #37160d;
 
-  color: $reverse-text-color;
+  color: $hard-text-color;
   text-shadow: 0 0 16px #e5737366;
 
   .highlight {
@@ -406,4 +406,23 @@ tr{
 
 .headerImage{
   margin: 2px;
+}
+
+.zenith_card_shatter{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0;
+  //transition: 1s opacity;
+
+  .img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+  }
 }
