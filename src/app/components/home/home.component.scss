@@ -404,25 +404,37 @@ tr{
   margin-bottom: 10px;
 }
 
-.headerImage{
-  margin: 2px;
-}
+.goalAchieved{
+  position: relative;
+  padding: 20px;
 
-.zenith_card_shatter{
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  opacity: 0;
-  //transition: 1s opacity;
-
-  .img{
+  &::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+
+    // Multiple layered inner shadows with rainbow colors
+    box-shadow:
+      inset 0 0 15px rgba(255, 0, 0, 1),
+      inset 0 0 15px rgba(255, 165, 0, 1),
+      inset 0 0 15px rgba(255, 255, 0, 1),
+      inset 0 0 15px rgba(0, 255, 0, 1),
+      inset 0 0 15px rgba(0, 0, 255, 1),
+      inset 0 0 15px rgba(238, 130, 238, 1);
+
+    animation: rainbow-shadow 6s linear infinite;
   }
+
+  @keyframes rainbow-shadow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+}
+
+.headerImage{
+  margin: 2px;
 }

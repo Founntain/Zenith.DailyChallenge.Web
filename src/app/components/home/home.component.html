@@ -57,7 +57,7 @@
 </div>
 
 <!-- Community Challenges -->
-<div class="container challenge community" style="padding-bottom: 10px">
+<div [ngClass]="['container', 'challenge', 'community', isCommunityChallengeFinished]" style="padding-bottom: 10px">
   <h1 style="margin: 5px; margin-top: 20px">COMMUNITY CHALLENGE</h1>
   <div *ngIf="communityChallengeData?.communityChallenge === undefined" class="simpleContainer">
     <a>currently no community challenge is active</a>
@@ -80,7 +80,13 @@
     </div>
     <div *ngIf="recentContributions.length > 0" class="recentContributionsContainer" style="text-align: center; margin-bottom: 10px">
       <div *ngFor="let contribution of recentContributions">
-        <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span>
+        <div *ngIf="!contribution.isLate">
+          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span>
+        </div>
+
+        <div *ngIf="contribution.isLate">
+          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span> . . . but storage was full!? Unlucky?!
+        </div>
       </div>
     </div>
 

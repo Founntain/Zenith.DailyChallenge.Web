@@ -39,12 +39,17 @@ import {Difficulty} from '../../services/network/data/enums/Difficulty';
     MatHeaderCellDef,
     RouterLink,
     NgForOf,
-    NgOptimizedImage
+    NgOptimizedImage,
+    NgClass
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  private timerId: any;
+  private contributionTimerId: any;
+  protected readonly Difficulty = Difficulty;
+
   isLoggedIn: boolean = false;
 
   dailyChallenges: DailyChallenge[] = [];
@@ -57,11 +62,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   communityChallengeData: CommunityChallenge | undefined;
 
-  private timerId: any;
-  private contributionTimerId: any;
 
   timeLeft: string = "";
   communityTimeLeft: string = "";
+  isCommunityChallengeFinished: string = "";
 
   recentContributions: RecentCommunityContribution[] = [];
 
@@ -138,7 +142,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     const timeDifference = targetDate.getTime() - currentDate.getTime();
 
     if (timeDifference <= 0) {
-      this.timeLeft = "Time's up!";
+      this.communityTimeLeft = "Time's up!";
       return;
     }
 
@@ -169,6 +173,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.zenithService.getCommunityChallenge().subscribe(result => {
       this.communityChallengeData = result;
       this.communityChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
+
+      console.log(this.communityChallengeData.communityChallenge)
+
+      if(this.communityChallengeData.communityChallenge.finished === true){
+        this.isCommunityChallengeFinished = "goalAchieved"
+      }else{
+        this.isCommunityChallengeFinished = ""
+      }
     })
 
     this.zenithService.getRecentCommunityContributions().subscribe(result => {
@@ -338,8 +350,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     return "";
   }
-
-  protected readonly Difficulty = Difficulty;
 
   getChallengeOfDifficulty(difficulty: Difficulty): DailyChallenge {
     switch (difficulty) {

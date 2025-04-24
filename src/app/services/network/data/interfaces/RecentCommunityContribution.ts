@@ -4,4 +4,5 @@ export interface RecentCommunityContribution {
   username: string;
   amount: number;
   conditionType: ConditionType;
+  isLate: boolean;
 }
