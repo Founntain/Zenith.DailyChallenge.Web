@@ -36,8 +36,6 @@ export class HeaderComponent implements OnInit{
     let cookieHelper = new CookieHelper();
     let username = cookieHelper.getCookieByName('username');
 
-    console.log(this.userProfileData, username)
-
     this.authApi.isUserAuthorized().subscribe({
       next: (result) => {
         this.userProfileData = result;

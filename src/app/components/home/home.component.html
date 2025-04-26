@@ -35,23 +35,23 @@
   </div>
   <div class="challengeContainer" *ngIf="dailyChallenges.length > 0">
     <div class="challenge hard">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Hard)"/>
+      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Hard)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Hard)" />
     </div>
 
     <div class="challenge normal">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Normal)"/>
+      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Normal)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Normal)"/>
     </div>
 
     <div class="containerNoMargin challenge easy">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Easy)"/>
+      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Easy)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Easy)"/>
     </div>
   </div>
   <div class="challengeContainer" style="margin-top: 10px" *ngIf="dailyChallenges.length > 0">
     <div class="challenge expert" *ngIf="getChallengeOfDifficulty(Difficulty.Expert) !== undefined">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Expert)"/>
+      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Expert)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Expert)"/>
     </div>
     <div class="challenge reverse" *ngIf="getChallengeOfDifficulty(Difficulty.Reverse) !== undefined">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Reverse)"/>
+      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Reverse)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Reverse)"/>
     </div>
   </div>
 </div>

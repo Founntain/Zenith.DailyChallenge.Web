@@ -15,4 +15,5 @@
   <div style="padding: 10px">
     <img *ngFor="let imgSrc of modImages" [src]="imgSrc" class="mod" />
   </div>
+  <span *ngIf="isCompleted" class="challengeCompleted">COMPLETED</span>
 </div>

@@ -9,6 +9,7 @@ import {DailyData} from './data/interfaces/DailyData';
 import {Run} from './data/interfaces/Run';
 import {ChallengeCompletion} from './data/interfaces/ChallengeCompletion';
 import {CommunityChallengeContributions} from './data/interfaces/CommunityChallengeContributions';
+import {TodayCompletions} from './data/interfaces/TodayCompletions';
 
 @Injectable({
   providedIn: 'root'
@@ -24,22 +25,26 @@ export class UserService {
   }
 
   getDaily(username: string): Observable<DailyData>{
-    return this.http.get<any>(`${this.baseUrl}${username}/dailyData`);
+    return this.http.get<DailyData>(`${this.baseUrl}${username}/dailyData`);
   }
 
   getRuns(username: string, page: number, pageSize: number): Observable<Run[]>{
-    return this.http.get<any>(`${this.baseUrl}${username}/runs?page=${page}&pageSize=${pageSize}`);
+    return this.http.get<Run[]>(`${this.baseUrl}${username}/runs?page=${page}&pageSize=${pageSize}`);
   }
 
   getCommunityContributions(username: string, page: number, pageSize: number): Observable<CommunityChallengeContributions[]>{
-    return this.http.get<any>(`${this.baseUrl}${username}/getCommunityContributions?page=${page}&pageSize=${pageSize}`);
+    return this.http.get<CommunityChallengeContributions[]>(`${this.baseUrl}${username}/getCommunityContributions?page=${page}&pageSize=${pageSize}`);
   }
 
   getChallenges(username: string, page: number, pageSize: number): Observable<DailyChallenge[]>{
-    return this.http.get<any>(`${this.baseUrl}${username}/challenges?page=${page}&pageSize=${pageSize}`);
+    return this.http.get<DailyChallenge[]>(`${this.baseUrl}${username}/challenges?page=${page}&pageSize=${pageSize}`);
+  }
+
+  getTodaysCallengedCompletions(username: string): Observable<TodayCompletions>{
+    return this.http.get<TodayCompletions>(`${this.baseUrl}${username}/getTodaysCallengedCompletions`);
   }
 
   getChallengeCompletions(username: string, page: number, pageSize: number): Observable<ChallengeCompletion[]>{
-    return this.http.get<any>(`${this.baseUrl}${username}/challengeCompletions?page=${page}&pageSize=${pageSize}`);
+    return this.http.get<ChallengeCompletion[]>(`${this.baseUrl}${username}/challengeCompletions?page=${page}&pageSize=${pageSize}`);
   }
 }

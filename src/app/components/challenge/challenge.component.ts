@@ -16,6 +16,7 @@ import {Difficulty} from '../../services/network/data/enums/Difficulty';
 })
 export class ChallengeComponent implements OnChanges{
   @Input() challenge!: DailyChallenge;
+  @Input() isCompleted!: boolean;
 
   difficultyText: string = "";
   difficultCssClass: string = "";

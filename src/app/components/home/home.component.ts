@@ -21,6 +21,9 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {AuthService} from '../../services/network/auth.service';
 import {RecentCommunityContribution} from '../../services/network/data/interfaces/RecentCommunityContribution';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
+import {CookieHelper} from '../../util/CookieHelper';
+import {UserService} from '../../services/network/user.service';
+import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
 
 @Component({
   selector: 'app-home',
@@ -62,14 +65,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   communityChallengeData: CommunityChallenge | undefined;
 
-
   timeLeft: string = "";
   communityTimeLeft: string = "";
   isCommunityChallengeFinished: string = "";
 
   recentContributions: RecentCommunityContribution[] = [];
+  todayUsersCompletions: TodayCompletions | undefined;
 
-  constructor(private zenithService: ZenithService, private authService: AuthService, private ngZone: NgZone) {
+  constructor(private zenithService: ZenithService, private authService: AuthService, private userService: UserService, private ngZone: NgZone) {
 
   }
 
@@ -78,13 +81,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       next: (result) => {
         if(result != null){
           this.isLoggedIn = true;
+
+          let username = new CookieHelper().getCookieByName('username');
+
+          this.userService.getTodaysCallengedCompletions(username).subscribe(result => {
+            this.todayUsersCompletions = result;
+          })
         }
       },
       error: (e) => {
         this.isLoggedIn = false;
       }
     })
-
 
     this.zenithService.getDailyChallenges().subscribe(result => {
       this.dailyChallenges = result;
@@ -366,5 +374,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     return {} as DailyChallenge;
+  }
+
+  getChallengeCompletionOfDifficulty(difficulty: Difficulty): boolean {
+    switch (difficulty) {
+      case Difficulty.Easy:
+        return this.todayUsersCompletions?.easyCompleted ?? false
+      case Difficulty.Normal:
+        return this.todayUsersCompletions?.normalCompleted ?? false
+      case Difficulty.Hard:
+        return this.todayUsersCompletions?.hardCompleted ?? false
+      case Difficulty.Expert:
+        return this.todayUsersCompletions?.expertCompleted ?? false
+      case Difficulty.Reverse:
+        return this.todayUsersCompletions?.reverseCompleted ?? false
+    }
+
+    return false;
   }
 }
