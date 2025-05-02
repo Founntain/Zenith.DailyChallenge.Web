@@ -9,6 +9,14 @@ div {
   gap: 10px;
 }
 
+.title{
+  font-size: 2rem !important;
+
+  @media screen and (max-width: 600px) {
+    font-size: 14pt !important;
+  }
+}
+
 .simpleContainer{
   display: flex;
   flex-direction: column;
@@ -73,21 +81,6 @@ div {
   padding: 10px;
 }
 
-.underConstruction{
-  color: white;
-  font-family: 'CB';
-  height: 40px;
-  width: 100%;
-  background: repeating-linear-gradient( -45deg, #532314, #532314 12px, #8d2e1b 12px, #8d2e1b 25px );
-
-  font-size: 22pt;
-  text-align: center;
-  text-shadow: 0px 0px 2px black;
-  -webkit-text-stroke: 0.5px black;
-
-  border-bottom: 2px solid #b03d1a;
-}
-
 .highlight{
   font-family: 'CB';
   color: #fff;
@@ -110,10 +103,18 @@ div {
     flex: 1;
     text-align: center;
   }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 }
 
 .highlight {
   font-size: 1.25rem;
+
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
+  }
 }
 
 th{
@@ -318,6 +319,10 @@ tr{
   border-right: 3px solid #37160d;
 
   transition: .3s transform,.3s filter,.3s box-shadow;
+
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
+  }
 
   &:hover{
     box-shadow: 0 6px #210707;

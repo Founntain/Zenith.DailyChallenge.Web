@@ -1,9 +1,8 @@
 <!-- Welcome -->
 
 <div class="normalContainer">
-  <div class="underConstruction">⚠️This is an early test version ️️expect data resets now and then⚠️</div>
   <div class="container">
-    <span class="bigHighlightText highlight">Welcome to the Zenith Tower Daily Challenge!</span>
+    <span class="title highlight">Welcome to the Zenith Tower Daily Challenge!</span>
     <div>
       <span class="normalText">Here, you'll find new challenges to take on while playing QP in TETR.IO.</span>
       <span class="normalText"> To complete a challenge, you must submit a game that meets all the conditions</span> <span class="highlight"> in a single run!</span>
@@ -21,7 +20,7 @@
     </div>
 
   </div>
-  <div *ngIf="isLoggedIn && communityChallengeData === undefined" (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
+  <div *ngIf="isLoggedIn && communityChallengeData?.communityChallenge === undefined" (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
 </div>
 
 <!-- Daily Challenges -->
@@ -34,16 +33,16 @@
     <div class="clock">TIME LEFT: <span class="clock highlight">{{timeLeft}}</span></div>
   </div>
   <div class="challengeContainer" *ngIf="dailyChallenges.length > 0">
-    <div class="challenge hard">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Hard)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Hard)" />
+    <div class="challenge easy">
+      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Easy)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Easy)"/>
     </div>
 
-    <div class="challenge normal">
+    <div class="containerNoMargin challenge normal">
       <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Normal)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Normal)"/>
     </div>
 
-    <div class="containerNoMargin challenge easy">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Easy)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Easy)"/>
+    <div class="challenge hard">
+      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Hard)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Hard)" />
     </div>
   </div>
   <div class="challengeContainer" style="margin-top: 10px" *ngIf="dailyChallenges.length > 0">
@@ -99,51 +98,53 @@
 
 <div style="margin: 10px;" class="normalContainer" *ngIf="leaderboardData.length > 0">
   <h3>Challenge Leaderboard</h3>
-  <table mat-table [dataSource]="leaderboardData">
-    <ng-container matColumnDef="Username">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element" > <a class="link" [routerLink]="['/user', element.username]">{{element.username}}</a> </td>
-    </ng-container>
+  <div style="overflow-x: auto;">
+    <table mat-table [dataSource]="leaderboardData">
+      <ng-container matColumnDef="Username">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" > <a class="link" [routerLink]="['/user', element.username]">{{element.username}}</a> </td>
+      </ng-container>
 
-    <ng-container matColumnDef="Score">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-        <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
-      </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.score}}</td>
-    </ng-container>
+      <ng-container matColumnDef="Score">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+          <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.score}}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="EasyChallengesCompleted">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-        <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
-      </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.easyChallengesCompleted}}</td>
-    </ng-container>
+      <ng-container matColumnDef="EasyChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+          <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.easyChallengesCompleted}}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="NormalChallengesCompleted">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-        <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
-      </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.normalChallengesCompleted}}</td>
-    </ng-container>
+      <ng-container matColumnDef="NormalChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+          <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.normalChallengesCompleted}}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="HardChallengesCompleted">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-        <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
-      </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.hardChallengesCompleted}}</td>
-    </ng-container>
+      <ng-container matColumnDef="HardChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+          <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.hardChallengesCompleted}}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="ExpertChallengesCompleted">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.expertChallengesCompleted}}</td>
-    </ng-container>
+      <ng-container matColumnDef="ExpertChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.expertChallengesCompleted}}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="ReverseChallengesCompleted">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted}}</td>
-    </ng-container>
+      <ng-container matColumnDef="ReverseChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted}}</td>
+      </ng-container>
 
-    <tr mat-header-row sticky *matHeaderRowDef="leaderboardColumns" ></tr>
-    <tr mat-row *matRowDef="let row; columns: leaderboardColumns;" ></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>
+      <tr mat-row *matRowDef="let row; columns: leaderboardColumns;" ></tr>
+    </table>
+  </div>
 </div>

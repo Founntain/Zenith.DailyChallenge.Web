@@ -8,6 +8,17 @@
 
   a {
     font-size: 3rem;
+
+    @media screen and (max-width: 600px) {
+      font-size: 2rem;
+      text-align: center;
+    }
+  }
+}
+
+.title{
+  @media screen and (max-width: 600px) {
+    text-align: center;
   }
 }
 
@@ -28,6 +39,10 @@
   align-content: center;
   justify-content: center;
 
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+
   .splitWrapper{
     background: rgba(0,0,0,0.50);
     display: flex;
@@ -46,7 +61,6 @@
   .split{
     padding: 5px;
     margin: 5px;
-    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -71,6 +85,10 @@
 
 th{
   font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16pt;
+  }
 }
 
 tr{
@@ -185,6 +203,10 @@ tr{
 
   transition: .3s transform,.3s filter,.3s box-shadow;
 
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
+  }
+
   &:hover{
     box-shadow: 0 6px #210707;
     transform: translateY(2px);
@@ -198,4 +220,3 @@ tr{
     transition: 50ms transform, 50ms filter, 50ms box-shadow;
   }
 }
-

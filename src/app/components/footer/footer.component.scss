@@ -19,7 +19,14 @@
   height: 50px;
   background: linear-gradient(to bottom, #32110e 0, #4f1a0a 100%);
   border-top: 2px solid #bf421c;
+  border-left: 2px solid #8d2e1b;
+  border-right: 2px solid #8d2e1b;
   box-sizing: border-box;
+
+  @media screen and (max-width: 600px) {
+    border-left: none;
+    border-right: none;
+  }
 
   .hidden {
     display: none;
@@ -30,6 +37,10 @@
     text-decoration: none;
     margin: 0 15px;
     font-size: 18px;
+
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+    }
   }
 
   nav a:hover {

@@ -20,7 +20,15 @@ header {
     height: 50px;
     background: linear-gradient(to bottom, #300f0b 0, #4c1d0c 100%);
     border-bottom: 2px solid #b03d1a;
+    border-left: 2px solid #8d2e1b;
+    border-right: 2px solid #8d2e1b;
     box-sizing: border-box;
+
+    @media screen and (max-width: 600px) {
+      font-size: 0.45rem;
+      border-left: none;
+      border-right: none;
+    }
 
     .hidden {
       display: none;

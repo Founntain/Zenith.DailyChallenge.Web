@@ -182,7 +182,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.communityChallengeData = result;
       this.communityChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
 
-      console.log(this.communityChallengeData.communityChallenge)
+      if(this.communityChallengeData?.communityChallenge === undefined) return;
 
       if(this.communityChallengeData.communityChallenge.finished === true){
         this.isCommunityChallengeFinished = "goalAchieved"
