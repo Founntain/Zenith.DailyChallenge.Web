@@ -15,7 +15,6 @@ import {TodayCompletions} from './data/interfaces/TodayCompletions';
   providedIn: 'root'
 })
 export class UserService {
-
   baseUrl = environment.apiUrl + '/user/';
 
   constructor(private http: HttpClient) { }
@@ -30,6 +29,10 @@ export class UserService {
 
   getRuns(username: string, page: number, pageSize: number): Observable<Run[]>{
     return this.http.get<Run[]>(`${this.baseUrl}${username}/runs?page=${page}&pageSize=${pageSize}`);
+  }
+
+  getSplits(username: string, page: number = 0, pageSize: number = 100) {
+    return this.http.get<any[]>(`${this.baseUrl}${username}/splits?page=${page}&pageSize=${pageSize}`);
   }
 
   getCommunityContributions(username: string, page: number, pageSize: number): Observable<CommunityChallengeContributions[]>{

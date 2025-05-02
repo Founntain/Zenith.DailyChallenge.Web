@@ -1,0 +1,133 @@
+<div class="userContainer">
+  <h2>{{username}} zenith splits</h2>
+</div>
+
+<div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.hotel)" class="userContainer">
+  <h2 class="title">Zenith Splits</h2>
+  <div class="splitContainer">
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.hotel)" class="split hotel">
+      <div class="splitWrapper">
+        <a>HOTEL</a>
+        <a class="bigNumber">{{ dailyData.goldSplits.hotel }}</a>
+        <a class="smallNumber">{{ dailyData.splitAverages.hotel }}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.casino)" class="split casino">
+      <div class="splitWrapper">
+        <a>CASINO</a>
+        <a class="bigNumber">{{dailyData.goldSplits.casino}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.casino}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.arena)" class="split arena">
+      <div class="splitWrapper">
+        <a>ARENA</a>
+        <a class="bigNumber">{{dailyData.goldSplits.arena}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.arena}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.museum)" class="split museum">
+      <div class="splitWrapper">
+        <a>MUSEUM</a>
+        <a class="bigNumber">{{dailyData.goldSplits.museum}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.museum}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.offices)" class="split offices">
+      <div class="splitWrapper">
+        <a>OFFICES</a>
+        <a class="bigNumber">{{dailyData.goldSplits.offices}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.offices}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.laboratory)" class="split laboratory">
+      <div class="splitWrapper">
+        <a>LABORATORY</a>
+        <a class="bigNumber">{{dailyData.goldSplits.laboratory}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.laboratory}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.core)" class="split core">
+      <div class="splitWrapper">
+        <a>CORE</a>
+        <a class="bigNumber">{{dailyData.goldSplits.core}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.core}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.corruption)" class="split corruption">
+      <div class="splitWrapper">
+        <a>CORRUPTION</a>
+        <a class="bigNumber">{{dailyData.goldSplits.corruption}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.corruption}}</a>
+      </div>
+    </div>
+
+    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.platformOfTheGods)" class="split potg">
+      <div class="splitWrapper">
+        <a>POTG</a>
+        <a class="bigNumber">{{dailyData.goldSplits.platformOfTheGods}}</a>
+        <a class="smallNumber">{{dailyData.splitAverages.platformOfTheGods}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="splitData.length > 0" class="userContainer" style="overflow-x: auto">
+  <table mat-table [dataSource]="splitData">
+    <h2 class="title">Splits in detail</h2>
+    <ng-container matColumnDef="Hotel">
+      <th mat-header-cell *matHeaderCellDef> Hotel </th>
+      <td mat-cell *matCellDef="let element"> {{element.hotel}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Casino">
+      <th mat-header-cell *matHeaderCellDef> Casino </th>
+      <td mat-cell *matCellDef="let element"> {{element.casino}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Arena">
+      <th mat-header-cell *matHeaderCellDef> Arena </th>
+      <td mat-cell *matCellDef="let element"> {{element.arena}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Museum">
+      <th mat-header-cell *matHeaderCellDef> Museum </th>
+      <td mat-cell *matCellDef="let element"> {{element.museum}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Offices">
+      <th mat-header-cell *matHeaderCellDef> Offices </th>
+      <td mat-cell *matCellDef="let element"> {{element.offices}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Laboratory">
+      <th mat-header-cell *matHeaderCellDef> Laboratory </th>
+      <td mat-cell *matCellDef="let element"> {{element.laboratory}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Core">
+      <th mat-header-cell *matHeaderCellDef> Core </th>
+      <td mat-cell *matCellDef="let element"> {{element.core}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Corruption">
+      <th mat-header-cell *matHeaderCellDef> Corruption </th>
+      <td mat-cell *matCellDef="let element"> {{element.corruption}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Potg">
+      <th mat-header-cell *matHeaderCellDef> POTG </th>
+      <td mat-cell *matCellDef="let element"> {{element.potg}} </td>
+    </ng-container>
+
+    <tr mat-header-row sticky *matHeaderRowDef="splitColumns" ></tr>
+    <tr mat-row *matRowDef="let row; columns: splitColumns;"></tr>
+  </table>
+</div>
