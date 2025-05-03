@@ -84,7 +84,7 @@
         </div>
 
         <div *ngIf="contribution.isLate">
-          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span> . . . but storage was full!? Unlucky?!
+          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span> . . . but was to late :c
         </div>
       </div>
     </div>

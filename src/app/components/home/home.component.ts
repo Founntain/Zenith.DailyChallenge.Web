@@ -289,9 +289,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         prompt = " lost souls searching for the gods"
         break;
       case ConditionType.Quads:
-      case ConditionType.Spins:
       case ConditionType.AllClears:
         prompt = ", without making the walls fall"
+        break;
+      case ConditionType.Spins:
+        prompt = ", without getting dizzy"
         break;
       case ConditionType.Apm:
       case ConditionType.Pps:
