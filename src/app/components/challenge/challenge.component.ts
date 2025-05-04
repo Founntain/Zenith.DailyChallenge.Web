@@ -19,6 +19,7 @@ export class ChallengeComponent implements OnChanges{
   @Input() isCompleted!: boolean;
 
   difficultyText: string = "";
+  difficultyTextLetters: string[] = []
   difficultCssClass: string = "";
   reverseText: string = "";
   processedConditions: { prefix: string; value: string, suffix: string }[] = [];
