@@ -6,7 +6,10 @@ $reverse-text-color: #ff6c6c;
   display: flex;
   flex-direction: column;
   text-align: center;
-  justify-content: center;
+  justify-content: space-between;
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 40px; // Add space for the completed text
 
   .reverseTitle{
     color: #fff;
@@ -45,35 +48,86 @@ $reverse-text-color: #ff6c6c;
 
       .Easy {
         color: white;
-        text-shadow: 0 3px $easy-text-color, 0 6px $easy-text-color, 0 6px 8px $easy-text-color, 0 6px 16px $easy-text-color;
+        text-shadow: 0 3px $easy-text-color, 0 6px 8px $easy-text-color;
       }
 
       .Normal{
         color: #fff;
-        text-shadow: 0 3px #b83a1b, 0 6px #b83a1b, 0 6px 8px #b83a1b, 0 6px 16px #b83a1b;
+        text-shadow: 0 3px #b83a1b, 0 6px 8px #b83a1b;
       }
 
       .Hard{
         color: #fff;
-        text-shadow: 0 3px #e57373, 0 6px #e57373, 0 6px 8px #e57373, 0 6px 16px #e57373;
+        text-shadow: 0 3px #e57373, 0 6px 8px #e57373;
       }
 
       .Expert{
         color: #fff;
-        text-shadow: 0 3px #d49b07, 0 6px #d49b07, 0 6px 8px #d49b07, 0 6px 16px #d49b07;
+        text-shadow: 0 3px #d49b07, 0 6px 8px #d49b07;
       }
 
       .Reverse{
         color: #fff;
-        text-shadow: 0 3px #ff0059,0 6px #ff0059,0 6px 8px #ff0059,0 6px 16px #ff0059;
+        text-shadow: 0 3px #ff0059,0 6px 8px #ff0059;
       }
     }
   }
 
-  .challengeCompleted{
-    color: #FFF;
-    font-family: 'CB' !important;
-    font-size: 1.5rem;
-    text-shadow: 0 3px #00b341, 0 6px #00b341, 0 6px 8px #00b341, 0 6px 16px #00b341;
+  .completionStatus{
+    background: repeating-linear-gradient( -45deg, #0d0d0d55, #0d0d0d55 12px, #1a1a1a55 12px, #1a1a1a55 25px );
+    padding: 5px;
+
+    &.borderTop{
+      border-top: 3px solid #00000033;
+    }
+
+    &.borderBottom{
+      border-bottom: 3px solid #00000033;
+    }
+
+    .baseCompleted{
+      color: #FFF;
+      font-family: 'CB', sans-serif;
+      font-size: 1.5rem;
+      position: relative;
+
+      &.challengeCompleted{
+        text-shadow: 0 3px #00b341, 0 6px 8px #00b341;
+        animation: pulse-glow 2s ease-in-out infinite;
+
+
+        @keyframes pulse-glow {
+          0% {
+            text-shadow: 0 3px #00b341, 0 6px 8px rgba(0, 179, 65, 0.5);
+          }
+          50% {
+            text-shadow: 0 3px #00b341, 0 6px 12px rgba(0, 179, 65, 1);
+          }
+          100% {
+            text-shadow: 0 3px #00b341, 0 6px 8px rgba(0, 179, 65, 0.5);
+          }
+        }
+
+      }
+
+      &.challengeNotCompleted{
+        text-shadow: 0 3px #ff0059,0 6px 8px #ff0059;
+        animation: pulse-glow-red 2s ease-in-out infinite;
+
+
+        @keyframes pulse-glow-red {
+          0% {
+            text-shadow: 0 3px #ff0059, 0 6px 8px rgba(255, 0, 89, 0.5);
+          }
+          50% {
+            text-shadow: 0 3px #ff0059, 0 6px 12px rgba(255, 0, 89, 1);
+          }
+          100% {
+            text-shadow: 0 3px #ff0059, 0 6px 8px rgba(255, 0, 89, 0.5);
+          }
+        }
+
+      }
+    }
   }
 }

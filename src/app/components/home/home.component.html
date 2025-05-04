@@ -1,16 +1,16 @@
 <!-- Welcome -->
 
-<div class="normalContainer">
+<div class="normalContainer"  *ngIf="isLoggedIn">
   <div class="container">
     <span class="title highlight">Welcome to the Zenith Tower Daily Challenge!</span>
     <div>
-      <span class="normalText">Here, you'll find new challenges to take on while playing QP in TETR.IO.</span>
-      <span class="normalText"> To complete a challenge, you must submit a game that meets all the conditions</span> <span class="highlight"> in a single run!</span>
+      <span class="normalText">Tackle on challenges and push yourself to the limit, or learn playstyles you never tried before. Everyone is welcome to give it a try</span>
     </div>
-<!--    <div>-->
-<!--      <a class="normalText">Keep your streak going if you complete all the challenges for a day, your perfect streak will increase!</a>-->
-<!--    </div>-->
-    <div class="flexColumn">
+    <div>
+      <span class="normalText"> To complete a challenge, you must submit a game that meets all the conditions</span>
+      <span class="highlight"> in a single run!</span>
+    </div>
+    <div class="flexColumn" *ngIf="!isLoggedIn">
       <span class="normalText">You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>
       <span class="highlight">your discord account has to be linked to your tetr.io account and is publicly visible</span>
     </div>
@@ -51,6 +51,13 @@
     </div>
     <div class="challenge reverse" *ngIf="getChallengeOfDifficulty(Difficulty.Reverse) !== undefined">
       <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Reverse)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Reverse)"/>
+    </div>
+  </div>
+  <div class="challengeContainer" style="margin-top: 10px">
+    <div class="challenge brick">
+      <h1 class="highlight">? ? ?</h1>
+      <span>You are doomed and you know that. Don't you?</span>
+      <p>Soon ™️</p>
     </div>
   </div>
 </div>

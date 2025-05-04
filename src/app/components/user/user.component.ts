@@ -220,8 +220,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   getCommunityContributionvalue(totalAmountContributed: number, conditionType: ConditionType) {
-    console.log("ct", conditionType, totalAmountContributed)
-
     switch (conditionType) {
       case ConditionType.Height:
         return `${totalAmountContributed} M`;

@@ -82,14 +82,14 @@ div {
 }
 
 .highlight{
-  font-family: 'CB';
+  font-family: 'CB', sans-serif;
   color: #fff;
-  text-shadow: 0 3px #b83a1b, 0 6px #b83a1b, 0 6px 8px #b83a1b, 0 6px 16px #b83a1b;
+  text-shadow: 0 3px #b83a1b, 0 6px 8px #b83a1b;
 }
 
 .clock, .date{
   font-size: 1.5rem !important;
-  font-family: 'CB';
+  font-family: 'CB', sans-serif;
 }
 
 .challengeContainer {
@@ -146,7 +146,7 @@ tr{
 
   .highlight {
     color: white;
-    text-shadow: 0 3px #a164ff, 0 6px #a164ff, 0 6px 8px #a164ff, 0 6px 16px #a164ff;
+    text-shadow: 0 3px #a164ff, 0 6px 8px #a164ff;
   }
 }
 
@@ -162,24 +162,21 @@ tr{
 
   .highlight {
     color: white;
-    text-shadow: 0 3px $easy-text-color, 0 6px $easy-text-color, 0 6px 8px $easy-text-color, 0 6px 16px $easy-text-color;
+    text-shadow: 0 3px $easy-text-color, 0 6px 8px $easy-text-color;
   }
 }
 
 .normal {
-  background-color: #532314;
-
-  border-top: 3px solid #b83a1b;
-  border-left: 3px solid #8d2e1b;
-  border-bottom: 3px solid #2f0a0a;
-  border-right: 3px solid #37160d;
+  background-color: #441f0f;  // Much darker brown-orange
+  border-top: 3px solid #9c3415;    // Dark burnt orange
+  border-left: 3px solid #7a2911;   // Deeper rust
+  border-bottom: 3px solid #2a1309; // Very dark brown
+  border-right: 3px solid #391509;  // Dark russet
   transition: .3s background-color;
-
   color: $primary-text-color;
-
   .highlight {
     color: #fff;
-    text-shadow: 0 3px #b83a1b, 0 6px #b83a1b, 0 6px 8px #b83a1b, 0 6px 16px #b83a1b;
+    text-shadow: 0 3px #9c3415, 0 6px 8px #9c3415;
   }
 }
 
@@ -195,13 +192,13 @@ tr{
 
   .highlight {
     color: #fff;
-    text-shadow: 0 3px #e57373, 0 6px #e57373, 0 6px 8px #e57373, 0 6px 16px #e57373; // Softer red for the highlight
+    text-shadow: 0 3px #e57373, 0 6px 8px #e57373;
   }
 }
 
 
 .expert {
-  background-color: #2a190e;
+  background-color: #3f2516;
   border-top: 3px solid #8f6b19;
   border-left: 3px solid #8c6e0d;
   border-bottom: 3px solid #2f250a;
@@ -232,6 +229,38 @@ tr{
   }
 }
 
+.brick {
+  background: repeating-linear-gradient( -45deg, #0d0d0d, #0d0d0d 12px, #1a1a1a 12px, #1a1a1a 25px );
+  border-top: 3px solid #333333;
+  border-left: 3px solid #262626;
+  border-bottom: 3px solid #0d0d0d;
+  border-right: 3px solid #1a1a1a;
+  color: #757575;
+  text-shadow: 0 0 16px rgba(86, 85, 85, 0.4);
+
+  background-size: 200% 200%;
+
+  animation: scroll 40s linear infinite;
+
+  @keyframes scroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+
+  h1{
+    font-size: 2rem;
+  }
+
+  .highlight {
+    font-family: 'HUN', sans-serif;
+    color: #b4b4b4;
+    text-shadow: 0 3px #333333, 0 6px #333333, 0 6px 8px #333333, 0 6px 16px #333333;
+  }
+}
 .valueBar{
   width: 33%;
   height: 30px;

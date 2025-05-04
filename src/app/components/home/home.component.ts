@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
           let username = new CookieHelper().getCookieByName('username');
 
-          this.userService.getTodaysCallengedCompletions(username).subscribe(result => {
+          this.userService.getTodaysChallengeCompletions(username).subscribe(result => {
             this.todayUsersCompletions = result;
           })
         }

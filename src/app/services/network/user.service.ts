@@ -43,8 +43,8 @@ export class UserService {
     return this.http.get<DailyChallenge[]>(`${this.baseUrl}${username}/challenges?page=${page}&pageSize=${pageSize}`);
   }
 
-  getTodaysCallengedCompletions(username: string): Observable<TodayCompletions>{
-    return this.http.get<TodayCompletions>(`${this.baseUrl}${username}/getTodaysCallengedCompletions`);
+  getTodaysChallengeCompletions(username: string): Observable<TodayCompletions>{
+    return this.http.get<TodayCompletions>(`${this.baseUrl}${username}/getTodaysChallengeCompletions`);
   }
 
   getChallengeCompletions(username: string, page: number, pageSize: number): Observable<ChallengeCompletion[]>{
