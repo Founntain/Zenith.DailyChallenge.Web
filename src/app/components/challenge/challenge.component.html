@@ -1,6 +1,6 @@
 <div class="challengeWrapper">
   <h1 *ngIf="difficultCssClass !== 'Reverse'">{{difficultyText}}</h1>
-  <h1 *ngIf="difficultCssClass === 'Reverse'" class="reverseTitle"><span *ngFor="let letter of difficultyText; let i = index">{{ letter === ' ' ? ' ' : letter }}</span></h1>
+  <h1 *ngIf="difficultCssClass === 'Reverse'" class="reverseTitle"><span *ngFor="let letter of difficultyTextLetters; let i = index">{{ letter === ' ' ? ' ' : letter }}</span></h1>
   <span *ngIf="reverseText.length > 0" class="reverseFlavorText">{{reverseText}}</span>
 
   <div class="conditionsWrapper">
