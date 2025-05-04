@@ -52,6 +52,8 @@ export class ChallengeComponent implements OnChanges{
 
     if(this.difficultCssClass === "Reverse"){
       this.reverseText = this.getReverseFlavorText();
+      this.difficultyTextLetters = this.difficultyText.split('');
+      this.animateWave();
     }
   }
 
@@ -186,4 +188,33 @@ export class ChallengeComponent implements OnChanges{
 
     return mods.split(' ');
   }
+
+  animateWave() {
+    const spans = document.querySelectorAll('.reverseTitle span');
+    const startTime = performance.now();
+
+    const animate = (time: number) => {
+      const elapsed = (time - startTime) / 1000; // Seconds
+
+      spans.forEach((span, i) => {
+        // Horizontal (±4px) and Vertical (±8px) movement (4s cycle)
+        const xPos = Math.sin(elapsed * Math.PI / 2 + i * 0.4) * 4;
+        const yPos = Math.sin(elapsed * Math.PI / 2 + i * 0.4) * 8;
+
+        // Rotation (±5deg, 8s cycle)
+        const rotation = Math.sin(elapsed * Math.PI / 4 + i * 0.2) * 5;
+
+        (span as HTMLElement).style.transform = `
+          translateX(${xPos}px) 
+          translateY(${yPos}px) 
+          rotate(${rotation}deg)
+        `;
+      });
+
+      requestAnimationFrame(animate);
+    };
+
+    requestAnimationFrame(animate);
+  }
+}
 }
