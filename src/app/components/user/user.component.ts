@@ -124,7 +124,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   private loadChallengeData() {
-    this.userService.getChallengeCompletions(this.username, this.runPage - 1, this.runPageSize).subscribe(result => {
+    this.userService.getChallengeCompletions(this.username, this.challengePage - 1, this.challengePageSize).subscribe(result => {
       this.challengeData = result;
     })
   }
@@ -207,12 +207,12 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   protected readonly Difficulty = Difficulty;
 
-  getSpeedrunCompletedClass(speedrun: boolean, speedrunSeen: boolean) {
-    if (speedrun) {
+  getSpeedrunCompletedClass(altitude: number, speedrun: boolean, speedrunSeen: boolean) {
+    if (speedrun && altitude >= 1650) {
       return 'speedrun';
     }
 
-    if (speedrunSeen) {
+    if (speedrunSeen || (speedrun && altitude < 1650)) {
       return 'speedrunSeen';
     }
 

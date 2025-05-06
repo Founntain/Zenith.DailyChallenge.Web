@@ -81,9 +81,9 @@
 <div class="userContainer">
   <h2 class="title">Completed Challenges</h2>
   <div *ngIf="dailyData !== undefined && challengeData !== undefined && challengeData.length > 0" >
-    <mat-paginator *ngIf="dailyData.challengesCompleted > challengePageSize"
+    <mat-paginator *ngIf="dailyData.challengesCompleted > 25"
                    [pageSizeOptions]="[25, 50, 100]"
-                   [pageSize]="runPageSize"
+                   [pageSize]="challengePageSize"
                    [length]="dailyData.challengesCompleted"
                    (page)="onPageChange($event, 0)"
                    aria-label="Select page of runs">
@@ -114,9 +114,9 @@
       </table>
     </div>
 
-    <mat-paginator *ngIf="dailyData.challengesCompleted > challengePageSize"
+    <mat-paginator *ngIf="dailyData.challengesCompleted > 25"
                    [pageSizeOptions]="[25, 50, 100]"
-                   [pageSize]="runPageSize"
+                   [pageSize]="challengePageSize"
                    [length]="dailyData.challengesCompleted"
                    (page)="onPageChange($event, 0)"
                    aria-label="Select page of runs">
@@ -166,10 +166,10 @@
 <div (click)="submitRuns()" *ngIf="isSameUser" class="bigButton"><a>Submit New Runs</a></div>
 
 <div *ngIf="dailyData !== undefined && runData !== undefined && runData.length > 0" class="runs userContainer">
-  <h2 class="title">Your Runs</h2>
+  <h2 class="title">Recent Runs</h2>
 
-  <mat-paginator *ngIf="dailyData.runs > runPageSize"
-                 [pageSizeOptions]="[25, 50, 100]"
+  <mat-paginator *ngIf="dailyData.runs > 25"
+                 [pageSizeOptions]="[25, 50, 100, 250]"
                  [pageSize]="runPageSize"
                  [length]="dailyData.runs"
                  (page)="onPageChange($event, 2)"
@@ -179,60 +179,60 @@
     <table mat-table [dataSource]="runData">
       <ng-container matColumnDef="Altitude">
         <th mat-header-cell *matHeaderCellDef> Altitude </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> {{element.altitude}} M</td>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.altitude}} M</td>
       </ng-container>
 
       <ng-container matColumnDef="APM">
         <th mat-header-cell *matHeaderCellDef> APM </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> {{element.apm}}</td>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.apm}}</td>
       </ng-container>
 
       <ng-container matColumnDef="PPS">
         <th mat-header-cell *matHeaderCellDef> PPS </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> {{element.pps}}</td>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.pps}}</td>
       </ng-container>
 
       <ng-container matColumnDef="VS">
         <th mat-header-cell *matHeaderCellDef> VS </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> {{element.vs}}</td>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.vs}}</td>
       </ng-container>
 
       <ng-container matColumnDef="KOs">
         <th mat-header-cell *matHeaderCellDef> KO's </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> {{element.kOs}}</td>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.kOs}}</td>
       </ng-container>
 
       <ng-container matColumnDef="Quads">
         <th mat-header-cell *matHeaderCellDef> Quads </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> {{element.quads}}</td>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.quads}}</td>
       </ng-container>
 
       <ng-container matColumnDef="Spins">
         <th mat-header-cell *matHeaderCellDef> Spins </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> {{element.spins}}</td>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.spins}}</td>
       </ng-container>
 
       <ng-container matColumnDef="AllClears">
-        <th mat-header-cell *matHeaderCellDef> All Clears </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
+        <th mat-header-cell *matHeaderCellDef> PC's </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
       </ng-container>
 
       <ng-container matColumnDef="Finesse">
         <th mat-header-cell *matHeaderCellDef> Finesse </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> {{element.finesse}}%</td>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.finesse}}%</td>
       </ng-container>
 
       <ng-container matColumnDef="Mods">
         <th mat-header-cell *matHeaderCellDef> Mods </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.speedrunCompleted, element.speedrunSeen)]"> <img *ngFor="let img of getModArray(element.mods)" [src]="getModImage(img)" class="mod" /> </td>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> <img *ngFor="let img of getModArray(element.mods)" [src]="getModImage(img)" class="mod" /> </td>
       </ng-container>
 
       <tr mat-header-row sticky *matHeaderRowDef="runColumns" ></tr>
       <tr mat-row *matRowDef="let row; columns: runColumns;" ></tr>
     </table>
   </div>
-  <mat-paginator *ngIf="dailyData.runs > runPageSize"
-                 [pageSizeOptions]="[25, 50, 100]"
+  <mat-paginator *ngIf="dailyData.runs > 25"
+                 [pageSizeOptions]="[25, 50, 100, 250]"
                  [pageSize]="runPageSize"
                  [length]="dailyData.runs"
                  (page)="onPageChange($event, 2)"
