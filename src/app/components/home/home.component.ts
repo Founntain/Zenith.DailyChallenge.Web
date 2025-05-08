@@ -22,7 +22,7 @@ import {AuthService} from '../../services/network/auth.service';
 import {RecentCommunityContribution} from '../../services/network/data/interfaces/RecentCommunityContribution';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
 import {CookieHelper} from '../../util/CookieHelper';
-import {UserService} from '../../services/network/user.service';
+import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
 
 @Component({
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private zenithService: ZenithService,
     private authService: AuthService,
-    private userService: UserService,
+    private userService: ZenithUserService,
     private cookieHelper: CookieHelper,
     private ngZone: NgZone) {  }
 

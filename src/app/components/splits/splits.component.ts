@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../services/network/user.service';
+import { ZenithUserService } from '../../services/network/zenith-user.service';
 import {NgIf} from '@angular/common';
 import {DailyData} from '../../services/network/data/interfaces/DailyData';
 import {
@@ -39,7 +39,7 @@ export class SplitsComponent implements OnInit {
 
   splitColumns: string[] = ['Hotel', 'Casino', 'Arena', 'Museum', 'Offices', 'Laboratory', 'Core', 'Corruption', 'Potg'];
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private userService: ZenithUserService) {
 
   }
 

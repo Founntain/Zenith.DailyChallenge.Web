@@ -14,8 +14,8 @@ import {TodayCompletions} from './data/interfaces/TodayCompletions';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  baseUrl = environment.apiUrl + '/user/';
+export class ZenithUserService {
+  baseUrl = environment.apiUrl + '/zenithUser/';
 
   constructor(private http: HttpClient) { }
 

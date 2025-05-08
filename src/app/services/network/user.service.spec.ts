@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserService } from './user.service';
+import { ZenithUserService } from './zenith-user.service';
 
 describe('UserService', () => {
-  let service: UserService;
+  let service: ZenithUserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserService);
+    service = TestBed.inject(ZenithUserService);
   });
 
   it('should be created', () => {

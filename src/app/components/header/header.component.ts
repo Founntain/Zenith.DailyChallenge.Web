@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {CookieHelper} from '../../util/CookieHelper';
-import {UserService} from '../../services/network/user.service';
+import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit{
   userProfileData: UserProfileData | undefined;
   isLoggedIn: boolean = false;
 
-  constructor(private userApi: UserService, private authApi: AuthService, private cookieHelper: CookieHelper) {
+  constructor(private userApi: ZenithUserService, private authApi: AuthService, private cookieHelper: CookieHelper) {
   }
 
   loginClick(){

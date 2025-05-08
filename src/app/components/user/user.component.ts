@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {UserService} from '../../services/network/user.service';
+import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {ZenithService} from '../../services/network/zenith.service';
 import {DailyData} from '../../services/network/data/interfaces/DailyData';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
@@ -82,7 +82,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private zenithService: ZenithService, private cookieHelper: CookieHelper) {
+  constructor(private route: ActivatedRoute, private userService: ZenithUserService, private zenithService: ZenithService, private cookieHelper: CookieHelper) {
     this.runPage = 1;
     this.runPageSize = 25;
     this.runPageCount = 1;
