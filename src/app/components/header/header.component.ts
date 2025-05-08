@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit{
   userProfileData: UserProfileData | undefined;
   isLoggedIn: boolean = false;
 
-  constructor(private userApi: UserService, private authApi: AuthService) {
+  constructor(private userApi: UserService, private authApi: AuthService, private cookieHelper: CookieHelper) {
   }
 
   loginClick(){
@@ -33,8 +33,7 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit() {
-    let cookieHelper = new CookieHelper();
-    let username = cookieHelper.getCookieByName('username');
+    let username = this.cookieHelper.getCookieByName('username');
 
     this.authApi.isUserAuthorized().subscribe({
       next: (result) => {

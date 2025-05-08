@@ -396,6 +396,10 @@ tr{
 
   width: 100%;
 
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
+  }
+
   transition: .3s transform,.3s filter,.3s box-shadow;
 
   &:hover{

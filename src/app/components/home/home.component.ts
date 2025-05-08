@@ -72,9 +72,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   recentContributions: RecentCommunityContribution[] = [];
   todayUsersCompletions: TodayCompletions | undefined;
 
-  constructor(private zenithService: ZenithService, private authService: AuthService, private userService: UserService, private ngZone: NgZone) {
-
-  }
+  constructor(
+    private zenithService: ZenithService,
+    private authService: AuthService,
+    private userService: UserService,
+    private cookieHelper: CookieHelper,
+    private ngZone: NgZone) {  }
 
   ngOnInit(): void {
     this.authService.isUserAuthorized().subscribe({
@@ -82,7 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if(result != null){
           this.isLoggedIn = true;
 
-          let username = new CookieHelper().getCookieByName('username');
+          let username = this.cookieHelper.getCookieByName('username');
 
           this.userService.getTodaysChallengeCompletions(username).subscribe(result => {
             this.todayUsersCompletions = result;

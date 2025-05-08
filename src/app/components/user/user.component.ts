@@ -82,7 +82,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private zenithService: ZenithService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private zenithService: ZenithService, private cookieHelper: CookieHelper) {
     this.runPage = 1;
     this.runPageSize = 25;
     this.runPageCount = 1;
@@ -100,8 +100,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.route.paramMap.subscribe(params => {
       this.username = params.get('username')!;
 
-      let cookieHelper = new CookieHelper();
-      let username = cookieHelper.getCookieByName('username');
+      let username = this.cookieHelper.getCookieByName('username');
 
       this.isSameUser = this.username == username;
 
