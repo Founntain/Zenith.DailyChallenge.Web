@@ -261,6 +261,57 @@ tr{
     text-shadow: 0 3px #333333, 0 6px #333333, 0 6px 8px #333333, 0 6px 16px #333333;
   }
 }
+
+.masteryBackground{
+  // fff800 e345d5 dd6943 f6a53f e3445f 4382db 8443de 43de9d
+  width: 100%;
+
+  background: linear-gradient(
+      to right,
+      rgba(255, 248, 0, 0.75),
+      rgba(227, 69, 213, 0.75),
+      rgba(221, 105, 67, 0.75),
+      rgba(246, 165, 63, 0.75),
+      rgba(227, 68, 95, 0.75),
+      rgba(67, 130, 219, 0.75),
+      rgba(132, 67, 222, 0.75),
+      rgba(67, 222, 157, 0.75)
+  );
+}
+
+.mastery {
+  background: repeating-linear-gradient( -45deg, #0d0d0d33, #0d0d0d33 12px, #1a1a1a33 12px, #1a1a1a33 25px );
+  border-top: 3px solid #DDCCDD;
+  border-left: 3px solid #FFDDFF;
+  border-bottom: 3px solid #CCBBCC;
+  border-right: 3px solid #CCAACC;
+  color: white;
+  text-shadow: 0 0 16px rgba(86, 85, 85, 0.4);
+
+  background-size: 200% 200%;
+
+  animation: scroll 40s linear infinite;
+
+  @keyframes scroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+
+  h1{
+    font-size: 2rem;
+  }
+
+  .highlight {
+    font-family: 'HUN', sans-serif;
+    color: white;
+    text-shadow: 0 3px #CCBBCC, 0 6px #CCBBCC, 0 6px 8px #CCBBCC, 0 6px 16px #CCBBCC;
+  }
+}
+
 .valueBar{
   width: 33%;
   height: 30px;
@@ -396,11 +447,11 @@ tr{
 
   width: 100%;
 
+  transition: .3s transform,.3s filter,.3s box-shadow;
+
   @media screen and (max-width: 600px) {
     font-size: 2rem;
   }
-
-  transition: .3s transform,.3s filter,.3s box-shadow;
 
   &:hover{
     box-shadow: 0 6px #210707;
