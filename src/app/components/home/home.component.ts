@@ -24,6 +24,7 @@ import {Difficulty} from '../../services/network/data/enums/Difficulty';
 import {CookieHelper} from '../../util/CookieHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
+import {Condition} from '../../services/network/data/interfaces/Condition';
 
 @Component({
   selector: 'app-home',
@@ -381,8 +382,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     return {} as DailyChallenge;
   }
 
-  getMasteryChallenge(): DailyChallenge {
-    return this.dailyChallenges.find(x => x.isMasteryChallenge)!
+  getMasteryChallengeConditions(): Condition[] {
+    let conditions = this.dailyChallenges.find(x => x.isMasteryChallenge);
+
+    if (conditions == undefined) return [];
+
+    return conditions.conditions
   }
 
   getChallengeCompletionOfDifficulty(difficulty: Difficulty): boolean {

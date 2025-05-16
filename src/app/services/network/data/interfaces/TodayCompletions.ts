@@ -11,11 +11,11 @@ export interface TodayCompletions {
 
 export interface MasteryChallengeCompletion {
   expertCompleted: boolean;
-  noholdCompleted: boolean;
+  noHoldCompleted: boolean;
   messyCompleted: boolean;
   gravityCompleted: boolean;
   volatileCompleted: boolean;
-  doubleholeCompleted: boolean;
+  doubleHoleCompleted: boolean;
   invisibleCompleted: boolean;
   allSpinCompleted: boolean;
 }

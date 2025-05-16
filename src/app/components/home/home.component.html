@@ -60,22 +60,23 @@
     <div class="masteryBackground">
       <div class="challenge mastery">
         <h1 class="highlight">Whispers of Mastery</h1>
-        <span>with each mod </span><span class="highlight">separately</span>
-        <div class="challengeContainer flexRow" style="margin-bottom: 10px; align-items: center">
+        <div *ngIf="getMasteryChallengeConditions().length < 0"><span>each whisper strengthens your grasp</span></div>
+        <div *ngIf="getMasteryChallengeConditions().length > 0"><span>with each mod </span><span class="highlight">separately</span></div>
+        <div *ngIf="getMasteryChallengeConditions().length > 0" class="challengeContainer flexRow" style="margin-bottom: 10px; align-items: center">
 
-          <div *ngFor="let condition of getMasteryChallenge().conditions">
+          <div *ngFor="let condition of getMasteryChallengeConditions()">
             <span>{{getMasteryPrefix(condition.type)}}</span>
             <span class="highlight">{{condition.value}}</span>
             <span>{{getMasterySuffix(condition.type)}}</span>
           </div>
         </div>
-        <div class="challengeContainer" style="margin-bottom: 10px; align-items: center">
+        <div *ngIf="getMasteryChallengeConditions().length > 0" class="challengeContainer" style="margin-bottom: 10px; align-items: center">
           <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.noholdCompleted)]" src="assets/tetrio-img/mods/nohold.png">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png">
           <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png">
           <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png">
           <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.doubleholeCompleted)]" src="assets/tetrio-img/mods/doublehole.png">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png">
           <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png">
           <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png">
         </div>
