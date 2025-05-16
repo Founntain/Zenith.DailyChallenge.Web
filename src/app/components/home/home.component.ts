@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   communityChallengeEndDateUnixSeconds: number = 0;
 
   leaderboardData: DailyLeaderboard[] = [];
-  leaderboardColumns: string[] = ['Username', 'Score', 'EasyChallengesCompleted', 'NormalChallengesCompleted', 'HardChallengesCompleted', 'ExpertChallengesCompleted', 'ReverseChallengesCompleted'];
+  leaderboardColumns: string[] = ['Username', 'Score', 'EasyChallengesCompleted', 'NormalChallengesCompleted', 'HardChallengesCompleted', 'ExpertChallengesCompleted', 'ReverseChallengesCompleted', 'MasteryChallengesCompleted'];
 
   communityChallengeData: CommunityChallenge | undefined;
 
@@ -381,6 +381,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     return {} as DailyChallenge;
   }
 
+  getMasteryChallenge(): DailyChallenge {
+    return this.dailyChallenges.find(x => x.isMasteryChallenge)!
+  }
+
   getChallengeCompletionOfDifficulty(difficulty: Difficulty): boolean {
     switch (difficulty) {
       case Difficulty.Easy:
@@ -396,5 +400,61 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     return false;
+  }
+
+  protected readonly NgClass = NgClass;
+
+  getModMasteryCompletionCssClass(modStatus: boolean | undefined) {
+    return modStatus ? '' : 'grayScale'
+  }
+
+  getMasteryPrefix(type: ConditionType) {
+    switch(type){
+      case ConditionType.KOs:
+        return `Get `;
+      case ConditionType.Height:
+        return `Reach `;
+      case ConditionType.Quads:
+        return `Clear `;
+      case ConditionType.Spins:
+        return `Clear `;
+      case ConditionType.AllClears:
+        return `Get `;
+      case ConditionType.Apm:
+        return `Get `;
+      case ConditionType.Pps:
+        return `Get `;
+      case ConditionType.Vs:
+        return `Get `;
+      case ConditionType.Finesse:
+        return `Achieve `;
+      default:
+        return ""
+    }
+  }
+
+  getMasterySuffix(type: ConditionType) {
+    switch(type){
+      case ConditionType.KOs:
+        return ' KOs';
+      case ConditionType.Height:
+        return 'M';
+      case ConditionType.Quads:
+        return ' Quads';
+      case ConditionType.Spins:
+        return ' Spins';
+      case ConditionType.AllClears:
+        return ' All Clears';
+      case ConditionType.Apm:
+        return ' APM';
+      case ConditionType.Pps:
+        return ' PPS';
+      case ConditionType.Vs:
+        return ' VS';
+      case ConditionType.Finesse:
+        return '% FINESSE';
+      default:
+        return []
+    }
   }
 }

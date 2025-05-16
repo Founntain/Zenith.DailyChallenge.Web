@@ -6,4 +6,5 @@
   hardChallengesCompleted: number;
   expertChallengesCompleted: number;
   reverseChallengesCompleted: number;
+  masteryChallengesCompleted: number;
 }

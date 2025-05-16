@@ -109,10 +109,20 @@ body {
   background: rgb(214, 119, 255)
 }
 
+.bigMod{
+  max-height: 48px;
+  max-width: 48px;
+  margin: 3px;
+}
+
 .mod{
   max-height: 32px;
   max-width: 32px;
   margin: 1px;
+}
+
+.grayScale{
+  filter: grayscale(100%);
 }
 
 .baseContainer{

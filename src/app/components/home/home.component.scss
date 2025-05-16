@@ -56,6 +56,10 @@ div {
   flex-direction: row;
 }
 
+.flexStretch{
+  flex: 1;
+}
+
 .flexColumn{
   display: flex;
   flex-direction: column;
@@ -306,9 +310,8 @@ tr{
   }
 
   .highlight {
-    font-family: 'HUN', sans-serif;
     color: white;
-    text-shadow: 0 3px #CCBBCC, 0 6px #CCBBCC, 0 6px 8px #CCBBCC, 0 6px 16px #CCBBCC;
+    text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
   }
 }
 

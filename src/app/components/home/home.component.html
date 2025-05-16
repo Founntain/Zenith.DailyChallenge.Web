@@ -64,7 +64,26 @@
     <div class="masteryBackground">
       <div class="challenge mastery">
         <h1 class="highlight">Whispers of Mastery</h1>
-        <p>Each whisper strengthens your grasp</p>
+        <h4>Each whisper strengthens your grasp</h4>
+        <span>with each mod </span><span class="highlight">separately</span>
+        <div class="challengeContainer flexRow" style="margin-bottom: 10px; align-items: center">
+
+          <div *ngFor="let condition of getMasteryChallenge().conditions">
+            <span>{{getMasteryPrefix(condition.type)}}</span>
+            <span class="highlight">{{condition.value}}</span>
+            <span>{{getMasterySuffix(condition.type)}}</span>
+          </div>
+        </div>
+        <div class="challengeContainer" style="margin-bottom: 10px; align-items: center">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.noholdCompleted)]" src="assets/tetrio-img/mods/nohold.png">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.doubleholeCompleted)]" src="assets/tetrio-img/mods/doublehole.png">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png">
+          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png">
+        </div>
       </div>
     </div>
   </div>
@@ -111,6 +130,7 @@
   <div *ngIf="isLoggedIn && communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" (click)="submitRuns()" class="bigCommunityButton"><a>Submit new Runs</a></div>
 </div>
 
+<!-- Challenge Leaderboard -->
 <div style="margin: 10px;" class="normalContainer" *ngIf="leaderboardData.length > 0">
   <h3>Challenge Leaderboard</h3>
   <div style="overflow-x: auto;">
@@ -156,6 +176,10 @@
       <ng-container matColumnDef="ReverseChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
         <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted}}</td>
+      </ng-container>
+      <ng-container matColumnDef="MasteryChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center"> M </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.masteryChallengesCompleted}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>

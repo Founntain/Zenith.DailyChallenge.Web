@@ -6,4 +6,16 @@ export interface TodayCompletions {
   hardCompleted: boolean;
   expertCompleted: boolean;
   reverseCompleted: boolean;
+  masteryChallenge: MasteryChallengeCompletion;
+}
+
+export interface MasteryChallengeCompletion {
+  expertCompleted: boolean;
+  noholdCompleted: boolean;
+  messyCompleted: boolean;
+  gravityCompleted: boolean;
+  volatileCompleted: boolean;
+  doubleholeCompleted: boolean;
+  invisibleCompleted: boolean;
+  allSpinCompleted: boolean;
 }
