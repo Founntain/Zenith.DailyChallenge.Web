@@ -1,7 +1,7 @@
 ﻿import {Splits} from './Splits';
-import {SplitsWithId} from './SplitsWithId';
-import {Run} from './Run';
 import {SlimUserinfo} from './SlimUserinfo';
+import {Altitudes} from './Altitudes';
+import {MasteryCompletions} from './MasteryCompletions';
 
 export interface DailyData {
   username: string;
@@ -9,8 +9,10 @@ export interface DailyData {
   runs: number;
   splits: number;
   challengesCompleted: number;
+  totalChallengesCompleted: number;
   userinfo: SlimUserinfo;
+  altitudes: Altitudes;
+  masteryCompletions: MasteryCompletions;
   splitAverages: Splits;
   goldSplits: Splits;
 }
-

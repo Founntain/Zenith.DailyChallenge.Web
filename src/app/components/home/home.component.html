@@ -1,19 +1,23 @@
 <!-- Welcome -->
 
-<div class="normalContainer"  *ngIf="isLoggedIn">
+<div class="normalContainer">
   <div class="container">
     <span class="title highlight">Welcome to the Zenith Tower Daily Challenge!</span>
+
     <div>
       <span class="normalText">Tackle on challenges and push yourself to the limit, or learn playstyles you never tried before. Everyone is welcome to give it a try</span>
     </div>
+
     <div>
       <span class="normalText"> To complete a challenge, you must submit a game that meets all the conditions</span>
       <span class="highlight"> in a single run!</span>
     </div>
+
     <div class="flexColumn" *ngIf="!isLoggedIn">
       <span class="normalText">You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>
       <span class="highlight">your discord account has to be linked to your tetr.io account and is publicly visible</span>
     </div>
+
     <div class="flexColumn">
       <span class="normalText">Resources belong to <a class="highlight" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="highlight" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
       <span class="normalText">Background made by <span class="highlight"><a class="highlight" href="https://linktr.ee/melisek" style="text-decoration: none">melisek</a></span></span>
@@ -25,6 +29,10 @@
 
 <!-- Daily Challenges -->
 <div class="normalContainer padding">
+  <div *ngIf="isAutoTracking" class="autoSubmitContainer stripes">
+    <span>auto submit is enabled</span>
+    <p>next update in {{autoUpdateTimeLeft}}</p>
+  </div>
   <div class="flexColumn" style="margin-bottom: 10px">
     <div>
       <span class="date">daily challenge for </span>

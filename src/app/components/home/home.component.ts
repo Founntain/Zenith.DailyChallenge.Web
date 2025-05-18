@@ -25,6 +25,7 @@ import {CookieHelper} from '../../util/CookieHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
 import {Condition} from '../../services/network/data/interfaces/Condition';
+import {SettingsService} from '../../services/settings.service';
 
 @Component({
   selector: 'app-home',
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private contributionTimerId: any;
   protected readonly Difficulty = Difficulty;
 
+  isAutoTracking: boolean = false;
   isLoggedIn: boolean = false;
 
   dailyChallenges: DailyChallenge[] = [];
@@ -66,7 +68,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   communityChallengeData: CommunityChallenge | undefined;
 
+  nextSubmissionPossibleUnixSeconds: number = 0;
   timeLeft: string = "";
+  autoUpdateTimeLeft: string = "0M 0S";
   communityTimeLeft: string = "";
   isCommunityChallengeFinished: string = "";
 
@@ -78,25 +82,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: ZenithUserService,
     private cookieHelper: CookieHelper,
-    private ngZone: NgZone) {  }
+    private ngZone: NgZone,
+    private settingsService: SettingsService) {  }
 
   ngOnInit(): void {
-    this.authService.isUserAuthorized().subscribe({
-      next: (result) => {
-        if(result != null){
-          this.isLoggedIn = true;
-
-          let username = this.cookieHelper.getCookieByName('username');
-
-          this.userService.getTodaysChallengeCompletions(username).subscribe(result => {
-            this.todayUsersCompletions = result;
-          })
-        }
-      },
-      error: (e) => {
-        this.isLoggedIn = false;
-      }
-    })
+    this.loadUsersTodaysCompletions();
 
     this.zenithService.getDailyChallenges().subscribe(result => {
       this.dailyChallenges = result;
@@ -120,6 +110,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.ngZone.run(() => {
             this.updateTimeLeft();
             this.updateCommunityTimeLeft();
+            this.updateAutoUpdateTimer();
           });
         });
       });
@@ -134,6 +125,29 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
       });
     });
+
+    this.settingsService.autoUpdate$.subscribe(x => {
+      this.isAutoTracking = x
+    });
+  }
+
+  private loadUsersTodaysCompletions() {
+    this.authService.isUserAuthorized().subscribe({
+      next: (result) => {
+        if(result != null){
+          this.isLoggedIn = true;
+
+          let username = this.cookieHelper.getCookieByName('username');
+
+          this.userService.getTodaysChallengeCompletions(username).subscribe(result => {
+            this.todayUsersCompletions = result;
+          })
+        }
+      },
+      error: (e) => {
+        this.isLoggedIn = false;
+      }
+    })
   }
 
   private unixSecondsToString(unixSeconds: number): [number, number, number, number]{
@@ -181,6 +195,33 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.timeLeft = `${timeTuple[1]}h ${timeTuple[2]}m ${timeTuple[3]}s`;
   }
 
+  private lastUpdateSeconds = 0;
+
+  private updateAutoUpdateTimer() {
+    if (!this.isAutoTracking) return;
+
+    let currentTime = new Date();
+
+    if (this.lastUpdateSeconds == 0){
+      this.lastUpdateSeconds = currentTime.getTime() / 1000;
+      return;
+    }
+
+    const targetTime = new Date( (this.lastUpdateSeconds + 120) * 1000);
+
+    const timeDifference = targetTime.getTime() - currentTime.getTime();
+
+    let timeTuple = this.unixSecondsToString(timeDifference);
+
+    this.autoUpdateTimeLeft = `${timeTuple[2]}m ${timeTuple[3]}s`;
+
+    if (timeTuple[2] == 0 && timeTuple[3] == 0) {
+      console.log('submitting runs', timeTuple)
+
+      this.submitRuns();
+    }
+  }
+
   private updateCommunityGoal() {
     this.zenithService.getCommunityChallenge().subscribe(result => {
       this.communityChallengeData = result;
@@ -210,6 +251,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.zenithService.submitRuns().subscribe({
       next: (r) => {
         // Do nothing
+        this.lastUpdateSeconds = new Date().getTime() / 1000;
+
+        // after successfull submission, we update the users data
+        this.loadUsersTodaysCompletions();
       },
       error: (e) => {
         if(e.status == 400){
@@ -406,8 +451,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     return false;
   }
-
-  protected readonly NgClass = NgClass;
 
   getModMasteryCompletionCssClass(modStatus: boolean | undefined) {
     return modStatus ? '' : 'grayScale'

@@ -1,3 +1,25 @@
+.marginLeft{
+  margin-left: 10px;
+}
+
+.marginRight{
+  margin-right: 10px;
+}
+
+.flexRow{
+  display: flex;
+  flex-direction: row;
+}
+
+.flexStretch{
+  flex: 1;
+}
+
+.flexColumn{
+  display: flex;
+  flex-direction: column;
+}
+
 .profileHeader{
   background: linear-gradient(to bottom, #300f0b 0, #4c1d0c 100%);
   border-bottom: 2px solid #b03d1a;
@@ -35,7 +57,19 @@
   @media screen and (max-width: 600px) {
     border-right: none;
     border-left: none;
+    padding: 0px;
   }
+}
+
+.linkContainer{
+  font-family: "CB", sans-serif;
+
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: row;
+
+  cursor: pointer;
 }
 
 .splitContainer{
@@ -231,5 +265,192 @@ tr{
     transform: translateY(6px);
     filter: brightness(4);
     transition: 50ms transform, 50ms filter, 50ms box-shadow;
+  }
+}
+
+.flexContainer{
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    margin: 0;
+  }
+}
+
+.modContainer{
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+
+  color: #FFF !important;
+
+  @media screen and (max-width: 600px) {
+    width: initial;
+  }
+
+  .stripes{
+    position: absolute;
+    inset: 0;
+    z-index: 0;  // Place it behind other content
+
+    background: repeating-linear-gradient( -45deg, #0d0d0d55, #0d0d0d55 12px, #1a1a1a55 12px, #1a1a1a55 25px );
+  }
+
+  .details{
+    font-family: 'CB', "Helvetica Neue", sans-serif, serif;
+
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    height: 100%;
+
+    .details h2,
+    .details h3 {
+      margin: 0;
+      flex: 1;
+    }
+
+    .details img{
+      flex: 1;
+      margin: auto;
+    }
+
+    .details, .altitude{
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .details .completions{
+
+    }
+
+  }
+
+  &.nomod {
+    background-color: #532314;
+    border: #DCD 3px solid;
+
+    .highlight {
+      text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
+    }
+  }
+
+  &.expert {
+    border: rgba(255, 248, 0, 0.75) 3px solid;
+    background-color: rgba(255, 248, 0, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(255, 248, 0, 0.75), 0 6px 16px rgba(255, 248, 0, 0.75);
+    }
+  }
+
+  &.nohold {
+    border: rgba(227, 69, 213, 0.75) 3px solid;
+    background-color: rgba(227, 69, 213, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(227, 69, 213, 0.75), 0 6px 16px rgba(227, 69, 213, 0.75);
+    }
+  }
+
+  &.messy {
+    border: rgba(221, 105, 67, 0.75) 3px solid;
+    background-color: rgba(221, 105, 67, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(221, 105, 67, 0.75), 0 6px 16px rgba(221, 105, 67, 0.75);
+    }
+  }
+
+  &.gravity {
+    border: rgba(246, 165, 63, 0.75) 3px solid;
+    background-color: rgba(246, 165, 63, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(246, 165, 63, 0.75), 0 6px 16px rgba(246, 165, 63, 0.75);
+    }
+  }
+
+  &.volatile {
+    border: rgba(222, 68, 95, 0.75) 3px solid;
+    background-color: rgba(227, 68, 95, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(222, 68, 95, 0.75), 0 6px 16px rgba(222, 68, 95, 0.75);
+    }
+  }
+
+  &.doublehole {
+    border: rgba(67, 130, 219, 0.75) 3px solid;
+    background-color: rgba(67, 130, 219, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(67, 130, 219, 0.75), 0 6px 16px rgba(67, 130, 219, 0.75);
+    }
+  }
+
+  &.invisible {
+    border: rgba(132, 67, 222, 0.75) 3px solid;
+    background-color: rgba(132, 67, 222, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(132, 67, 222, 0.75), 0 6px 16px rgba(132, 67, 222, 0.75);
+    }
+  }
+
+  &.allspin {
+    border: rgba(67, 222, 157, 0.75) 3px solid;
+    background-color: rgba(67, 222, 157, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(67, 222, 157, 0.75), 0 6px 16px rgba(67, 222, 157, 0.75);
+    }
+  }
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+
+  &:checked {
+    background-color: #ff9c6b;
+    border-color: #ff9c6b;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  &:hover {
+    border-color: #b83a1b;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
   }
 }

@@ -359,23 +359,6 @@ tr{
   width: 100%; /* Adjust as necessary */
 }
 
-.progressBar {
-  background: rgba(0,0,0,0.25);
-  border: 3px solid #5b1ab8;
-
-  z-index: 1;
-}
-
-.progressBarAccent {
-  background: #5b1ab8;
-  padding: 3px;
-  transition: width 1s ease-in-out;
-  width: 0;
-  z-index: 2;
-
-  animation: scrolltex 0.5s linear infinite;
-}
-
 .bigButton{
   font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
 
@@ -529,4 +512,35 @@ tr{
 
 .headerImage{
   margin: 2px;
+}
+
+.autoSubmitContainer{
+  font-family: 'CB', "Helvetica Neue", sans-serif, serif;
+
+  span{
+    font-size: 1.5rem;
+
+    text-shadow: 0 3px #00b341, 0 6px 8px #00b341;
+  }
+
+  p{
+    font-size: 1.25rem;
+    margin:0;
+
+    margin-top: 5px;
+  }
+
+  color: #FFF;
+
+  border-bottom: 3px solid #00000044 ;
+
+  padding: 10px;
+  margin-top: -10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-bottom: 10px;
+}
+
+.stripes{
+  background: repeating-linear-gradient( -45deg, #0d0d0d88, #0d0d0d88 12px, #1a1a1a88 12px, #1a1a1a88 25px );
 }

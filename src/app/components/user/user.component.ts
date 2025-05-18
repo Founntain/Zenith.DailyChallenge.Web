@@ -24,6 +24,9 @@ import {Difficulty} from '../../services/network/data/enums/Difficulty';
 import {CookieHelper} from '../../util/CookieHelper';
 import {CommunityChallengeContributions} from '../../services/network/data/interfaces/CommunityChallengeContributions';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
+import {MatIcon} from '@angular/material/icon';
+import {SettingsService} from '../../services/settings.service';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-user',
@@ -42,7 +45,8 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
     MatPaginator,
     MatPaginatorModule,
     NgForOf,
-    NgClass
+    NgClass,
+    MatIcon,
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -50,6 +54,7 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
 export class UserComponent implements OnInit, AfterViewInit {
   username!: string;
 
+  isAutoUpdate: boolean = false;
   isSameUser: boolean = false;
 
   dailyData!: DailyData;
@@ -82,7 +87,13 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private route: ActivatedRoute, private userService: ZenithUserService, private zenithService: ZenithService, private cookieHelper: CookieHelper) {
+  constructor(
+    private route: ActivatedRoute,
+    private userService: ZenithUserService,
+    private zenithService: ZenithService,
+    private cookieHelper: CookieHelper,
+    private settingsService: SettingsService
+  ) {
     this.runPage = 1;
     this.runPageSize = 25;
     this.runPageCount = 1;
@@ -114,6 +125,10 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.loadChallengeData();
       this.loadCommunityContributionData();
     })
+
+    this.settingsService.autoUpdate$.subscribe(
+      value => this.isAutoUpdate = value
+    );
   }
 
   private loadRunData() {
@@ -239,5 +254,15 @@ export class UserComponent implements OnInit, AfterViewInit {
       case ConditionType.Finesse:
         return `${totalAmountContributed}%`;
     }
+  }
+
+  openTetrioProfile() {
+    window.location.href = `https://ch.tetr.io/u/${this.dailyData.tetrioId}`;
+  }
+
+  onAutoTrackingChanged(event: any) {
+    let isChecked: boolean = event?.target?.checked ?? false;
+
+    this.settingsService.setAutoUpdate(isChecked);
   }
 }

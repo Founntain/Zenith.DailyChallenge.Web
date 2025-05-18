@@ -1,78 +1,191 @@
 <div class="userContainer">
   <h1 class="title">{{username}}'s profile</h1>
+  <div class="linkContainer">
+      <mat-icon class="icon" (click)="openTetrioProfile()">double_arrow</mat-icon>
+      <span (click)="openTetrioProfile()" style="font-size: 18pt">TETR.IO profile</span>
+  </div>
 </div>
-<div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.hotel)" class="userContainer">
-  <h2 class="title">Zenith Splits</h2>
-  <div class="splitContainer">
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.hotel)" class="split hotel">
-      <div class="splitWrapper">
-        <a>HOTEL</a>
-        <a class="bigNumber">{{ dailyData.goldSplits.hotel }}</a>
-        <a class="smallNumber">{{ dailyData.splitAverages.hotel }}</a>
+
+<div *ngIf="isSameUser" class="userContainer">
+  <h2>Settings</h2>
+  <div style="display: inline-flex; justify-items: center; align-items: center;">
+    <input type="checkbox" id="autoTrackingSetting" [checked]="isAutoUpdate" (change)="onAutoTrackingChanged($event)">
+    <label for="autoTrackingSetting">Enable Auto Tracking?</label>
+  </div>
+</div>
+
+<div class="userContainer">
+  <h1 class="title">Daily Adventure</h1>
+
+  <div *ngIf="dailyData !== undefined" class="flexColumn">
+    <div class="flexContainer">
+      <div class="modContainer nomod">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <p>No Mod</p>
+          <p class="altitude highlight">{{dailyData.altitudes.noMod.toLocaleString()}} M</p>
+          <p class="completions">{{dailyData.totalChallengesCompleted.toLocaleString()}} challenges completed</p>
+        </div>
+      </div>
+      <div class="modContainer expert">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/expert.png" class="bigMod" />
+          <p class="altitude highlight">{{dailyData.altitudes.expert.toLocaleString()}} M</p>
+          <p class="completions">{{dailyData.masteryCompletions?.expert?.toLocaleString() ?? 0}} masteries completed</p>
+        </div>
+      </div>
+      <div class="modContainer nohold">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/nohold.png" class="bigMod" />
+          <p class="altitude highlight">{{dailyData.altitudes.noHold.toLocaleString()}} M</p>
+          <p class="completions">{{dailyData.masteryCompletions?.noHold?.toLocaleString() ?? 0}} mastery completions</p>
+        </div>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.casino)" class="split casino">
-      <div class="splitWrapper">
-        <a>CASINO</a>
-        <a class="bigNumber">{{dailyData.goldSplits.casino}}</a>
-        <a class="smallNumber">{{dailyData.splitAverages.casino}}</a>
+    <div class="flexContainer">
+      <div class="modContainer messy">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/messy.png" class="bigMod" />
+          <p class="altitude highlight">{{dailyData.altitudes.messy.toLocaleString()}} M</p>
+          <p class="completions">{{dailyData.masteryCompletions?.messy?.toLocaleString() ?? 0}} mastery completions</p>
+        </div>
+      </div>
+
+      <div class="modContainer gravity">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/gravity.png" class="bigMod" />
+          <p class="altitude highlight">{{dailyData.altitudes.gravity.toLocaleString()}} M</p>
+          <p class="completions">{{dailyData.masteryCompletions?.gravity?.toLocaleString() ?? 0}} mastery completions</p>
+        </div>
+      </div>
+
+      <div class="modContainer volatile">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/volatile.png" class="bigMod" />
+          <p class="altitude highlight">{{dailyData.altitudes.volatile.toLocaleString()}} M</p>
+          <p class="completions">{{dailyData.masteryCompletions?.volatile?.toLocaleString() ?? 0}} mastery completions</p>
+        </div>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.arena)" class="split arena">
-      <div class="splitWrapper">
-        <a>ARENA</a>
-        <a class="bigNumber">{{dailyData.goldSplits.arena}}</a>
-        <a class="smallNumber">{{dailyData.splitAverages.arena}}</a>
+    <div class="flexContainer">
+      <div class="modContainer doublehole">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/doublehole.png" class="bigMod" />
+          <p class="altitude highlight">{{dailyData.altitudes.doubleHole.toLocaleString()}} M</p>
+          <p class="completions">{{dailyData.masteryCompletions?.doubleHole?.toLocaleString() ?? 0}} mastery completions</p>
+        </div>
+      </div>
+
+      <div class="modContainer invisible">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/invisible.png" class="bigMod" />
+          <p class="altitude highlight">{{dailyData.altitudes.invisible.toLocaleString()}} M</p>
+          <p class="completions">{{dailyData.masteryCompletions?.invisible?.toLocaleString() ?? 0}} mastery completions</p>
+        </div>
+      </div>
+
+      <div class="modContainer allspin">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/allspin.png" class="bigMod" />
+          <p class="altitude highlight">{{dailyData.altitudes.allSpin.toLocaleString()}} M</p>
+          <p class="completions">{{dailyData.masteryCompletions?.allSpin?.toLocaleString() ?? 0}} mastery completions</p>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.museum)" class="split museum">
-      <div class="splitWrapper">
-        <a>MUSEUM</a>
-        <a class="bigNumber">{{dailyData.goldSplits.museum}}</a>
-        <a class="smallNumber">{{dailyData.splitAverages.museum}}</a>
+  <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.hotel)">
+    <h2 class="title">Zenith Splits</h2>
+    <div class="splitContainer">
+      <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.hotel)" class="split hotel">
+        <div class="splitWrapper">
+          <a>HOTEL</a>
+          <a class="bigNumber">{{ dailyData.goldSplits.hotel }}</a>
+          <a class="smallNumber">{{ dailyData.splitAverages.hotel }}</a>
+        </div>
       </div>
-    </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.offices)" class="split offices">
-      <div class="splitWrapper">
-        <a>OFFICES</a>
-        <a class="bigNumber">{{dailyData.goldSplits.offices}}</a>
-        <a class="smallNumber">{{dailyData.splitAverages.offices}}</a>
+      <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.casino)" class="split casino">
+        <div class="splitWrapper">
+          <a>CASINO</a>
+          <a class="bigNumber">{{dailyData.goldSplits.casino}}</a>
+          <a class="smallNumber">{{dailyData.splitAverages.casino}}</a>
+        </div>
       </div>
-    </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.laboratory)" class="split laboratory">
-      <div class="splitWrapper">
-        <a>LABORATORY</a>
-        <a class="bigNumber">{{dailyData.goldSplits.laboratory}}</a>
-        <a class="smallNumber">{{dailyData.splitAverages.laboratory}}</a>
+      <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.arena)" class="split arena">
+        <div class="splitWrapper">
+          <a>ARENA</a>
+          <a class="bigNumber">{{dailyData.goldSplits.arena}}</a>
+          <a class="smallNumber">{{dailyData.splitAverages.arena}}</a>
+        </div>
       </div>
-    </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.core)" class="split core">
-      <div class="splitWrapper">
-        <a>CORE</a>
-        <a class="bigNumber">{{dailyData.goldSplits.core}}</a>
-        <a class="smallNumber">{{dailyData.splitAverages.core}}</a>
+      <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.museum)" class="split museum">
+        <div class="splitWrapper">
+          <a>MUSEUM</a>
+          <a class="bigNumber">{{dailyData.goldSplits.museum}}</a>
+          <a class="smallNumber">{{dailyData.splitAverages.museum}}</a>
+        </div>
       </div>
-    </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.corruption)" class="split corruption">
-      <div class="splitWrapper">
-        <a>CORRUPTION</a>
-        <a class="bigNumber">{{dailyData.goldSplits.corruption}}</a>
-        <a class="smallNumber">{{dailyData.splitAverages.corruption}}</a>
+      <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.offices)" class="split offices">
+        <div class="splitWrapper">
+          <a>OFFICES</a>
+          <a class="bigNumber">{{dailyData.goldSplits.offices}}</a>
+          <a class="smallNumber">{{dailyData.splitAverages.offices}}</a>
+        </div>
       </div>
-    </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.platformOfTheGods)" class="split potg">
-      <div class="splitWrapper">
-        <a>POTG</a>
-        <a class="bigNumber">{{dailyData.goldSplits.platformOfTheGods}}</a>
-        <a class="smallNumber">{{dailyData.splitAverages.platformOfTheGods}}</a>
+      <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.laboratory)" class="split laboratory">
+        <div class="splitWrapper">
+          <a>LABORATORY</a>
+          <a class="bigNumber">{{dailyData.goldSplits.laboratory}}</a>
+          <a class="smallNumber">{{dailyData.splitAverages.laboratory}}</a>
+        </div>
+      </div>
+
+      <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.core)" class="split core">
+        <div class="splitWrapper">
+          <a>CORE</a>
+          <a class="bigNumber">{{dailyData.goldSplits.core}}</a>
+          <a class="smallNumber">{{dailyData.splitAverages.core}}</a>
+        </div>
+      </div>
+
+      <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.corruption)" class="split corruption">
+        <div class="splitWrapper">
+          <a>CORRUPTION</a>
+          <a class="bigNumber">{{dailyData.goldSplits.corruption}}</a>
+          <a class="smallNumber">{{dailyData.splitAverages.corruption}}</a>
+        </div>
+      </div>
+
+      <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.goldSplits.platformOfTheGods)" class="split potg">
+        <div class="splitWrapper">
+          <a>POTG</a>
+          <a class="bigNumber">{{dailyData.goldSplits.platformOfTheGods}}</a>
+          <a class="smallNumber">{{dailyData.splitAverages.platformOfTheGods}}</a>
+        </div>
       </div>
     </div>
   </div>
@@ -81,8 +194,8 @@
 <div class="userContainer">
   <h2 class="title">Completed Challenges</h2>
   <div *ngIf="dailyData !== undefined && challengeData !== undefined && challengeData.length > 0" >
-    <mat-paginator *ngIf="dailyData.challengesCompleted > 25"
-                   [pageSizeOptions]="[25, 50, 100]"
+    <mat-paginator *ngIf="dailyData.challengesCompleted > 10"
+                   [pageSizeOptions]="[10, 25, 50, 100]"
                    [pageSize]="challengePageSize"
                    [length]="dailyData.challengesCompleted"
                    (page)="onPageChange($event, 0)"
@@ -115,7 +228,7 @@
     </div>
 
     <mat-paginator *ngIf="dailyData.challengesCompleted > 25"
-                   [pageSizeOptions]="[25, 50, 100]"
+                   [pageSizeOptions]="[10, 25, 50, 100]"
                    [pageSize]="challengePageSize"
                    [length]="dailyData.challengesCompleted"
                    (page)="onPageChange($event, 0)"
@@ -127,7 +240,7 @@
 <div *ngIf="communityContributionData !== undefined && communityContributionData.length > 0" class="dailyContainer userContainer">
   <h2 class="title">Community Challenge Contributions</h2>
   <mat-paginator *ngIf="communityContributionData[0].totalContributions > challengePageSize"
-                 [pageSizeOptions]="[25, 50, 100]"
+                 [pageSizeOptions]="[10, 25, 50, 100]"
                  [pageSize]="communityChallengePageSize"
                  [length]="communityContributionData[0].totalContributions"
                  (page)="onPageChange($event, 1)"
@@ -154,7 +267,7 @@
   </div>
 
   <mat-paginator *ngIf="communityContributionData[0].totalContributions > challengePageSize"
-                 [pageSizeOptions]="[25, 50, 100]"
+                 [pageSizeOptions]="[10, 25, 50, 100]"
                  [pageSize]="communityChallengePageSize"
                  [length]="communityContributionData[0].totalContributions"
                  (page)="onPageChange($event, 1)"

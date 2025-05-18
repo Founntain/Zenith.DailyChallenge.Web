@@ -20,11 +20,11 @@ export class ZenithUserService {
   constructor(private http: HttpClient) { }
 
   getProfile(username: string): Observable<UserProfileData>{
-    return this.http.get<UserProfileData>(`${this.baseUrl}${username}/profileData`);
+    return this.http.get<UserProfileData>(`${this.baseUrl}${username}/profile`);
   }
 
   getDaily(username: string): Observable<DailyData>{
-    return this.http.get<DailyData>(`${this.baseUrl}${username}/dailyData`);
+    return this.http.get<DailyData>(`${this.baseUrl}${username}/daily`);
   }
 
   getRuns(username: string, page: number, pageSize: number): Observable<Run[]>{
