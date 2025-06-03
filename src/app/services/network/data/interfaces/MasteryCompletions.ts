@@ -1,10 +1,10 @@
 export interface MasteryCompletions {
-  expert: number;
-  noHold: number;
-  messy: number;
-  gravity: number;
-  volatile: number;
-  doubleHole: number;
-  invisible: number;
-  allSpin: number;
+  expert: number | null;
+  noHold: number | null;
+  messy: number | null;
+  gravity: number | null;
+  volatile: number | null;
+  doubleHole: number | null;
+  invisible: number | null;
+  allSpin: number | null;
 }

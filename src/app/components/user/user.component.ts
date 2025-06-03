@@ -62,7 +62,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   challengeData: ChallengeCompletion[] = [];
   communityContributionData: CommunityChallengeContributions[] = [];
 
-  runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Finesse', 'Mods'];
+  runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
   communityChallengeColumns: string[] = ['Date', 'Contribution'];
 

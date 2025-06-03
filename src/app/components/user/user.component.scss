@@ -297,6 +297,15 @@ tr{
     z-index: 0;  // Place it behind other content
 
     background: repeating-linear-gradient( -45deg, #0d0d0d55, #0d0d0d55 12px, #1a1a1a55 12px, #1a1a1a55 25px );
+
+    .borderTop{
+      //border-top: 3px solid #00000033;
+      border-top: 3px solid #FFF;
+    }
+
+    .borderBottom{
+      border-bottom: 3px solid #00000033;
+    }
   }
 
   .details{

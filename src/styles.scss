@@ -2,10 +2,6 @@
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 
-$easy-text-color: #6baeff;
-$primary-text-color: #ff9c6b;
-$reverse-text-color: #ff6c6c;
-
 @font-face {
   font-family: 'HUN';
   src: url('/assets/fonts/hun2.ttf');
@@ -32,27 +28,47 @@ html {
   ));
 }
 
+
 /* You can add global styles to this file, and also import other style files */
 
-.material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  direction: ltr;
-  font-feature-settings: 'liga';
-  -webkit-font-feature-settings: 'liga';
+.hun{
+  font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
+}
 
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+.cb{
+  font-family: 'CB', "Helvetica Neue", sans-serif, serif;
+}
+
+.gap {
+  gap: 10px;
+}
+
+.noGap{
+  gap: 0 !important;
+}
+
+.stripes{
+  background: repeating-linear-gradient( -45deg, #0d0d0d88, #0d0d0d88 12px, #1a1a1a88 12px, #1a1a1a88 25px );
+
+  &.borderTop{
+    border-top: 3px solid #00000033;
+  }
+
+  &.borderBottom{
+    border-bottom: 3px solid #00000033;
+  }
+}
+
+.stripesLight{
+  background: repeating-linear-gradient( -45deg, #0d0d0d55, #0d0d0d55 12px, #1a1a1a55 12px, #1a1a1a55 25px );
+
+  &.borderTop{
+    border-top: 3px solid #00000033;
+  }
+
+  &.borderBottom{
+    border-bottom: 3px solid #00000033;
+  }
 }
 
 html, body {
@@ -205,4 +221,25 @@ select {
   border: none !important;         /* Removes the border */
   outline: none !important;        /* Prevents focus outline */
   background: none !important;     /* Removes background if needed */
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
 }

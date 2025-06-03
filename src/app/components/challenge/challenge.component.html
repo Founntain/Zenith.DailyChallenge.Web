@@ -1,9 +1,9 @@
 <div class="challengeWrapper">
   <div class="completionStatus borderBottom">
-    <h1 *ngIf="difficultCssClass !== 'Reverse'">{{ difficultyText }}</h1>
-    <h1 *ngIf="difficultCssClass === 'Reverse'" class="reverseTitle">{{ difficultyText }}</h1>
+    <h1 *ngIf="difficultCssClass !== 'Reverse'" class="cb" style="margin: 10px">{{ difficultyText }}</h1>
+    <h1 *ngIf="difficultCssClass === 'Reverse'" class="cb reverseTitle" style="margin: 10px">{{ difficultyText }}</h1>
   </div>
-  <div *ngIf="reverseText.length > 0">
+  <div *ngIf="reverseText.length > 0" style="margin-top: 10px;">
     <span class="reverseFlavorText">{{ reverseText }}</span>
   </div>
   <div>

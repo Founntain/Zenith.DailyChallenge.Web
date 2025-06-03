@@ -1,7 +1,7 @@
 <!-- Welcome -->
 
 <div class="normalContainer">
-  <div class="container">
+  <div class="container gap">
     <span class="title highlight">Welcome to the Zenith Tower Daily Challenge!</span>
 
     <div>
@@ -9,8 +9,11 @@
     </div>
 
     <div>
-      <span class="normalText"> To complete a challenge, you must submit a game that meets all the conditions</span>
-      <span class="highlight"> in a single run!</span>
+      <span class="normalText">to complete a challenge, you must submit a</span>
+      <span class="highlight">  single run </span>
+      <span class="normalText">that meets</span>
+      <span class="highlight">  all </span>
+      <span class="normalText">conditions for a difficulty</span>
     </div>
 
     <div class="flexColumn" *ngIf="!isLoggedIn">
@@ -24,7 +27,7 @@
     </div>
 
   </div>
-  <div *ngIf="isLoggedIn && communityChallengeData?.communityChallenge === undefined" (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
+  <div *ngIf="isLoggedIn" (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
 </div>
 
 <!-- Daily Challenges -->
@@ -33,6 +36,7 @@
     <span>auto submit is enabled</span>
     <p>next update in {{autoUpdateTimeLeft}}</p>
   </div>
+
   <div class="flexColumn" style="margin-bottom: 10px">
     <div>
       <span class="date">daily challenge for </span>
@@ -41,7 +45,7 @@
     <div class="clock">TIME LEFT: <span class="clock highlight">{{timeLeft}}</span></div>
   </div>
 
-  <div class="challengeContainer" *ngIf="dailyChallenges.length > 0">
+  <div class="challengeContainer gap" *ngIf="dailyChallenges.length > 0">
     <div class="challenge easy">
       <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Easy)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Easy)"/>
     </div>
@@ -55,30 +59,37 @@
     </div>
   </div>
 
-  <div class="challengeContainer" style="margin-top: 10px" *ngIf="dailyChallenges.length > 0">
+  <div class="challengeContainer gap" style="margin-top: 10px" *ngIf="dailyChallenges.length > 0">
     <div class="challenge expert" *ngIf="getChallengeOfDifficulty(Difficulty.Expert) !== undefined">
       <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Expert)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Expert)"/>
     </div>
+
     <div class="challenge reverse" *ngIf="getChallengeOfDifficulty(Difficulty.Reverse) !== undefined">
       <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Reverse)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Reverse)"/>
     </div>
   </div>
 
-  <div class="challengeContainer" style="margin-top: 10px">
-    <div class="masteryBackground">
-      <div class="challenge mastery">
+  <div class="challengeContainer gap" style="margin-top: 10px">
+    <div class="masteryBackground gap">
+      <div class="challenge mastery gap">
         <h1 class="highlight">Whispers of Mastery</h1>
-        <div *ngIf="getMasteryChallengeConditions().length < 0"><span>each whisper strengthens your grasp</span></div>
-        <div *ngIf="getMasteryChallengeConditions().length > 0"><span>with each mod </span><span class="highlight">separately</span></div>
-        <div *ngIf="getMasteryChallengeConditions().length > 0" class="challengeContainer flexRow" style="margin-bottom: 10px; align-items: center">
 
-          <div *ngFor="let condition of getMasteryChallengeConditions()">
+        <div *ngIf="getMasteryChallengeConditions().length < 0">
+          <span>each whisper strengthens your grasp</span>
+        </div>
+
+        <div *ngIf="getMasteryChallengeConditions().length > 0">
+          <span>with each mod </span><span class="highlight">separately</span>
+        </div>
+
+        <div *ngIf="getMasteryChallengeConditions().length > 0" class="challengeContainer flexRow gap" style="margin-bottom: 10px; align-items: center">
+          <div *ngFor="let condition of getMasteryChallengeConditions()" class="gap">
             <span>{{getMasteryPrefix(condition.type)}}</span>
             <span class="highlight">{{condition.value}}</span>
             <span>{{getMasterySuffix(condition.type)}}</span>
           </div>
         </div>
-        <div *ngIf="getMasteryChallengeConditions().length > 0" class="challengeContainer" style="margin-bottom: 10px; align-items: center">
+        <div *ngIf="getMasteryChallengeConditions().length > 0" class="challengeContainer gap" style="margin-bottom: 10px; align-items: center">
           <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png">
           <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png">
           <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png">
@@ -101,27 +112,37 @@
 </div>
 
 <!-- Community Challenges -->
-<div [ngClass]="['container', 'challenge', 'community', isCommunityChallengeFinished]" style="padding-bottom: 10px">
-  <h1 style="margin: 5px; margin-top: 20px">COMMUNITY CHALLENGE</h1>
-  <div *ngIf="communityChallengeData?.communityChallenge === undefined" class="simpleContainer">
+<div [ngClass]="['container', 'challenge', 'community', 'gap', isCommunityChallengeFinished]">
+  <div class="stripes borderBottom" style="width: 100%">
+    <h1 class="cb" style="margin: 10px;">COMMUNITY CHALLENGE</h1>
+  </div>
+
+  <!-- No CC Active -->
+  <div *ngIf="communityChallengeData?.communityChallenge === undefined" class="simpleContainer gap">
     <a>currently no community challenge is active</a>
     <sub>check back later</sub>
   </div>
-  <div *ngIf="communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" class="simpleContainer">
+
+  <!-- CC Active -->
+  <div *ngIf="communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" class="simpleContainer gap">
     <div class="clock" style="margin-bottom: 10px">Ends in: <span class="clock highlight">{{communityTimeLeft}}</span></div>
+
     <a class="highlight">as a community</a>
-    <div class="bigText">
+
+    <div class="bigText gap">
       <a class="">{{getCommunityPromptPrefix()}}</a>
       <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
       <a class="">{{getCommunityPromptSuffix()}}</a>
     </div>
-    <div>
+
+    <div class="gap">
       <a class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
       of
       <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
       {{getCommunityPromptProgressSuffix()}}
       <span>by <span class="highlight">{{communityChallengeData.communityChallenge.participants}} participants</span></span>
     </div>
+
     <div *ngIf="recentContributions.length > 0" class="recentContributionsContainer" style="text-align: center; margin-bottom: 10px">
       <div *ngFor="let contribution of recentContributions">
         <div *ngIf="!contribution.isLate">
@@ -134,11 +155,10 @@
       </div>
     </div>
 
-    <div *ngIf="recentContributions.length > 0" class="allContributersContainer" >
+    <div *ngIf="recentContributions.length > 0" class="allContributersContainer gap stripesLight borderTop" >
       <span *ngFor="let contributer of communityChallengeData.topContributers" class="highlight" style="cursor:pointer;" [routerLink]="['/user', contributer.username]" title="{{contributer.username}} contributed {{getContributionValue(contributer.amount, communityChallengeData.communityChallenge.conditionType)}}">{{contributer.username}}</span>
     </div>
   </div>
-  <div *ngIf="isLoggedIn && communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" (click)="submitRuns()" class="bigCommunityButton"><a>Submit new Runs</a></div>
 </div>
 
 <!-- Challenge Leaderboard -->

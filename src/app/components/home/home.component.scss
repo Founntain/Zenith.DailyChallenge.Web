@@ -4,11 +4,6 @@ $hard-text-color: #e75959;
 $reverse-text-color: #FFFFFF;
 $expert-text-color: #ffc107;
 
-
-div {
-  gap: 10px;
-}
-
 .title{
   font-size: 2rem !important;
 
@@ -471,12 +466,10 @@ tr{
 .allContributersContainer{
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   text-align: center;
-  width: 100%;
-
-  margin-bottom: 10px;
+  padding: 10px;
 }
 
 .goalAchieved{
@@ -539,8 +532,4 @@ tr{
   margin-left: -10px;
   margin-right: -10px;
   margin-bottom: 10px;
-}
-
-.stripes{
-  background: repeating-linear-gradient( -45deg, #0d0d0d88, #0d0d0d88 12px, #1a1a1a88 12px, #1a1a1a88 25px );
 }

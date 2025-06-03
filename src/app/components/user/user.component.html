@@ -330,11 +330,6 @@
         <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="Finesse">
-        <th mat-header-cell *matHeaderCellDef> Finesse </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.finesse}}%</td>
-      </ng-container>
-
       <ng-container matColumnDef="Mods">
         <th mat-header-cell *matHeaderCellDef> Mods </th>
         <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> <img *ngFor="let img of getModArray(element.mods)" [src]="getModImage(img)" class="mod" /> </td>

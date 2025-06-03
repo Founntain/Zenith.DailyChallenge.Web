@@ -167,7 +167,7 @@ export class ChallengeComponent implements OnChanges{
     switch (this.challenge.mods) {
       case "expert_reversed": return "Fear, Oppression, And Limitless Ambition";
       case "nohold_reversed": return "A Detachment From Even That Which Is Moderate";
-      case "messy_reversed": return "In A Rigged Game, Your Mind Is The Only Fair Adventage";
+      case "messy_reversed": return "In A Rigged Game, Your Mind Is The Only Fair Advantage";
       case "gravity_reversed": return "The Ground You Stood On Never Existed In The First Place";
       case "volatile_reversed": return "Strength Isn't Necessary For Those With Nothing To Lose";
       case "doublehole_reversed": return "Neither The Freedom Of Life Or Peace Of Death";
@@ -186,4 +186,6 @@ export class ChallengeComponent implements OnChanges{
 
     return mods.split(' ');
   }
+
+  protected readonly Difficulty = Difficulty;
 }
