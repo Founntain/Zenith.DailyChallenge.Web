@@ -533,3 +533,24 @@ tr{
   margin-right: -10px;
   margin-bottom: 10px;
 }
+
+.mat-mdc-row:nth-of-type(1) .link {
+  color: white !important;
+  font-size: 2rem;
+
+  text-shadow: 0 3px #ffc107, 0 5px #ffc107, 0 6px 16px #ffc107;
+}
+
+.mat-mdc-row:nth-of-type(2) .link {
+  color: white !important;
+  font-size: 1.5rem;
+
+  text-shadow: 0 3px #C0C0C0, 0 5px #C0C0C0, 0 6px 16px #C0C0C0;
+}
+
+.mat-mdc-row:nth-of-type(3) .link{
+  color: white !important;
+  font-size: 1.3rem;
+
+  text-shadow: 0 3px #CD7F32, 0 5px #CD7F32, 0 6px 16px #CD7F32;
+}

@@ -1,11 +1,17 @@
-<div class="userContainer">
-  <h1 class="title">{{username}}'s profile</h1>
-  <div class="linkContainer">
-      <mat-icon class="icon" (click)="openTetrioProfile()">double_arrow</mat-icon>
-      <span (click)="openTetrioProfile()" style="font-size: 18pt">TETR.IO profile</span>
+<!-- Profile header-->
+<div *ngIf="dailyData !== undefined" class="userContainer" style="position: relative; padding: 0px">
+  <div class="userBanner" style="background-image: url('{{dailyData.userInfo?.banner}}');"></div>
+  <div class="flexRow gap userInfoContainer">
+    <img src="{{dailyData.userInfo?.avatar}}" class="profileImage">
+    <span class="title username textShadow cb">{{username}}'s profile</span>
+  </div>
+  <div class="linkContainer userInfoContainer">
+      <mat-icon class="icon textShadow" (click)="openTetrioProfile()">double_arrow</mat-icon>
+      <span (click)="openTetrioProfile()" class="textShadow" style="font-size: 18pt">TETR.IO profile</span>
   </div>
 </div>
 
+<!-- Settings -->
 <div *ngIf="isSameUser" class="userContainer">
   <h2>Settings</h2>
   <div style="display: inline-flex; justify-items: center; align-items: center;">
@@ -14,8 +20,14 @@
   </div>
 </div>
 
-<div class="userContainer">
-  <h1 class="title">Daily Adventure</h1>
+<!-- Daily Adventure -->
+<div *ngIf="dailyData !== undefined" class="userContainer">
+  <h2 class="title">ZDC Stats & History</h2>
+
+  <div class="flexColumn scoreContainer stripes">
+    <img src="assets/score.png" class="hugeMod"/>
+    <span class="scoreDisplay"> {{dailyData.score}}</span>
+  </div>
 
   <div *ngIf="dailyData !== undefined" class="flexColumn">
     <div class="flexContainer">

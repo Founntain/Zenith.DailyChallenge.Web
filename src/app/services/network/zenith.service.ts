@@ -24,8 +24,8 @@ export class ZenithService {
     return this.http.get<DailyChallenge[]>(this.baseUrl + 'daily');
   }
 
-  getLeaderboard(): Observable<DailyLeaderboard[]>{
-    return this.http.get<DailyLeaderboard[]>(this.baseUrl + 'daily/getLeaderboard');
+  getLeaderboard(page:number = 1, pageSize:number = 30): Observable<DailyLeaderboard>{
+    return this.http.get<DailyLeaderboard>(this.baseUrl + `daily/getLeaderboard?page=${page}&pageSize=${pageSize}`);
   }
 
   getCommunityChallenge(): Observable<CommunityChallenge>{

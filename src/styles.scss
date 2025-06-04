@@ -125,15 +125,21 @@ body {
   background: rgb(214, 119, 255)
 }
 
+.mod{
+  max-height: 32px;
+  max-width: 32px;
+  margin: 1px;
+}
+
 .bigMod{
   max-height: 48px;
   max-width: 48px;
   margin: 3px;
 }
 
-.mod{
-  max-height: 32px;
-  max-width: 32px;
+.hugeMod{
+  max-height: 96px;
+  max-width: 96px;
   margin: 1px;
 }
 

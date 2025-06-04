@@ -10,9 +10,10 @@ export interface DailyData {
   splits: number;
   challengesCompleted: number;
   totalChallengesCompleted: number;
-  userinfo: SlimUserinfo;
+  userInfo: SlimUserinfo | undefined;
   altitudes: Altitudes;
-  masteryCompletions: MasteryCompletions;
+  masteryCompletions: MasteryCompletions | undefined;
+  score: number;
   splitAverages: Splits;
   goldSplits: Splits;
 }

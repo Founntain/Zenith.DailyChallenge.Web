@@ -1,0 +1,76 @@
+<div style="margin: 10px;" class="normalContainer" *ngIf="leaderboardData?.leaderboard?.length ?? 0> 0">
+  <div class="stripes" style="padding: 20px">
+    <div class="stripes"></div>
+    <span class="bigText cb">Challenge Leaderboard</span>
+  </div>
+
+  <mat-paginator *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 10"
+                 [pageSizeOptions]="[10, 25, 50, 100, 250]"
+                 [pageSize]="pageSize"
+                 [length]="leaderboardData?.leaderboard?.length"
+                 (page)="onPageChange($event)"
+                 aria-label="Select page of runs">
+  </mat-paginator>
+
+  <div style="overflow-x: auto;">
+    <table mat-table [dataSource]="leaderboardData?.leaderboard ?? []">
+      <ng-container matColumnDef="Username">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" > <a class="link" [routerLink]="['/user', element.username]">{{element.username}}</a> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Score">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+          <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.score}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="EasyChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+          <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.easyChallengesCompleted}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="NormalChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+          <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.normalChallengesCompleted}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="HardChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+          <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.hardChallengesCompleted}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="ExpertChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.expertChallengesCompleted}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="ReverseChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted}}</td>
+      </ng-container>
+      <ng-container matColumnDef="MasteryChallengesCompleted">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.masteryChallengesCompleted}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>
+      <tr mat-row *matRowDef="let row; columns: leaderboardColumns;" ></tr>
+    </table>
+  </div>
+
+  <mat-paginator *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 10"
+                 [pageSizeOptions]="[10, 25, 50, 100, 250]"
+                 [pageSize]="pageSize"
+                 [length]="leaderboardData?.leaderboard?.length ?? 0"
+                 (page)="onPageChange($event)"
+                 aria-label="Select page of runs">
+  </mat-paginator>
+</div>

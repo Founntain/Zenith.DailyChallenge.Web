@@ -150,7 +150,7 @@
         </div>
 
         <div *ngIf="contribution.isLate">
-          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span> . . . but was to late :c
+          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span> . . . but was too late :c
         </div>
       </div>
     </div>
@@ -162,10 +162,10 @@
 </div>
 
 <!-- Challenge Leaderboard -->
-<div style="margin: 10px;" class="normalContainer" *ngIf="leaderboardData.length > 0">
+<div style="margin: 10px;" class="normalContainer" *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 0">
   <h3>Challenge Leaderboard</h3>
   <div style="overflow-x: auto;">
-    <table mat-table [dataSource]="leaderboardData">
+    <table mat-table [dataSource]="leaderboardData?.leaderboard ?? []">
       <ng-container matColumnDef="Username">
         <th mat-header-cell *matHeaderCellDef> Name </th>
         <td mat-cell *matCellDef="let element" > <a class="link" [routerLink]="['/user', element.username]">{{element.username}}</a> </td>
@@ -216,5 +216,8 @@
       <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>
       <tr mat-row *matRowDef="let row; columns: leaderboardColumns;" ></tr>
     </table>
+  </div>
+  <div style="margin: 20px;">
+    <a class="bigHighlightText highlight" [routerLink]="['/leaderboard']">full leaderboard here</a>
   </div>
 </div>

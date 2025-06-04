@@ -1,5 +1,5 @@
 ﻿export interface SlimUserinfo {
-  username: string;
-  avatar: string;
-  banner: string;
+  username: string | undefined;
+  avatar: string | undefined;
+  banner: string | undefined;
 }

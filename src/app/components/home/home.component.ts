@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   runsUntilUnixSeconds: number = 0;
   communityChallengeEndDateUnixSeconds: number = 0;
 
-  leaderboardData: DailyLeaderboard[] = [];
+  leaderboardData: DailyLeaderboard | undefined;
   leaderboardColumns: string[] = ['Username', 'Score', 'EasyChallengesCompleted', 'NormalChallengesCompleted', 'HardChallengesCompleted', 'ExpertChallengesCompleted', 'ReverseChallengesCompleted', 'MasteryChallengesCompleted'];
 
   communityChallengeData: CommunityChallenge | undefined;
@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.updateCommunityGoal();
 
     this.ngZone.runOutsideAngular(() => {
-      this.timerId = interval(10000).subscribe(() => {
+      this.contributionTimerId = interval(10000).subscribe(() => {
         this.ngZone.run(() => {
           this.updateCommunityGoal();
         });
@@ -244,6 +244,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.timerId) {
       this.timerId.unsubscribe();
+    }
+
+    if (this.contributionTimerId) {
+      this.contributionTimerId.unsubscribe();
     }
   }
 
