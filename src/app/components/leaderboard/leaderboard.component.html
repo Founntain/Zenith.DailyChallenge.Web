@@ -7,7 +7,7 @@
   <mat-paginator *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 10"
                  [pageSizeOptions]="[10, 25, 50, 100, 250]"
                  [pageSize]="pageSize"
-                 [length]="leaderboardData?.leaderboard?.length"
+                 [length]="leaderboardData?.totalUsers ?? 0"
                  (page)="onPageChange($event)"
                  aria-label="Select page of runs">
   </mat-paginator>
@@ -69,7 +69,7 @@
   <mat-paginator *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 10"
                  [pageSizeOptions]="[10, 25, 50, 100, 250]"
                  [pageSize]="pageSize"
-                 [length]="leaderboardData?.leaderboard?.length ?? 0"
+                 [length]="leaderboardData?.totalUsers ?? 0"
                  (page)="onPageChange($event)"
                  aria-label="Select page of runs">
   </mat-paginator>

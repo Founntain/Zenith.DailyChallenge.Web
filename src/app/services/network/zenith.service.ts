@@ -6,6 +6,7 @@ import {DailyChallenge} from './data/interfaces/DailyChallenge';
 import {DailyLeaderboard} from './data/interfaces/DailyLeaderboard';
 import {CommunityChallenge} from './data/interfaces/CommunityChallenge';
 import {RecentCommunityContribution} from './data/interfaces/RecentCommunityContribution';
+import {ServerStatistics} from './data/interfaces/ServerStatistics';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,10 @@ export class ZenithService {
 
   getSplitLeaderboard(): Observable<DailyChallenge[]>{
     return this.http.get<DailyChallenge[]>(this.baseUrl + 'daily/getSplitLeaderboard');
+  }
+
+  getServerStatistics(): Observable<ServerStatistics>{
+    return this.http.get<ServerStatistics>(this.baseUrl + 'daily/getServerStatistics');
   }
 
   submitRuns(): Observable<any>{

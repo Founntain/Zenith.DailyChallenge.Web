@@ -554,3 +554,209 @@ tr{
 
   text-shadow: 0 3px #CD7F32, 0 5px #CD7F32, 0 6px 16px #CD7F32;
 }
+
+.flexContainer{
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    margin: 0;
+  }
+}
+
+.modContainer{
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+
+  color: #FFF !important;
+
+  @media screen and (max-width: 600px) {
+    width: initial;
+  }
+
+  .stripes{
+    position: absolute;
+    inset: 0;
+    z-index: 0;  // Place it behind other content
+
+    background: repeating-linear-gradient( -45deg, #0d0d0d55, #0d0d0d55 12px, #1a1a1a55 12px, #1a1a1a55 25px );
+
+    .borderTop{
+      //border-top: 3px solid #00000033;
+      border-top: 3px solid #FFF;
+    }
+
+    .borderBottom{
+      border-bottom: 3px solid #00000033;
+    }
+  }
+
+  .details{
+    font-family: 'CB', "Helvetica Neue", sans-serif, serif;
+
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    height: 100%;
+
+    .details h2,
+    .details h3 {
+      margin: 0;
+      flex: 1;
+    }
+
+    .details img{
+      flex: 1;
+      margin: auto;
+    }
+
+    .details, .altitude{
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .details .completions{
+
+    }
+
+  }
+
+  &.nomod {
+    background-color: #532314;
+    border: #DCD 3px solid;
+
+    .highlight {
+      text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
+    }
+  }
+
+  &.expert {
+    border: rgba(255, 248, 0, 0.75) 3px solid;
+    background-color: rgba(255, 248, 0, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(255, 248, 0, 0.75), 0 6px 16px rgba(255, 248, 0, 0.75);
+    }
+  }
+
+  &.nohold {
+    border: rgba(227, 69, 213, 0.75) 3px solid;
+    background-color: rgba(227, 69, 213, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(227, 69, 213, 0.75), 0 6px 16px rgba(227, 69, 213, 0.75);
+    }
+  }
+
+  &.messy {
+    border: rgba(221, 105, 67, 0.75) 3px solid;
+    background-color: rgba(221, 105, 67, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(221, 105, 67, 0.75), 0 6px 16px rgba(221, 105, 67, 0.75);
+    }
+  }
+
+  &.gravity {
+    border: rgba(246, 165, 63, 0.75) 3px solid;
+    background-color: rgba(246, 165, 63, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(246, 165, 63, 0.75), 0 6px 16px rgba(246, 165, 63, 0.75);
+    }
+  }
+
+  &.volatile {
+    border: rgba(222, 68, 95, 0.75) 3px solid;
+    background-color: rgba(227, 68, 95, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(222, 68, 95, 0.75), 0 6px 16px rgba(222, 68, 95, 0.75);
+    }
+  }
+
+  &.doublehole {
+    border: rgba(67, 130, 219, 0.75) 3px solid;
+    background-color: rgba(67, 130, 219, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(67, 130, 219, 0.75), 0 6px 16px rgba(67, 130, 219, 0.75);
+    }
+  }
+
+  &.invisible {
+    border: rgba(132, 67, 222, 0.75) 3px solid;
+    background-color: rgba(132, 67, 222, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(132, 67, 222, 0.75), 0 6px 16px rgba(132, 67, 222, 0.75);
+    }
+  }
+
+  &.allspin {
+    border: rgba(67, 222, 157, 0.75) 3px solid;
+    background-color: rgba(67, 222, 157, 0.75);
+
+    .highlight {
+      text-shadow: 0 3px rgba(67, 222, 157, 0.75), 0 6px 16px rgba(67, 222, 157, 0.75);
+    }
+  }
+
+  &.reverseMod {
+    border: 3px solid #ff0059;
+    background-color: rgba(170, 0, 89, 0.5);
+
+    .highlight {
+      text-shadow: 0 3px #ff0059, 0 6px 16px #ff0059;
+    }
+  }
+
+  &.masteryMod {
+    border: 3px solid #FFDDFF;
+
+    .highlight {
+      text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
+    }
+  }
+}
+
+.scoreContainer{
+  .bigScoreText{
+    font-family: 'CB', "Helvetica Neue", sans-serif, serif;
+    font-size: 3rem;
+  }
+
+  color: white;
+
+  text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #532314;
+  border: #DCD 3px solid;
+
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 10px;
+
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
+  }
+
+  img{
+    @media screen and (max-width: 600px) {
+      max-height: 64px;
+      max-width: 64px;
+    }
+  }
+}

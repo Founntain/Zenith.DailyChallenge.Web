@@ -26,6 +26,7 @@ import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
 import {Condition} from '../../services/network/data/interfaces/Condition';
 import {SettingsService} from '../../services/settings.service';
+import {ServerStatistics} from '../../services/network/data/interfaces/ServerStatistics';
 
 @Component({
   selector: 'app-home',
@@ -77,6 +78,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   recentContributions: RecentCommunityContribution[] = [];
   todayUsersCompletions: TodayCompletions | undefined;
 
+  serverStatistics: ServerStatistics | undefined;
+
   constructor(
     private zenithService: ZenithService,
     private authService: AuthService,
@@ -99,6 +102,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.zenithService.getLeaderboard().subscribe(result => {
       this.leaderboardData = result;
+    })
+
+    this.zenithService.getServerStatistics().subscribe(result => {
+      this.serverStatistics = result;
     })
 
     this.zenithService.getDates().subscribe(result => {
