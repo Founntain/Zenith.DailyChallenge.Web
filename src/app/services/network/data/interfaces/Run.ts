@@ -10,6 +10,7 @@
   pps: number;
   vs: number;
   finesse: number;
+  back2back: number;
   speedrunSeen: boolean;
   speedrunCompleted: boolean;
 }

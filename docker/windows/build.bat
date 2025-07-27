@@ -1,1 +1,1 @@
-﻿docker build -t founntain/zenith.dailychallenge.webangular:latest ../.
+﻿docker build -t founntain/zenith.dailychallenge.webangular:latest ../../.

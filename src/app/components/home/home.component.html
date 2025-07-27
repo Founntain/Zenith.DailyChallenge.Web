@@ -26,6 +26,12 @@
       <span class="normalText">Icon and Background made by <span class="highlight"><a class="highlight" href="https://melisek.dev" style="text-decoration: none">melisek</a></span></span>
     </div>
 
+    <hr style="width: 100%; color: #ff9c6b">
+
+    <div class="flexColumn cb support" style="font-size: 1.1rem;">
+      <span class="normalText">If you want to support me for making ZDC, maybe consider gifting me TETR.IO supporter.</span>
+      <span>This way you support the game, osk and me!</span>
+    </div>
   </div>
   <div *ngIf="isLoggedIn" (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
 </div>
@@ -170,7 +176,7 @@
  <div class="flexColumn scoreContainer stripes gap">
     <div class="flexColumn">
       <img src="assets/score.png" class="hugeMod" style="margin: auto"/>
-      <span class="scoreDisplay bigScoreText"> {{serverStatistics.totalScore}}</span>
+      <span class="scoreDisplay bigScoreText"> {{serverStatistics.totalScore.toLocaleString()}}</span>
     </div>
 
     <div class="flexColumn">
@@ -292,7 +298,7 @@
 
       <div class="details">
         <img src="assets/mastery.png" class="bigMod" />
-        <p class="altitude highlight">{{serverStatistics.masteryScore / 2}} masteries</p>
+        <p class="altitude highlight">{{(serverStatistics.masteryScore / 2).toLocaleString()}} masteries</p>
       </div>
     </div>
   </div>

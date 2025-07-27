@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {ZenithService} from '../../services/network/zenith.service';
 import {DailyData} from '../../services/network/data/interfaces/DailyData';
@@ -47,6 +47,7 @@ import {MatSlideToggle} from '@angular/material/slide-toggle';
     NgForOf,
     NgClass,
     MatIcon,
+    RouterLink,
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -62,7 +63,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   challengeData: ChallengeCompletion[] = [];
   communityContributionData: CommunityChallengeContributions[] = [];
 
-  runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Mods'];
+  runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Back2Back', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
   communityChallengeColumns: string[] = ['Date', 'Contribution'];
 
@@ -253,6 +254,8 @@ export class UserComponent implements OnInit, AfterViewInit {
         return `${totalAmountContributed} VS`;
       case ConditionType.Finesse:
         return `${totalAmountContributed}%`;
+      case ConditionType.Back2Back:
+        return `${totalAmountContributed} B2B`;
     }
   }
 

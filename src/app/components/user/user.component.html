@@ -1,4 +1,10 @@
 <!-- Profile header-->
+
+<div *ngIf="dailyData === undefined" class="userContainer cb">
+  <h1 style="text-align: center">User <span style="color: white">{{username}}</span> not found</h1>
+  <h3 style="text-align: center; text-decoration: underline; font-weight: normal">Maybe encourage {{username}} to start their ZDC Career today!</h3>
+</div>
+
 <div *ngIf="dailyData !== undefined" class="userContainer" style="position: relative; padding: 0px">
   <div class="userBanner" style="background-image: url('{{dailyData.userInfo?.banner}}');"></div>
   <div class="flexRow gap userInfoContainer">
@@ -12,7 +18,7 @@
 </div>
 
 <!-- Settings -->
-<div *ngIf="isSameUser" class="userContainer">
+<div *ngIf="isSameUser && dailyData !== undefined" class="userContainer">
   <h2>Settings</h2>
   <div style="display: inline-flex; justify-items: center; align-items: center;">
     <input type="checkbox" id="autoTrackingSetting" [checked]="isAutoUpdate" (change)="onAutoTrackingChanged($event)">
@@ -20,7 +26,7 @@
   </div>
 </div>
 
-<!-- Daily Adventure -->
+<!-- Daily Adventure & Splits -->
 <div *ngIf="dailyData !== undefined" class="userContainer">
   <h2 class="title">ZDC Stats & History</h2>
 
@@ -200,12 +206,17 @@
         </div>
       </div>
     </div>
+    <div class="linkContainer userInfoContainer">
+      <mat-icon class="icon textShadow" (click)="openTetrioProfile()">double_arrow</mat-icon>
+      <span [routerLink]="['/user', username, 'splits']" class="textShadow" style="font-size: 18pt">View all Splits</span>
+    </div>
   </div>
 </div>
 
-<div class="userContainer">
+<!-- Challenges Completed -->
+<div class="userContainer" *ngIf="dailyData !== undefined && challengeData !== undefined && challengeData.length > 0">
   <h2 class="title">Completed Challenges</h2>
-  <div *ngIf="dailyData !== undefined && challengeData !== undefined && challengeData.length > 0" >
+  <div>
     <mat-paginator *ngIf="dailyData.challengesCompleted > 10"
                    [pageSizeOptions]="[10, 25, 50, 100]"
                    [pageSize]="challengePageSize"
@@ -249,6 +260,7 @@
     </div>
 </div>
 
+<!-- Community Contributions-->
 <div *ngIf="communityContributionData !== undefined && communityContributionData.length > 0" class="dailyContainer userContainer">
   <h2 class="title">Community Challenge Contributions</h2>
   <mat-paginator *ngIf="communityContributionData[0].totalContributions > challengePageSize"
@@ -288,7 +300,7 @@
 
 </div>
 
-<div (click)="submitRuns()" *ngIf="isSameUser" class="bigButton"><a>Submit New Runs</a></div>
+<div (click)="submitRuns()" *ngIf="isSameUser && dailyData !== undefined" class="bigButton"><a>Submit New Runs</a></div>
 
 <div *ngIf="dailyData !== undefined && runData !== undefined && runData.length > 0" class="runs userContainer">
   <h2 class="title">Recent Runs</h2>
@@ -340,6 +352,11 @@
       <ng-container matColumnDef="AllClears">
         <th mat-header-cell *matHeaderCellDef> PC's </th>
         <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Back2Back">
+        <th mat-header-cell *matHeaderCellDef> B2B </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.back2Back}}</td>
       </ng-container>
 
       <ng-container matColumnDef="Mods">

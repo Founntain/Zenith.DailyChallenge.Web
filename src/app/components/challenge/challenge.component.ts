@@ -75,6 +75,8 @@ export class ChallengeComponent implements OnChanges{
         return `Get ${value} VS`;
       case ConditionType.Finesse:
         return `Get ${value}% Finesse`;
+      case ConditionType.Back2Back:
+        return `Obtain ${value} Back2Back`;
       default:
         return ""
     }
@@ -100,6 +102,8 @@ export class ChallengeComponent implements OnChanges{
         return `Get`;
       case ConditionType.Finesse:
         return `Achieve`;
+      case ConditionType.Back2Back:
+        return `Obtain`;
       default:
         return ""
     }
@@ -125,6 +129,8 @@ export class ChallengeComponent implements OnChanges{
         return [value, ' VS'];
       case ConditionType.Finesse:
         return [value, '% FINESSE'];
+      case ConditionType.Back2Back:
+        return [value, ' B2B'];
       default:
         return []
     }

@@ -7,5 +7,6 @@
   Apm,
   Pps,
   Vs,
-  Finesse
+  Finesse,
+  Back2Back
 }
