@@ -16,7 +16,12 @@
     <table mat-table [dataSource]="leaderboardData?.leaderboard ?? []">
       <ng-container matColumnDef="Username">
         <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element" > <a class="link" [routerLink]="['/user', element.username]">{{element.username}}</a> </td>
+        <td mat-cell *matCellDef="let element" >
+          <div class="flexRow" style="align-items: center; gap: 5px">
+            <img src="assets/tetrio-img/ranks/{{element.rank}}.png" class="mod">
+            <a class="link" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
+          </div>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="Score">

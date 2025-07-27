@@ -10,6 +10,7 @@
   <div class="flexRow gap userInfoContainer">
     <img src="{{dailyData.userInfo?.avatar}}" class="profileImage">
     <span class="title username textShadow cb">{{username}}'s profile</span>
+    <img src="assets/tetrio-img/ranks/{{dailyData.userInfo?.tetrioRank}}.png" class="mod">
   </div>
   <div class="linkContainer userInfoContainer">
       <mat-icon class="icon textShadow" (click)="openTetrioProfile()">double_arrow</mat-icon>

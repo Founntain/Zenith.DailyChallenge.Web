@@ -2,4 +2,5 @@
   username: string | undefined;
   avatar: string | undefined;
   banner: string | undefined;
+  tetrioRank: string | undefined;
 }
