@@ -6,12 +6,14 @@ import {UserProfileData} from '../../services/network/data/interfaces/UserProfil
 import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {AuthService} from '../../services/network/auth.service';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
   imports: [
     NgIf,
-    RouterLink
+    RouterLink,
+    MatIcon
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -45,6 +47,17 @@ export class HeaderComponent implements OnInit{
       },
       error: (e) => {
         this.isLoggedIn = false;
+      }
+    })
+  }
+
+  logout() {
+    this.authApi.logout().subscribe({
+      next: (result) => {
+        window.location.reload();
+      },
+      error: (e) => {
+        alert('An error occurred while logging out. Please try again later. Error: ' + e);
       }
     })
   }

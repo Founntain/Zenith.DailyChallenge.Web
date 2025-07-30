@@ -15,4 +15,8 @@ export class AuthService {
   isUserAuthorized(): Observable<UserProfileData>{
     return this.http.post<UserProfileData>(`${this.baseUrl}`, {}, { withCredentials: true });
   }
+
+  logout(): Observable<UserProfileData>{
+    return this.http.post<UserProfileData>(`${this.baseUrl}logout`, {}, { withCredentials: true });
+  }
 }

@@ -1,14 +1,15 @@
 <header>
   <div class="flexHeader">
     <h1 class="marginLeft"><a [routerLink]="['']">ZENITH DAILY CHALLENGE</a></h1>
-    <nav>
+    <nav class="cb">
       <div *ngIf="!isLoggedIn">
         <a (click)="loginClick()">login</a>
       </div>
 
-      <div class="userInfo" *ngIf="isLoggedIn && userProfileData !== undefined">
+      <div class="userInfo cb" *ngIf="isLoggedIn && userProfileData !== undefined">
         <img class="profilePicture" src="{{userProfileData.avatar}}"/>
         <a [routerLink]="['/user', userProfileData.username]" >{{userProfileData.username}}</a>
+        <mat-icon class="icon" (click)="logout()">logout</mat-icon>
       </div>
     </nav>
   </div>

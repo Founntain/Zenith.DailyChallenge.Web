@@ -24,4 +24,8 @@ export class CookieHelper {
     }
     return null;
   }
+
+  public logout() {
+
+  }
 }

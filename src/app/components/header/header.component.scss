@@ -1,4 +1,16 @@
 header {
+  .icon{
+    color: #ff9c6b !important;
+    margin-right: 5px;
+    cursor: pointer;
+
+    transition: color 0.3s;
+
+    &:hover{
+      color: white !important;
+    }
+  }
+
   .marginLeft {
     margin-left: 10px;
   }
@@ -57,6 +69,4 @@ header {
       }
     }
   }
-
-
 }

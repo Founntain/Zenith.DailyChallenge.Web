@@ -5,6 +5,7 @@ export interface DailyChallenge extends BaseData {
   date: string;
   conditions: Condition[];
   mods: string;
+  completions: number;
   isMasteryChallenge: boolean;
   difficulty: number;
   points: number;
