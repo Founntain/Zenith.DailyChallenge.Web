@@ -241,11 +241,11 @@ export class UserComponent implements OnInit, AfterViewInit {
       case ConditionType.KOs:
         return `${totalAmountContributed} KO's`;
       case ConditionType.Quads:
-        return `${totalAmountContributed} quads`;
+        return `${totalAmountContributed} Quads`;
       case ConditionType.Spins:
-        return `${totalAmountContributed} spins`;
+        return `${totalAmountContributed} Spins`;
       case ConditionType.AllClears:
-        return `${totalAmountContributed} all clears`;
+        return `${totalAmountContributed} All Clears`;
       case ConditionType.Apm:
         return `${totalAmountContributed} APM`;
       case ConditionType.Pps:

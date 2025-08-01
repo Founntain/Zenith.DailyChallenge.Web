@@ -1,7 +1,7 @@
 <div style="margin: 10px;" class="normalContainer" *ngIf="leaderboardData?.leaderboard?.length ?? 0> 0">
-  <div class="stripes" style="padding: 20px">
+  <div class="stripes border centerText" style="padding: 20px">
     <div class="stripes"></div>
-    <span class="bigText cb">Challenge Leaderboard</span>
+    <span class="bigText boldText">Challenge Leaderboard</span>
   </div>
 
   <mat-paginator *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 10"
@@ -19,7 +19,7 @@
         <td mat-cell *matCellDef="let element" >
           <div class="flexRow" style="align-items: center; gap: 5px">
             <img src="assets/tetrio-img/ranks/{{element.rank}}.png" class="mod">
-            <a class="link" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
+            <a class="link uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
           </div>
         </td>
       </ng-container>

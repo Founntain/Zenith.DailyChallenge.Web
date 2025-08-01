@@ -1,61 +1,20 @@
-$primary-text-color: #ff9c6b;
-.normalContainer {
-  margin: 10px;
+@use '../../../styles' as *;
 
-  background-color: #532314;
-
-  border-top: 3px solid #b83a1b;
-  border-left: 3px solid #8d2e1b;
-  border-bottom: 3px solid #2f0a0a;
-  border-right: 3px solid #37160d;
-  transition: .3s background-color;
-
-  color: $primary-text-color;
-
-  text-align: center;
+.border{
+  border-top: 1px solid rgba($primary-color, 0.5);
+  border-bottom: 1px solid rgba($primary-color, 0.5);
+  border-left: 1px solid rgba($primary-color, 0.5);
+  border-right: 1px solid rgba($primary-color, 0.5);
 }
 
 .bigText{
   font-size: 2rem;
 }
 
-h1{
-  font-family: 'CB', "Helvetica Neue", sans-serif, serif;
-}
-
-th{
-  font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
-}
-
-tr{
-  font-family: 'CB', "Helvetica Neue", sans-serif, serif;
-}
-
 .link {
-  color: #ff9c6b !important;
+  color: $text-color !important;
   text-decoration: none;
   cursor: pointer;
-}
-
-.mat-mdc-row:nth-of-type(1) .link {
-  color: white !important;
-  font-size: 2rem;
-
-  text-shadow: 0 3px #ffc107, 0 5px #ffc107, 0 6px 16px #ffc107;
-}
-
-.mat-mdc-row:nth-of-type(2) .link {
-  color: white !important;
-  font-size: 1.5rem;
-
-  text-shadow: 0 3px #C0C0C0, 0 5px #C0C0C0, 0 6px 16px #C0C0C0;
-}
-
-.mat-mdc-row:nth-of-type(3) .link {
-  color: white !important;
-  font-size: 1.3rem;
-
-  text-shadow: 0 3px #CD7F32, 0 5px #CD7F32, 0 6px 16px #CD7F32;
 }
 
 .flexRow{

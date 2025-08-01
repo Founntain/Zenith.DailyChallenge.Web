@@ -1,10 +1,12 @@
-﻿footer {
+﻿@use '../../../styles' as *;
+
+footer {
   .marginLeft{
     margin-left: 10px;
   }
 
   a {
-    color: #ff9c6b !important;
+    color: $primary-color !important;
     text-decoration: none;
     cursor: pointer;
   }
@@ -17,10 +19,10 @@
   justify-content: space-between;
   font-size: 0.75rem;
   height: 50px;
-  background: linear-gradient(to bottom, #32110e 0, #4f1a0a 100%);
-  border-top: 2px solid #bf421c;
-  border-left: 2px solid #8d2e1b;
-  border-right: 2px solid #8d2e1b;
+  background: linear-gradient(to bottom, $background-shade 0, $background-color 100%);
+  border-top: 2px solid $accent-color;
+  border-left: 2px solid $accent-color;
+  border-right: 2px solid $accent-color;
   box-sizing: border-box;
 
   @media screen and (max-width: 600px) {

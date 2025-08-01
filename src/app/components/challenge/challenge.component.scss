@@ -1,6 +1,8 @@
-$easy-text-color: #6baeff;
-$primary-text-color: #ff9c6b;
-$reverse-text-color: #ff6c6c;
+@use '../../../styles' as *;
+
+.difTitle{
+  margin: 0;
+}
 
 .challengeWrapper{
   display: flex;
@@ -9,17 +11,16 @@ $reverse-text-color: #ff6c6c;
   justify-content: space-between;
   min-height: 100%;
   position: relative;
-  //padding-bottom: 40px; // Add space for the completed text
 
   .reverseTitle{
-    color: #fff;
+    color: white;
     font-size: 2rem;
-    text-shadow: 0 3px #ff0059,0 6px #ff0059,0 6px 8px #ff0059,0 6px 16px #ff0059;
+    text-shadow: 0 3px $reverse-accent-color, 0 6px $reverse-accent-color, 0 6px 8px $reverse-accent-color, 0 6px 16px $reverse-accent-color;
     letter-spacing: 7px;
   }
 
   .reverseFlavorText{
-    color: #ff0059;
+    color: $reverse-accent-color;
     margin-top: -10px;
     margin-bottom: 10px;
   }
@@ -42,7 +43,8 @@ $reverse-text-color: #ff6c6c;
       gap: 5px;
 
       .conditionValue {
-        font-family: 'CB' !important;
+        @extend .headerText;
+
         font-size: 1.5rem;
       }
 
@@ -53,17 +55,17 @@ $reverse-text-color: #ff6c6c;
 
       .Normal{
         color: #fff;
-        text-shadow: 0 3px #b83a1b, 0 6px 8px #b83a1b;
+        text-shadow: 0 3px $normal-accent-color, 0 6px 8px $normal-accent-color;
       }
 
       .Hard{
         color: #fff;
-        text-shadow: 0 3px #e57373, 0 6px 8px #e57373;
+        text-shadow: 0 3px $hard-accent-color, 0 6px 8px $hard-accent-color;
       }
 
       .Expert{
         color: #fff;
-        text-shadow: 0 3px #d49b07, 0 6px 8px #d49b07;
+        text-shadow: 0 3px $expert-accent-color, 0 6px 8px $expert-accent-color;
       }
 
       .Reverse{
@@ -86,8 +88,9 @@ $reverse-text-color: #ff6c6c;
     }
 
     .baseCompleted{
+      @extend .headerText;
+
       color: #FFF;
-      font-family: 'CB', sans-serif;
       font-size: 1.5rem;
       position: relative;
 
@@ -113,7 +116,6 @@ $reverse-text-color: #ff6c6c;
       &.challengeNotCompleted{
         text-shadow: 0 3px #ff0059,0 6px 8px #ff0059;
         animation: pulse-glow-red 2s ease-in-out infinite;
-
 
         @keyframes pulse-glow-red {
           0% {

@@ -2,6 +2,8 @@
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&family=Hind+Madurai:wght@300;400;500;600;700&family=Telex&display=swap');
+
 @font-face {
   font-family: 'HUN';
   src: url('/assets/fonts/hun2.ttf');
@@ -16,6 +18,7 @@
   font-style: normal;
 }
 
+
 html {
   @include mat.theme((
     color: (
@@ -28,15 +31,84 @@ html {
   ));
 }
 
-
 /* You can add global styles to this file, and also import other style files */
 
-.hun{
-  font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
+$text-color: #f2ebe4;
+$background-color: #1d150c;
+$background-shade: rgba(255, 255, 255, 0.03);
+$primary-color: #debf9f;
+$secondary-color: #7c5123;
+$accent-color: #d38838;
+
+
+$easy-text-color: #6baeff;
+$normal-text-color: #ff9c6b;
+$normal-accent-color: #b83a1b;
+$hard-text-color: #e75959;
+$hard-accent-color: #e57373;
+$expert-accent-color: #d49b07;
+$reverse-text-color: #FFFFFF;
+$reverse-accent-color: #ff0059;
+$expert-text-color: #ffc107;
+
+$community-text-color: #a164ff;
+
+html{
+  color: $text-color;
+
+  background-image: url("assets/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-.cb{
-  font-family: 'CB', "Helvetica Neue", sans-serif, serif;
+html, body {
+  font-family: "Telex", sans-serif;
+  font-weight: 400;
+
+  border: none;
+}
+
+body {
+  margin: auto;
+
+  background-color: $background-color !important;
+
+  min-width: 1080px;
+  max-width: 2560px;
+
+  @media screen and (max-width: 1080px) {
+    width: 100%;
+    margin: initial;
+    min-width: initial;
+  }
+}
+
+hr{
+  color: $primary-color;
+}
+
+.normalText{
+  font-family: "Telex", sans-serif;
+  font-weight: 400;
+}
+
+.boldText{
+  font-family: "Hind Madurai", sans-serif;
+  font-weight: 800;
+}
+
+.headerText{
+  font-family: "Catamaran", sans-serif;
+  font-weight: 800;
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+
+.centerText{
+  text-align: center;
 }
 
 .gap {
@@ -45,6 +117,59 @@ html {
 
 .noGap{
   gap: 0 !important;
+}
+
+.baseContainer{
+  //background-color: $background-shade;
+  border: 1px solid $accent-color;
+}
+
+.submitButton{
+  @extend .headerText;
+
+  padding-top: 15px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+  user-select: none;
+
+  color: $text-color !important;
+  font-size: 64pt;
+  font-weight: bold;
+
+  background-color: rgba($accent-color, 0.8);
+  border-top: 3px solid    rgba($background-color, 0.8);
+  border-left: 3px solid   rgba($background-color, 0.8);
+  border-bottom: 3px solid rgba($background-color, 0.8);
+  border-right: 3px solid  rgba($background-color, 0.8);
+
+  margin: auto;
+
+  transition: .3s transform,.3s filter,.3s box-shadow;
+
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
+  }
+
+  &:hover{
+    box-shadow: 0 6px #210707;
+    transform: translateY(2px);
+    filter: brightness(1.2);
+  }
+
+  &:active{
+    box-shadow: 0 2px #210707;
+    transform: translateY(6px);
+    filter: brightness(1.5);
+    transition: 50ms transform, 50ms filter, 50ms box-shadow;
+  }
 }
 
 .stripes{
@@ -71,58 +196,40 @@ html {
   }
 }
 
-html, body {
-  height: 100%;
-  font-family: 'HUN', "Helvetica Neue", sans-serif, serif;
-  text-transform: uppercase;
-}
-
-body {
-  margin: 0;
-  font-family: 'HUN', Roboto, "Helvetica Neue", sans-serif;
-  color: white;
-  background-image: url("assets/background.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-
-  text-transform: uppercase;
-}
-
 .hotel{
-  background: rgb(253, 230, 146)
+  background: rgba(253, 230, 146, 0.6)
 }
 
 .casino{
-  background: rgb(255, 199, 136)
+  background: rgba(255, 199, 136, 0.6)
 }
 
 .arena{
-  background: rgb(255, 183, 194)
+  background: rgba(255, 183, 194, 0.6)
 }
 
 .museum{
-  background: rgb(255, 186, 67)
+  background: rgba(255, 186, 67, 0.6)
 }
 
 .offices{
-  background: rgb(255, 145, 123)
+  background: rgba(255, 145, 123, 0.6)
 }
 
 .laboratory{
-  background: rgb(0, 221, 255)
+  background: rgba(0, 221, 255, 0.6)
 }
 
 .core{
-  background: rgb(255, 0, 111)
+  background: rgba(255, 0, 111, 0.6)
 }
 
 .corruption{
-  background: rgb(152, 255, 178)
+  background: rgba(152, 255, 178, 0.6)
 }
 
 .potg{
-  background: rgb(214, 119, 255)
+  background: rgba(214, 119, 255, 0.6)
 }
 
 .mod{
@@ -147,80 +254,86 @@ body {
   filter: grayscale(100%);
 }
 
-.baseContainer{
-  color: #ff9c6b !important;
-
-  background-color: #532314;
-  border-top: 3px solid #b83a1b;
-  border-left: 3px solid #8d2e1b;
-  border-bottom: 3px solid #2f0a0a;
-  border-right: 3px solid #37160d;
-}
-
 table{
   background: transparent !important;
 }
 
 th{
-  font-size: 20pt;
-  background-color: #532314 !important;
-  border-top: 2px solid #b83a1b !important;
-  border-left: 1px solid #37160d !important;
-  border-bottom: 1px solid rgba(255, 156, 107, 0.56) !important;
-  border-right: 1px solid #37160d !important;
+  @extend .headerText;
+
+  font-size: 16pt;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16pt;
+  }
+
+  background-color: $background-shade !important;
+  border-top: 2px solid    rgba($primary-color, 0.5) !important;
+  border-left: 1px solid   rgba($primary-color, 0.5) !important;
+  border-bottom: 1px solid rgba($primary-color, 0.5) !important;
+  border-right: 1px solid  rgba($primary-color, 0.5) !important;
 }
 
 td {
+  @extend .headerText;
+
   font-size: 14pt;
 
-  background-color: #532314 !important;
-  border-top: 1px solid #2f0a0a !important;
-  border-left: 1px solid #37160d !important;
-  border-bottom: 1px solid #2f0a0a !important;
-  border-right: 1px solid #37160d !important;
+  background-color: transparent !important;
+  border-top: 1px solid    rgb($primary-color, 0.5) !important;
+  border-left: 1px solid   rgb($primary-color, 0.5) !important;
+  border-bottom: 1px solid rgb($primary-color, 0.5) !important;
+  border-right: 1px solid  rgb($primary-color, 0.5) !important;
 }
 
 tr{
-  color: white !important;
-  background-color: #532314 !important;
-  border-top: 3px solid #b83a1b !important;
-  border-left: 3px solid #8d2e1b !important;
-  border-bottom: 3px solid #2f0a0a !important;
-  border-right: 3px solid #37160d !important;
+  color: $text-color !important;
+  background-color: transparent !important;
+  border-top: 3px solid $primary-color !important;
+  border-left: 3px solid $primary-color !important;
+  border-bottom: 3px solid $primary-color !important;
+  border-right: 3px solid $primary-color !important;
 }
 
 mat-form-field{
-  font-family: 'CB', "Helvetica Neue", sans-serif, serif !important;
+  @extend .boldText;
 }
 
 .mat-mdc-select-min-line{
-  font-family: 'CB', "Helvetica Neue", sans-serif, serif !important;
+  @extend .boldText;
 }
 
 mat-paginator{
-  font-family: 'CB', "Helvetica Neue", sans-serif, serif !important;
+  @extend .boldText;
 
-  color: #ff9c6b !important;
+  color: $text-color !important;
 
-  background-color: #532314 !important;
-  border-top: 3px solid #b83a1b !important;
-  //border-left: 3px solid #8d2e1b !important;
-  border-bottom: 3px solid #2f0a0a !important;
-  border-right: 3px solid #37160d !important;
+  background-color: $background-shade !important;
+
+  border-left: 1px solid rgb($primary-color, 0.5) !important;
+  border-right: 1px solid rgb($primary-color, 0.5) !important;
+
+  &.borderTop{
+    border-top: 3px solid rgb($primary-color, 0.5) !important;
+  }
+
+  &.borderBottom{
+    border-bottom: 3px solid rgb($primary-color, 0.5) !important;
+  }
 }
 
 .mat-mdc-icon-button svg{
-  color: #ff9c6b ;
-  fill: #ff9c6b;
+  color: $primary-color ;
+  fill: $primary-color;
 }
 
 .mat-mdc-select-arrow{
-  color: #ff9c6b !important;
-  fill: #ff9c6b !important;
+  color: $primary-color !important;
+  fill: $primary-color !important;
 }
 
 .mat-mdc-paginator .mat-mdc-select {
-  color: #ff9c6b !important;
+  color: $primary-color !important;
 }
 
 select {

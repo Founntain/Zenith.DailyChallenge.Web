@@ -1,23 +1,23 @@
 <div class="challengeWrapper">
   <div class="completionStatus borderBottom">
-    <h1 *ngIf="difficultCssClass !== 'Reverse'" class="cb" style="margin: 10px">{{ difficultyText }}</h1>
-    <h1 *ngIf="difficultCssClass === 'Reverse'" class="cb reverseTitle" style="margin: 10px">{{ difficultyText }}</h1>
-    <div class="cb">
+    <h1 *ngIf="difficultCssClass !== 'Reverse'" class="headerText difTitle">{{ difficultyText }}</h1>
+    <h1 *ngIf="difficultCssClass === 'Reverse'" class="headerText difTitle reverseTitle">{{ difficultyText }}</h1>
+    <div class="boldText">
       <span>Completed by </span>
-      <span class="completionCount">{{challenge.completions}}</span>
+      <span class="completionCount headerText">{{challenge.completions}}</span>
       <span> user</span><span *ngIf="challenge.completions != 1">s</span>
     </div>
   </div>
   <div *ngIf="reverseText.length > 0" style="margin-top: 10px;">
-    <span class="reverseFlavorText">{{ reverseText }}</span>
+    <span class="reverseFlavorText headerText">{{ reverseText }}</span>
   </div>
   <div>
     <div class="conditionsWrapper" style="padding: 10px">
       <div *ngFor="let condition of processedConditions" class="valueWrapper">
-        <a>{{ condition.prefix }}</a>
+        <a class="boldText">{{ condition.prefix }}</a>
         <div>
           <a [ngClass]="['conditionValue', difficultCssClass]">{{ condition.value }}</a>
-          <a class="conditionValueSuffix">{{ condition.suffix }}</a>
+          <a class="conditionValueSuffix boldText">{{ condition.suffix }}</a>
         </div>
       </div>
     </div>

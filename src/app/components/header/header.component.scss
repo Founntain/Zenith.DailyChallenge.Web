@@ -1,6 +1,8 @@
+@use '../../../styles' as *;
+
 header {
   .icon{
-    color: #ff9c6b !important;
+    color: $primary-color;
     margin-right: 5px;
     cursor: pointer;
 
@@ -16,28 +18,28 @@ header {
   }
 
   a {
-    color: #ff9c6b !important;
+    color: $primary-color !important;
     text-decoration: none;
     cursor: pointer;
   }
 
   .flexHeader {
     width: 100%;
-    background: #1976d2;
+    background: $background-shade;
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 0.75rem;
     height: 50px;
-    background: linear-gradient(to bottom, #300f0b 0, #4c1d0c 100%);
-    border-bottom: 2px solid #b03d1a;
-    border-left: 2px solid #8d2e1b;
-    border-right: 2px solid #8d2e1b;
+    background: linear-gradient(to bottom, $background-color 0, $background-shade 100%);
+    border-bottom: 2px solid $accent-color;
+    border-left: 2px solid $accent-color;
+    border-right: 2px solid $accent-color;
     box-sizing: border-box;
 
     @media screen and (max-width: 600px) {
-      font-size: 0.45rem;
+      font-size: 0.6rem;
       border-left: none;
       border-right: none;
     }
@@ -65,7 +67,7 @@ header {
       img {
         max-height: 38px;
         border-radius: 50%;
-        border: 2px solid #ff9c6b;
+        border: 2px solid $accent-color;
       }
     }
   }

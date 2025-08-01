@@ -1,54 +1,54 @@
 <!-- Welcome -->
 
-<div class="normalContainer">
+<div class="baseContainer">
   <div class="container gap">
-    <span class="title highlight">Welcome to the Zenith Tower Daily Challenge!</span>
+    <span class="title highlight headerText">Welcome to the Zenith Tower Daily Challenge!</span>
 
     <div>
-      <span class="normalText">Tackle on challenges and push yourself to the limit, or learn playstyles you never tried before. Everyone is welcome to give it a try</span>
+      <span>Tackle on challenges and push yourself to the limit, or learn playstyles you never tried before. Everyone is welcome to give it a try!</span>
     </div>
 
     <div>
-      <span class="normalText">to complete a challenge, you must submit a</span>
-      <span class="highlight">  single run </span>
-      <span class="normalText">that meets</span>
-      <span class="highlight">  all </span>
-      <span class="normalText">conditions for a difficulty</span>
+      <span>To complete a challenge, you must submit a</span>
+      <span class="highlight uppercase"> single run </span>
+      <span>that meets</span>
+      <span class="highlight uppercase">  all </span>
+      <span>conditions for a difficulty!</span>
     </div>
 
     <div class="flexColumn" *ngIf="!isLoggedIn">
-      <span class="normalText">You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>
-      <span class="highlight">your discord account has to be linked to your tetr.io account and is publicly visible</span>
+      <span>You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>
+      <span class="highlight">Your discord account has to be linked to your TETR.IO account and is publicly visible!</span>
     </div>
 
     <div class="flexColumn">
-      <span class="normalText">Resources belong to <a class="highlight" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="highlight" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
-      <span class="normalText">Icon and Background made by <span class="highlight"><a class="highlight" href="https://melisek.dev" style="text-decoration: none">melisek</a></span></span>
+      <span>Resources belong to <a class="highlight" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="highlight" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
+      <span>Icon and Background made by <span class="highlight"><a class="highlight" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span></span>
     </div>
 
-    <hr style="width: 100%; color: #ff9c6b">
+    <hr style="width: 100%;">
 
-    <div class="flexColumn cb support" style="font-size: 1.1rem;">
-      <span class="normalText">If you want to support me for making ZDC, maybe consider gifting me TETR.IO supporter.</span>
+    <div class="flexColumn boldText support" style="font-size: 1.1rem;">
+      <span>If you want to support me for making ZDC, maybe consider gifting me TETR.IO supporter.</span>
       <span>This way you support the game, osk and me!</span>
     </div>
   </div>
-  <div *ngIf="isLoggedIn" (click)="submitRuns()" class="bigButton"><a>Submit New Runs</a></div>
+  <div *ngIf="isLoggedIn" (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
 </div>
 
 <!-- Daily Challenges -->
-<div class="normalContainer padding">
+<div class="baseContainer padding">
   <div *ngIf="isAutoTracking" class="autoSubmitContainer stripes">
     <span>auto submit is enabled</span>
     <p>next update in {{autoUpdateTimeLeft}}</p>
   </div>
 
   <div class="flexColumn" style="margin-bottom: 10px">
-    <div>
-      <span class="date">daily challenge for </span>
+    <div class="centerText">
+<!--      <span class="date">Daylies for </span>-->
       <span class="date highlight">{{date}}</span>
     </div>
-    <div class="clock">TIME LEFT: <span class="clock highlight">{{timeLeft}}</span></div>
+    <div class="clock centerText"><span class="clock highlight">{{timeLeft}}</span> remaining</div>
   </div>
 
   <div class="challengeContainer gap" *ngIf="dailyChallenges.length > 0">
@@ -80,14 +80,14 @@
   <div class="challengeContainer gap" style="margin-top: 10px">
     <div class="masteryBackground gap">
       <div class="challenge mastery gap">
-        <h1 class="highlight">Whispers of Mastery</h1>
+        <h1 class="highlight" style="margin: 2px;">Whispers of Mastery</h1>
 
         <div *ngIf="getMasteryChallengeConditions().length < 0">
           <span>each whisper strengthens your grasp</span>
         </div>
 
         <div *ngIf="getMasteryChallengeConditions().length > 0">
-          <span>with each mod </span><span class="highlight">separately</span>
+          <span>With each mod </span><span class="highlight">separately</span>
         </div>
 
         <div *ngIf="getMasteryChallengeConditions().length > 0" class="challengeContainer flexRow gap" style="margin-bottom: 10px; align-items: center">
@@ -123,20 +123,20 @@
 <!-- Community Challenges -->
 <div [ngClass]="['container', 'challenge', 'community', 'gap', isCommunityChallengeFinished]">
   <div class="stripes borderBottom" style="width: 100%">
-    <h1 class="cb" style="margin: 10px;">COMMUNITY CHALLENGE</h1>
+    <h1 class="headerText" style="margin: 10px;">COMMUNITY CHALLENGE</h1>
   </div>
 
   <!-- No CC Active -->
   <div *ngIf="communityChallengeData?.communityChallenge === undefined" class="simpleContainer gap">
-    <a>currently no community challenge is active</a>
-    <sub>check back later</sub>
+    <a>Currently no community challenge is active.</a>
+    <sub>Please check back later.</sub>
   </div>
 
   <!-- CC Active -->
   <div *ngIf="communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" class="simpleContainer gap">
     <div class="clock" style="margin-bottom: 10px">Ends in: <span class="clock highlight">{{communityTimeLeft}}</span></div>
 
-    <a class="highlight">as a community</a>
+    <a class="highlight uppercase headerText">as a community</a>
 
     <div class="bigText gap">
       <a class="">{{getCommunityPromptPrefix()}}</a>
@@ -155,39 +155,39 @@
     <div *ngIf="recentContributions.length > 0" class="recentContributionsContainer" style="text-align: center; margin-bottom: 10px">
       <div *ngFor="let contribution of recentContributions">
         <div *ngIf="!contribution.isLate">
-          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span>
+          <a class="contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span>
         </div>
 
         <div *ngIf="contribution.isLate">
-          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span> . . . but was too late :c
+          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span> . . . but was too late :c
         </div>
       </div>
     </div>
 
     <div *ngIf="recentContributions.length > 0" class="allContributersContainer gap stripesLight borderTop" >
-      <span *ngFor="let contributer of communityChallengeData.topContributers" class="highlight" style="cursor:pointer;" [routerLink]="['/user', contributer.username]" title="{{contributer.username}} contributed {{getContributionValue(contributer.amount, communityChallengeData.communityChallenge.conditionType)}}">{{contributer.username}}</span>
+      <span *ngFor="let contributer of communityChallengeData.topContributers" class="highlight uppercase" style="cursor:pointer;" [routerLink]="['/user', contributer.username]" title="{{contributer.username}} contributed {{getContributionValue(contributer.amount, communityChallengeData.communityChallenge.conditionType)}}">{{contributer.username}}</span>
     </div>
   </div>
 </div>
 
 <!-- Server Statistics-->
 
-<div *ngIf="serverStatistics !== undefined" class="normalContainer">
-  <h1 class="cb">ZDC Server Statistics</h1>
+<div *ngIf="serverStatistics !== undefined" class="baseContainer">
+  <h1 class="headerText centerText" style="margin: 5px">ZDC Server Statistics</h1>
 
- <div class="flexColumn scoreContainer stripes gap">
+ <div class="flexColumn scoreContainer centerText stripes gap">
     <div class="flexColumn">
       <img src="assets/score.png" class="hugeMod" style="margin: auto"/>
       <span class="scoreDisplay bigScoreText"> {{serverStatistics.totalScore.toLocaleString()}}</span>
     </div>
 
     <div class="flexColumn">
-      <span class="cb" style="font-size: 1.3rem; letter-spacing: 5px">Climbed a total of</span>
+      <span class="boldText" style="font-size: 1.3rem; letter-spacing: 3px">Climbed a total of</span>
       <span class="scoreDisplay bigScoreText"> {{serverStatistics.altitudes.total.toLocaleString()}} M</span>
     </div>
 
     <div class="">
-      <div class="cb" style="font-size: 1.3rem">
+      <div class="boldText" style="font-size: 1.3rem">
         <span style="letter-spacing: 5px">by </span>
         <span style="" class="highlight">{{serverStatistics.totalUsers}}</span>
         <span style="letter-spacing: 5px"> Users of which </span>
@@ -300,7 +300,7 @@
 
       <div class="details">
         <img src="assets/mastery.png" class="bigMod" />
-        <p class="altitude highlight">{{(serverStatistics.masteryScore / 2).toLocaleString()}} masteries</p>
+        <p class="altitude highlight uppercase">{{(serverStatistics.masteryScore / 2).toLocaleString()}} masteries</p>
       </div>
     </div>
   </div>
@@ -308,16 +308,16 @@
 
 
 <!-- Challenge Leaderboard -->
-<div style="margin: 10px;" class="normalContainer" *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 0">
-  <h3 class="cb">Challenge Leaderboard</h3>
+<div class="baseContainer" *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 0">
+  <h1 class="headerText centerText" style="margin: 0;">Challenge Leaderboard</h1>
   <div style="overflow-x: auto;">
     <table mat-table [dataSource]="leaderboardData?.leaderboard ?? []">
       <ng-container matColumnDef="Username">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
         <td mat-cell *matCellDef="let element" >
           <div class="flexRow" style="align-items: center; gap: 5px">
             <img src="assets/tetrio-img/ranks/{{element.rank}}.png" class="mod">
-            <a class="link" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
+            <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
           </div>
         </td>
       </ng-container>
@@ -326,49 +326,49 @@
         <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
           <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.score}}</td>
+        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.score}}</td>
       </ng-container>
 
       <ng-container matColumnDef="EasyChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
           <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.easyChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.easyChallengesCompleted}}</td>
       </ng-container>
 
       <ng-container matColumnDef="NormalChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
           <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.normalChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.normalChallengesCompleted}}</td>
       </ng-container>
 
       <ng-container matColumnDef="HardChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
           <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.hardChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.hardChallengesCompleted}}</td>
       </ng-container>
 
       <ng-container matColumnDef="ExpertChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.expertChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.expertChallengesCompleted}}</td>
       </ng-container>
 
       <ng-container matColumnDef="ReverseChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.reverseChallengesCompleted}}</td>
       </ng-container>
       <ng-container matColumnDef="MasteryChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.masteryChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.masteryChallengesCompleted}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>
       <tr mat-row *matRowDef="let row; columns: leaderboardColumns;" ></tr>
     </table>
   </div>
-  <div style="margin: 20px;">
-    <a class="bigHighlightText highlight" [routerLink]="['/leaderboard']">full leaderboard here</a>
+  <div class="centerText uppercase" style="margin-top: 15px;">
+    <a class="bigHighlightText highlight" style="text-decoration: none;" [routerLink]="['/leaderboard']">full leaderboard here</a>
   </div>
 </div>
