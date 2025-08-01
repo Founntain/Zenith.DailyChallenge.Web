@@ -487,6 +487,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         return `Get `;
       case ConditionType.Finesse:
         return `Achieve `;
+      case ConditionType.Back2Back:
+        return `Obtain `;
       default:
         return ""
     }
@@ -512,6 +514,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         return ' VS';
       case ConditionType.Finesse:
         return '% FINESSE';
+      case ConditionType.Back2Back:
+        return ' B2B';
       default:
         return []
     }
