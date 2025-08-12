@@ -28,42 +28,42 @@
         <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
           <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.score}}</td>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.score.toLocaleString()}}</td>
       </ng-container>
 
       <ng-container matColumnDef="EasyChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
           <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.easyChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.easyChallengesCompleted.toLocaleString()}}</td>
       </ng-container>
 
       <ng-container matColumnDef="NormalChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
           <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.normalChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.normalChallengesCompleted.toLocaleString()}}</td>
       </ng-container>
 
       <ng-container matColumnDef="HardChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
           <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.hardChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.hardChallengesCompleted.toLocaleString()}}</td>
       </ng-container>
 
       <ng-container matColumnDef="ExpertChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.expertChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.expertChallengesCompleted.toLocaleString()}}</td>
       </ng-container>
 
       <ng-container matColumnDef="ReverseChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted.toLocaleString()}}</td>
       </ng-container>
       <ng-container matColumnDef="MasteryChallengesCompleted">
         <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.masteryChallengesCompleted}}</td>
+        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.masteryChallengesCompleted.toLocaleString()}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>

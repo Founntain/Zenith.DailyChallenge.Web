@@ -660,3 +660,32 @@ tr{
     }
   }
 }
+
+.announcement {
+
+  padding: 10px;
+  color: white;
+
+  h1{
+    margin: 10px;
+  }
+
+  span{
+    font-size: 1.2rem;
+  }
+
+  ul{
+    list-style-position: inside;
+  }
+
+  &.important {
+    background-color: brown;
+
+    border-top: solid 1px darkred;
+    border-bottom: solid 1px darkred;
+
+    .highlight {
+      color: $hard-accent-color;
+    }
+ }
+}
