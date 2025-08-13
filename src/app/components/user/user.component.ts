@@ -27,6 +27,7 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {MatIcon} from '@angular/material/icon';
 import {SettingsService} from '../../services/settings.service';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {isValidDate} from 'rxjs/internal/util/isDate';
 
 @Component({
   selector: 'app-user',
@@ -267,5 +268,24 @@ export class UserComponent implements OnInit, AfterViewInit {
     let isChecked: boolean = event?.target?.checked ?? false;
 
     this.settingsService.setAutoUpdate(isChecked);
+  }
+
+  getSplitText(time: any, average = false) {
+    if(this.isNotEmptyTime(time)){
+      return time;
+    }else{
+      if(average){
+        return 'Not reached yet';
+      }
+      return '';
+    }
+  }
+
+  getFloorReachedCss(time: any) {
+    if(!this.isNotEmptyTime(time)){
+      return 'notReached';
+    }else{
+      return '';
+    }
   }
 }

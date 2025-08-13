@@ -194,42 +194,6 @@ hr{
   }
 }
 
-.hotel{
-  background: rgba(253, 230, 146, 0.6)
-}
-
-.casino{
-  background: rgba(255, 199, 136, 0.6)
-}
-
-.arena{
-  background: rgba(255, 183, 194, 0.6)
-}
-
-.museum{
-  background: rgba(255, 186, 67, 0.6)
-}
-
-.offices{
-  background: rgba(255, 145, 123, 0.6)
-}
-
-.laboratory{
-  background: rgba(0, 221, 255, 0.6)
-}
-
-.core{
-  background: rgba(255, 0, 111, 0.6)
-}
-
-.corruption{
-  background: rgba(152, 255, 178, 0.6)
-}
-
-.potg{
-  background: rgba(214, 119, 255, 0.6)
-}
-
 .mod{
   max-height: 32px;
   max-width: 32px;
@@ -259,17 +223,17 @@ table{
 th{
   @extend .headerText;
 
-  font-size: 16pt;
-
-  @media screen and (max-width: 600px) {
-    font-size: 16pt;
-  }
-
   background-color: $background-shade !important;
   border-top: 2px solid    rgba($primary-color, 0.5) !important;
   border-left: 1px solid   rgba($primary-color, 0.5) !important;
   border-bottom: 1px solid rgba($primary-color, 0.5) !important;
   border-right: 1px solid  rgba($primary-color, 0.5) !important;
+
+  font-size: 16pt;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16pt;
+  }
 }
 
 td {

@@ -1,4 +1,5 @@
 @use '../../../styles' as *;
+@use '../../../styling/splits' as *;
 
 .marginLeft{
   margin-left: 10px;
@@ -15,6 +16,10 @@
 
 .flexStretch{
   flex: 1;
+}
+
+.flexRemaining{
+  flex: 0;
 }
 
 .flexColumn{
@@ -113,43 +118,240 @@
   cursor: pointer;
 }
 
+@mixin clip-right-slant($offset, $side: bottom) {
+  $xr: 100% - $offset; // compile-time math, no calc() in output
+
+  @if $side == top {
+    // Right edge slopes down-right (top-right inset)
+    clip-path: polygon(0 0, $xr 0, 100% 100%, 0 100%);
+  } @else {
+    // Right edge slopes up-right (bottom-right inset)
+    clip-path: polygon(0 0, 100% 0, $xr 100%, 0 100%);
+  }
+}
+
 .splitContainer{
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
   align-content: center;
   justify-content: center;
 
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
-  }
-
   .splitWrapper{
-    background: rgba(0,0,0,0.50);
+    background: rgba(black, 0.40);
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: stretch;
     justify-content: center;
     width: 100%;
     min-height: 100px;
 
     color: white;
     text-shadow: 2px 2px 3px black;
+    z-index: 10;
+
+    .splitItem{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      z-index: 1;
+
+      .goldTime{
+        font-size: 3rem;
+
+        @media screen and (max-width: 600px) {
+          font-size: 1.25rem;
+        }
+      }
+
+      .averageTime{
+        font-size: 2rem;
+
+        @media screen and (max-width: 600px) {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .floor{
+      @extend .headerText;
+      font-size: 2.5rem;
+
+      letter-spacing: 5px;
+      text-transform: uppercase;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 150px;
+
+      padding-right: 20px;
+
+      @include clip-right-slant(15%, bottom);
+
+      @media screen and (max-width: 600px) {
+        letter-spacing: 0;
+        font-size: 1rem !important;
+      }
+
+      &.notReached{
+        filter: grayscale(100%) !important;
+      }
+
+      &.hotel{
+        background-color: rgba($hotel-color, 0.3);
+      }
+
+      &.casino{
+        background-color: rgba($casino-color, 0.3);
+      }
+
+      &.arena{
+        background-color: rgba($arena-color, 0.3);
+      }
+      &.museum{
+        background-color: rgba($museum-color, 0.3);
+      }
+
+      &.offices{
+        background-color: rgba($offices-color, 0.3);
+      }
+
+      &.laboratory{
+        background-color: rgba($laboratory-color, 0.3);
+      }
+
+      &.core{
+        background-color: rgba($core-color, 0.3);
+      }
+
+      &.corruption{
+        background-color: rgba($corruption-color, 0.3);
+      }
+
+      &.potg{
+        font-size: 2rem;
+        text-align: center;
+        word-wrap: break-word;
+
+        background-color: rgba($potg-color, 0.3);
+      }
+    }
   }
 
   .split{
-    padding: 5px;
-    margin: 5px;
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    position: relative;
 
     @media screen and (max-width: 600px) {
       font-size: 2rem;
       text-align: center;
       width: initial;
+    }
+
+    $zenithSplitsBorderWidth: 5px;
+
+    border-top: 1px solid rgba($text-color, 0.8);
+
+    &.hotel{
+      border-left: $zenithSplitsBorderWidth solid $hotel-color;
+      border-right: $zenithSplitsBorderWidth solid $hotel-color;
+      border-bottom: $zenithSplitsBorderWidth solid $hotel-color;
+    }
+
+    &.casino{
+      border-left: $zenithSplitsBorderWidth solid $casino-color;
+      border-right: $zenithSplitsBorderWidth solid $casino-color;
+    }
+
+    &.arena{
+      border-left: $zenithSplitsBorderWidth solid $arena-color;
+      border-right: $zenithSplitsBorderWidth solid $arena-color;
+    }
+
+    &.museum{
+      border-left: $zenithSplitsBorderWidth solid $museum-color;
+      border-right: $zenithSplitsBorderWidth solid $museum-color;
+    }
+
+    &.offices{
+      border-left: $zenithSplitsBorderWidth solid $offices-color;
+      border-right: $zenithSplitsBorderWidth solid $offices-color;
+    }
+
+    &.laboratory{
+      border-left: $zenithSplitsBorderWidth solid $laboratory-color;
+      border-right: $zenithSplitsBorderWidth solid $laboratory-color;
+    }
+
+    &.core{
+      border-left: $zenithSplitsBorderWidth solid $core-color;
+      border-right: $zenithSplitsBorderWidth solid $core-color;
+    }
+
+    &.corruption{
+      border-left: $zenithSplitsBorderWidth solid $corruption-color;
+      border-right: $zenithSplitsBorderWidth solid $corruption-color;
+    }
+
+    &.potg{
+      border-top: $zenithSplitsBorderWidth solid $potg-color;
+      border-left: $zenithSplitsBorderWidth solid $potg-color;
+      border-right: $zenithSplitsBorderWidth solid $potg-color;
+    }
+
+    .splitBackground{
+      position: absolute;
+      inset: 0;
+      width: auto;
+      height: auto;
+      z-index: 0;
+
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+
+      filter: opacity(0.5);
+
+      &.notReached{
+        filter: grayscale(100%) blur(5px) opacity(0.5);
+      }
+
+      &.hotel{
+        background-image: url('https://tetr.io/res/bg/zenith/2fa.jpg');
+      }
+
+      &.casino{
+        background-image: url('https://tetr.io/res/bg/zenith/3fa.jpg');
+      }
+
+      &.arena{
+        background-image: url('https://tetr.io/res/bg/zenith/4fa.jpg');
+      }
+
+      &.museum{
+        background-image: url('https://tetr.io/res/bg/zenith/5fa.jpg');
+      }
+
+      &.offices{
+        background-image: url('https://tetr.io/res/bg/zenith/6fa.jpg');
+      }
+
+      &.laboratory{
+        background-image: url('https://tetr.io/res/bg/zenith/7fa.jpg');
+      }
+
+      &.core{
+        background-image: url('https://tetr.io/res/bg/zenith/8fa.jpg');
+      }
+
+      &.corruption{
+        background-image: url('https://tetr.io/res/bg/zenith/9fa.jpg');
+      }
+
+      &.potg{
+        background-image: url('https://tetr.io/res/bg/zenith/10fa.jpg');
+      }
     }
   }
 }
