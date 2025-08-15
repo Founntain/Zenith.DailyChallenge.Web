@@ -242,12 +242,6 @@
   .split{
     position: relative;
 
-    @media screen and (max-width: 600px) {
-      font-size: 2rem;
-      text-align: center;
-      width: initial;
-    }
-
     $zenithSplitsBorderWidth: 5px;
 
     border-top: 1px solid rgba($text-color, 0.8);
@@ -352,6 +346,12 @@
       &.potg{
         background-image: url('https://tetr.io/res/bg/zenith/10fa.jpg');
       }
+    }
+
+    @media screen and (max-width: 600px) {
+      font-size: 2rem;
+      text-align: center;
+      width: initial;
     }
   }
 }

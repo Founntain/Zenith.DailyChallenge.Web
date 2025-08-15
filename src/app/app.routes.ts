@@ -5,13 +5,15 @@ import {ApplicationConfig} from '@angular/core';
 import {ChallengeComponent} from './components/challenge/challenge.component';
 import {SplitsComponent} from './components/splits/splits.component';
 import {LeaderboardComponent} from './components/leaderboard/leaderboard.component';
+import {CommunityArchiveComponent} from './components/community-archive/community-archive.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'user/:username', component: UserComponent },
     { path: 'user/:username/splits', component: SplitsComponent },
     { path: 'challenge', component: ChallengeComponent },
-    { path: 'leaderboard', component: LeaderboardComponent }
+    { path: 'leaderboard', component: LeaderboardComponent },
+    { path: 'cc-archive', component: CommunityArchiveComponent }
 ];
 
 export const appConfig: ApplicationConfig = {  providers: [provideRouter(routes)]};

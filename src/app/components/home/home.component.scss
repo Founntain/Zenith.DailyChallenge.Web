@@ -44,20 +44,6 @@
   margin-right: 10px;
 }
 
-.flexRow{
-  display: flex;
-  flex-direction: row;
-}
-
-.flexStretch{
-  flex: 1;
-}
-
-.flexColumn{
-  display: flex;
-  flex-direction: column;
-}
-
 .normalContainer {
   margin: 10px;
 
@@ -671,7 +657,7 @@ tr{
   }
 
   span{
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   ul{
