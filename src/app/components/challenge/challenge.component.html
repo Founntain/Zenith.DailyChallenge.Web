@@ -1,34 +1,50 @@
 <div class="challengeWrapper">
   <div class="completionStatus borderBottom">
-    <h1 *ngIf="difficultCssClass !== 'Reverse'" class="headerText difTitle">{{ difficultyText }}</h1>
-    <h1 *ngIf="difficultCssClass === 'Reverse'" class="headerText difTitle reverseTitle">{{ difficultyText }}</h1>
+    @if(difficultCssClass === 'Reverse'){
+      <h1 class="headerText difTitle reverseTitle">{{ difficultyText }}</h1>
+    } @else {
+      <h1 class="headerText difTitle">{{ difficultyText }}</h1>
+    }
     <div class="boldText">
       <span>Completed by </span>
       <span class="completionCount headerText">{{challenge.completions}}</span>
-      <span> user</span><span *ngIf="challenge.completions != 1">s</span>
+      <span> user</span>
+      @if (challenge.completions != 1) {
+        <span>s</span>
+      }
     </div>
   </div>
-  <div *ngIf="reverseText.length > 0" style="margin-top: 10px;">
-    <span class="reverseFlavorText headerText">{{ reverseText }}</span>
-  </div>
+  @if (reverseText.length > 0) {
+    <div style="margin-top: 10px;">
+      <span class="reverseFlavorText headerText">{{ reverseText }}</span>
+    </div>
+  }
+
   <div>
     <div class="conditionsWrapper" style="padding: 10px">
-      <div *ngFor="let condition of processedConditions" class="valueWrapper">
-        <a class="boldText">{{ condition.prefix }}</a>
-        <div>
-          <a [ngClass]="['conditionValue', difficultCssClass]">{{ condition.value }}</a>
-          <a class="conditionValueSuffix boldText">{{ condition.suffix }}</a>
+      @for (condition of processedConditions; track $index){
+        <div  class="valueWrapper">
+          <a class="boldText">{{ condition.prefix }}</a>
+          <div>
+            <a [ngClass]="['conditionValue', difficultCssClass]">{{ condition.value }}</a>
+            <a class="conditionValueSuffix boldText">{{ condition.suffix }}</a>
+          </div>
         </div>
-      </div>
+      }
     </div>
   </div>
 
   <div style="padding: 10px">
-    <img *ngFor="let imgSrc of modImages" [src]="imgSrc" class="mod"/>
+    @for (imgSrc of modImages; track $index){
+     <img [src]="imgSrc" class="mod"/>
+    }
   </div>
 
   <div class="completionStatus borderTop">
-    <span *ngIf="isCompleted" class="baseCompleted challengeCompleted">COMPLETED</span>
-    <span *ngIf="!isCompleted" class="baseCompleted challengeNotCompleted">NOT COMPLETED</span>
+    @if(isCompleted){
+      <span class="baseCompleted challengeCompleted">COMPLETED</span>
+    } @else{
+      <span class="baseCompleted challengeNotCompleted">NOT COMPLETED</span>
+    }
   </div>
 </div>

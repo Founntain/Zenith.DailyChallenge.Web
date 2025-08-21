@@ -11,7 +11,6 @@ import {MatIcon} from '@angular/material/icon';
 @Component({
   selector: 'app-header',
   imports: [
-    NgIf,
     RouterLink,
     MatIcon
   ],

@@ -1,6 +1,4 @@
 ﻿import { Component } from '@angular/core';
-import {NgIf} from "@angular/common";
-import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-footer',

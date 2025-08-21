@@ -1,81 +1,85 @@
-<div class="baseContainer" *ngIf="leaderboardData?.leaderboard?.length ?? 0> 0">
-  <div class="stripes border centerText" style="padding: 20px">
-    <div class="stripes"></div>
-    <span class="bigText boldText">Challenge Leaderboard</span>
+@if (leaderboardData?.leaderboard?.length ?? 0 > 0) {
+  <div class="baseContainer">
+    <div class="stripes border centerText" style="padding: 20px">
+      <div class="stripes"></div>
+      <span class="bigText boldText">Challenge Leaderboard</span>
+    </div>
+
+    @if (leaderboardData?.leaderboard?.length ?? 0 > 10) {
+      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100, 250]"
+                     [pageSize]="pageSize"
+                     [length]="leaderboardData?.totalUsers ?? 0"
+                     (page)="onPageChange($event)"
+                     aria-label="Select page of runs">
+      </mat-paginator>
+    }
+
+    <div style="overflow-x: auto;">
+      <table mat-table [dataSource]="leaderboardData?.leaderboard ?? []">
+        <ng-container matColumnDef="Username">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element" >
+            <div class="flexRow" style="align-items: center; gap: 5px">
+              <img src="https://tetr.io/res/league-ranks/{{element.rank}}.png" class="mod">
+              <a class="link uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Score">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+            <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
+          </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.score.toLocaleString()}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="EasyChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+            <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
+          </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.easyChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="NormalChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+            <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
+          </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.normalChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="HardChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+            <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
+          </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.hardChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="ExpertChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.expertChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="ReverseChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
+        <ng-container matColumnDef="MasteryChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.masteryChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>
+        <tr mat-row *matRowDef="let row; columns: leaderboardColumns;" ></tr>
+      </table>
+    </div>
+
+    @if (leaderboardData?.leaderboard?.length ?? 0 > 10) {
+      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100, 250]"
+                     [pageSize]="pageSize"
+                     [length]="leaderboardData?.totalUsers ?? 0"
+                     (page)="onPageChange($event)"
+                     aria-label="Select page of runs">
+      </mat-paginator>
+    }
   </div>
-
-  <mat-paginator *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 10"
-                 [pageSizeOptions]="[10, 25, 50, 100, 250]"
-                 [pageSize]="pageSize"
-                 [length]="leaderboardData?.totalUsers ?? 0"
-                 (page)="onPageChange($event)"
-                 aria-label="Select page of runs">
-  </mat-paginator>
-
-  <div style="overflow-x: auto;">
-    <table mat-table [dataSource]="leaderboardData?.leaderboard ?? []">
-      <ng-container matColumnDef="Username">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element" >
-          <div class="flexRow" style="align-items: center; gap: 5px">
-            <img src="assets/tetrio-img/ranks/{{element.rank}}.png" class="mod">
-            <a class="link uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
-          </div>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Score">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-          <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
-        </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.score.toLocaleString()}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="EasyChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-          <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
-        </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.easyChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="NormalChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-          <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
-        </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.normalChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="HardChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-          <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
-        </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.hardChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="ExpertChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.expertChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="ReverseChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
-      <ng-container matColumnDef="MasteryChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.masteryChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>
-      <tr mat-row *matRowDef="let row; columns: leaderboardColumns;" ></tr>
-    </table>
-  </div>
-
-  <mat-paginator *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 10"
-                 [pageSizeOptions]="[10, 25, 50, 100, 250]"
-                 [pageSize]="pageSize"
-                 [length]="leaderboardData?.totalUsers ?? 0"
-                 (page)="onPageChange($event)"
-                 aria-label="Select page of runs">
-  </mat-paginator>
-</div>
+}

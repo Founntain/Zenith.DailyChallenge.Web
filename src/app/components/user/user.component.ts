@@ -28,11 +28,11 @@ import {MatIcon} from '@angular/material/icon';
 import {SettingsService} from '../../services/settings.service';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {isValidDate} from 'rxjs/internal/util/isDate';
+import {Splits} from '../../services/network/data/interfaces/Splits';
 
 @Component({
   selector: 'app-user',
   imports: [
-    NgIf,
     MatTable,
     MatHeaderCell,
     MatCell,
@@ -45,7 +45,6 @@ import {isValidDate} from 'rxjs/internal/util/isDate';
     MatRow,
     MatPaginator,
     MatPaginatorModule,
-    NgForOf,
     NgClass,
     MatIcon,
     RouterLink,
@@ -82,6 +81,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   communityChallengePageSize: number;
   communityChallengePageCount: number;
 
+  floors: (keyof Splits)[] = ['hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

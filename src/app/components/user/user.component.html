@@ -1,470 +1,392 @@
 <!-- Profile header-->
 
-<div *ngIf="dailyData === undefined" class="userContainer boldText">
-  <h1 style="text-align: center">User <span class="uppercase" style="color: white">{{username}}</span> not found</h1>
-  <h3 style="text-align: center; text-decoration: underline; font-weight: normal">Maybe encourage <span class="uppercase">{{username}}</span> to start their ZDC Career today!</h3>
-</div>
-
-<div *ngIf="dailyData !== undefined" class="userContainer" style="position: relative; padding: 0px">
-  <div class="userBanner" style="background-image: url('{{dailyData.userInfo?.banner}}');"></div>
-  <div class="flexRow gap userInfoContainer">
-    <img src="{{dailyData.userInfo?.avatar}}" class="profileImage">
-    <span class="title username textShadow headerText uppercase">{{username}}'s</span><span class="title username textShadow">profile</span>
-    <img src="assets/tetrio-img/ranks/{{dailyData.userInfo?.tetrioRank}}.png" class="mod">
+@if (dailyData === undefined || dailyData === null){
+  <div class="userContainer boldText">
+    <h1 style="text-align: center">User <span class="uppercase" style="color: white">{{username}}</span> not found</h1>
+    <h3 style="text-align: center; text-decoration: underline; font-weight: normal">Maybe encourage <span class="uppercase">{{username}}</span> to start their ZDC Career today!</h3>
   </div>
-  <div class="linkContainer userInfoContainer">
-      <mat-icon class="icon textShadow" (click)="openTetrioProfile()">double_arrow</mat-icon>
-      <span (click)="openTetrioProfile()" class="textShadow uppercase headerText" style="font-size: 18pt">TETR.IO profile</span>
-  </div>
-</div>
+}@else{
+  <div class="userContainer" style="position: relative; padding: 0">
+    <div class="userBanner" [style.backgroundImage]="'url(' + (dailyData.userInfo?.banner) + ')'"></div>
 
-<!-- Settings -->
-<div *ngIf="isSameUser && dailyData !== undefined" class="userContainer">
-  <h2 class="title">Settings</h2>
-  <div style="display: inline-flex; justify-items: center; align-items: center;">
-    <input type="checkbox" id="autoTrackingSetting" [checked]="isAutoUpdate" (change)="onAutoTrackingChanged($event)">
-    <label class="boldText" for="autoTrackingSetting">Enable Auto Tracking?</label>
-  </div>
-</div>
-
-<!-- Daily Adventure & Splits -->
-<div *ngIf="dailyData !== undefined" class="userContainer">
-  <h2 class="title">ZDC Stats & History</h2>
-
-  <div class="flexColumn scoreContainer stripes">
-    <img src="assets/score.png" class="hugeMod"/>
-    <span class="scoreDisplay headerText"> {{dailyData.score.toLocaleString()}}</span>
-  </div>
-
-  <!-- Daily Stats -->
-  <div *ngIf="dailyData !== undefined" class="flexColumn">
-    <div class="flexContainer">
-      <div class="modContainer nomod">
-        <div class="stripes"></div>
-
-        <div class="details">
-          <p>No Mod</p>
-          <p class="altitude highlight">{{dailyData.altitudes.noMod.toLocaleString()}} M</p>
-          <p class="completions headerText">{{dailyData.totalChallengesCompleted.toLocaleString()}} challenges completed</p>
-        </div>
-      </div>
-      <div class="modContainer expert">
-        <div class="stripes"></div>
-
-        <div class="details">
-          <img src="assets/tetrio-img/mods/expert.png" class="bigMod" />
-          <p class="altitude highlight">{{dailyData.altitudes.expert.toLocaleString()}} M</p>
-          <p class="completions headerText">{{dailyData.masteryCompletions?.expert?.toLocaleString() ?? 0}} masteries completed</p>
-        </div>
-      </div>
-      <div class="modContainer nohold">
-        <div class="stripes"></div>
-
-        <div class="details">
-          <img src="assets/tetrio-img/mods/nohold.png" class="bigMod" />
-          <p class="altitude highlight">{{dailyData.altitudes.noHold.toLocaleString()}} M</p>
-          <p class="completions headerText">{{dailyData.masteryCompletions?.noHold?.toLocaleString() ?? 0}} mastery completions</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="flexContainer">
-      <div class="modContainer messy">
-        <div class="stripes"></div>
-
-        <div class="details">
-          <img src="assets/tetrio-img/mods/messy.png" class="bigMod" />
-          <p class="altitude highlight">{{dailyData.altitudes.messy.toLocaleString()}} M</p>
-          <p class="completions">{{dailyData.masteryCompletions?.messy?.toLocaleString() ?? 0}} mastery completions</p>
-        </div>
-      </div>
-
-      <div class="modContainer gravity">
-        <div class="stripes"></div>
-
-        <div class="details">
-          <img src="assets/tetrio-img/mods/gravity.png" class="bigMod" />
-          <p class="altitude highlight">{{dailyData.altitudes.gravity.toLocaleString()}} M</p>
-          <p class="completions headerText">{{dailyData.masteryCompletions?.gravity?.toLocaleString() ?? 0}} mastery completions</p>
-        </div>
-      </div>
-
-      <div class="modContainer volatile">
-        <div class="stripes"></div>
-
-        <div class="details">
-          <img src="assets/tetrio-img/mods/volatile.png" class="bigMod" />
-          <p class="altitude highlight">{{dailyData.altitudes.volatile.toLocaleString()}} M</p>
-          <p class="completions headerText">{{dailyData.masteryCompletions?.volatile?.toLocaleString() ?? 0}} mastery completions</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="flexContainer">
-      <div class="modContainer doublehole">
-        <div class="stripes"></div>
-
-        <div class="details">
-          <img src="assets/tetrio-img/mods/doublehole.png" class="bigMod" />
-          <p class="altitude highlight">{{dailyData.altitudes.doubleHole.toLocaleString()}} M</p>
-          <p class="completions headerText">{{dailyData.masteryCompletions?.doubleHole?.toLocaleString() ?? 0}} mastery completions</p>
-        </div>
-      </div>
-
-      <div class="modContainer invisible">
-        <div class="stripes"></div>
-
-        <div class="details">
-          <img src="assets/tetrio-img/mods/invisible.png" class="bigMod" />
-          <p class="altitude highlight">{{dailyData.altitudes.invisible.toLocaleString()}} M</p>
-          <p class="completions headerText">{{dailyData.masteryCompletions?.invisible?.toLocaleString() ?? 0}} mastery completions</p>
-        </div>
-      </div>
-
-      <div class="modContainer allspin">
-        <div class="stripes"></div>
-
-        <div class="details">
-          <img src="assets/tetrio-img/mods/allspin.png" class="bigMod" />
-          <p class="altitude highlight">{{dailyData.altitudes.allSpin.toLocaleString()}} M</p>
-          <p class="completions">{{dailyData.masteryCompletions?.allSpin?.toLocaleString() ?? 0}} mastery completions</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Splits -->
-  <div *ngIf="dailyData !== undefined">
-    <h2 class="title">Zenith Splits</h2>
-    <div class="splitContainer">
-      <div class="split hotel">
-        <div [class]='["splitBackground", "hotel", getFloorReachedCss(dailyData.goldSplits.hotel)]'></div>
-        <div class="splitWrapper">
-          <div [class]='["flexStretch", "floor", "hotel", getFloorReachedCss(dailyData.goldSplits.hotel)]'>
-            <span>hotel</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.goldSplits.hotel)" class="headerText" style="font-size: 1.25rem">Best Time</span>
-            <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.hotel) }}</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.splitAverages.hotel)" class="headerText" style="font-size: 1.25rem">Average Time</span>
-            <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.hotel, true) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="split casino">
-        <div [class]='["splitBackground", "casino", getFloorReachedCss(dailyData.goldSplits.casino)]'></div>
-        <div class="splitWrapper">
-          <div [class]='["flexStretch", "floor", "casino", getFloorReachedCss(dailyData.goldSplits.casino)]'>
-            <span>casino</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.goldSplits.casino)" class="headerText" style="font-size: 1.25rem">Best Time</span>
-            <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.casino) }}</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.splitAverages.casino)" class="headerText" style="font-size: 1.25rem">Average Time</span>
-            <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.casino, true) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="split arena">
-        <div [class]='["splitBackground", "arena", getFloorReachedCss(dailyData.goldSplits.arena)]'></div>
-        <div class="splitWrapper">
-          <div [class]='["flexStretch", "floor", "arena", getFloorReachedCss(dailyData.goldSplits.arena)]'>
-            <span>arena</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.goldSplits.arena)" class="headerText" style="font-size: 1.25rem">Best Time</span>
-            <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.arena) }}</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.splitAverages.arena)" class="headerText" style="font-size: 1.25rem">Average Time</span>
-            <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.arena, true) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="split museum">
-        <div [class]='["splitBackground", "museum", getFloorReachedCss(dailyData.goldSplits.museum)]'></div>
-        <div class="splitWrapper">
-          <div [class]='["flexStretch", "floor", "museum", getFloorReachedCss(dailyData.goldSplits.museum)]'>
-            <span>museum</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.goldSplits.museum)" class="headerText" style="font-size: 1.25rem">Best Time</span>
-            <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.museum) }}</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.splitAverages.museum)" class="headerText" style="font-size: 1.25rem">Average Time</span>
-            <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.museum, true) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="split offices">
-        <div [class]='["splitBackground", "offices", getFloorReachedCss(dailyData.goldSplits.offices)]'></div>
-        <div class="splitWrapper">
-          <div [class]='["flexStretch", "floor", "offices", getFloorReachedCss(dailyData.goldSplits.offices)]'>
-            <span>offices</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.goldSplits.offices)" class="headerText" style="font-size: 1.25rem">Best Time</span>
-            <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.offices) }}</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.splitAverages.offices)" class="headerText" style="font-size: 1.25rem">Average Time</span>
-            <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.offices, true) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="split laboratory">
-        <div [class]='["splitBackground", "laboratory", getFloorReachedCss(dailyData.goldSplits.laboratory)]'></div>
-        <div class="splitWrapper">
-          <div [class]='["flexStretch", "floor", "laboratory", getFloorReachedCss(dailyData.goldSplits.laboratory)]'>
-            <span>laboratory</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.goldSplits.laboratory)" class="headerText" style="font-size: 1.25rem">Best Time</span>
-            <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.laboratory) }}</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.splitAverages.laboratory)" class="headerText" style="font-size: 1.25rem">Average Time</span>
-            <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.laboratory, true) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="split core">
-        <div [class]='["splitBackground", "core", getFloorReachedCss(dailyData.goldSplits.core)]'></div>
-        <div class="splitWrapper">
-          <div [class]='["flexStretch", "floor", "core", getFloorReachedCss(dailyData.goldSplits.core)]'>
-            <span>the core</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.goldSplits.core)" class="headerText" style="font-size: 1.25rem">Best Time</span>
-            <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.core) }}</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.splitAverages.core)" class="headerText" style="font-size: 1.25rem">Average Time</span>
-            <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.core, true) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="split corruption">
-        <div [class]='["splitBackground", "corruption", getFloorReachedCss(dailyData.goldSplits.corruption)]'></div>
-        <div class="splitWrapper">
-          <div [class]='["flexStretch", "floor", "corruption", getFloorReachedCss(dailyData.goldSplits.corruption)]'>
-            <span>corruption</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.goldSplits.corruption)" class="headerText" style="font-size: 1.25rem">Best Time</span>
-            <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.corruption) }}</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.splitAverages.corruption)" class="headerText" style="font-size: 1.25rem">Average Time</span>
-            <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.corruption, true) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="split potg">
-        <div [class]='["splitBackground", "potg", getFloorReachedCss(dailyData.goldSplits.platformOfTheGods)]'></div>
-        <div class="splitWrapper">
-          <div [class]='["flex","flexColumn","flexStretch", "floor", "potg", getFloorReachedCss(dailyData.goldSplits.platformOfTheGods)]'>
-            <span>platform of the</span>
-            <span>gods</span>
-          </div>
-          <div class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.goldSplits.platformOfTheGods)" class="headerText" style="font-size: 1.25rem">Best Time</span>
-            <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.platformOfTheGods) }}</span>
-          </div>
-          <div  class="flexStretch splitItem flexColumn">
-            <span *ngIf="isNotEmptyTime(dailyData.splitAverages.platformOfTheGods)" class="headerText" style="font-size: 1.25rem">Average Time</span>
-            <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.platformOfTheGods, true) }}</span>
-          </div>
-        </div>
-      </div>
-
+    <div class="flexRow gap userInfoContainer">
+      <img src="{{dailyData.userInfo?.avatar}}" class="profileImage">
+      <span class="title username textShadow headerText uppercase">{{username}}'s</span><span class="title username textShadow">profile</span>
+      <img src="assets/tetrio-img/ranks/{{dailyData.userInfo?.tetrioRank}}.png" class="mod">
     </div>
     <div class="linkContainer userInfoContainer">
-      <mat-icon class="icon textShadow" (click)="openTetrioProfile()">double_arrow</mat-icon>
-      <span [routerLink]="['/user', username, 'splits']" class="textShadow headerText" style="font-size: 18pt">View all Splits</span>
+        <mat-icon class="icon textShadow" (click)="openTetrioProfile()">double_arrow</mat-icon>
+        <span (click)="openTetrioProfile()" class="textShadow uppercase headerText" style="font-size: 18pt">TETR.IO profile</span>
     </div>
   </div>
-</div>
 
-<!-- Challenges Completed -->
-<div class="userContainer" *ngIf="dailyData !== undefined && challengeData !== undefined && challengeData.length > 0">
-  <h2 class="title">Completed Challenges</h2>
-  <div>
-    <mat-paginator *ngIf="dailyData.challengesCompleted > 10"
-                   class="borderTop"
-                   [pageSizeOptions]="[10, 25, 50, 100]"
-                   [pageSize]="challengePageSize"
-                   [length]="dailyData.challengesCompleted"
-                   (page)="onPageChange($event, 0)"
-                   aria-label="Select page of runs">
-    </mat-paginator>
+  <!-- Settings -->
+  @if (isSameUser) {
+    <div class="userContainer">
+      <h2 class="title">Settings</h2>
+      <div style="display: inline-flex; justify-items: center; align-items: center;">
+        <input type="checkbox" id="autoTrackingSetting" [checked]="isAutoUpdate" (change)="onAutoTrackingChanged($event)">
+        <label class="boldText" for="autoTrackingSetting">Enable Auto Tracking?</label>
+      </div>
+    </div>
+  }
+  <!-- Daily Adventure & Splits -->
+  <div class="userContainer">
+    <h2 class="title">ZDC Stats & History</h2>
 
-    <div style="overflow-x: auto">
-      <table mat-table [dataSource]="challengeData">
-        <ng-container matColumnDef="Date">
-          <th mat-header-cell *matHeaderCellDef> Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-        </ng-container>
+    <div class="flexColumn scoreContainer stripes">
+      <img src="assets/score.png" class="hugeMod"/>
+      <span class="scoreDisplay headerText"> {{dailyData.score.toLocaleString()}}</span>
+    </div>
 
-        <ng-container matColumnDef="Status">
-          <th mat-header-cell *matHeaderCellDef> Completion Status </th>
-          <td mat-cell *matCellDef="let element">
-            <div>
-              <img [src]="getCompletedImage(Difficulty.Easy, element.easyCompleted)" class="mod" />
-              <img [src]="getCompletedImage(Difficulty.Normal, element.normalCompleted)" class="mod" />
-              <img [src]="getCompletedImage(Difficulty.Hard, element.hardCompleted)" class="mod" />
-              <img [src]="getCompletedImage(Difficulty.Expert, element.expertCompleted)" class="mod" />
-              <img [src]="getCompletedImage(Difficulty.Reverse, element.reverseCompleted)" class="mod" />
+    <!-- Daily Stats -->
+    <div class="flexColumn">
+      <div class="flexContainer">
+        <div class="modContainer nomod">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <p>No Mod</p>
+            <p class="altitude highlight">{{dailyData.altitudes.noMod.toLocaleString()}} M</p>
+            <p class="completions headerText">{{dailyData.totalChallengesCompleted.toLocaleString()}} challenges completed</p>
+          </div>
+        </div>
+        <div class="modContainer expert">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/expert.png" class="bigMod" />
+            <p class="altitude highlight">{{dailyData.altitudes.expert.toLocaleString()}} M</p>
+            <p class="completions headerText">{{dailyData.masteryCompletions?.expert?.toLocaleString() ?? 0}} masteries completed</p>
+          </div>
+        </div>
+        <div class="modContainer nohold">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/nohold.png" class="bigMod" />
+            <p class="altitude highlight">{{dailyData.altitudes.noHold.toLocaleString()}} M</p>
+            <p class="completions headerText">{{dailyData.masteryCompletions?.noHold?.toLocaleString() ?? 0}} mastery completions</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flexContainer">
+        <div class="modContainer messy">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/messy.png" class="bigMod" />
+            <p class="altitude highlight">{{dailyData.altitudes.messy.toLocaleString()}} M</p>
+            <p class="completions">{{dailyData.masteryCompletions?.messy?.toLocaleString() ?? 0}} mastery completions</p>
+          </div>
+        </div>
+
+        <div class="modContainer gravity">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/gravity.png" class="bigMod" />
+            <p class="altitude highlight">{{dailyData.altitudes.gravity.toLocaleString()}} M</p>
+            <p class="completions headerText">{{dailyData.masteryCompletions?.gravity?.toLocaleString() ?? 0}} mastery completions</p>
+          </div>
+        </div>
+
+        <div class="modContainer volatile">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/volatile.png" class="bigMod" />
+            <p class="altitude highlight">{{dailyData.altitudes.volatile.toLocaleString()}} M</p>
+            <p class="completions headerText">{{dailyData.masteryCompletions?.volatile?.toLocaleString() ?? 0}} mastery completions</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flexContainer">
+        <div class="modContainer doublehole">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/doublehole.png" class="bigMod" />
+            <p class="altitude highlight">{{dailyData.altitudes.doubleHole.toLocaleString()}} M</p>
+            <p class="completions headerText">{{dailyData.masteryCompletions?.doubleHole?.toLocaleString() ?? 0}} mastery completions</p>
+          </div>
+        </div>
+
+        <div class="modContainer invisible">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/invisible.png" class="bigMod" />
+            <p class="altitude highlight">{{dailyData.altitudes.invisible.toLocaleString()}} M</p>
+            <p class="completions headerText">{{dailyData.masteryCompletions?.invisible?.toLocaleString() ?? 0}} mastery completions</p>
+          </div>
+        </div>
+
+        <div class="modContainer allspin">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/allspin.png" class="bigMod" />
+            <p class="altitude highlight">{{dailyData.altitudes.allSpin.toLocaleString()}} M</p>
+            <p class="completions">{{dailyData.masteryCompletions?.allSpin?.toLocaleString() ?? 0}} mastery completions</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Splits -->
+    <div>
+      <h2 class="title">Zenith Splits</h2>
+      <div class="splitContainer">
+
+        @for (floor of floors; track floor) {
+          <div [class]='["split", floor]'>
+            <div [class]='["splitBackground", floor, getFloorReachedCss(dailyData.goldSplits[floor])]'></div>
+            <div class="splitWrapper">
+              <div [class]='["flexStretch", "floor", floor, getFloorReachedCss(dailyData.goldSplits[floor])]'>
+                @if (floor === "potg") {
+                  <span>platform of the gods</span>
+                }@else{
+                  <span>{{floor}}</span>
+                }
+              </div>
+              <div class="flexStretch splitItem flexColumn">
+                @if (isNotEmptyTime(dailyData.goldSplits[floor])) {
+                  <span class="headerText" style="font-size: 1.25rem">Best Time</span>
+                }
+                <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits[floor]) }}</span>
+              </div>
+              <div class="flexStretch splitItem flexColumn">
+                @if (isNotEmptyTime(dailyData.splitAverages[floor])) {
+                  <span class="headerText" style="font-size: 1.25rem">Average Time</span>
+                }
+                <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages[floor], true) }}</span>
+              </div>
             </div>
-          </td>
-        </ng-container>
+          </div>
+        }
 
-        <tr mat-header-row sticky *matHeaderRowDef="challengesColumns" ></tr>
-        <tr mat-row *matRowDef="let row; columns: challengesColumns;"></tr>
-      </table>
+<!--        <div class="split hotel">-->
+<!--          <div [class]='["splitBackground", "hotel", getFloorReachedCss(dailyData.goldSplits.hotel)]'></div>-->
+<!--          <div class="splitWrapper">-->
+<!--            <div [class]='["flexStretch", "floor", "hotel", getFloorReachedCss(dailyData.goldSplits.hotel)]'>-->
+<!--              <span>hotel</span>-->
+<!--            </div>-->
+<!--            <div class="flexStretch splitItem flexColumn">-->
+<!--              @if (isNotEmptyTime(dailyData.goldSplits.hotel)) {-->
+<!--                <span class="headerText" style="font-size: 1.25rem">Best Time</span>-->
+<!--              }-->
+<!--              <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits.hotel) }}</span>-->
+<!--            </div>-->
+<!--            <div class="flexStretch splitItem flexColumn">-->
+<!--              @if (isNotEmptyTime(dailyData.splitAverages.hotel)) {-->
+<!--                <span class="headerText" style="font-size: 1.25rem">Average Time</span>-->
+<!--              }-->
+<!--              <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages.hotel, true) }}</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+      <div class="linkContainer userInfoContainer">
+        <mat-icon class="icon textShadow" (click)="openTetrioProfile()">double_arrow</mat-icon>
+        <span [routerLink]="['/user', username, 'splits']" class="textShadow headerText" style="font-size: 18pt">View all Splits</span>
+      </div>
     </div>
-
-    <mat-paginator *ngIf="dailyData.challengesCompleted > 25"
-                   class="borderBottom"
-                   [pageSizeOptions]="[10, 25, 50, 100]"
-                   [pageSize]="challengePageSize"
-                   [length]="dailyData.challengesCompleted"
-                   (page)="onPageChange($event, 0)"
-                   aria-label="Select page of runs">
-    </mat-paginator>
-    </div>
-</div>
-
-<!-- Community Contributions-->
-<div *ngIf="communityContributionData !== undefined && communityContributionData.length > 0" class="dailyContainer userContainer">
-  <h2 class="title">Community Challenge Contributions</h2>
-  <mat-paginator *ngIf="communityContributionData[0].totalContributions > challengePageSize"
-                 class="borderTop"
-                 [pageSizeOptions]="[10, 25, 50, 100]"
-                 [pageSize]="communityChallengePageSize"
-                 [length]="communityContributionData[0].totalContributions"
-                 (page)="onPageChange($event, 1)"
-                 aria-label="Select page of runs">
-  </mat-paginator>
-
-  <div style="overflow-x: auto">
-    <table mat-table [dataSource]="communityContributionData">
-      <ng-container matColumnDef="Date">
-        <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.challenge}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Contribution">
-        <th mat-header-cell *matHeaderCellDef> Contribution </th>
-        <td mat-cell *matCellDef="let element">
-          {{getCommunityContributionvalue(element.totalAmountContributed, element.conditionType)}}
-        </td>
-      </ng-container>
-
-      <tr mat-header-row sticky *matHeaderRowDef="communityChallengeColumns" ></tr>
-      <tr mat-row *matRowDef="let row; columns: communityChallengeColumns;"></tr>
-    </table>
   </div>
 
-  <mat-paginator *ngIf="communityContributionData[0].totalContributions > challengePageSize"
-                 class="borderBottom"
-                 [pageSizeOptions]="[10, 25, 50, 100]"
-                 [pageSize]="communityChallengePageSize"
-                 [length]="communityContributionData[0].totalContributions"
-                 (page)="onPageChange($event, 1)"
-                 aria-label="Select page of runs">
-  </mat-paginator>
+  <!-- Challenges Completed -->
+  @if(challengeData !== undefined && challengeData.length > 0){
+    <div class="userContainer">
+      <h2 class="title">Completed Challenges</h2>
+      <div>
+        @if (dailyData.challengesCompleted > 10) {
+          <mat-paginator class="borderTop"
+                         [pageSizeOptions]="[10, 25, 50, 100]"
+                         [pageSize]="challengePageSize"
+                         [length]="dailyData.challengesCompleted"
+                         (page)="onPageChange($event, 0)"
+                         aria-label="Select page of runs">
+          </mat-paginator>
+        }
 
-</div>
 
-<div (click)="submitRuns()" *ngIf="isSameUser && dailyData !== undefined" class="submitButton"><a>Submit New Runs</a></div>
+        <div style="overflow-x: auto">
+          <table mat-table [dataSource]="challengeData">
+            <ng-container matColumnDef="Date">
+              <th mat-header-cell *matHeaderCellDef> Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+            </ng-container>
 
-<div *ngIf="dailyData !== undefined && runData !== undefined && runData.length > 0" class="runs userContainer">
-  <h2 class="title">Recent Runs</h2>
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef> Completion Status </th>
+              <td mat-cell *matCellDef="let element">
+                <div>
+                  <img [src]="getCompletedImage(Difficulty.Easy, element.easyCompleted)" class="mod" />
+                  <img [src]="getCompletedImage(Difficulty.Normal, element.normalCompleted)" class="mod" />
+                  <img [src]="getCompletedImage(Difficulty.Hard, element.hardCompleted)" class="mod" />
+                  <img [src]="getCompletedImage(Difficulty.Expert, element.expertCompleted)" class="mod" />
+                  <img [src]="getCompletedImage(Difficulty.Reverse, element.reverseCompleted)" class="mod" />
+                </div>
+              </td>
+            </ng-container>
 
-  <mat-paginator *ngIf="dailyData.runs > 25"
-                 class="borderTop"
-                 [pageSizeOptions]="[25, 50, 100, 250]"
-                 [pageSize]="runPageSize"
-                 [length]="dailyData.runs"
-                 (page)="onPageChange($event, 2)"
-                 aria-label="Select page of runs">
-  </mat-paginator>
-  <div style="overflow-x: auto">
-    <table mat-table [dataSource]="runData">
-      <ng-container matColumnDef="Altitude">
-        <th mat-header-cell *matHeaderCellDef> Altitude </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.altitude}} M</td>
-      </ng-container>
+            <tr mat-header-row sticky *matHeaderRowDef="challengesColumns" ></tr>
+            <tr mat-row *matRowDef="let row; columns: challengesColumns;"></tr>
+          </table>
+        </div>
 
-      <ng-container matColumnDef="APM">
-        <th mat-header-cell *matHeaderCellDef> APM </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.apm}}</td>
-      </ng-container>
+        @if (dailyData.challengesCompleted > 10) {
+          <mat-paginator class="borderBottom"
+                         [pageSizeOptions]="[10, 25, 50, 100]"
+                         [pageSize]="challengePageSize"
+                         [length]="dailyData.challengesCompleted"
+                         (page)="onPageChange($event, 0)"
+                         aria-label="Select page of runs">
+          </mat-paginator>
+        }
+        </div>
+    </div>
+  }
 
-      <ng-container matColumnDef="PPS">
-        <th mat-header-cell *matHeaderCellDef> PPS </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.pps}}</td>
-      </ng-container>
+  <!-- Community Contributions-->
+  @if (communityContributionData !== undefined && communityContributionData.length > 0) {
+    <div class="dailyContainer userContainer">
+      <h2 class="title">Community Challenge Contributions</h2>
+      @if (communityContributionData[0].totalContributions > challengePageSize) {
+        <mat-paginator
+                       class="borderTop"
+                       [pageSizeOptions]="[10, 25, 50, 100]"
+                       [pageSize]="communityChallengePageSize"
+                       [length]="communityContributionData[0].totalContributions"
+                       (page)="onPageChange($event, 1)"
+                       aria-label="Select page of runs">
+        </mat-paginator>
+      }
 
-      <ng-container matColumnDef="VS">
-        <th mat-header-cell *matHeaderCellDef> VS </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.vs}}</td>
-      </ng-container>
+      <div style="overflow-x: auto">
+        <table mat-table [dataSource]="communityContributionData">
+          <ng-container matColumnDef="Date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.challenge}} </td>
+          </ng-container>
 
-      <ng-container matColumnDef="KOs">
-        <th mat-header-cell *matHeaderCellDef> KO's </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.kOs}}</td>
-      </ng-container>
+          <ng-container matColumnDef="Contribution">
+            <th mat-header-cell *matHeaderCellDef> Contribution </th>
+            <td mat-cell *matCellDef="let element">
+              {{getCommunityContributionvalue(element.totalAmountContributed, element.conditionType)}}
+            </td>
+          </ng-container>
 
-      <ng-container matColumnDef="Quads">
-        <th mat-header-cell *matHeaderCellDef> Quads </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.quads}}</td>
-      </ng-container>
+          <tr mat-header-row sticky *matHeaderRowDef="communityChallengeColumns" ></tr>
+          <tr mat-row *matRowDef="let _; columns: communityChallengeColumns;"></tr>
+        </table>
+      </div>
 
-      <ng-container matColumnDef="Spins">
-        <th mat-header-cell *matHeaderCellDef> Spins </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.spins}}</td>
-      </ng-container>
+      @if (communityContributionData[0].totalContributions > challengePageSize) {
+        <mat-paginator
+          class="borderBottom"
+          [pageSizeOptions]="[10, 25, 50, 100]"
+          [pageSize]="communityChallengePageSize"
+          [length]="communityContributionData[0].totalContributions"
+          (page)="onPageChange($event, 1)"
+          aria-label="Select page of runs">
+        </mat-paginator>
+      }
 
-      <ng-container matColumnDef="AllClears">
-        <th mat-header-cell *matHeaderCellDef> PC's </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
-      </ng-container>
+    </div>
+  }
 
-      <ng-container matColumnDef="Back2Back">
-        <th mat-header-cell *matHeaderCellDef> B2B </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.back2Back}}</td>
-      </ng-container>
+  <!-- Submit Button -->
+  @if (isSameUser) {
+    <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
+  }
 
-      <ng-container matColumnDef="Mods">
-        <th mat-header-cell *matHeaderCellDef> Mods </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]" class="centerText"> <img *ngFor="let img of getModArray(element.mods)" [src]="getModImage(img)" class="mod" /> </td>
-      </ng-container>
+  @if (runData !== undefined && runData.length > 0) {
+    <div class="runs userContainer">
+      <h2 class="title">Recent Runs</h2>
 
-      <tr mat-header-row sticky *matHeaderRowDef="runColumns" ></tr>
-      <tr mat-row *matRowDef="let row; columns: runColumns;" ></tr>
-    </table>
-  </div>
-  <mat-paginator *ngIf="dailyData.runs > 25"
-                 class="borderBottom"
-                 [pageSizeOptions]="[25, 50, 100, 250]"
-                 [pageSize]="runPageSize"
-                 [length]="dailyData.runs"
-                 (page)="onPageChange($event, 2)"
-                 aria-label="Select page of runs">
-  </mat-paginator>
-</div>
+      @if (dailyData.runs > 25){
+        <mat-paginator class="borderTop"
+                       [pageSizeOptions]="[25, 50, 100, 250]"
+                       [pageSize]="runPageSize"
+                       [length]="dailyData.runs"
+                       (page)="onPageChange($event, 2)"
+                       aria-label="Select page of runs">
+        </mat-paginator>
+      }
+      <div style="overflow-x: auto">
+        <table mat-table [dataSource]="runData">
+          <ng-container matColumnDef="Altitude">
+            <th mat-header-cell *matHeaderCellDef> Altitude </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.altitude}} M</td>
+          </ng-container>
+
+          <ng-container matColumnDef="APM">
+            <th mat-header-cell *matHeaderCellDef> APM </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.apm}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="PPS">
+            <th mat-header-cell *matHeaderCellDef> PPS </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.pps}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="VS">
+            <th mat-header-cell *matHeaderCellDef> VS </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.vs}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="KOs">
+            <th mat-header-cell *matHeaderCellDef> KO's </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.kOs}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Quads">
+            <th mat-header-cell *matHeaderCellDef> Quads </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.quads}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Spins">
+            <th mat-header-cell *matHeaderCellDef> Spins </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.spins}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="AllClears">
+            <th mat-header-cell *matHeaderCellDef> PC's </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Back2Back">
+            <th mat-header-cell *matHeaderCellDef> B2B </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.back2Back}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Mods">
+            <th mat-header-cell *matHeaderCellDef> Mods </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]" class="centerText">
+              @for (img of getModArray(element.mods); track img){
+                <img [src]="getModImage(img)" class="mod" />
+              }
+            </td>
+          </ng-container>
+
+          <tr mat-header-row sticky *matHeaderRowDef="runColumns" ></tr>
+          <tr mat-row *matRowDef="let row; columns: runColumns;" ></tr>
+        </table>
+      </div>
+
+      @if (dailyData.runs > 25){
+        <mat-paginator class="borderBottom"
+                       [pageSizeOptions]="[25, 50, 100, 250]"
+                       [pageSize]="runPageSize"
+                       [length]="dailyData.runs"
+                       (page)="onPageChange($event, 2)"
+                       aria-label="Select page of runs">
+        </mat-paginator>
+      }
+    </div>
+  }
+}
+

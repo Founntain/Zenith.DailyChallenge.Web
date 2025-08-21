@@ -32,7 +32,6 @@ import {ServerStatistics} from '../../services/network/data/interfaces/ServerSta
   selector: 'app-home',
   imports: [
     ChallengeComponent,
-    NgIf,
     MatCell,
     MatCellDef,
     MatColumnDef,
@@ -44,7 +43,6 @@ import {ServerStatistics} from '../../services/network/data/interfaces/ServerSta
     MatTable,
     MatHeaderCellDef,
     RouterLink,
-    NgForOf,
     NgOptimizedImage,
     NgClass
   ],

@@ -26,7 +26,6 @@ import {MatPaginator} from '@angular/material/paginator';
     MatRow,
     MatRowDef,
     MatTable,
-    NgIf,
     NgOptimizedImage,
     RouterLink,
     MatPaginator,

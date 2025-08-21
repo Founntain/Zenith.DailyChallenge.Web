@@ -15,11 +15,12 @@
       <span class="highlight uppercase">  all </span>
       <span>conditions for a difficulty!</span>
     </div>
-
-    <div class="flexColumn" *ngIf="!isLoggedIn">
-      <span>You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>
-      <span class="highlight">Your discord account has to be linked to your TETR.IO account and is publicly visible!</span>
-    </div>
+    @if (!isLoggedIn) {
+      <div class="flexColumn">
+        <span>You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>
+        <span class="highlight">Your discord account has to be linked to your TETR.IO account and is publicly visible!</span>
+      </div>
+    }
 
     <div class="flexColumn">
       <span>Resources belong to <a class="highlight" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="highlight" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
@@ -44,7 +45,7 @@
       </ul>
       <span class="normalText">Most of the stuff we discuss is done on the
       <a class="highlight" href="https://discord.com/invite/tetrio">TETR.IO Discord Server</a>
-      in the #quick-play > Zenith Daily Challange thread</span> or on
+      in the #quick-play > Zenith Daily Challenge thread</span> or on
       <a class="highlight" href="https://github.com/Founntain/Zenith.DailyChallenge.Web/discussions/5">GitHub</a>.
       <br>
       <br>
@@ -60,7 +61,9 @@
       <span>Or give the GitHub <a href="https://github.com/Founntain/Zenith.DailyChallenge.Web" class="highlight">Repository</a> a ⭐, maybe a ⭐ for the <a href="https://github.com/Founntain/TETRIO.Overlay" class="highlight">backend</a> too.</span>
     </div>
   </div>
-  <div *ngIf="isLoggedIn" (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
+  @if (isLoggedIn) {
+    <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
+  }
 </div>
 
 <!-- Daily Challenges -->
@@ -70,10 +73,12 @@
       <a [routerLink]="['/cc-archive']" class="flexStretch headerText highlight link" style="font-size: 2rem">Community Challenges Archive</a>
   </div>
 
-  <div *ngIf="isAutoTracking" class="autoSubmitContainer stripes">
-    <span>auto submit is enabled</span>
-    <p>next update in {{autoUpdateTimeLeft}}</p>
-  </div>
+  @if (isAutoTracking) {
+    <div class="autoSubmitContainer stripes">
+      <span>auto submit is enabled</span>
+      <p>next update in {{autoUpdateTimeLeft}}</p>
+    </div>
+  }
 
   <div class="flexColumn" style="margin-bottom: 10px">
     <div class="centerText">
@@ -83,65 +88,75 @@
     <div class="clock centerText"><span class="clock highlight">{{timeLeft}}</span> remaining</div>
   </div>
 
-  <div class="challengeContainer gap" *ngIf="dailyChallenges.length > 0">
-    <div class="challenge easy">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Easy)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Easy)"/>
+  @if (dailyChallenges.length > 0) {
+    <div class="challengeContainer gap">
+      <div class="challenge easy">
+        <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Easy)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Easy)"/>
+      </div>
+
+      <div class="containerNoMargin challenge normal">
+        <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Normal)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Normal)"/>
+      </div>
     </div>
 
-    <div class="containerNoMargin challenge normal">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Normal)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Normal)"/>
-    </div>
-  </div>
+    <div class="challengeContainer gap" style="margin-top: 10px">
+      <div class="challenge hard">
+        <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Hard)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Hard)" />
+      </div>
 
-  <div class="challengeContainer gap" style="margin-top: 10px" *ngIf="dailyChallenges.length > 0">
-    <div class="challenge hard">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Hard)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Hard)" />
-    </div>
-
-    <div class="challenge expert" *ngIf="getChallengeOfDifficulty(Difficulty.Expert) !== undefined">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Expert)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Expert)"/>
-    </div>
-  </div>
-
-  <div class="challengeContainer gap" style="margin-top: 10px" *ngIf="dailyChallenges.length > 0">
-    <div class="challenge reverse" *ngIf="getChallengeOfDifficulty(Difficulty.Reverse) !== undefined">
-      <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Reverse)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Reverse)"/>
-    </div>
-  </div>
-
-  <div class="challengeContainer gap" style="margin-top: 10px">
-    <div class="masteryBackground gap">
-      <div class="challenge mastery gap">
-        <h1 class="highlight" style="margin: 2px;">Whispers of Mastery</h1>
-
-        <div *ngIf="getMasteryChallengeConditions().length < 0">
-          <span>each whisper strengthens your grasp</span>
+      @if (getChallengeOfDifficulty(Difficulty.Expert) !== undefined) {
+        <div class="challenge expert">
+          <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Expert)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Expert)"/>
         </div>
+      }
+    </div>
 
-        <div *ngIf="getMasteryChallengeConditions().length > 0">
-          <span>With each mod separately </span><span class="highlight">or</span><span> combined with any</span>
+    @if (getChallengeOfDifficulty(Difficulty.Reverse) !== undefined) {
+      <div class="challengeContainer gap" style="margin-top: 10px">
+        <div class="challenge reverse">
+          <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Reverse)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Reverse)"/>
         </div>
+      </div>
+    }
+  }
 
-        <div *ngIf="getMasteryChallengeConditions().length > 0" class="challengeContainer flexRow gap" style="margin-bottom: 10px; align-items: center">
-          <div *ngFor="let condition of getMasteryChallengeConditions()" class="gap">
-            <span>{{getMasteryPrefix(condition.type)}}</span>
-            <span class="highlight">{{condition.value}}</span>
-            <span>{{getMasterySuffix(condition.type)}}</span>
+  @if (getMasteryChallengeConditions().length > 0) {
+    <div class="challengeContainer gap" style="margin-top: 10px">
+      <div class="masteryBackground gap">
+        <div class="challenge mastery gap">
+          <h1 class="highlight" style="margin: 2px;">Whispers of Mastery</h1>
+
+          <div>
+            <span>each whisper strengthens your grasp</span>
           </div>
-        </div>
-        <div *ngIf="getMasteryChallengeConditions().length > 0" class="challengeContainer gap" style="margin-bottom: 10px; align-items: center">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png">
-          <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png">
+
+          <div>
+            <span>With each mod separately </span><span class="highlight">or</span><span> combined with any</span>
+          </div>
+
+          <div class="challengeContainer flexRow gap" style="margin-bottom: 10px; align-items: center">
+            @for (condition of getMasteryChallengeConditions(); track condition) {
+              <div class="gap">
+                <span>{{getMasteryPrefix(condition.type)}}</span>
+                <span class="highlight">{{condition.value}}</span>
+                <span>{{getMasterySuffix(condition.type)}}</span>
+              </div>
+            }
+          </div>
+          <div class="challengeContainer gap" style="margin-bottom: 10px; align-items: center">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png">
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  }
 
 <!-- Cancelled probably -->
 <!--  <div class="challengeContainer" style="margin-top: 10px">-->
@@ -159,248 +174,262 @@
   </div>
 
   <!-- No CC Active -->
-  <div *ngIf="communityChallengeData?.communityChallenge === undefined" class="simpleContainer gap">
-    <a>Currently no community challenge is active.</a>
-    <sub>Please check back later.</sub>
-  </div>
-
-  <!-- CC Active -->
-  <div *ngIf="communityChallengeData !== undefined && communityChallengeData.communityChallenge !== undefined" class="simpleContainer gap">
-    <div class="clock" style="margin-bottom: 10px">Ends in: <span class="clock highlight">{{communityTimeLeft}}</span></div>
-
-    <a class="highlight uppercase headerText">as a community</a>
-
-    <div class="bigText gap">
-      <a class="">{{getCommunityPromptPrefix()}}</a>
-      <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
-      <a class="">{{getCommunityPromptSuffix()}}</a>
+  @if (communityChallengeData == null || communityChallengeData.communityChallenge === undefined){
+    <div class="simpleContainer gap">
+      <a>Currently no community challenge is active.</a>
+      <sub>Please check back later.</sub>
     </div>
+  } @else{
+    <!-- CC Active -->
+    <div class="simpleContainer gap">
+      <div class="clock" style="margin-bottom: 10px">Ends in: <span class="clock highlight">{{communityTimeLeft}}</span></div>
 
-    <div class="gap">
-      <a class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
-      of
-      <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
-      {{getCommunityPromptProgressSuffix()}}
-      <span>by <span class="highlight">{{communityChallengeData.communityChallenge.participants}} participants</span></span>
-    </div>
+      <a class="highlight uppercase headerText">as a community</a>
 
-    <div *ngIf="recentContributions.length > 0" class="recentContributionsContainer" style="text-align: center; margin-bottom: 10px">
-      <div *ngFor="let contribution of recentContributions">
-        <div *ngIf="!contribution.isLate">
-          <a class="contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span>
-        </div>
-
-        <div *ngIf="contribution.isLate">
-          <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span> . . . but was too late :c
-        </div>
+      <div class="bigText gap">
+        <a class="">{{getCommunityPromptPrefix()}}</a>
+        <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
+        <a class="">{{getCommunityPromptSuffix()}}</a>
       </div>
-    </div>
 
-    <div *ngIf="recentContributions.length > 0" class="allContributersContainer gap stripesLight borderTop" >
-      <span *ngFor="let contributer of communityChallengeData.topContributers" class="highlight uppercase" style="cursor:pointer;" [routerLink]="['/user', contributer.username]" title="{{contributer.username}} contributed {{getContributionValue(contributer.amount, communityChallengeData.communityChallenge.conditionType)}}">{{contributer.username}}</span>
+      <div class="gap">
+        <a class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
+        of
+        <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
+        {{getCommunityPromptProgressSuffix()}}
+        <span>by <span class="highlight">{{communityChallengeData.communityChallenge.participants}} participants</span></span>
+      </div>
+
+    @if (recentContributions.length > 0) {
+      <div class="recentContributionsContainer" style="text-align: center; margin-bottom: 10px">
+        @for (contribution of recentContributions; track contribution){
+          <div>
+            @if (contribution.isLate) {
+              <div>
+                <a class="contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span>
+              </div>
+            }@else{
+              <div>
+                <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span> . . . but was too late :c
+              </div>
+            }
+
+          </div>
+        }
+      </div>
+
+      <div class="allContributorsContainer gap stripesLight borderTop" >
+        @for (contributor of communityChallengeData.topContributers; track contributor) {
+          <span class="highlight uppercase" style="cursor:pointer;" [routerLink]="['/user', contributor.username]" title="{{contributor.username}} contributed {{getContributionValue(contributor.amount, communityChallengeData.communityChallenge.conditionType)}}">{{contributor.username}}</span>
+        }
+      </div>
+    }
+
     </div>
-  </div>
+  }
 </div>
 
 <!-- Server Statistics-->
+@if (serverStatistics !== undefined) {
+  <div class="baseContainer">
+    <h1 class="headerText centerText" style="margin: 5px">ZDC Server Statistics</h1>
 
-<div *ngIf="serverStatistics !== undefined" class="baseContainer">
-  <h1 class="headerText centerText" style="margin: 5px">ZDC Server Statistics</h1>
-
- <div class="flexColumn scoreContainer centerText stripes gap">
-    <div class="flexColumn">
-      <img src="assets/score.png" class="hugeMod" style="margin: auto"/>
-      <span class="scoreDisplay bigScoreText"> {{serverStatistics.totalScore.toLocaleString()}}</span>
-    </div>
-
-    <div class="flexColumn">
-      <span class="boldText" style="font-size: 1.3rem; letter-spacing: 3px">Climbed a total of</span>
-      <span class="scoreDisplay bigScoreText"> {{serverStatistics.altitudes.total.toLocaleString()}} M</span>
-    </div>
-
-    <div class="">
-      <div class="boldText" style="font-size: 1.3rem">
-        <span style="letter-spacing: 5px">by </span>
-        <span style="" class="highlight">{{serverStatistics.totalUsers}}</span>
-        <span style="letter-spacing: 5px"> Users of which </span>
-        <span style="" class="highlight">{{serverStatistics.rankedUsers}}</span>
-        <span style="letter-spacing: 5px"> are ranked</span>
+   <div class="flexColumn scoreContainer centerText stripes gap">
+      <div class="flexColumn">
+        <img src="assets/score.png" class="hugeMod" style="margin: auto"/>
+        <span class="scoreDisplay bigScoreText"> {{serverStatistics.totalScore.toLocaleString()}}</span>
       </div>
-    </div>
- </div>
 
-  <div class="flexColumn">
+      <div class="flexColumn">
+        <span class="boldText" style="font-size: 1.3rem; letter-spacing: 3px">Climbed a total of</span>
+        <span class="scoreDisplay bigScoreText"> {{serverStatistics.altitudes.total.toLocaleString()}} M</span>
+      </div>
+
+      <div class="">
+        <div class="boldText" style="font-size: 1.3rem">
+          <span style="letter-spacing: 5px">by </span>
+          <span style="" class="highlight">{{serverStatistics.totalUsers}}</span>
+          <span style="letter-spacing: 5px"> Users of which </span>
+          <span style="" class="highlight">{{serverStatistics.rankedUsers}}</span>
+          <span style="letter-spacing: 5px"> are ranked</span>
+        </div>
+      </div>
+   </div>
+
+    <div class="flexColumn">
+      <div class="flexContainer">
+        <div class="modContainer nomod">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <p>No Mod</p>
+            <p class="altitude highlight">{{serverStatistics.altitudes.noMod.toLocaleString()}} M</p>
+          </div>
+        </div>
+        <div class="modContainer expert">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/expert.png" class="bigMod" />
+            <p class="altitude highlight">{{serverStatistics.altitudes.expert.toLocaleString()}} M</p>
+          </div>
+        </div>
+        <div class="modContainer nohold">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/nohold.png" class="bigMod" />
+            <p class="altitude highlight">{{serverStatistics.altitudes.noHold.toLocaleString()}} M</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <div class="flexContainer">
-      <div class="modContainer nomod">
+      <div class="modContainer messy">
         <div class="stripes"></div>
 
         <div class="details">
-          <p>No Mod</p>
-          <p class="altitude highlight">{{serverStatistics.altitudes.noMod.toLocaleString()}} M</p>
+          <img src="assets/tetrio-img/mods/messy.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.messy.toLocaleString()}} M</p>
         </div>
       </div>
-      <div class="modContainer expert">
+
+      <div class="modContainer gravity">
         <div class="stripes"></div>
 
         <div class="details">
-          <img src="assets/tetrio-img/mods/expert.png" class="bigMod" />
-          <p class="altitude highlight">{{serverStatistics.altitudes.expert.toLocaleString()}} M</p>
+          <img src="assets/tetrio-img/mods/gravity.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.gravity.toLocaleString()}} M</p>
         </div>
       </div>
-      <div class="modContainer nohold">
+
+      <div class="modContainer volatile">
         <div class="stripes"></div>
 
         <div class="details">
-          <img src="assets/tetrio-img/mods/nohold.png" class="bigMod" />
-          <p class="altitude highlight">{{serverStatistics.altitudes.noHold.toLocaleString()}} M</p>
+          <img src="assets/tetrio-img/mods/volatile.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.volatile.toLocaleString()}} M</p>
         </div>
       </div>
     </div>
 
-  </div>
+    <div class="flexContainer">
+      <div class="modContainer doublehole">
+        <div class="stripes"></div>
 
-  <div class="flexContainer">
-    <div class="modContainer messy">
-      <div class="stripes"></div>
+        <div class="details">
+          <img src="assets/tetrio-img/mods/doublehole.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.doubleHole.toLocaleString()}} M</p>
+        </div>
+      </div>
 
-      <div class="details">
-        <img src="assets/tetrio-img/mods/messy.png" class="bigMod" />
-        <p class="altitude highlight">{{serverStatistics.altitudes.messy.toLocaleString()}} M</p>
+      <div class="modContainer invisible">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/invisible.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.invisible.toLocaleString()}} M</p>
+        </div>
+      </div>
+
+      <div class="modContainer allspin">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/allspin.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.allSpin.toLocaleString()}} M</p>
+        </div>
       </div>
     </div>
 
-    <div class="modContainer gravity">
-      <div class="stripes"></div>
+    <div class="flexContainer">
+      <div class="modContainer reverseMod">
+        <div class="stripes"></div>
 
-      <div class="details">
-        <img src="assets/tetrio-img/mods/gravity.png" class="bigMod" />
-        <p class="altitude highlight">{{serverStatistics.altitudes.gravity.toLocaleString()}} M</p>
+        <div class="details">
+          <img src="assets/clear_reverse.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.reverse.toLocaleString()}} M</p>
+        </div>
       </div>
-    </div>
 
-    <div class="modContainer volatile">
-      <div class="stripes"></div>
+      <div class="modContainer masteryMod masteryBackground">
+        <div class="stripes"></div>
 
-      <div class="details">
-        <img src="assets/tetrio-img/mods/volatile.png" class="bigMod" />
-        <p class="altitude highlight">{{serverStatistics.altitudes.volatile.toLocaleString()}} M</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="flexContainer">
-    <div class="modContainer doublehole">
-      <div class="stripes"></div>
-
-      <div class="details">
-        <img src="assets/tetrio-img/mods/doublehole.png" class="bigMod" />
-        <p class="altitude highlight">{{serverStatistics.altitudes.doubleHole.toLocaleString()}} M</p>
-      </div>
-    </div>
-
-    <div class="modContainer invisible">
-      <div class="stripes"></div>
-
-      <div class="details">
-        <img src="assets/tetrio-img/mods/invisible.png" class="bigMod" />
-        <p class="altitude highlight">{{serverStatistics.altitudes.invisible.toLocaleString()}} M</p>
-      </div>
-    </div>
-
-    <div class="modContainer allspin">
-      <div class="stripes"></div>
-
-      <div class="details">
-        <img src="assets/tetrio-img/mods/allspin.png" class="bigMod" />
-        <p class="altitude highlight">{{serverStatistics.altitudes.allSpin.toLocaleString()}} M</p>
+        <div class="details">
+          <img src="assets/mastery.png" class="bigMod" />
+          <p class="altitude highlight uppercase">{{(serverStatistics.masteryScore / 2).toLocaleString()}} masteries</p>
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="flexContainer">
-    <div class="modContainer reverseMod">
-      <div class="stripes"></div>
-
-      <div class="details">
-        <img src="assets/clear_reverse.png" class="bigMod" />
-        <p class="altitude highlight">{{serverStatistics.altitudes.reverse.toLocaleString()}} M</p>
-      </div>
-    </div>
-
-    <div class="modContainer masteryMod masteryBackground">
-      <div class="stripes"></div>
-
-      <div class="details">
-        <img src="assets/mastery.png" class="bigMod" />
-        <p class="altitude highlight uppercase">{{(serverStatistics.masteryScore / 2).toLocaleString()}} masteries</p>
-      </div>
-    </div>
-  </div>
-</div>
-
+}
 
 <!-- Challenge Leaderboard -->
-<div class="baseContainer" *ngIf="leaderboardData?.leaderboard?.length ?? 0 > 0">
-  <h1 class="headerText centerText" style="margin: 0;">Challenge Leaderboard</h1>
-  <div style="overflow-x: auto;">
-    <table mat-table [dataSource]="leaderboardData?.leaderboard ?? []">
-      <ng-container matColumnDef="Username">
-        <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
-        <td mat-cell *matCellDef="let element" >
-          <div class="flexRow" style="align-items: center; gap: 5px">
-            <img src="https://tetr.io/res/league-ranks/{{element.rank}}.png" class="mod">
-            <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
-          </div>
-        </td>
-      </ng-container>
+@if (leaderboardData?.leaderboard?.length ?? 0 > 0) {
+  <div class="baseContainer">
+    <h1 class="headerText centerText" style="margin: 0;">Challenge Leaderboard</h1>
+    <div style="overflow-x: auto;">
+      <table mat-table [dataSource]="leaderboardData?.leaderboard ?? []">
+        <ng-container matColumnDef="Username">
+          <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
+          <td mat-cell *matCellDef="let element" >
+            <div class="flexRow" style="align-items: center; gap: 5px">
+              <img src="https://tetr.io/res/league-ranks/{{element.rank}}.png" class="mod">
+              <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
+            </div>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="Score">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-          <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
-        </th>
-        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.score.toLocaleString()}}</td>
-      </ng-container>
+        <ng-container matColumnDef="Score">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+            <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
+          </th>
+          <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.score.toLocaleString()}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="EasyChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-          <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
-        </th>
-        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.easyChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
+        <ng-container matColumnDef="EasyChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+            <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
+          </th>
+          <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.easyChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="NormalChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-          <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
-        </th>
-        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.normalChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
+        <ng-container matColumnDef="NormalChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+            <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
+          </th>
+          <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.normalChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="HardChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-          <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
-        </th>
-        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.hardChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
+        <ng-container matColumnDef="HardChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+            <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
+          </th>
+          <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.hardChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="ExpertChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.expertChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
+        <ng-container matColumnDef="ExpertChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
+          <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.expertChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="ReverseChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.reverseChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
-      <ng-container matColumnDef="MasteryChallengesCompleted">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
-        <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.masteryChallengesCompleted.toLocaleString()}}</td>
-      </ng-container>
+        <ng-container matColumnDef="ReverseChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
+          <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.reverseChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
+        <ng-container matColumnDef="MasteryChallengesCompleted">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
+          <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.masteryChallengesCompleted.toLocaleString()}}</td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>
-      <tr mat-row *matRowDef="let row; columns: leaderboardColumns;" ></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>
+        <tr mat-row *matRowDef="let _; columns: leaderboardColumns;" ></tr>
+      </table>
+    </div>
+    <div class="centerText uppercase" style="margin-top: 15px;">
+      <a class="bigHighlightText highlight" style="text-decoration: none;" [routerLink]="['/leaderboard']">full leaderboard here</a>
+    </div>
   </div>
-  <div class="centerText uppercase" style="margin-top: 15px;">
-    <a class="bigHighlightText highlight" style="text-decoration: none;" [routerLink]="['/leaderboard']">full leaderboard here</a>
-  </div>
-</div>
+}

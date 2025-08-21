@@ -18,7 +18,6 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
 @Component({
   selector: 'app-community-archive',
   imports: [
-    NgIf,
     MatCell,
     MatCellDef,
     MatColumnDef,

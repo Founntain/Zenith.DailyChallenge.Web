@@ -7,9 +7,7 @@ import {Difficulty} from '../../services/network/data/enums/Difficulty';
 @Component({
   selector: 'app-challenge',
   imports: [
-    NgForOf,
     NgClass,
-    NgIf
   ],
   templateUrl: './challenge.component.html',
   styleUrl: './challenge.component.scss'
