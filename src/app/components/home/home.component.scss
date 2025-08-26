@@ -45,22 +45,6 @@
   margin-right: 10px;
 }
 
-.normalContainer {
-  margin: 10px;
-
-  background-color: #532314;
-
-  border-top: 3px solid #b83a1b;
-  border-left: 3px solid #8d2e1b;
-  border-bottom: 3px solid #2f0a0a;
-  border-right: 3px solid #37160d;
-  transition: .3s background-color;
-
-  color: $normal-text-color;
-
-  text-align: center;
-}
-
 .padding{
   padding: 10px;
 }
@@ -68,8 +52,8 @@
 .highlight{
   @extend .boldText;
 
-  color: $primary-color;
-  text-shadow: 0 3px $secondary-color;
+  color: $text-color;
+  text-shadow: 0 3px rgba($primary-color, 0.7);
 
   font-size: 1.1rem;
 
@@ -482,7 +466,7 @@ tr{
   }
 
   &.nomod {
-    background-color: #532314;
+    background-color: $background-color;
     border: #DCD 3px solid;
 
     .highlight {
@@ -624,7 +608,7 @@ tr{
 
   text-shadow: 0 2px #CCBBCC, 0 3px 10px #CCBBCC;
 
-  background-color: #532314;
+  background-color: $background-color;
   border: #DCD 3px solid;
 
   margin-left: 5px;

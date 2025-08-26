@@ -1,12 +1,13 @@
-$text-color: #f2ebe4;
-$background-color: #1d150c;
-$background-shade: rgba(255, 255, 255, 0.03);
-$primary-color: #debf9f;
-$secondary-color: #7c5123;
-$accent-color: #d38838;
+// Main Colors - Soft & Modern
+$text-color: #e2e8f0;
+$background-color: #0f172a;     // Deep slate (kept)
+$background-shade: rgba(51, 65, 85, 0.3);
+$primary-color: #a974d4;        // Vibrant orange
+$secondary-color: #ffcca1;      // Lighter orange
+$accent-color: #8b5cf6;         // Purple (kept)
+$shadow-color: rgba(0, 0, 0, 0.4);
 
-$shadow-color: #210707;
-
+// Difficulty colors
 $easy-text-color: #6baeff;
 $normal-text-color: #ff9c6b;
 $normal-accent-color: #b83a1b;

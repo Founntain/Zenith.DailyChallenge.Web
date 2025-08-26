@@ -10,7 +10,7 @@ header {
     transition: color 0.3s;
 
     &:hover{
-      color: white !important;
+      color: $secondary-color !important;
     }
   }
 
@@ -33,7 +33,7 @@ header {
     justify-content: space-between;
     font-size: 0.75rem;
     height: 50px;
-    background: linear-gradient(to bottom, $background-color 0, $background-shade 100%);
+    background: linear-gradient(to bottom, $background-color 0, $background-shade 75%);
     border-bottom: 2px solid $accent-color;
     border-left: 2px solid $accent-color;
     border-right: 2px solid $accent-color;

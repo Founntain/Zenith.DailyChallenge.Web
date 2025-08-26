@@ -7,10 +7,12 @@
   </div>
 }@else{
   <div class="userContainer" style="position: relative; padding: 0">
-    <div class="userBanner" [style.backgroundImage]="'url(' + (dailyData.userInfo?.banner) + ')'"></div>
+    <div class="userBanner" [style.backgroundImage]="'url(https://tetr.io/user-content/banners/' + (dailyData.userInfo?.userId) + '.jpg?rv='+ (dailyData.userInfo?.banner) + ')'"></div>
 
     <div class="flexRow gap userInfoContainer">
-      <img src="{{dailyData.userInfo?.avatar}}" class="profileImage">
+      @if (dailyData.userInfo?.avatar !== undefined && dailyData.userInfo?.avatar !== null) {
+        <img src="https://tetr.io/user-content/avatars/{{dailyData.userInfo?.userId}}.jpg?rv={{dailyData.userInfo?.avatar}}" class="profileImage">
+      }
       <span class="title username textShadow headerText uppercase">{{username}}'s</span><span class="title username textShadow">profile</span>
       <img src="assets/tetrio-img/ranks/{{dailyData.userInfo?.tetrioRank}}.png" class="mod">
     </div>

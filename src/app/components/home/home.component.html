@@ -26,14 +26,6 @@
       <span>Resources belong to <a class="highlight" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="highlight" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
       <span>Icon and Background made by <span class="highlight"><a class="highlight" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span></span>
     </div>
-
-    <hr style="width: 100%;">
-
-    <div class="flexColumn boldText support" style="font-size: 1.1rem;">
-      <span>If you want to support me for making ZDC, maybe consider gifting me TETR.IO supporter.</span>
-      <span>This way you support the game, osk and me!</span>
-      <span>Or give the GitHub <a href="https://github.com/Founntain/Zenith.DailyChallenge.Web" class="highlight">Repository</a> a ⭐, maybe a ⭐ for the <a href="https://github.com/Founntain/TETRIO.Overlay" class="highlight">backend</a> too.</span>
-    </div>
   </div>
   @if (isLoggedIn) {
     <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
@@ -402,8 +394,16 @@
         <tr mat-row *matRowDef="let _; columns: leaderboardColumns;" ></tr>
       </table>
     </div>
-    <div class="centerText uppercase" style="margin-top: 15px;">
+    <div class="centerText uppercase">
       <a class="bigHighlightText highlight" style="text-decoration: none;" [routerLink]="['/leaderboard']">full leaderboard here</a>
     </div>
   </div>
 }
+
+<div class="baseContainer centerText">
+  <div class="flexColumn boldText support" style="font-size: 1.1rem;">
+    <span>If you want to support me for making ZDC, maybe consider gifting me TETR.IO supporter.</span>
+    <span>This way you support the game, osk and me!</span>
+    <span>Or give the GitHub <a href="https://github.com/Founntain/Zenith.DailyChallenge.Web" class="highlight">Repository</a> a ⭐, maybe a ⭐ for the <a href="https://github.com/Founntain/TETRIO.Overlay" class="highlight">backend</a> too.</span>
+  </div>
+</div>

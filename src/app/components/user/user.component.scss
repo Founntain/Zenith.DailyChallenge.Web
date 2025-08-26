@@ -104,8 +104,8 @@
 }
 
 .textShadow{
-  text-shadow: 2px 0 #532314, -2px 0 #532314, 0 2px #532314, 0 -2px #532314,
-  1px 1px #532314, -1px -1px #532314, 1px -1px #532314, -1px 1px #532314;
+  text-shadow: 2px 0 $background-color, -2px 0 $background-color, 0 2px $background-color, 0 -2px $background-color,
+  1px 1px $background-color, -1px -1px $background-color, 1px -1px $background-color, -1px 1px $background-color;
 }
 
 .linkContainer{
@@ -536,7 +536,7 @@ th{
   }
 
   &.nomod {
-    background-color: #532314;
+    background-color: $background-color;
     border: #DCD 3px solid;
 
     .highlight {
@@ -685,7 +685,7 @@ input[type="checkbox"] {
   justify-content: center;
   align-items: center;
 
-  background-color: #532314;
+  background-color: $background-color;
   border: #DCD 3px solid;
 
   margin-left: 5px;
