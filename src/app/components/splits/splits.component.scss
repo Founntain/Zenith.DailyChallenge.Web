@@ -1,5 +1,6 @@
 @use '../../../styles' as *;
 @use '../../../styling/splits' as *;
+@use '../../../styling/colors' as *;
 
 .userContainer{
   @extend .baseContainer;

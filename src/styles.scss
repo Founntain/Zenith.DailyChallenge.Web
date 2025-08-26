@@ -1,6 +1,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+@use 'styling/colors' as *;
 
 @font-face {
   font-family: 'HUN';
@@ -30,26 +31,6 @@ html {
 }
 
 /* You can add global styles to this file, and also import other style files */
-
-$text-color: #f2ebe4;
-$background-color: #1d150c;
-$background-shade: rgba(255, 255, 255, 0.03);
-$primary-color: #debf9f;
-$secondary-color: #7c5123;
-$accent-color: #d38838;
-
-
-$easy-text-color: #6baeff;
-$normal-text-color: #ff9c6b;
-$normal-accent-color: #b83a1b;
-$hard-text-color: #e75959;
-$hard-accent-color: #e57373;
-$expert-accent-color: #d49b07;
-$reverse-text-color: #FFFFFF;
-$reverse-accent-color: #ff0059;
-$expert-text-color: #ffc107;
-
-$community-text-color: #a164ff;
 
 html{
   color: $text-color;
@@ -171,13 +152,13 @@ hr{
   }
 
   &:hover{
-    box-shadow: 0 6px #210707;
+    box-shadow: 0 6px $shadow-color;
     transform: translateY(2px);
     filter: brightness(1.2);
   }
 
   &:active{
-    box-shadow: 0 2px #210707;
+    box-shadow: 0 2px $shadow-color;
     transform: translateY(6px);
     filter: brightness(1.5);
     transition: 50ms transform, 50ms filter, 50ms box-shadow;
@@ -185,7 +166,7 @@ hr{
 }
 
 .stripes{
-  background: repeating-linear-gradient( -45deg, #0d0d0d88, #0d0d0d88 12px, #1a1a1a88 12px, #1a1a1a88 25px );
+  background: $stipes-background;
 
   &.borderTop{
     border-top: 3px solid #00000033;
@@ -197,7 +178,7 @@ hr{
 }
 
 .stripesLight{
-  background: repeating-linear-gradient( -45deg, #0d0d0d55, #0d0d0d55 12px, #1a1a1a55 12px, #1a1a1a55 25px );
+  background: $stripes-light-background;
 
   &.borderTop{
     border-top: 3px solid #00000033;
