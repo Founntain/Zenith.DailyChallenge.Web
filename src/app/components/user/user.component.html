@@ -204,11 +204,11 @@
               <th mat-header-cell *matHeaderCellDef> Completion Status </th>
               <td mat-cell *matCellDef="let element">
                 <div>
-                  <img [src]="getCompletedImage(Difficulty.Easy, element.easyCompleted)" class="mod" />
-                  <img [src]="getCompletedImage(Difficulty.Normal, element.normalCompleted)" class="mod" />
-                  <img [src]="getCompletedImage(Difficulty.Hard, element.hardCompleted)" class="mod" />
-                  <img [src]="getCompletedImage(Difficulty.Expert, element.expertCompleted)" class="mod" />
-                  <img [src]="getCompletedImage(Difficulty.Reverse, element.reverseCompleted)" class="mod" />
+                  <img [class]="getCompletedImage(element.easyCompleted)"    src="assets/clear_easy_2.png" class="mod" />
+                  <img [class]="getCompletedImage(element.normalCompleted)"  src="assets/clear_normal_2.png" class="mod" />
+                  <img [class]="getCompletedImage(element.hardCompleted)"    src="assets/clear_hard_2.png" class="mod" />
+                  <img [class]="getCompletedImage(element.expertCompleted)"  src="assets/clear_expert.png" class="mod" />
+                  <img [class]="getCompletedImage(element.reverseCompleted)" src="assets/clear_reverse.png" class="mod" />
                 </div>
               </td>
             </ng-container>

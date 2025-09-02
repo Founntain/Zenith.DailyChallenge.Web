@@ -324,7 +324,7 @@
         <div class="stripes"></div>
 
         <div class="details">
-          <img src="assets/mastery.png" class="bigMod" />
+          <img src="assets/mastery_2.png" class="bigMod" />
           <p class="altitude highlight uppercase">{{(serverStatistics.masteryScore / 2).toLocaleString()}} masteries</p>
         </div>
       </div>
@@ -357,21 +357,21 @@
 
         <ng-container matColumnDef="EasyChallengesCompleted">
           <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/clear_easy.png" height="36" width="36" title="Easy Challenges Completed"/>
+            <img class="headerImage" ngSrc="assets/clear_easy_2.png" height="36" width="36" title="Easy Challenges Completed"/>
           </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.easyChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
 
         <ng-container matColumnDef="NormalChallengesCompleted">
           <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/clear_normal.png" height="36" width="36" title="Normal Challenges Completed"/>
+            <img class="headerImage" ngSrc="assets/clear_normal_2.png" height="36" width="36" title="Normal Challenges Completed"/>
           </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.normalChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
 
         <ng-container matColumnDef="HardChallengesCompleted">
           <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/clear_hard.png" height="36" width="36" title="Hard Challenges Completed"/>
+            <img class="headerImage" ngSrc="assets/clear_hard_2.png" height="36" width="36" title="Hard Challenges Completed"/>
           </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.hardChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
@@ -386,7 +386,7 @@
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.reverseChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
         <ng-container matColumnDef="MasteryChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery_2.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.masteryChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
 

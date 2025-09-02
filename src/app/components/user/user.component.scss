@@ -703,3 +703,7 @@ input[type="checkbox"] {
    }
  }
 }
+
+.challengeUncompleted{
+  filter: grayscale(100%);
+}

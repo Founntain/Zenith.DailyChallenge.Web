@@ -200,21 +200,8 @@ export class UserComponent implements OnInit, AfterViewInit {
     return mods.split(' ');
   }
 
-  getCompletedImage(difficulty: Difficulty, completed: any) {
-    switch (difficulty) {
-      case Difficulty.Easy:
-        return completed ? '/assets/clear_easy.png' : '/assets/unclear_easy.png';
-      case Difficulty.Normal:
-        return completed ? '/assets/clear_normal.png' : '/assets/unclear_normal.png';
-      case Difficulty.Hard:
-        return completed ? '/assets/clear_hard.png' : '/assets/unclear_hard.png';
-      case Difficulty.Expert:
-        return completed ? '/assets/clear_expert.png' : '/assets/unclear_expert.png';
-      case Difficulty.Reverse:
-        return completed ? '/assets/clear_reverse.png' : '/assets/unclear_reverse.png';
-      default:
-        return '';
-    }
+  getCompletedImage(completed: any) {
+    return completed ? "" : "challengeUncompleted"
   }
 
   isNotEmptyTime(time: string) {
