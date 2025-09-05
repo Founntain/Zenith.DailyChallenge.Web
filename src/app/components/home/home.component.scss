@@ -27,6 +27,16 @@
   font-size: 2rem !important;
 }
 
+.bigGoalText{
+  @extend .headerText;
+
+  font-size: 3rem !important;
+
+  @media screen and (max-width: 600px) {
+    font-size: 1.5rem;
+  }
+}
+
 .container{
   display: flex;
   flex-direction: column;
@@ -99,12 +109,13 @@ tr{
 }
 
 .community {
+  @extend .baseContainer;
+
   text-align: center;
   display: flex;
   flex-direction: column;
 
   background-color: rgba(52, 20, 85, 0.5);
-  border: 3px solid rgba(91, 26, 184, 0.5);
 
   color: $community-text-color;
 
@@ -114,6 +125,11 @@ tr{
     color: white;
     text-shadow: 0 3px #a164ff, 0 6px 8px #a164ff;
   }
+}
+
+.contributorsBorder {
+  display: block;
+  border: 1px solid $community-text-color;
 }
 
 .easy {
@@ -660,3 +676,30 @@ tr{
     }
  }
 }
+
+/* Grid layering container */
+.layeredGrid {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  /* place-items: center is set inline in template to match current styles */
+}
+
+/* Make an element fill the grid area and sit behind by default */
+.gridFill {
+  grid-area: 1 / 1 / -1 / -1;
+}
+
+/* Control stacking order (optional, if you need consistent layering) */
+.stripesLight.gridFill {
+  z-index: 1; /* base background stripes */
+}
+
+.stripesGoal.gridFill {
+  z-index: 2; /* progress overlay stripes */
+}
+
+.layeredGrid > .flexColumn.gridFill {
+  z-index: 3; /* content on top */
+}
+

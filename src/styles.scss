@@ -108,14 +108,15 @@ hr{
   flex-direction: row;
 }
 
-.flexStretch{
-  flex: 1;
-}
-
 .flexColumn{
   display: flex;
   flex-direction: column;
 }
+
+.flexStretch{
+  flex: 1;
+}
+
 
 .submitButton{
   @extend .headerText;
@@ -189,6 +190,18 @@ hr{
   }
 }
 
+.stripesGoal {
+  background: rgba(147, 51, 234, 0.3);
+
+  &.borderTop {
+    border-top: 3px solid #00000033;
+  }
+
+  &.borderBottom {
+    border-bottom: 3px solid #00000033;
+  }
+}
+
 .mod{
   max-height: 32px;
   max-width: 32px;
@@ -218,7 +231,7 @@ table{
 th{
   @extend .headerText;
 
-  background-color: $background-shade !important;
+  background-color: $background-shade-solid !important;
   border-top: 2px solid    rgba($primary-color, 0.5) !important;
   border-left: 1px solid   rgba($primary-color, 0.5) !important;
   border-bottom: 1px solid rgba($primary-color, 0.5) !important;

@@ -135,7 +135,7 @@
 
 <!-- Community Challenges -->
 <div [ngClass]="['container', 'challenge', 'community', 'gap', isCommunityChallengeFinished]">
-  <div class="stripes borderBottom" style="width: 100%">
+  <div class="stripesLight borderBottom" style="width: 100%">
     @if (communityChallengeData?.communityChallenge?.name !== undefined) {
       <h1 class="headerText" style="margin: 10px;">{{ communityChallengeData?.communityChallenge.name.toUpperCase() }}</h1>
     }@else{
@@ -151,56 +151,79 @@
     </div>
   } @else{
     <!-- CC Active -->
-    <div class="simpleContainer gap">
+    <div class="simpleContainer gap" style="width: 100%;">
+
       <div class="clock">
         Ends in: <span class="clock highlight">{{communityTimeLeft}}</span>
       </div>
 
       @if (communityChallengeData?.communityChallenge?.description !== undefined) {
-        <span class="headerText">{{ communityChallengeData?.communityChallenge.description }}</span>
+        <span class="headerText" style="font-size: 1.25rem">{{ communityChallengeData?.communityChallenge.description }}</span>
       }
 
       <a class="highlight uppercase headerText">as a community</a>
-
       <div class="bigText gap">
         <a class="">{{getCommunityPromptPrefix()}}</a>
         <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
         <a class="">{{getCommunityPromptSuffix()}}</a>
       </div>
 
-      <div class="gap">
-        <a class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
-        of
-        <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
-        {{getCommunityPromptProgressSuffix()}}
-        <span>by <span class="highlight">{{communityChallengeData.communityChallenge.participants}} participants</span></span>
-      </div>
+      <div class="flexContainer flexColumn flexStretch" style="width: 100%; ">
+        <div class="flexColumn flexStretch contributorsBorder" style="max-height: 437px; overflow-y: auto;">
+          <table mat-table [dataSource]="communityChallengeData.topContributers ?? []">
+            <ng-container matColumnDef="Username">
+              <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
+              <td mat-cell *matCellDef="let element" >
+                <div class="flexRow" style="align-items: center; gap: 5px">
+                  <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
+                </div>
+              </td>
+            </ng-container>
 
-    @if (recentContributions.length > 0) {
-      <div class="recentContributionsContainer" style="text-align: center; margin-bottom: 10px">
-        @for (contribution of recentContributions; track contribution){
-          <div>
-            @if (! contribution.isLate) {
-              <div>
-                <a class="contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span>
-              </div>
-            }@else{
-              <div>
-                <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span> . . . but was too late :c
-              </div>
-            }
+            <ng-container matColumnDef="Contributions">
+              <th mat-header-cell *matHeaderCellDef class="headerText" style="text-align: center; padding: 5px">Contributions </th>
+              <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" >{{getContributionValue(element.amount, communityChallengeData.communityChallenge.conditionType)}}</td>
+            </ng-container>
 
+            <tr mat-header-row *matHeaderRowDef="['Username', 'Contributions']; sticky: true" ></tr>
+            <tr mat-row *matRowDef="let _; columns: ['Username', 'Contributions'];" ></tr>
+          </table>
+        </div>
+
+        <div class="flexContainer flexStretch stripesLight contributorsBorder" style="justify-items: center; align-items: center;">
+          <div class="layeredGrid stripesLight contributorsBorder">
+            <div class="stripesGoal gridFill" style="height: 100%" [style.width]="getCommunityGoalPercentage(communityChallengeData.communityChallenge.value, communityChallengeData.communityChallenge.targetValue)"></div>
+            <div class="stripesLight gridFill"></div>
+
+            <div class="flexColumn flexStretch gap gridFill" style="justify-content: center; align-items: center;">
+              <a class="highlight bigGoalText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
+              <span class="bigText">of</span>
+              <a class="highlight bigGoalText">{{getCommunityPromptValue()}}</a>
+<!--              <span class="bigText">{{getCommunityPromptProgressSuffix()}}</span>-->
+              <span class="bigText">by <span class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.participants}} participants</span></span>
+            </div>
           </div>
-        }
-      </div>
+        </div>
 
-      <div class="allContributorsContainer gap stripesLight borderTop" >
-        @for (contributor of communityChallengeData.topContributers; track contributor) {
-          <span class="highlight uppercase" style="cursor:pointer;" [routerLink]="['/user', contributor.username]" title="{{contributor.username}} contributed {{getContributionValue(contributor.amount, communityChallengeData.communityChallenge.conditionType)}}">{{contributor.username}}</span>
-        }
-      </div>
-    }
+        <div class="flexColumn flexStretch contributorsBorder">
+          @for (contribution of recentContributions; track contribution){
+            <div class="">
+              @if (! contribution.isLate) {
+                <div class="flexRow gap" style="justify-content: center; align-items: end">
+                  <a class="flexStretch contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a>
+                  <span class="flexStretch "> contributed </span>
+                  <span class="flexStretch highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span>
+                </div>
+              }@else{
+                <div>
+                  <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span> . . . but was too late :c
+                </div>
+              }
 
+            </div>
+          }
+        </div>
+      </div>
     </div>
   }
 </div>

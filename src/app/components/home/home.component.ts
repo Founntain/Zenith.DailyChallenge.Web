@@ -421,25 +421,27 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getContributionValue(value: number, conditionType: ConditionType) {
+    let sValue = value.toLocaleString('en-US');
+
     switch (conditionType) {
       case ConditionType.Height:
-        return `${value} M`
+        return `${sValue} M`
       case ConditionType.KOs:
-        return `${value} KO's`
+        return `${sValue} KO's`
       case ConditionType.Quads:
-        return `${value} quads`
+        return `${sValue} quads`
       case ConditionType.Spins:
-        return `${value} spins`
+        return `${sValue} spins`
       case ConditionType.AllClears:
-        return `${value} all clears`
+        return `${sValue} all clears`
       case ConditionType.Apm:
-        return `${value} APM`
+        return `${sValue} APM`
       case ConditionType.Pps:
-        return `${value} PPS`
+        return `${sValue} PPS`
       case ConditionType.Vs:
-        return `${value} VS`
+        return `${sValue} VS`
       case ConditionType.TotalBonus:
-        return `${value} Bonus`
+        return `${sValue} Bonus`
       default:
         return"--- IF YOU SEE THIS TELL FOUNNTAIN HE FORGOT SOMETHING. [5] ---"
     }
@@ -543,5 +545,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       default:
         return []
     }
+  }
+
+  getCommunityGoalPercentage(currentValue: number, target: number) {
+    console.log(`${Math.round((currentValue / target) * 100)}%`)
+
+    return `${Math.round((currentValue / target) * 100)}%`;
   }
 }
