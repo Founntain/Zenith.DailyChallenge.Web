@@ -244,6 +244,8 @@ export class UserComponent implements OnInit, AfterViewInit {
         return `${totalAmountContributed}%`;
       case ConditionType.Back2Back:
         return `${totalAmountContributed} B2B`;
+      case ConditionType.TotalBonus:
+        return `${totalAmountContributed} Bonus`;
     }
   }
 

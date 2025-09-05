@@ -136,7 +136,11 @@
 <!-- Community Challenges -->
 <div [ngClass]="['container', 'challenge', 'community', 'gap', isCommunityChallengeFinished]">
   <div class="stripes borderBottom" style="width: 100%">
-    <h1 class="headerText" style="margin: 10px;">COMMUNITY CHALLENGE</h1>
+    @if (communityChallengeData?.communityChallenge?.name !== undefined) {
+      <h1 class="headerText" style="margin: 10px;">{{ communityChallengeData?.communityChallenge.name.toUpperCase() }}</h1>
+    }@else{
+      <h1 class="headerText" style="margin: 10px;">COMMUNITY CHALLENGE</h1>
+    }
   </div>
 
   <!-- No CC Active -->
@@ -148,7 +152,13 @@
   } @else{
     <!-- CC Active -->
     <div class="simpleContainer gap">
-      <div class="clock" style="margin-bottom: 10px">Ends in: <span class="clock highlight">{{communityTimeLeft}}</span></div>
+      <div class="clock">
+        Ends in: <span class="clock highlight">{{communityTimeLeft}}</span>
+      </div>
+
+      @if (communityChallengeData?.communityChallenge?.description !== undefined) {
+        <span class="headerText">{{ communityChallengeData?.communityChallenge.description }}</span>
+      }
 
       <a class="highlight uppercase headerText">as a community</a>
 
@@ -170,7 +180,7 @@
       <div class="recentContributionsContainer" style="text-align: center; margin-bottom: 10px">
         @for (contribution of recentContributions; track contribution){
           <div>
-            @if (contribution.isLate) {
+            @if (! contribution.isLate) {
               <div>
                 <a class="contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span>
               </div>

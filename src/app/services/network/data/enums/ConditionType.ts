@@ -8,5 +8,6 @@
   Pps,
   Vs,
   Finesse,
-  Back2Back
+  Back2Back,
+  TotalBonus,
 }

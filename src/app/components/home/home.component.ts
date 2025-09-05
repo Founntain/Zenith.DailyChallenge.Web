@@ -297,6 +297,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       case ConditionType.Vs:
         prompt = "Achieve a total of "
         break;
+      case ConditionType.TotalBonus:
+        prompt = "Achieve "
+        break;
+      default:
+        prompt = "--- IF YOU SEE THIS TELL FOUNNTAIN HE FORGOT SOMETHING. [1] ---"
+        break;
     }
 
     return prompt;
@@ -331,6 +337,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       case ConditionType.Vs:
         prompt = `${value} VS`
         break;
+      case ConditionType.TotalBonus:
+        prompt = `${value} Bonus`
+        break;
+      default:
+        prompt = "--- IF YOU SEE THIS TELL FOUNNTAIN HE FORGOT SOMETHING. [2] ---"
+        break;
     }
 
     return prompt;
@@ -357,6 +369,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       case ConditionType.Pps:
       case ConditionType.Vs:
         prompt = ", by unleashing the power of the gods within you"
+        break;
+      case ConditionType.TotalBonus:
+        prompt = " while exploring the heights of Zenith"
+        break;
+      default:
+        prompt = "--- IF YOU SEE THIS TELL FOUNNTAIN HE FORGOT SOMETHING. [3] ---"
         break;
     }
 
@@ -391,6 +409,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       case ConditionType.Vs:
         prompt = "vs unleashed"
         break;
+      case ConditionType.TotalBonus:
+        prompt = " acquired"
+        break;
+      default:
+        prompt = "--- IF YOU SEE THIS TELL FOUNNTAIN HE FORGOT SOMETHING. [4] ---"
+        break;
     }
 
     return prompt;
@@ -414,9 +438,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         return `${value} PPS`
       case ConditionType.Vs:
         return `${value} VS`
+      case ConditionType.TotalBonus:
+        return `${value} Bonus`
+      default:
+        return"--- IF YOU SEE THIS TELL FOUNNTAIN HE FORGOT SOMETHING. [5] ---"
     }
-
-    return "";
   }
 
   getChallengeOfDifficulty(difficulty: Difficulty): DailyChallenge {
