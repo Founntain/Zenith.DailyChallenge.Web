@@ -136,7 +136,7 @@
 <!-- Community Challenges -->
 <div [ngClass]="['container', 'challenge', 'community', 'gap', isCommunityChallengeFinished]">
   <div class="stripesLight borderBottom" style="width: 100%">
-    @if (communityChallengeData?.communityChallenge?.name !== undefined) {
+    @if (communityChallengeData?.communityChallenge?.name !== null) {
       <h1 class="headerText" style="margin: 10px;">{{ communityChallengeData?.communityChallenge.name.toUpperCase() }}</h1>
     }@else{
       <h1 class="headerText" style="margin: 10px;">COMMUNITY CHALLENGE</h1>
@@ -147,7 +147,7 @@
   @if (communityChallengeData == null || communityChallengeData.communityChallenge === undefined){
     <div class="simpleContainer gap">
       <a>Currently no community challenge is active.</a>
-      <sub>Please check back later.</sub>
+      <sub style="margin-bottom: 10px">Please check back later.</sub>
     </div>
   } @else{
     <!-- CC Active -->
@@ -216,7 +216,7 @@
                 </div>
               }@else{
                 <div>
-                  <a class="contributionName highlight" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span> . . . but was too late :c
+                  <a class="contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span> . . . but was too late :c
                 </div>
               }
 
