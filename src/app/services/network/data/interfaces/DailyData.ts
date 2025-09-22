@@ -3,6 +3,24 @@ import {SlimUserinfo} from './SlimUserinfo';
 import {Altitudes} from './Altitudes';
 import {MasteryCompletions} from './MasteryCompletions';
 
+interface Split {
+  averageTime: string;
+  bestTime: string;
+  bestTimeAchievedDate: string;
+}
+
+interface ZenithSplits {
+  hotel: Split
+  casino: Split;
+  arena: Split;
+  museum: Split;
+  offices: Split;
+  laboratory: Split;
+  core: Split;
+  corruption: Split;
+  potg: Split;
+}
+
 export interface DailyData {
   username: string;
   tetrioId: string;
@@ -14,6 +32,5 @@ export interface DailyData {
   altitudes: Altitudes;
   masteryCompletions: MasteryCompletions | undefined;
   score: number;
-  splitAverages: Splits;
-  goldSplits: Splits;
+  splitTimes: ZenithSplits
 }

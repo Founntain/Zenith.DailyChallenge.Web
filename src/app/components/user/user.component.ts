@@ -29,6 +29,8 @@ import {SettingsService} from '../../services/settings.service';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {isValidDate} from 'rxjs/internal/util/isDate';
 import {Splits} from '../../services/network/data/interfaces/Splits';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 
 @Component({
   selector: 'app-user',
@@ -48,6 +50,7 @@ import {Splits} from '../../services/network/data/interfaces/Splits';
     NgClass,
     MatIcon,
     RouterLink,
+    BaseChartDirective,
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -66,6 +69,67 @@ export class UserComponent implements OnInit, AfterViewInit {
   runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Back2Back', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
   communityChallengeColumns: string[] = ['Date', 'Contribution'];
+
+  chartData: ChartConfiguration['data'] | undefined;
+  chartOptions: ChartConfiguration['options'] = {
+    elements: {
+      line: {
+        tension: .1,
+      },
+    },
+    scales: {
+      // We use this empty structure as a placeholder for dynamic theming.
+      x: {
+        ticks: {
+          color: '#e2e8f0',
+          font: {
+            family: 'Hind Madurai',
+            weight: 'bold',
+            size: 14,
+          }
+        }
+      },
+      yRight: {
+        position: 'right',
+        grid: {
+          color: 'rgb(169, 116, 212, .5)',
+        },
+        ticks: {
+          color: 'rgb(169, 116, 212, 1)',
+          font: {
+            family: 'Hind Madurai',
+            weight: 'bold',
+            size: 18,
+          }
+        },
+      },
+      yLeft: {
+        position: 'left',
+        grid: {
+          color: 'rgb(255, 255, 255, 0.25)',
+        },
+        ticks: {
+          color: '#e2e8f0',
+          font: {
+            family: 'Hind Madurai',
+            weight: 'bold',
+            size: 18,
+          }
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            family: 'Hind Madurai',
+            weight: 'bold',
+            size: 16,
+          }
+        }
+      }
+    }
+  }
 
   dataSource = new MatTableDataSource<Run>(this.runData);
 
@@ -121,6 +185,76 @@ export class UserComponent implements OnInit, AfterViewInit {
         this.dailyData = result;
 
         this.runPageCount = Math.ceil((this.dailyData.runs / this.runPageSize));
+      });
+
+      this.userService.getDailyExtra(this.username).subscribe(result => {
+        this.chartData = {
+          datasets: [
+            {
+              data: result.map(x => {return x.apm.avg}),
+              label: 'Average APM',
+              borderColor: 'rgb(129,205,252)',
+              backgroundColor: 'rgba(0,0,0,0)',
+              pointBackgroundColor: 'rgba(255,255,255,1)',
+              pointBorderColor: 'rgb(129,205,252)',
+              fill: 'origin',
+              yAxisID: 'yLeft',
+            },
+            {
+              data: result.map(x => {return x.apm.max}),
+              label: 'Peak APM',
+              borderColor: 'rgb(50,142,234)',
+              backgroundColor: 'rgba(0,0,0,0)',
+              pointBackgroundColor: 'rgba(255,255,255,1)',
+              pointBorderColor: 'rgb(50,142,234)',
+              fill: 'origin',
+              yAxisID: 'yLeft',
+            },
+
+            {
+              data: result.map(x => {return x.vs.avg}),
+              label: 'Average VS',
+              borderColor: 'rgb(255,206,142)',
+              backgroundColor: 'rgba(0,0,0,0)',
+              pointBackgroundColor: 'rgba(255,255,255,1)',
+              pointBorderColor: 'rgb(255,206,142)',
+              fill: 'origin',
+              yAxisID: 'yLeft',
+            },
+            {
+              data: result.map(x => {return x.vs.max}),
+              label: 'Peak VS',
+              borderColor: 'rgb(255,155,84)',
+              backgroundColor: 'rgba(0,0,0,0)',
+              pointBackgroundColor: 'rgba(255,255,255,1)',
+              pointBorderColor: 'rgb(255,155,84)',
+              fill: 'origin',
+              yAxisID: 'yLeft',
+            },
+
+            {
+              data: result.map(x => {return x.altitude.avg}),
+              label: 'Average Altitude',
+              borderColor:'rgb(187,136,253)',
+              backgroundColor: 'rgba(0,0,0,0)',
+              pointBackgroundColor: 'rgba(255,255,255,1)',
+              pointBorderColor: 'rgb(150,28,248)',
+              fill: 'origin',
+              yAxisID: 'yRight',
+            },
+            {
+              data: result.map(x => {return x.altitude.max}),
+              label: 'Peak Altitude',
+              borderColor: 'rgb(124,71,215)',
+              backgroundColor: 'rgba(0,0,0,0.25)',
+              pointBackgroundColor: 'rgba(255,255,255,1)',
+              pointBorderColor: 'rgb(150,28,248)',
+              fill: 'origin',
+              yAxisID: 'yRight',
+            },
+          ],
+          labels: result.map(x => {return x.date})
+        }
       });
 
       this.loadRunData();

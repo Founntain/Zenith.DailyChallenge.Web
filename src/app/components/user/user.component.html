@@ -32,10 +32,18 @@
       </div>
     </div>
   }
+
   <!-- Daily Adventure & Splits -->
   <div class="userContainer">
     <h2 class="title">ZDC Stats & History</h2>
 
+    @if (chartData !== undefined) {
+    <div class="baseContainer stripesLight" style="margin-bottom: 10px; padding: 5px">
+
+        <canvas baseChart type="line" [data]="chartData" [options]="chartOptions"></canvas>
+
+    </div>
+    }
     <div class="flexColumn scoreContainer stripes">
       <img src="assets/score.png" class="hugeMod"/>
       <span class="scoreDisplay headerText"> {{dailyData.score.toLocaleString()}}</span>
@@ -145,9 +153,9 @@
 
         @for (floor of floors; track floor) {
           <div [class]='["split", floor]'>
-            <div [class]='["splitBackground", floor, getFloorReachedCss(dailyData.goldSplits[floor])]'></div>
+            <div [class]='["splitBackground", floor, getFloorReachedCss(dailyData.splitTimes[floor])]'></div>
             <div class="splitWrapper">
-              <div [class]='["flexStretch", "floor", floor, getFloorReachedCss(dailyData.goldSplits[floor])]'>
+              <div [class]='["flexStretch", "floor", floor, getFloorReachedCss(dailyData.splitTimes[floor])]'>
                 @if (floor === "potg") {
                   <span>platform of the gods</span>
                 }@else{
@@ -155,16 +163,16 @@
                 }
               </div>
               <div class="flexStretch splitItem flexColumn">
-                @if (isNotEmptyTime(dailyData.goldSplits[floor])) {
+                @if (isNotEmptyTime(dailyData.splitTimes[floor].bestTime)) {
                   <span class="headerText" style="font-size: 1.25rem">Best Time</span>
                 }
-                <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.goldSplits[floor]) }}</span>
+                <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.splitTimes[floor].bestTime) }}</span>
               </div>
               <div class="flexStretch splitItem flexColumn">
-                @if (isNotEmptyTime(dailyData.splitAverages[floor])) {
+                @if (isNotEmptyTime(dailyData.splitTimes[floor].averageTime)) {
                   <span class="headerText" style="font-size: 1.25rem">Average Time</span>
                 }
-                <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitAverages[floor], true) }}</span>
+                <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitTimes[floor].averageTime, true) }}</span>
               </div>
             </div>
           </div>

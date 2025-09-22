@@ -27,6 +27,10 @@ export class ZenithUserService {
     return this.http.get<DailyData>(`${this.baseUrl}${username}/daily`);
   }
 
+  getDailyExtra(username: string): Observable<any[]>{
+    return this.http.get<any[]>(`${this.baseUrl}${username}/dailyExtra`);
+  }
+
   getRuns(username: string, page: number, pageSize: number): Observable<Run[]>{
     return this.http.get<Run[]>(`${this.baseUrl}${username}/runs?page=${page}&pageSize=${pageSize}`);
   }
