@@ -37,7 +37,7 @@
   <div class="userContainer">
     <h2 class="title">ZDC Stats & History</h2>
 
-    @if (chartData !== undefined) {
+    @if (chartData !== undefined && dailyExtra.length > 0) {
     <div class="baseContainer stripesLight" style="margin-bottom: 10px; padding: 5px">
 
         <canvas baseChart type="line" [data]="chartData" [options]="chartOptions"></canvas>

@@ -70,6 +70,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   challengesColumns: string[] = ['Date', 'Status'];
   communityChallengeColumns: string[] = ['Date', 'Contribution'];
 
+  dailyExtra: any[] = [];
   chartData: ChartConfiguration['data'] | undefined;
   chartOptions: ChartConfiguration['options'] = {
     elements: {
@@ -188,6 +189,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       });
 
       this.userService.getDailyExtra(this.username).subscribe(result => {
+        this.dailyExtra = result;
         this.chartData = {
           datasets: [
             {
