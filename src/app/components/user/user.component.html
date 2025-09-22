@@ -167,6 +167,9 @@
                   <span class="headerText" style="font-size: 1.25rem">Best Time</span>
                 }
                 <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.splitTimes[floor].bestTime) }}</span>
+                @if (isNotEmptyTime(dailyData.splitTimes[floor].bestTime)) {
+                  <span class="boldText" title="Fastest time" style="margin-bottom:2px">achieved {{ getSplitText(dailyData.splitTimes[floor].bestTimeAchievedDate) }}</span>
+                }
               </div>
               <div class="flexStretch splitItem flexColumn">
                 @if (isNotEmptyTime(dailyData.splitTimes[floor].averageTime)) {
