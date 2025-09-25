@@ -3,7 +3,7 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {ZenithService} from '../../services/network/zenith.service';
 import {DailyData} from '../../services/network/data/interfaces/DailyData';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {NgClass} from '@angular/common';
 import {
   MatCell,
   MatCellDef,
@@ -26,11 +26,13 @@ import {CommunityChallengeContributions} from '../../services/network/data/inter
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {MatIcon} from '@angular/material/icon';
 import {SettingsService} from '../../services/settings.service';
-import {MatSlideToggle} from '@angular/material/slide-toggle';
-import {isValidDate} from 'rxjs/internal/util/isDate';
+
 import {Splits} from '../../services/network/data/interfaces/Splits';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import {MatChip, MatChipAvatar, MatChipListbox, MatChipOption, MatChipSet} from '@angular/material/chips';
+import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits';
+import {MatCheckbox} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-user',
@@ -51,6 +53,10 @@ import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
     MatIcon,
     RouterLink,
     BaseChartDirective,
+    MatChipAvatar,
+    MatChipListbox,
+    MatChipOption,
+    MatCheckbox
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -62,9 +68,12 @@ export class UserComponent implements OnInit, AfterViewInit {
   isSameUser: boolean = false;
 
   dailyData!: DailyData;
+  splitTimes!: ZenithSplits;
   runData: Run[] = [];
   challengeData: ChallengeCompletion[] = [];
   communityContributionData: CommunityChallengeContributions[] = [];
+
+  splitMods: string[] = ['No Mod', 'Expert', 'No Hold', 'Messy', 'Gravity', 'Volatile', 'Double Hole', 'Invisible', 'All Spin']
 
   runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Back2Back', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
@@ -265,6 +274,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         }
       });
 
+      this.loadSplitTimes(null, false)
       this.loadRunData();
       this.loadChallengeData();
       this.loadCommunityContributionData();
@@ -396,7 +406,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   onAutoTrackingChanged(event: any) {
-    let isChecked: boolean = event?.target?.checked ?? false;
+    let isChecked: boolean = event?.checked ?? false;
 
     this.settingsService.setAutoUpdate(isChecked);
   }
@@ -418,5 +428,26 @@ export class UserComponent implements OnInit, AfterViewInit {
     }else{
       return '';
     }
+  }
+
+  getModImageFromModList(mod: string) {
+    return mod.toLowerCase().replace(/\s+/g, "");
+  }
+
+  onSplitFilterChanged(event: any) {
+    let selectedValue: string;
+
+    if(event.value === undefined)
+      selectedValue = '';
+    else
+      selectedValue = this.getModImageFromModList(event.value)
+
+    this.loadSplitTimes(selectedValue, false);
+  }
+
+  private loadSplitTimes(mod: string | any, soloMod: boolean) {
+    this.userService.getBestSplits(this.username, mod, soloMod).subscribe(result => {
+      this.splitTimes = result;
+    });
   }
 }

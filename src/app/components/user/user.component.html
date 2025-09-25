@@ -27,8 +27,7 @@
     <div class="userContainer">
       <h2 class="title">Settings</h2>
       <div style="display: inline-flex; justify-items: center; align-items: center;">
-        <input type="checkbox" id="autoTrackingSetting" [checked]="isAutoUpdate" (change)="onAutoTrackingChanged($event)">
-        <label class="boldText" for="autoTrackingSetting">Enable Auto Tracking?</label>
+        <mat-checkbox id="autoTrackingSetting" [checked]="isAutoUpdate" (change)="onAutoTrackingChanged($event)">Enable Auto Tracking?</mat-checkbox>
       </div>
     </div>
   }
@@ -147,15 +146,28 @@
     </div>
 
     <!-- Splits -->
-    <div>
+    @if (splitTimes !== undefined) {
+      <div>
       <h2 class="title">Zenith Splits</h2>
-      <div class="splitContainer">
 
+      <div class="">
+        <mat-chip-listbox (change)="onSplitFilterChanged($event)">
+          @for (mod of splitMods; track $index) {
+            <mat-chip-option style="display: flex;">
+              @if($index > 0){
+                <img matChipAvatar src="assets/tetrio-img/mods/{{getModImageFromModList(mod)}}.png">
+              }
+              {{mod}}
+            </mat-chip-option>
+          }
+        </mat-chip-listbox>
+      </div>
+      <div class="splitContainer">
         @for (floor of floors; track floor) {
           <div [class]='["split", floor]'>
-            <div [class]='["splitBackground", floor, getFloorReachedCss(dailyData.splitTimes[floor])]'></div>
+            <div [class]='["splitBackground", floor, getFloorReachedCss(splitTimes[floor])]'></div>
             <div class="splitWrapper">
-              <div [class]='["flexStretch", "floor", floor, getFloorReachedCss(dailyData.splitTimes[floor])]'>
+              <div [class]='["flexStretch", "floor", floor, getFloorReachedCss(splitTimes[floor])]'>
                 @if (floor === "potg") {
                   <span>platform of the gods</span>
                 }@else{
@@ -163,19 +175,19 @@
                 }
               </div>
               <div class="flexStretch splitItem flexColumn">
-                @if (isNotEmptyTime(dailyData.splitTimes[floor].bestTime)) {
+                @if (isNotEmptyTime(splitTimes[floor].bestTime)) {
                   <span class="headerText" style="font-size: 1.25rem">Best Time</span>
                 }
-                <span class="headerText goldTime" title="Fastest time">{{ getSplitText(dailyData.splitTimes[floor].bestTime) }}</span>
-                @if (isNotEmptyTime(dailyData.splitTimes[floor].bestTime)) {
-                  <span class="boldText" title="Fastest time" style="margin-bottom:2px">achieved {{ getSplitText(dailyData.splitTimes[floor].bestTimeAchievedDate) }}</span>
+                <span class="headerText goldTime" title="Fastest time">{{ getSplitText(splitTimes[floor].bestTime) }}</span>
+                @if (isNotEmptyTime(splitTimes[floor].bestTime)) {
+                  <span class="boldText achievedText" style="margin-bottom:2px">achieved {{ getSplitText(splitTimes[floor].bestTimeAchievedDate) }}</span>
                 }
               </div>
               <div class="flexStretch splitItem flexColumn">
-                @if (isNotEmptyTime(dailyData.splitTimes[floor].averageTime)) {
+                @if (isNotEmptyTime(splitTimes[floor].averageTime)) {
                   <span class="headerText" style="font-size: 1.25rem">Average Time</span>
                 }
-                <span class="headerText averageTime" title="Average time">{{ getSplitText(dailyData.splitTimes[floor].averageTime, true) }}</span>
+                <span class="headerText averageTime" title="Average time">{{ getSplitText(splitTimes[floor].averageTime, true) }}</span>
               </div>
             </div>
           </div>
@@ -186,6 +198,7 @@
         <span [routerLink]="['/user', username, 'splits']" class="textShadow headerText" style="font-size: 18pt">View all Splits</span>
       </div>
     </div>
+    }
   </div>
 
   <!-- Challenges Completed -->

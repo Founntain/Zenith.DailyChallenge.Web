@@ -1,5 +1,5 @@
 ﻿export interface CommunityChallenge {
-  communityChallenge: any;
+  communityChallenge: any | null;
   topContributers: any;
   startedAtUnixSeconds: number;
   endsAtUnixSeconds: number;

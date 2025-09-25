@@ -8,8 +8,8 @@
         </div>
       } @else if (userProfileData !== undefined){
         <div class="userInfo boldText">
-          @if (userProfileData?.avatarRevision !== undefined && userProfileData?.avatarRevision !== null) {
-            <img class="profilePicture" src="https://tetr.io/user-content/avatars/{{userProfileData?.userId}}.jpg?rv={{userProfileData?.avatarRevision}}" />
+          @if (userProfileData.avatarRevision !== undefined && userProfileData.avatarRevision !== null) {
+            <img class="profilePicture" src="https://tetr.io/user-content/avatars/{{userProfileData.userId}}.jpg?rv={{userProfileData.avatarRevision}}" />
           }
           <a [routerLink]="['/user', userProfileData.username]">{{userProfileData.username}}</a>
           <mat-icon class="icon" (click)="logout()">logout</mat-icon>

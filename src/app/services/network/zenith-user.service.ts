@@ -10,6 +10,7 @@ import {Run} from './data/interfaces/Run';
 import {ChallengeCompletion} from './data/interfaces/ChallengeCompletion';
 import {CommunityChallengeContributions} from './data/interfaces/CommunityChallengeContributions';
 import {TodayCompletions} from './data/interfaces/TodayCompletions';
+import {ZenithSplits} from './data/interfaces/ZenithSplits';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,13 @@ export class ZenithUserService {
 
   getRuns(username: string, page: number, pageSize: number): Observable<Run[]>{
     return this.http.get<Run[]>(`${this.baseUrl}${username}/runs?page=${page}&pageSize=${pageSize}`);
+  }
+
+  getBestSplits(username: string, mod: string | null = null, soloMod: boolean = false ): Observable<ZenithSplits> {
+    if(mod == null)
+      return this.http.get<ZenithSplits>(`${this.baseUrl}${username}/bestSplits?soloMod=${soloMod}`)
+    else
+      return this.http.get<ZenithSplits>(`${this.baseUrl}${username}/bestSplits?mod=${mod}&soloMod=${soloMod}`);
   }
 
   getSplits(username: string, page: number = 0, pageSize: number = 100) {

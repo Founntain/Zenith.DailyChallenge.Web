@@ -13,6 +13,7 @@ import {
   MatRowDef,
   MatTable
 } from '@angular/material/table';
+import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits';
 
 @Component({
   selector: 'app-splits',
@@ -34,7 +35,7 @@ import {
 })
 export class SplitsComponent implements OnInit {
   username: string = '';
-  dailyData!: DailyData;
+  splitTimes: ZenithSplits | undefined;
   splitData: any[] = [];
 
   splitColumns: string[] = ['Hotel', 'Casino', 'Arena', 'Museum', 'Offices', 'Laboratory', 'Core', 'Corruption', 'Potg'];
@@ -49,8 +50,8 @@ export class SplitsComponent implements OnInit {
 
       this.userService.getSplits(this.username);
 
-      this.userService.getDaily(this.username).subscribe(result => {
-        this.dailyData = result;
+      this.userService.getBestSplits(this.username).subscribe(result => {
+        this.splitTimes = result;
       });
 
       this.userService.getSplits(this.username).subscribe(result => {

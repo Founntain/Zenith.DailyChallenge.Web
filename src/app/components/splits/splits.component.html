@@ -2,78 +2,78 @@
   <h2 class="headerText"><span class="uppercase">{{username}}'s</span> zenith splits</h2>
 </div>
 
-<div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.hotel.bestTime)" class="userContainer">
+<div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.hotel.bestTime)" class="userContainer">
   <h2 class="title">Zenith Splits</h2>
   <div class="splitContainer">
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.hotel.bestTime)" class="split hotel">
+    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.hotel.bestTime)" class="split hotel">
       <div class="splitWrapper headerText">
         <a>HOTEL</a>
-        <a class="bigNumber" title="Fastest time">{{ dailyData.splitTimes.hotel.bestTime }}</a>
-        <a class="smallNumber" title="Average time">{{ dailyData.splitTimes.hotel.averageTime}}</a>
+        <a class="bigNumber" title="Fastest time">{{ splitTimes.hotel.bestTime }}</a>
+        <a class="smallNumber" title="Average time">{{ splitTimes.hotel.averageTime}}</a>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.casino.bestTime)" class="split casino">
+    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.casino.bestTime)" class="split casino">
       <div class="splitWrapper headerText">
         <a>CASINO</a>
-        <a class="bigNumber" title="Fastest time">{{dailyData.splitTimes.casino.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{dailyData.splitTimes.casino.averageTime}}</a>
+        <a class="bigNumber" title="Fastest time">{{splitTimes.casino.bestTime}}</a>
+        <a class="smallNumber" title="Average time">{{splitTimes.casino.averageTime}}</a>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.arena.bestTime)" class="split arena">
+    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.arena.bestTime)" class="split arena">
       <div class="splitWrapper headerText">
         <a>ARENA</a>
-        <a class="bigNumber" title="Fastest time">{{dailyData.splitTimes.arena.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{dailyData.splitTimes.arena.averageTime}}</a>
+        <a class="bigNumber" title="Fastest time">{{splitTimes.arena.bestTime}}</a>
+        <a class="smallNumber" title="Average time">{{splitTimes.arena.averageTime}}</a>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.museum.bestTime)" class="split museum">
+    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.museum.bestTime)" class="split museum">
       <div class="splitWrapper headerText">
         <a>MUSEUM</a>
-        <a class="bigNumber" title="Fastest time">{{dailyData.splitTimes.museum.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{dailyData.splitTimes.museum.averageTime}}</a>
+        <a class="bigNumber" title="Fastest time">{{splitTimes.museum.bestTime}}</a>
+        <a class="smallNumber" title="Average time">{{splitTimes.museum.averageTime}}</a>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.offices.bestTime)" class="split offices">
+    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.offices.bestTime)" class="split offices">
       <div class="splitWrapper headerText">
         <a>OFFICES</a>
-        <a class="bigNumber" title="Fastest time">{{dailyData.splitTimes.offices.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{dailyData.splitTimes.offices.averageTime}}</a>
+        <a class="bigNumber" title="Fastest time">{{splitTimes.offices.bestTime}}</a>
+        <a class="smallNumber" title="Average time">{{splitTimes.offices.averageTime}}</a>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.laboratory.bestTime)" class="split laboratory">
+    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.laboratory.bestTime)" class="split laboratory">
       <div class="splitWrapper headerText">
         <a>LABORATORY</a>
-        <a class="bigNumber" title="Fastest time">{{dailyData.splitTimes.laboratory.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{dailyData.splitTimes.laboratory.averageTime}}</a>
+        <a class="bigNumber" title="Fastest time">{{splitTimes.laboratory.bestTime}}</a>
+        <a class="smallNumber" title="Average time">{{splitTimes.laboratory.averageTime}}</a>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.core.bestTime)" class="split core">
+    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.core.bestTime)" class="split core">
       <div class="splitWrapper headerText">
         <a>CORE</a>
-        <a class="bigNumber" title="Fastest time">{{dailyData.splitTimes.core.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{dailyData.splitTimes.core.averageTime}}</a>
+        <a class="bigNumber" title="Fastest time">{{splitTimes.core.bestTime}}</a>
+        <a class="smallNumber" title="Average time">{{splitTimes.core.averageTime}}</a>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.corruption.bestTime)" class="split corruption">
+    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.corruption.bestTime)" class="split corruption">
       <div class="splitWrapper headerText">
         <a>CORRUPTION</a>
-        <a class="bigNumber" title="Fastest time">{{dailyData.splitTimes.corruption.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{dailyData.splitTimes.corruption.averageTime}}</a>
+        <a class="bigNumber" title="Fastest time">{{splitTimes.corruption.bestTime}}</a>
+        <a class="smallNumber" title="Average time">{{splitTimes.corruption.averageTime}}</a>
       </div>
     </div>
 
-    <div *ngIf="dailyData !== undefined && isNotEmptyTime(dailyData.splitTimes.potg.bestTime)" class="split potg">
+    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.potg.bestTime)" class="split potg">
       <div class="splitWrapper headerText">
         <a>POTG</a>
-        <a class="bigNumber" title="Fastest time">{{dailyData.splitTimes.potg.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{dailyData.splitTimes.potg.averageTime}}</a>
+        <a class="bigNumber" title="Fastest time">{{splitTimes.potg.bestTime}}</a>
+        <a class="smallNumber" title="Average time">{{splitTimes.potg.averageTime}}</a>
       </div>
     </div>
   </div>

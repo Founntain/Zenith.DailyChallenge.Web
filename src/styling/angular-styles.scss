@@ -1,0 +1,29 @@
+﻿@use '@angular/material' as mat;
+@use 'colors' as *;
+
+:root {
+  @include mat.chips-overrides((
+    label-text-color: $text-color,
+    selected-label-text-color: $background-color,
+    label-text-font: 'Hind Madurai',
+    outline-color: $text-color,
+    focus-outline-color: $primary-color,
+    label-text-weight: 800,
+  ));
+
+  @include mat.checkbox-overrides((
+    label-text-color: $text-color,
+    label-text-font: 'Hind Madurai',
+    label-text-weight: 800,
+    selected-icon-color: $primary-color,
+    selected-hover-icon-color: rgba($primary-color, 0.75),
+    selected-focus-icon-color: rgba($primary-color, 0.75),
+
+    selected-hover-state-layer-color:     $primary-color,
+    selected-focus-state-layer-color:     $primary-color,
+    selected-pressed-state-layer-color:   $primary-color,
+    unselected-hover-state-layer-color:   $primary-color,
+    unselected-focus-state-layer-color:   $primary-color,
+    unselected-pressed-state-layer-color: $primary-color,
+  ));
+}

@@ -172,6 +172,12 @@
           font-size: 1rem;
         }
       }
+
+      .achievedText{
+        @media screen and (max-width: 600px) {
+          font-size: 1rem;
+        }
+      }
     }
 
     .floor{
@@ -632,45 +638,6 @@ th{
 
       text-shadow: 0 3px rgba(67, 222, 157, 0.75), 0 6px 16px rgba(67, 222, 157, 0.75);
     }
-  }
-}
-
-input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s ease;
-
-  &:checked {
-    background-color: #ff9c6b;
-    border-color: #ff9c6b;
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: 6px;
-      top: 2px;
-      width: 5px;
-      height: 10px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
-  }
-
-  &:hover {
-    border-color: #b83a1b;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
   }
 }
 
