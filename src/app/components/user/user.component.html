@@ -153,11 +153,11 @@
       <div class="">
         <mat-chip-listbox (change)="onSplitFilterChanged($event)">
           @for (mod of splitMods; track $index) {
-            <mat-chip-option style="display: flex;">
+            <mat-chip-option style="display: flex;" [value]="mod">
               @if($index > 0){
                 <img matChipAvatar src="assets/tetrio-img/mods/{{getModImageFromModList(mod)}}.png">
               }
-              {{mod}}
+              {{splitModsText[$index]}}
             </mat-chip-option>
           }
         </mat-chip-listbox>
