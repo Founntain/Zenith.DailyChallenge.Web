@@ -11,6 +11,7 @@ import {ChallengeCompletion} from './data/interfaces/ChallengeCompletion';
 import {CommunityChallengeContributions} from './data/interfaces/CommunityChallengeContributions';
 import {TodayCompletions} from './data/interfaces/TodayCompletions';
 import {ZenithSplits} from './data/interfaces/ZenithSplits';
+import {DailyExtra} from './data/interfaces/DailyExtra';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class ZenithUserService {
     return this.http.get<DailyData>(`${this.baseUrl}${username}/daily`);
   }
 
-  getDailyExtra(username: string): Observable<any[]>{
-    return this.http.get<any[]>(`${this.baseUrl}${username}/dailyExtra`);
+  getDailyExtra(username: string): Observable<DailyExtra>{
+    return this.http.get<DailyExtra>(`${this.baseUrl}${username}/dailyExtra`);
   }
 
   getRuns(username: string, page: number, pageSize: number): Observable<Run[]>{

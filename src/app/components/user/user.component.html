@@ -36,12 +36,21 @@
   <div class="userContainer">
     <h2 class="title">ZDC Stats & History</h2>
 
-    @if (chartData !== undefined && dailyExtra.length > 0) {
+    @if (recentDaysChartData !== undefined && dailyExtra.recentDays.length > 0) {
     <div class="baseContainer stripesLight" style="margin-bottom: 10px; padding: 5px">
 
-        <canvas baseChart type="line" [data]="chartData" [options]="chartOptions"></canvas>
+        <canvas baseChart type="line" [data]="recentDaysChartData" [options]="recentDaysChartOptions"></canvas>
 
     </div>
+    }
+    @if (modBasedChartData !== undefined && dailyExtra.recentDays.length > 0) {
+      <div class="baseContainer stripesLight" style="margin-bottom: 10px; padding: 5px">
+
+        <h2 class="title centerText">Altitude Progression</h2>
+
+        <canvas baseChart type="line" [data]="modBasedChartData" [options]="modBasedChartOptions"></canvas>
+
+      </div>
     }
     <div class="flexColumn scoreContainer stripes">
       <img src="assets/score.png" class="hugeMod"/>

@@ -29,10 +29,13 @@ import {SettingsService} from '../../services/settings.service';
 
 import {Splits} from '../../services/network/data/interfaces/Splits';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import {Chart, ChartConfiguration, ChartEvent, ChartType} from 'chart.js';
 import {MatChip, MatChipAvatar, MatChipListbox, MatChipOption, MatChipSet} from '@angular/material/chips';
 import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits';
 import {MatCheckbox} from '@angular/material/checkbox';
+import {DailyExtra} from '../../services/network/data/interfaces/DailyExtra';
+import {ChartHelper} from '../../util/ChartHelper';
+import { default as Annotation } from 'chartjs-plugin-annotation';
 
 @Component({
   selector: 'app-user',
@@ -80,16 +83,16 @@ export class UserComponent implements OnInit, AfterViewInit {
   challengesColumns: string[] = ['Date', 'Status'];
   communityChallengeColumns: string[] = ['Date', 'Contribution'];
 
-  dailyExtra: any[] = [];
-  chartData: ChartConfiguration['data'] | undefined;
-  chartOptions: ChartConfiguration['options'] = {
+  dailyExtra: DailyExtra = { recentDays: [], modProgression: [], recentGames: []};
+  recentDaysChartData: ChartConfiguration['data'] | undefined;
+  modBasedChartData: ChartConfiguration['data'] | undefined;
+  recentDaysChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
         tension: .1,
       },
     },
     scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
       x: {
         ticks: {
           color: '#e2e8f0',
@@ -141,6 +144,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     }
   }
+  modBasedChartOptions: ChartConfiguration['options'] = {}
 
   dataSource = new MatTableDataSource<Run>(this.runData);
 
@@ -185,6 +189,65 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    Chart.register(Annotation);
+    let chartHelper = new ChartHelper();
+
+    this.modBasedChartOptions = {
+      elements: {
+        line: {
+          tension: .1,
+        },
+        point: {
+          radius: 0,
+            hitRadius: 20
+        }
+      },
+      scales: {
+        x: {
+          type: 'linear',
+            ticks: {
+            color: '#e2e8f0',
+              autoSkip: true,
+              font: {
+              family: 'Hind Madurai',
+                weight: 'bold',
+                size: 14,
+            }
+          }
+        },
+        y: {
+          position: 'left',
+            grid: {
+            color: 'rgb(255, 255, 255, 0.25)',
+          },
+          ticks: {
+            color: '#e2e8f0',
+              font: {
+              family: 'Hind Madurai',
+                weight: 'bold',
+                size: 18,
+            }
+          },
+        },
+      },
+      plugins: {
+        tooltip: {
+          mode: 'index',
+            intersect: false,
+        },
+        legend: {
+          labels: {
+            font: {
+              family: 'Hind Madurai',
+                weight: 'bold',
+                size: 16,
+            }
+          }
+        },
+        annotation: chartHelper.getModChartAnnotations()
+      }
+    }
+
     this.route.paramMap.subscribe(params => {
       this.username = params.get('username')!;
 
@@ -200,78 +263,15 @@ export class UserComponent implements OnInit, AfterViewInit {
 
       this.userService.getDailyExtra(this.username).subscribe(result => {
         this.dailyExtra = result;
-        this.chartData = {
-          datasets: [
-            {
-              data: result.map(x => {return x.apm.avg}),
-              label: 'Average APM',
-              borderColor: 'rgb(129,205,252)',
-              backgroundColor: 'rgba(0,0,0,0)',
-              pointBackgroundColor: 'rgba(255,255,255,1)',
-              pointBorderColor: 'rgb(129,205,252)',
-              pointHitRadius: 20,
-              fill: 'origin',
-              yAxisID: 'yLeft',
-            },
-            {
-              data: result.map(x => {return x.apm.max}),
-              label: 'Peak APM',
-              borderColor: 'rgb(50,142,234)',
-              backgroundColor: 'rgba(0,0,0,0)',
-              pointBackgroundColor: 'rgba(255,255,255,1)',
-              pointBorderColor: 'rgb(50,142,234)',
-              pointHitRadius: 20,
-              fill: 'origin',
-              yAxisID: 'yLeft',
-            },
 
-            {
-              data: result.map(x => {return x.vs.avg}),
-              label: 'Average VS',
-              borderColor: 'rgb(255,206,142)',
-              backgroundColor: 'rgba(0,0,0,0)',
-              pointBackgroundColor: 'rgba(255,255,255,1)',
-              pointBorderColor: 'rgb(255,206,142)',
-              pointHitRadius: 20,
-              fill: 'origin',
-              yAxisID: 'yLeft',
-            },
-            {
-              data: result.map(x => {return x.vs.max}),
-              label: 'Peak VS',
-              borderColor: 'rgb(255,155,84)',
-              backgroundColor: 'rgba(0,0,0,0)',
-              pointBackgroundColor: 'rgba(255,255,255,1)',
-              pointBorderColor: 'rgb(255,155,84)',
-              pointHitRadius: 20,
-              fill: 'origin',
-              yAxisID: 'yLeft',
-            },
+        this.recentDaysChartData = {
+          datasets: chartHelper.getRecentDaysChartData(this.dailyExtra.recentDays),
+          labels: this.dailyExtra.recentDays.map(x => {return x.date})
+        }
 
-            {
-              data: result.map(x => {return x.altitude.avg}),
-              label: 'Average Altitude',
-              borderColor:'rgb(187,136,253)',
-              backgroundColor: 'rgba(0,0,0,0)',
-              pointBackgroundColor: 'rgba(255,255,255,1)',
-              pointBorderColor: 'rgb(150,28,248)',
-              pointHitRadius: 20,
-              fill: 'origin',
-              yAxisID: 'yRight',
-            },
-            {
-              data: result.map(x => {return x.altitude.max}),
-              label: 'Peak Altitude',
-              borderColor: 'rgb(124,71,215)',
-              backgroundColor: 'rgba(0,0,0,0.25)',
-              pointBackgroundColor: 'rgba(255,255,255,1)',
-              pointBorderColor: 'rgb(150,28,248)',
-              pointHitRadius: 20,
-              fill: 'origin',
-              yAxisID: 'yRight',
-            },
-          ],
-          labels: result.map(x => {return x.date})
+        this.modBasedChartData = {
+          datasets: chartHelper.getModBasedChartData(this.dailyExtra.modProgression),
+          labels: this.dailyExtra.recentDays.map(x => {return x.date})
         }
       });
 
