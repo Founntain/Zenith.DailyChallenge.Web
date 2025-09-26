@@ -36,22 +36,6 @@
   <div class="userContainer">
     <h2 class="title">ZDC Stats & History</h2>
 
-    @if (recentDaysChartData !== undefined && dailyExtra.recentDays.length > 0) {
-    <div class="baseContainer stripesLight" style="margin-bottom: 10px; padding: 5px">
-
-        <canvas baseChart type="line" [data]="recentDaysChartData" [options]="recentDaysChartOptions"></canvas>
-
-    </div>
-    }
-    @if (modBasedChartData !== undefined && dailyExtra.recentDays.length > 0) {
-      <div class="baseContainer stripesLight" style="margin-bottom: 10px; padding: 5px">
-
-        <h2 class="title centerText">Altitude Progression</h2>
-
-        <canvas baseChart type="line" [data]="modBasedChartData" [options]="modBasedChartOptions"></canvas>
-
-      </div>
-    }
     <div class="flexColumn scoreContainer stripes">
       <img src="assets/score.png" class="hugeMod"/>
       <span class="scoreDisplay headerText"> {{dailyData.score.toLocaleString()}}</span>
@@ -154,6 +138,34 @@
       </div>
     </div>
 
+    <!--  Recent Days Chart  -->
+    @if (recentDaysChartData !== undefined && dailyExtra.recentDays.length > 0) {
+      <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-right: none; border-left: none">
+        <h2 class="title centerText">Recent 10 days</h2>
+
+        <canvas baseChart type="line" [data]="recentDaysChartData" [options]="recentDaysChartOptions"></canvas>
+      </div>
+    }
+
+    <!--  Mod progression chart  -->
+    @if (modBasedChartData !== undefined && dailyExtra.recentDays.length > 0) {
+      <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-top: none; border-right: none; border-left: none">
+        <h2 class="title centerText">Altitude Progression</h2>
+
+        <mat-chip-listbox (change)="onProgressionDensityChanged($event)">
+          <mat-chip-option [value]="25">25 Runs</mat-chip-option>
+          <mat-chip-option [value]="50">50 Runs</mat-chip-option>
+          <mat-chip-option [value]="100" selected>100 Runs</mat-chip-option>
+          <mat-chip-option [value]="250">250 Runs</mat-chip-option>
+          <mat-chip-option [value]="500">500 Runs</mat-chip-option>
+          <mat-chip-option [value]="3000">3000 Runs</mat-chip-option>
+        </mat-chip-listbox>
+
+        <canvas baseChart [type]="'line'" [data]="modBasedChartData" [options]="modBasedChartOptions"></canvas>
+
+      </div>
+    }
+
     <!-- Splits -->
     @if (splitTimes !== undefined) {
       <div>
@@ -178,7 +190,10 @@
             <div class="splitWrapper">
               <div [class]='["flexStretch", "floor", floor, getFloorReachedCss(splitTimes[floor])]'>
                 @if (floor === "potg") {
-                  <span>platform of the gods</span>
+                  <div class="flexColumn">
+                    <span>platform of the</span>
+                    <span>gods</span>
+                  </div>
                 }@else{
                   <span>{{floor}}</span>
                 }

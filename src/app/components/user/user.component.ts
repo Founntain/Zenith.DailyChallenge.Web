@@ -36,6 +36,8 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {DailyExtra} from '../../services/network/data/interfaces/DailyExtra';
 import {ChartHelper} from '../../util/ChartHelper';
 import { default as Annotation } from 'chartjs-plugin-annotation';
+import {MatSelect} from '@angular/material/select';
+import {MatOption} from '@angular/material/core';
 
 @Component({
   selector: 'app-user',
@@ -59,7 +61,10 @@ import { default as Annotation } from 'chartjs-plugin-annotation';
     MatChipAvatar,
     MatChipListbox,
     MatChipOption,
-    MatCheckbox
+    MatCheckbox,
+    MatSelect,
+    MatOption,
+    MatSelect
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -83,7 +88,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   challengesColumns: string[] = ['Date', 'Status'];
   communityChallengeColumns: string[] = ['Date', 'Contribution'];
 
-  dailyExtra: DailyExtra = { recentDays: [], modProgression: [], recentGames: []};
+  dailyExtra: DailyExtra = { recentDays: [], modProgression: [] };
   recentDaysChartData: ChartConfiguration['data'] | undefined;
   modBasedChartData: ChartConfiguration['data'] | undefined;
   recentDaysChartOptions: ChartConfiguration['options'] = {
@@ -100,8 +105,8 @@ export class UserComponent implements OnInit, AfterViewInit {
             family: 'Hind Madurai',
             weight: 'bold',
             size: 14,
-          }
-        }
+          },
+        },
       },
       yRight: {
         position: 'right',
@@ -132,7 +137,26 @@ export class UserComponent implements OnInit, AfterViewInit {
         },
       },
     },
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
     plugins: {
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        titleAlign: 'center',
+        titleFont: {
+          family: 'Hind Madurai',
+          weight: 'bold',
+          size: 18,
+        },
+        bodyFont: {
+          family: 'Hind Madurai',
+          weight: 'bold',
+          size: 16,
+        },
+      },
       legend: {
         labels: {
           font: {
@@ -195,24 +219,28 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.modBasedChartOptions = {
       elements: {
         line: {
-          tension: .1,
+          borderWidth: 2,
+          tension: 1,
+          stepped: 'after'
         },
         point: {
           radius: 0,
-            hitRadius: 20
+            hitRadius: 10
         }
       },
       scales: {
         x: {
+          beginAtZero: false,
+          min: 1,
           type: 'linear',
             ticks: {
             color: '#e2e8f0',
               autoSkip: true,
               font: {
-              family: 'Hind Madurai',
+                family: 'Hind Madurai',
                 weight: 'bold',
                 size: 14,
-            }
+              }
           }
         },
         y: {
@@ -223,17 +251,29 @@ export class UserComponent implements OnInit, AfterViewInit {
           ticks: {
             color: '#e2e8f0',
               font: {
-              family: 'Hind Madurai',
+                family: 'Hind Madurai',
                 weight: 'bold',
                 size: 18,
-            }
+              }
           },
         },
+      },
+      interaction: {
+        mode: 'index',
+        intersect: false,
       },
       plugins: {
         tooltip: {
           mode: 'index',
-            intersect: false,
+          intersect: false,
+          titleFont: {
+            size: 0
+          },
+          bodyFont: {
+            family: 'Hind Madurai',
+            weight: 'bold',
+            size: 18,
+          }
         },
         legend: {
           labels: {
@@ -261,20 +301,8 @@ export class UserComponent implements OnInit, AfterViewInit {
         this.runPageCount = Math.ceil((this.dailyData.runs / this.runPageSize));
       });
 
-      this.userService.getDailyExtra(this.username).subscribe(result => {
-        this.dailyExtra = result;
 
-        this.recentDaysChartData = {
-          datasets: chartHelper.getRecentDaysChartData(this.dailyExtra.recentDays),
-          labels: this.dailyExtra.recentDays.map(x => {return x.date})
-        }
-
-        this.modBasedChartData = {
-          datasets: chartHelper.getModBasedChartData(this.dailyExtra.modProgression),
-          labels: this.dailyExtra.recentDays.map(x => {return x.date})
-        }
-      });
-
+      this.loadDailyExtra();
       this.loadSplitTimes(null, false)
       this.loadRunData();
       this.loadChallengeData();
@@ -449,6 +477,27 @@ export class UserComponent implements OnInit, AfterViewInit {
   private loadSplitTimes(mod: string | any, soloMod: boolean) {
     this.userService.getBestSplits(this.username, mod, soloMod).subscribe(result => {
       this.splitTimes = result;
+    });
+  }
+
+  onProgressionDensityChanged(event: any) {
+    this.loadDailyExtra(event.value)
+  }
+
+  private loadDailyExtra(progressionLimit: number = 100) {
+    let chartHelper = new ChartHelper();
+
+    this.userService.getDailyExtra(this.username, progressionLimit).subscribe(result => {
+      this.dailyExtra = result;
+
+      this.recentDaysChartData = {
+        datasets: chartHelper.getRecentDaysChartData(this.dailyExtra.recentDays),
+        labels: this.dailyExtra.recentDays.map(x => {return x.date})
+      }
+
+      this.modBasedChartData = {
+        datasets: chartHelper.getModBasedChartData(this.dailyExtra.modProgression),
+      }
     });
   }
 }

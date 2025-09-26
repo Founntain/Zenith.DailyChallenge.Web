@@ -111,89 +111,91 @@
   public getModBasedChartData(data: any){
     console.log(data.noMod)
 
+    let hitradius = 10;
+
     return [
       {
-        data: data.noMod.map((y: number, i: number) => ({ x: i, y })),
+        data: data.noMod.map((y: number, i: number) => ({ x: i + 1, y })),
         label: 'No Mod',
         borderColor: 'rgb(255,255,255)',
         backgroundColor: 'rgba(0,0,0,0)',
         pointBackgroundColor: 'rgba(255,255,255,1)',
         pointBorderColor: 'rgb(150,150,150)',
-        pointHitRadius: 20,
+        pointHitRadius: hitradius,
         fill: 'origin',
       },
       {
-        data: data.expert.map((y: number, i: number) => ({ x: i, y })),
+        data: data.expert.map((y: number, i: number) => ({ x: i + 1, y })),
         label: 'Expert',
         borderColor: 'rgb(255,235,12)',
         backgroundColor: 'rgba(0,0,0,0)',
-        pointBackgroundColor: 'rgb(217,199,18)',
+        pointBackgroundColor: 'rgb(255,235,12)',
         pointBorderColor: 'rgba(255,255,255,1)',
         pointHitRadius: 20,
         fill: 'origin',
       },
       {
-        data: data.noHold.map((y: number, i: number) => ({ x: i, y })),
+        data: data.noHold.map((y: number, i: number) => ({ x: i + 1, y })),
         label: 'No Hold',
         borderColor: 'rgb(255,12,178)',
         backgroundColor: 'rgba(0,0,0,0)',
-        pointBackgroundColor: 'rgb(210,14,148)',
+        pointBackgroundColor: 'rgb(255,12,178)',
         pointBorderColor: 'rgba(255,255,255,1)',
         pointHitRadius: 20,
         fill: 'origin',
       },
       {
-        data: data.messy.map((y: number, i: number) => ({ x: i, y })),
+        data: data.messy.map((y: number, i: number) => ({ x: i + 1, y })),
         label: 'Messy',
         borderColor: 'rgb(231, 102, 71)',
         backgroundColor: 'rgba(0,0,0,0)',
-        pointBackgroundColor: 'rgb(189,83,58)',
+        pointBackgroundColor: 'rgb(231, 102, 71)',
         pointBorderColor: 'rgba(255,255,255,1)',
         pointHitRadius: 20,
         fill: 'origin',
       },
       {
-        data: data.gravity.map((y: number, i: number) => ({ x: i, y })),
+        data: data.gravity.map((y: number, i: number) => ({ x: i + 1, y })),
         label: 'Gravity',
         borderColor: 'rgb(246, 164, 62)',
         backgroundColor: 'rgba(0,0,0,0)',
-        pointBackgroundColor: 'rgb(213,143,55)',
+        pointBackgroundColor: 'rgb(246, 164, 62)',
         pointBorderColor: 'rgb(255,255,255)',
         pointHitRadius: 20,
         fill: 'origin',
       },
       {
-        data: data.volatile.map((y: number, i: number) => ({ x: i, y })),
+        data: data.volatile.map((y: number, i: number) => ({ x: i + 1, y })),
         label: 'Volatile',
         borderColor: 'rgb(226, 67, 93)',
         backgroundColor: 'rgba(0,0,0,0)',
-        pointBackgroundColor: 'rgb(175,52,72)',
+        pointBackgroundColor: 'rgb(226, 67, 93)',
         pointBorderColor: 'rgba(255,255,255,1)',
         pointHitRadius: 20,
         fill: 'origin',
       },
       {
-        data: data.doubleHole.map((y: number, i: number) => ({ x: i, y })),
+        data: data.doubleHole.map((y: number, i: number) => ({ x: i + 1, y })),
         label: 'Double Hole',
         borderColor: 'rgb(73, 153, 233)',
         backgroundColor: 'rgba(0,0,0,0)',
-        pointBackgroundColor: 'rgb(57, 119, 181)',
+        pointBackgroundColor: 'rgb(73, 153, 233)',
         pointBorderColor: 'rgba(255,255,255,1)',
         pointHitRadius: 20,
         fill: 'origin',
       },
       {
-        data: data.invisible.map((y: number, i: number) => ({ x: i, y })),
+        data: data.invisible.map((y: number, i: number) => ({ x: i + 1, y })),
         label: 'Invisible',
         borderColor: 'rgb(133, 68, 226)',
         backgroundColor: 'rgba(0,0,0,0)',
-        pointBackgroundColor: 'rgb(102, 52, 175)',
+        pointBackgroundColor: 'rgb(133, 68, 226)',
         pointBorderColor: 'rgba(255,255,255,1)',
         pointHitRadius: 20,
         fill: 'origin',
       },
       {
-        data: data.allSpin.map((y: number, i: number) => ({ x: i, y })),
+        data: data.allSpin.map((y: number, i: number) => ({ x: i + 1, y })),
         label: 'All Spin',
         borderColor: 'rgb(66, 217, 157)',
         backgroundColor: 'rgba(0,0,0,0)',
@@ -202,10 +204,105 @@
         pointHitRadius: 20,
         fill: 'origin',
       },
+
+      {
+        data: data.reverseExpert.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'The Tyrant',
+        // borderDash: [1, 1],
+        borderColor: 'rgb(217,199,18)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(217,199,18)',
+        pointBorderColor: 'rgb(255,255,255)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.reverseNoHold.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Asceticism',
+        // borderDash: [1, 1],
+        borderColor: 'rgb(210,14,148)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(210,14,148)',
+        pointBorderColor: 'rgb(255,255,255)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.reverseMessy.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Loaded Dice',
+        // borderDash: [1, 1],
+        borderColor: 'rgb(189,83,58)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(189,83,58)',
+        pointBorderColor: 'rgb(255,255,255)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.reverseGravity.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Freefall',
+        // borderDash: [1, 1],
+        borderColor: 'rgb(213,143,55)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(213,143,55)',
+        pointBorderColor: 'rgb(255,255,255)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.reverseVolatile.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Last Stand',
+        // borderDash: [1, 1],
+        borderColor: 'rgb(148,44,61)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(148,44,61)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.reverseDoubleHole.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Damnation',
+        // borderDash: [1, 1],
+        borderColor: 'rgb(57, 119, 181)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(57, 119, 181)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.reverseInvisible.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'The Exile',
+        // borderDash: [1, 1],
+        borderColor: 'rgb(102, 52, 175)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(102, 52, 175)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.reverseAllspin.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'The Warlock',
+        // borderDash: [1, 1],
+        borderColor: 'rgb(48, 158, 114)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(48, 158, 114)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
     ]
   }
 
   public getModChartAnnotations(): any{
+    let annotationFont = {
+      family: 'Hind Madurai',
+      weight: 'bold',
+      size: 14,
+    }
+
     return {
       annotations: {
         floor10: {
@@ -217,13 +314,9 @@
           borderDash: [5, 5],
           label: {
             display: true,
-            content: 'Platform of the Gods',
-            position: 'start',
-            font: {
-              family: 'Hind Madurai',
-              weight: 'bold',
-              size: 14,
-            }
+            // content: 'Platform of the Gods',
+            position: 'center',
+            font: annotationFont
           }
         },
         floor9: {
@@ -235,13 +328,9 @@
           borderDash: [5, 5],
           label: {
             display: true,
-            content: 'Corruption',
-            position: 'start',
-            font: {
-              family: 'Hind Madurai',
-              weight: 'bold',
-              size: 14,
-            }
+            // content: 'Corruption',
+            position: 'center',
+            annotationFont
           }
         },
         floor8: {
@@ -253,13 +342,9 @@
           borderDash: [5, 5],
           label: {
             display: true,
-            content: 'The Core',
-            position: 'start',
-            font: {
-              family: 'Hind Madurai',
-              weight: 'bold',
-              size: 14,
-            }
+            // content: 'The Core',
+            position: 'center',
+            annotationFont
           }
         },
         floor7: {
@@ -271,13 +356,9 @@
           borderDash: [5, 5],
           label: {
             display: true,
-            content: 'Laboratory',
-            position: 'start',
-            font: {
-              family: 'Hind Madurai',
-              weight: 'bold',
-              size: 14,
-            }
+            // content: 'Laboratory',
+            position: 'center',
+            annotationFont
           }
         },
         floor6: {
@@ -289,13 +370,9 @@
           borderDash: [5, 5],
           label: {
             display: true,
-            content: 'Offices',
-            position: 'start',
-            font: {
-              family: 'Hind Madurai',
-              weight: 'bold',
-              size: 14,
-            }
+            // content: 'Offices',
+            // position: 'center',
+            annotationFont
           }
         },
         floor5: {
@@ -307,13 +384,9 @@
           borderDash: [5, 5],
           label: {
             display: true,
-            content: 'Museum',
-            position: 'start',
-            font: {
-              family: 'Hind Madurai',
-              weight: 'bold',
-              size: 14,
-            }
+            // content: 'Museum',
+            position: 'center',
+            annotationFont
           }
         },
         floor4: {
@@ -325,13 +398,9 @@
           borderDash: [5, 5],
           label: {
             display: true,
-            content: 'Arena',
-            position: 'start',
-            font: {
-              family: 'Hind Madurai',
-              weight: 'bold',
-              size: 14,
-            }
+            // content: 'Arena',
+            position: 'center',
+            annotationFont
           }
         },
         floor3: {
@@ -343,13 +412,9 @@
           borderDash: [5, 5],
           label: {
             display: true,
-            content: 'Casino',
-            position: 'start',
-            font: {
-              family: 'Hind Madurai',
-              weight: 'bold',
-              size: 14,
-            }
+            // content: 'Casino',
+            position: 'center',
+            annotationFont
           }
         },
         floor2: {
@@ -361,13 +426,9 @@
           borderDash: [5, 5],
           label: {
             display: true,
-            content: 'Hotel',
-            position: 'start',
-            font: {
-              family: 'Hind Madurai',
-              weight: 'bold',
-              size: 14,
-            }
+            // content: 'Hotel',
+            position: 'center',
+            annotationFont
           }
         },
       }
