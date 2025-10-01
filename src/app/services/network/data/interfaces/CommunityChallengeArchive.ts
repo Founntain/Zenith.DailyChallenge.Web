@@ -6,6 +6,8 @@ export interface CommunityChallengeArchive {
   nextChallengeId: string | null;
   startDate: string;
   endDate: string;
+  name: string;
+  description: string;
   value: number;
   targetValue: number;
   conditionType: ConditionType,
