@@ -148,8 +148,8 @@
     }
 
     <!--  Mod progression chart  -->
-    @if (modBasedChartData !== undefined && dailyExtra.recentDays.length > 0) {
-      <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-top: none; border-right: none; border-left: none">
+    @if (modBasedChartData !== undefined && checkModProgression(this.dailyExtra.modProgression)) {
+      <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-right: none; border-left: none">
         <h2 class="title centerText">Altitude Progression</h2>
 
         <mat-chip-listbox (change)="onProgressionDensityChanged($event)">
