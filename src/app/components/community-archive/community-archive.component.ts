@@ -69,6 +69,8 @@ export class CommunityArchiveComponent implements OnInit{
         return `PPS`
       case ConditionType.Vs:
         return `VS`
+      case ConditionType.TotalBonus:
+        return 'Bonus';
     }
 
     return "";
@@ -96,6 +98,8 @@ export class CommunityArchiveComponent implements OnInit{
         return 'FINESSE';
       case ConditionType.Back2Back:
         return 'Back2Back';
+      case ConditionType.TotalBonus:
+        return 'Bonus';
       default:
         return []
     }

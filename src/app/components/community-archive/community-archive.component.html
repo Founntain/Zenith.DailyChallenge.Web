@@ -10,6 +10,15 @@
 
         <span class="boldText">{{communityChallenge.startDate}} - {{communityChallenge.endDate}}</span>
 
+        @if (communityChallenge.name !== undefined) {
+          <div class="flexStretch flexColumn">
+            <span class="headerText title"> {{communityChallenge.name}}</span>
+            @if (communityChallenge.description !== undefined) {
+              <span class="headerText"> {{communityChallenge.description}}</span>
+            }
+          </div>
+        }
+
         <div class="headerText title">
           <span>{{communityChallenge.value.toLocaleString()}} {{getTypeSuffix(communityChallenge.conditionType)}}</span>
           <span> / </span>
