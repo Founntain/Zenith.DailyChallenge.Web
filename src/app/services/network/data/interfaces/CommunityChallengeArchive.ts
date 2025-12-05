@@ -10,6 +10,7 @@ export interface CommunityChallengeArchive {
   description: string;
   value: number;
   targetValue: number;
+  mods: string[];
   conditionType: ConditionType,
   participants: CommunityChallengeParticipant[];
 }

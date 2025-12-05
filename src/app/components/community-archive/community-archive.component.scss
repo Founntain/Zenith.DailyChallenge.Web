@@ -45,3 +45,26 @@ a{
 .th{
   position: sticky;
 }
+
+.borderBottom{
+  border-bottom: 1px solid $accent-color;
+}
+
+.navButton{
+  @extend .headerText;
+
+  font-size: 2rem;
+
+  background-color: $background-shade;
+
+  &:hover{
+    background-color: $background-color !important;
+    color: $accent-color;
+    transform: skewX(-10deg);
+    flex: 2;
+
+    //transition: 1s ease-in;
+  }
+
+  transition: 0.3s ease-in-out;
+}
