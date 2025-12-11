@@ -7,7 +7,7 @@
     <div>
       <mat-form-field>
         <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate">
+        <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" (dateChange)="onDateChanged($event)">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker panelClass="datepicker-dark"></mat-datepicker>
       </mat-form-field>

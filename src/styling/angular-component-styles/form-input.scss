@@ -1,0 +1,56 @@
+﻿@use '../colors' as *;
+@use '../base' as *;
+
+mat-form-field{
+  @extend .boldText;
+}
+
+.mat-mdc-form-field {
+  // Label color (floating and resting)
+  .mat-mdc-floating-label {
+    @extend .boldText;
+    color: rgba($text-color, 0.7) !important;
+  }
+
+  &.mat-focused .mat-mdc-floating-label {
+    color: $primary-color !important;
+  }
+
+  // Input text color
+  .mat-mdc-input-element {
+    @extend .headerText;
+    color: $text-color !important;
+    caret-color: $primary-color !important;
+  }
+
+  // Icons (suffix/prefix like the calendar icon)
+  .mat-mdc-form-field-icon-suffix {
+    color: $primary-color !important;
+  }
+
+  // Remove default background and underline
+  .mdc-text-field {
+    background-color: $background-shade-solid !important; // Or transparent if you prefer
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+
+    // Remove the default underline/ripple if present
+    &::before, &::after {
+      display: none !important;
+    }
+  }
+
+  // Custom Border
+  .mdc-line-ripple {
+    display: none !important; // Hide default bottom line animation
+  }
+
+  // Applying the custom border to the container
+  .mat-mdc-text-field-wrapper {
+    border-top: 2px solid    rgba($primary-color, 0.5) !important;
+    border-left: 1px solid   rgba($primary-color, 0.5) !important;
+    border-bottom: 1px solid rgba($primary-color, 0.5) !important;
+    border-right: 1px solid  rgba($primary-color, 0.5) !important;
+    padding: 0 10px; // Ensure text isn't right against the border
+  }
+}

@@ -32,8 +32,13 @@ export class DailyArchiveComponent {
   minDate: any;
   maxDate: any;
 
-  constructor(archiveService: ArchiveService) {
-    archiveService.getPastDailyChallenges().subscribe(result => {
+  constructor(private archiveService: ArchiveService) {
+    this.loadDailyChallengeFromServer(null)
+  }
+
+  protected loadDailyChallengeFromServer(date: any | null){
+
+    this.archiveService.getPastDailyChallenges(date).subscribe(result => {
       this.archiveData = result;
 
       this.currentDate = this.archiveData[0].date;
@@ -93,4 +98,12 @@ export class DailyArchiveComponent {
   }
 
   protected readonly min = min;
+
+  protected onDateChanged(value: any) {
+    let date = value.value as Date;
+
+    let dateString = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+
+    this.loadDailyChallengeFromServer(dateString);
+  }
 }

@@ -1,0 +1,35 @@
+﻿@use '../colors' as *;
+@use '../base' as *;
+
+mat-paginator{
+  @extend .boldText;
+
+  color: $text-color !important;
+
+  background-color: $background-shade !important;
+
+  border-left: 1px solid rgb($primary-color, 0.5) !important;
+  border-right: 1px solid rgb($primary-color, 0.5) !important;
+
+  &.borderTop{
+    border-top: 3px solid rgb($primary-color, 0.5) !important;
+  }
+
+  &.borderBottom{
+    border-bottom: 3px solid rgb($primary-color, 0.5) !important;
+  }
+}
+
+.mat-mdc-icon-button svg{
+  color: $primary-color ;
+  fill: $primary-color;
+}
+
+.mat-mdc-select-arrow{
+  color: $primary-color !important;
+  fill: $primary-color !important;
+}
+
+.mat-mdc-paginator .mat-mdc-select {
+  color: $primary-color !important;
+}
