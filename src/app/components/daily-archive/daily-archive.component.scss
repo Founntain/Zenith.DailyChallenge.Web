@@ -1,0 +1,49 @@
+@use '../../../styles' as *;
+@use '../../../styling/colors' as *;
+
+.borderSides{
+  border-left: 1px solid rgb($background-shade, 0.5);
+  border-right: 1px solid rgb($background-shade, 0.5);
+}
+
+.valueWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  gap: 5px;
+}
+
+.conditionValue {
+  @extend .headerText;
+
+  font-size: 1.5rem;
+}
+
+.Easy {
+  color: white;
+  text-shadow: 0 3px $easy-text-color, 0 6px 8px $easy-text-color;
+}
+
+.Normal{
+  color: #fff;
+  text-shadow: 0 3px $normal-accent-color, 0 6px 8px $normal-accent-color;
+}
+
+.Hard{
+  color: #fff;
+  text-shadow: 0 3px $hard-accent-color, 0 6px 8px $hard-accent-color;
+}
+
+.Expert{
+  color: #fff;
+  text-shadow: 0 3px $expert-accent-color, 0 6px 8px $expert-accent-color;
+}
+
+.Reverse{
+  color: #fff;
+  text-shadow: 0 3px #ff0059,0 6px 8px #ff0059;
+}

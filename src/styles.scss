@@ -91,6 +91,10 @@ hr{
   text-align: center;
 }
 
+.verticalCenter{
+  align-content: center;
+}
+
 .gap {
   gap: 10px;
 }
@@ -118,6 +122,13 @@ hr{
   flex: 1;
 }
 
+.flexWrap{
+  flex-wrap: wrap;
+}
+
+.justifyCenter{
+  justify-content: center;
+}
 
 .submitButton{
   @extend .headerText;

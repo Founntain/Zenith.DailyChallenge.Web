@@ -1,0 +1,50 @@
+<div>
+  <div class="baseContainer flexColumn centerText">
+    <span class="headerText" style="font-size: 2rem">Daily Archive</span>
+    @if(archiveData[0] !== undefined){
+      <span class="headerText" style="font-size: 1.5rem">{{archiveData[0].date}}</span>
+    }
+    <div>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker panelClass="datepicker-dark"></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  @for(challenge of archiveData; track $index){
+    <div [ngClass]="['baseContainer', 'baseContainer', 'flexStretch', 'flexRow', getDifficultyCssClass(challenge.points)]" style="min-height: 200px">
+      <div [ngClass]="['flexStretch centerText verticalCenter stripesLight', isReverse(challenge.points)]">
+        <span class="headerText" style="font-size: 4rem;">{{getDifficultyText(challenge.points, challenge.mods[0], false)}}</span>
+      </div>
+      <div class="flexStretch flexColumn borderSides stripesLight">
+          <div class="flexRow flexStretch">
+            @for (condition of challenge.conditions; track condition) {
+              <div  class="valueWrapper flexStretch">
+                <a class="boldText">{{ getPrefix(condition.type) }}</a>
+                <div>
+                  <a [ngClass]="['conditionValue', this.getDifficultyText(challenge.points, '', true)]">{{ condition.value }}</a>
+                  <a class="conditionValueSuffix boldText">{{ getValue(condition.type, condition.value)[1] }}</a>
+                </div>
+              </div>
+            }
+          </div>
+          <div class="justifyCenter centerText" style="padding-bottom: 10px">
+            @for (mod of challenge.mods; track $index){
+              <img [src]="this.getModImage(mod)" class="mod"/>
+            }
+          </div>
+      </div>
+      <div class="flexStretch flexColumn gap justifyCenter centerText stripesLight" style="padding: 5px">
+        <span class="headerText uppercase" style="font-size: 1.5rem; margin-top: 10px">Completed by</span>
+        <div class="flexStretch flexRow verticalCenter gap flexWrap justifyCenter">
+          @for (user of challenge.users; track $index){
+            <span [ngClass]="['boldText', 'uppercase', 'conditionValue', 'link', this.getDifficultyText(challenge.points, '', true)]" style="font-size: 1.25rem" title="Completed at {{user.completedAt.toLocaleString()}}">{{user.username}}</span>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
