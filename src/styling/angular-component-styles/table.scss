@@ -1,0 +1,45 @@
+﻿@use '../colors' as *;
+@use '../base' as *;
+
+.mat-mdc-table {
+  background: transparent !important;
+}
+
+.mat-mdc-header-cell {
+  @extend .headerText;
+
+  color: $text-color !important;
+
+  background-color: $background-shade-solid !important;
+  border-top: 2px solid    rgba($primary-color, 0.5) !important;
+  border-left: 1px solid   rgba($primary-color, 0.5) !important;
+  border-bottom: 1px solid rgba($primary-color, 0.5) !important;
+  border-right: 1px solid  rgba($primary-color, 0.5) !important;
+
+  font-size: 16pt;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16pt;
+  }
+}
+
+.mat-mdc-cell {
+  @extend .headerText;
+
+  font-size: 14pt;
+
+  background-color: transparent !important;
+  border-top: 1px solid    rgb($primary-color, 0.5) !important;
+  border-left: 1px solid   rgb($primary-color, 0.5) !important;
+  border-bottom: 1px solid rgb($primary-color, 0.5) !important;
+  border-right: 1px solid  rgb($primary-color, 0.5) !important;
+}
+
+.mat-mdc-row {
+  color: $text-color !important;
+  background-color: transparent !important;
+  border-top: 3px solid $primary-color !important;
+  border-left: 3px solid $primary-color !important;
+  border-bottom: 3px solid $primary-color !important;
+  border-right: 3px solid $primary-color !important;
+}

@@ -1,0 +1,63 @@
+﻿@use 'colors' as *;
+
+.normalText{
+  font-family: "Telex", sans-serif;
+  font-weight: 400;
+}
+
+.boldText{
+  font-family: "Hind Madurai", sans-serif;
+  font-weight: 800;
+}
+
+.headerText{
+  font-family: "Catamaran", sans-serif;
+  font-weight: 800;
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+
+.centerText{
+  text-align: center;
+}
+
+.verticalCenter{
+  align-content: center;
+}
+
+.gap {
+  gap: 10px;
+}
+
+.noGap{
+  gap: 0 !important;
+}
+
+.baseContainer{
+  //background-color: $background-shade;
+  border: 1px solid $accent-color;
+}
+
+.flexRow{
+  display: flex;
+  flex-direction: row;
+}
+
+.flexColumn{
+  display: flex;
+  flex-direction: column;
+}
+
+.flexStretch{
+  flex: 1;
+}
+
+.flexWrap{
+  flex-wrap: wrap;
+}
+
+.justifyCenter{
+  justify-content: center;
+}

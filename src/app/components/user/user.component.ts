@@ -29,15 +29,14 @@ import {SettingsService} from '../../services/settings.service';
 
 import {Splits} from '../../services/network/data/interfaces/Splits';
 import { BaseChartDirective } from 'ng2-charts';
-import {Chart, ChartConfiguration, ChartEvent, ChartType} from 'chart.js';
-import {MatChip, MatChipAvatar, MatChipListbox, MatChipOption, MatChipSet} from '@angular/material/chips';
+import {Chart, ChartConfiguration} from 'chart.js';
+import {MatChipAvatar, MatChipListbox, MatChipOption} from '@angular/material/chips';
 import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {DailyExtra} from '../../services/network/data/interfaces/DailyExtra';
 import {ChartHelper} from '../../util/ChartHelper';
 import { default as Annotation } from 'chartjs-plugin-annotation';
 import {MatSelect} from '@angular/material/select';
-import {MatOption} from '@angular/material/core';
 
 @Component({
   selector: 'app-user',
@@ -62,8 +61,6 @@ import {MatOption} from '@angular/material/core';
     MatChipListbox,
     MatChipOption,
     MatCheckbox,
-    MatSelect,
-    MatOption,
     MatSelect
   ],
   templateUrl: './user.component.html',
@@ -404,29 +401,31 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   getCommunityContributionvalue(totalAmountContributed: number, conditionType: ConditionType) {
+    let totalAsLocale = totalAmountContributed.toLocaleString();
+
     switch (conditionType) {
       case ConditionType.Height:
-        return `${totalAmountContributed} M`;
+        return `${totalAsLocale} M`;
       case ConditionType.KOs:
-        return `${totalAmountContributed} KO's`;
+        return `${totalAsLocale} KO's`;
       case ConditionType.Quads:
-        return `${totalAmountContributed} Quads`;
+        return `${totalAsLocale} Quads`;
       case ConditionType.Spins:
-        return `${totalAmountContributed} Spins`;
+        return `${totalAsLocale} Spins`;
       case ConditionType.AllClears:
-        return `${totalAmountContributed} All Clears`;
+        return `${totalAsLocale} All Clears`;
       case ConditionType.Apm:
-        return `${totalAmountContributed} APM`;
+        return `${totalAsLocale} APM`;
       case ConditionType.Pps:
-        return `${totalAmountContributed} PPS`;
+        return `${totalAsLocale} PPS`;
       case ConditionType.Vs:
-        return `${totalAmountContributed} VS`;
+        return `${totalAsLocale} VS`;
       case ConditionType.Finesse:
-        return `${totalAmountContributed}%`;
+        return `${totalAsLocale}%`;
       case ConditionType.Back2Back:
-        return `${totalAmountContributed} B2B`;
+        return `${totalAsLocale} B2B`;
       case ConditionType.TotalBonus:
-        return `${totalAmountContributed} Bonus`;
+        return `${totalAsLocale} Bonus`;
     }
   }
 

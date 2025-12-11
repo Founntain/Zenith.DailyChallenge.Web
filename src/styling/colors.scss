@@ -23,3 +23,42 @@ $community-text-color: #a164ff;
 
 $stipes-background: repeating-linear-gradient( -45deg, #0d0d0d88, #0d0d0d88 12px, #1a1a1a88 12px, #1a1a1a88 25px );
 $stripes-light-background: repeating-linear-gradient( -45deg, #0d0d0d55, #0d0d0d55 12px, #1a1a1a55 12px, #1a1a1a55 25px );
+
+.easy {
+  background-color: rgba(20, 48, 85, 0.5);
+
+  border: 3px solid rgba(26, 91, 184, 0.5);
+
+  color: $easy-text-color;
+}
+
+.normal {
+  background-color: rgba(68, 31, 15, 0.5);
+
+  border: 3px solid rgba(156, 52, 21, 0.5);
+
+  color: $normal-text-color;
+}
+
+.hard {
+  background-color: rgba(61, 16, 20, 0.5);
+  border: 3px solid rgba(200, 88, 88, 0.5);
+
+  color: $hard-text-color;
+}
+
+
+.expert {
+  background-color: rgba(63, 37, 22, 0.5);
+  border: 3px solid rgba(143, 107, 25, 0.5);
+
+
+  color: $expert-text-color;
+}
+
+.reverse {
+  background-color: rgba(42, 7, 14, 0.5);
+  border: 3px solid rgba(143, 13, 25, 0.5);
+
+  color: $reverse-text-color;
+}

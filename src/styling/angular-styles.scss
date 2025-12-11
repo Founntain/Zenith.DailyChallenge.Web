@@ -1,6 +1,12 @@
 ﻿@use '@angular/material' as mat;
 @use 'colors' as *;
 
+@use 'angular-component-styles/datepicker' as *;
+@use 'angular-component-styles/form-input' as *;
+@use 'angular-component-styles/table' as *;
+@use 'angular-component-styles/mat-symbols' as *;
+@use 'angular-component-styles/paginator' as *;
+
 :root {
   @include mat.chips-overrides((
     label-text-color: $text-color,
@@ -26,4 +32,6 @@
     unselected-focus-state-layer-color:   $primary-color,
     unselected-pressed-state-layer-color: $primary-color,
   ));
+
+
 }

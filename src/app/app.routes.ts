@@ -6,6 +6,7 @@ import {ChallengeComponent} from './components/challenge/challenge.component';
 import {SplitsComponent} from './components/splits/splits.component';
 import {LeaderboardComponent} from './components/leaderboard/leaderboard.component';
 import {CommunityArchiveComponent} from './components/community-archive/community-archive.component';
+import {DailyArchiveComponent} from './components/daily-archive/daily-archive.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -13,7 +14,8 @@ export const routes: Routes = [
     { path: 'user/:username/splits', component: SplitsComponent },
     { path: 'challenge', component: ChallengeComponent },
     { path: 'leaderboard', component: LeaderboardComponent },
-    { path: 'cc-archive', component: CommunityArchiveComponent }
+    { path: 'cc-archive', component: CommunityArchiveComponent },
+    { path: 'daily-archive', component: DailyArchiveComponent }
 ];
 
 export const appConfig: ApplicationConfig = {  providers: [provideRouter(routes)]};
