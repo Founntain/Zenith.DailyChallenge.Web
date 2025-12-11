@@ -158,7 +158,7 @@
       </div>
 
       @if (communityChallengeData?.communityChallenge?.description !== undefined) {
-        <span class="headerText" style="font-size: 1.25rem">{{ communityChallengeData.communityChallenge.description }}</span>
+        <span class="headerText" style="font-size: 1.25rem; white-space: pre-line">{{ communityChallengeData.communityChallenge.description }}</span>
       }
 
       <a class="highlight uppercase headerText">as a community</a>
@@ -167,6 +167,13 @@
         <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
         <a class="">{{getCommunityPromptSuffix()}}</a>
       </div>
+    @if(communityChallengeData?.communityChallenge?.mods !== null && communityChallengeData?.communityChallenge?.mods.length > 0){
+      <div class="gap">
+        @for (mod of communityChallengeData?.communityChallenge?.mods; track $index) {
+          <img class="bigMod flexStretch" src="assets/tetrio-img/mods/{{mod}}.png">
+        }
+      </div>
+    }
 
       <div class="flexContainer flexColumn flexStretch" style="width: 100%; ">
         <div class="flexColumn flexStretch contributorsBorder" style="max-height: 437px; overflow-y: auto;">

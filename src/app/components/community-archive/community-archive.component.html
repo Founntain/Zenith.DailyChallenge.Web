@@ -1,10 +1,17 @@
 @if (communityChallenge !== undefined) {
   <div class="baseContainer ">
 
-    <div class="flexContainer flexRow">
-      <div class="flexContainer centerText headerText pageText" style="align-content: center; margin-left: 10px" (click)="goToPage(communityChallenge.previousChallengeId)">
-        <span>PREVIOUS</span>
+    <div class="flexContainer flexColumn">
+      <div class="flexContainer flexStretch flexRow borderBottom">
+        <div class="flexContainer flexStretch centerText headerText pageText navButton" (click)="goToPage(communityChallenge.previousChallengeId)">
+          <span>PREVIOUS</span>
+        </div>
+
+        <div class="flexContainer flexStretch centerText headerText pageText navButton" (click)="goToPage(communityChallenge.nextChallengeId)">
+          <span>NEXT</span>
+        </div>
       </div>
+
       <div class="flexContainer flexStretch flexColumn centerText">
         <span class="headerText title"> Community Challenge </span>
 
@@ -19,14 +26,17 @@
           </div>
         }
 
+        <div class="gap">
+          @for (mod of communityChallenge?.mods; track $index) {
+            <img class="bigMod flexStretch" src="assets/tetrio-img/mods/{{mod}}.png">
+          }
+        </div>
+
         <div class="headerText title">
           <span>{{communityChallenge.value.toLocaleString()}} {{getTypeSuffix(communityChallenge.conditionType)}}</span>
           <span> / </span>
           <span>{{communityChallenge.targetValue.toLocaleString()}} {{getTypeSuffix(communityChallenge.conditionType)}}</span>
         </div>
-      </div>
-      <div class="flexContainer centerText headerText pageText" style="align-content: center; margin-right: 10px" (click)="goToPage(communityChallenge.nextChallengeId)">
-        <span>NEXT</span>
       </div>
     </div>
 

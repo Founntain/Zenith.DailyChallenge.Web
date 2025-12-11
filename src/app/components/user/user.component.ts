@@ -483,6 +483,10 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.loadDailyExtra(event.value)
   }
 
+  checkModProgression(obj: any){
+    return Object.values(obj).some(arr => Array.isArray(arr) && arr.length > 0);
+  }
+
   private loadDailyExtra(progressionLimit: number = 100) {
     let chartHelper = new ChartHelper();
 
@@ -497,6 +501,8 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.modBasedChartData = {
         datasets: chartHelper.getModBasedChartData(this.dailyExtra.modProgression),
       }
+
+      console.log(this.modBasedChartData, this.dailyExtra.modProgression);
     });
   }
 }
