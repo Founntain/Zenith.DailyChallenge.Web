@@ -464,8 +464,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     return {} as DailyChallenge;
   }
 
-  getMasteryChallengeConditions(): Condition[] {
-    let conditions = this.dailyChallenges.find(x => x.isMasteryChallenge);
+  getMasteryChallengeConditions(isReverse: boolean = false): Condition[] {
+    let conditions = this.dailyChallenges.find(x => x.isMasteryChallenge && x.isReverse == isReverse);
 
     if (conditions == undefined) return [];
 

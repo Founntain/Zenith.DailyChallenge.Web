@@ -7,6 +7,7 @@ export interface DailyChallenge extends BaseData {
   mods: string;
   completions: number;
   isMasteryChallenge: boolean;
+  isReverse: boolean;
   difficulty: number;
   points: number;
 }

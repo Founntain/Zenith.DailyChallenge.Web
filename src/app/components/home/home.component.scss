@@ -182,6 +182,29 @@ tr{
   );
 }
 
+.masteryReverseBackground{
+  // fff800 e345d5 dd6943 f6a53f e3445f 4382db 8443de 43de9d
+  width: 100%;
+
+  background: linear-gradient(
+      to right,
+      rgba(darken($reverse-accent-color, 28%), 0.75),
+      rgba(darken($reverse-accent-color, 18%), 0.75),
+      rgba(darken($reverse-accent-color, 10%), 0.75),
+      rgba(darken($reverse-accent-color, 4%), 0.75),
+      rgba($reverse-accent-color, 0.75),
+      rgba(lighten($reverse-accent-color, 6%), 0.75),
+      rgba(lighten($reverse-accent-color, 14%), 0.75),
+      rgba(lighten($reverse-accent-color, 22%), 0.75)
+  );
+}
+
+.baseMastery{
+  h1{
+    font-size: 2rem;
+  }
+}
+
 .mastery {
   background: repeating-linear-gradient( -45deg, #0d0d0d33, #0d0d0d33 12px, #1a1a1a33 12px, #1a1a1a33 25px );
   border-top: 3px solid #DDCCDD;
@@ -204,10 +227,6 @@ tr{
     }
   }
 
-  h1{
-    font-size: 2rem;
-  }
-
   .highlight {
     @extend .headerText;
 
@@ -215,6 +234,38 @@ tr{
     text-shadow: 0 1px #CCBBCC, 0 3px 10px #CCBBCC;
   }
 }
+
+.masteryReverse{
+  background: repeating-linear-gradient( 45deg, #0d0d0d33, #0d0d0d33 12px, #1a1a1a33 12px, #1a1a1a33 25px );
+
+  border-top: 3px solid lighten($reverse-accent-color, 18%);
+  border-left: 3px solid lighten($reverse-accent-color, 30%);
+  border-bottom: 3px solid lighten($reverse-accent-color, 12%);
+  border-right: 3px solid darken($reverse-accent-color, 6%);
+  color: white;
+  text-shadow: 0 0 16px rgba(86, 85, 85, 0.4);
+
+  background-size: 200% 200%;
+
+  animation: scroll 40s linear infinite;
+
+  @keyframes scroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+
+  .highlight {
+    @extend .headerText;
+
+    color: white;
+    text-shadow: 0 1px $reverse-accent-color, 0 3px 10px $reverse-accent-color;
+  }
+}
+
 
 .valueBar{
   width: 33%;

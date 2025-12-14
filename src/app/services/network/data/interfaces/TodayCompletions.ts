@@ -18,4 +18,13 @@ export interface MasteryChallengeCompletion {
   doubleHoleCompleted: boolean;
   invisibleCompleted: boolean;
   allSpinCompleted: boolean;
+
+  expertReversedCompleted: boolean;
+  noHoldReversedCompleted: boolean;
+  messyReversedCompleted: boolean;
+  gravityReversedCompleted: boolean;
+  volatileReversedCompleted: boolean;
+  doubleHoleReversedCompleted: boolean;
+  invisibleReversedCompleted: boolean;
+  allSpinReversedCompleted: boolean;
 }

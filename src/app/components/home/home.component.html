@@ -89,7 +89,7 @@
   @if (getMasteryChallengeConditions().length > 0) {
     <div class="challengeContainer gap" style="margin-top: 10px">
       <div class="masteryBackground gap">
-        <div class="challenge mastery gap">
+        <div class="challenge baseMastery mastery gap">
           <h1 class="highlight" style="margin: 2px;">Whispers of Mastery</h1>
 
           <div>
@@ -118,6 +118,41 @@
             <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png">
             <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png">
             <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (getMasteryChallengeConditions(false).length > 0) {
+    <div class="challengeContainer gap" style="margin-top: 10px">
+      <div class="masteryReverseBackground gap">
+        <div class="challenge baseMastery masteryReverse gap">
+          <h1 class="highlight" style="margin: 2px; letter-spacing: 7px;">Zenith’s Backward Stair</h1>
+
+          <div>
+            <span>Mistakes don’t vanish here. <span class="boldText">They deepen!</span></span>
+          </div>
+
+          <div class="challengeContainer flexRow gap" style="margin-bottom: 10px; align-items: center">
+            @for (condition of getMasteryChallengeConditions(true); track condition) {
+              <div class="gap">
+                <span>{{getMasteryPrefix(condition.type)}}</span>
+                <span class="highlight">{{condition.value}}</span>
+                <span>{{getMasterySuffix(condition.type)}}</span>
+              </div>
+            }
+          </div>
+
+          <div class="challengeContainer gap" style="margin-bottom: 10px; align-items: center">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.expertReversedCompleted)]" src="assets/tetrio-img/mods/expert_reversed.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.noHoldReversedCompleted)]" src="assets/tetrio-img/mods/nohold_reversed.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.messyReversedCompleted)]" src="assets/tetrio-img/mods/messy_reversed.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.gravityReversedCompleted)]" src="assets/tetrio-img/mods/gravity_reversed.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.volatileReversedCompleted)]" src="assets/tetrio-img/mods/volatile_reversed.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.doubleHoleReversedCompleted)]" src="assets/tetrio-img/mods/doublehole_reversed.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.invisibleReversedCompleted)]" src="assets/tetrio-img/mods/invisible_reversed.png">
+            <img [ngClass]="['bigMod','flexStretch', getModMasteryCompletionCssClass(this.todayUsersCompletions?.masteryChallenge?.allSpinReversedCompleted)]" src="assets/tetrio-img/mods/allspin_reversed.png">
           </div>
         </div>
       </div>
