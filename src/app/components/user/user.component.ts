@@ -37,6 +37,8 @@ import {DailyExtra} from '../../services/network/data/interfaces/DailyExtra';
 import {ChartHelper} from '../../util/ChartHelper';
 import { default as Annotation } from 'chartjs-plugin-annotation';
 import {MatSelect} from '@angular/material/select';
+import {Altitudes} from '../../services/network/data/interfaces/Altitudes';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-user',
@@ -61,7 +63,8 @@ import {MatSelect} from '@angular/material/select';
     MatChipListbox,
     MatChipOption,
     MatCheckbox,
-    MatSelect
+    MatTabGroup,
+    MatTab
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -504,5 +507,9 @@ export class UserComponent implements OnInit, AfterViewInit {
 
       console.log(this.modBasedChartData, this.dailyExtra.modProgression);
     });
+  }
+
+  protected getReverseAltitudeSum(altitudes: Altitudes) {
+    return 0;
   }
 }

@@ -6,6 +6,7 @@
 @use 'angular-component-styles/table' as *;
 @use 'angular-component-styles/mat-symbols' as *;
 @use 'angular-component-styles/paginator' as *;
+@use 'angular-component-styles/tab' as *;
 
 :root {
   @include mat.chips-overrides((

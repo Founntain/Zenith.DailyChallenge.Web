@@ -639,6 +639,18 @@ th{
       text-shadow: 0 3px rgba(67, 222, 157, 0.75), 0 6px 16px rgba(67, 222, 157, 0.75);
     }
   }
+
+  &.reverseMod {
+    border: 3px solid #ff0059;
+    background-color: rgba(170, 0, 89, 0.5);
+
+    .highlight {
+      @extend .headerText;
+
+      color: white;
+      text-shadow: 0 3px #ff0059, 0 6px 16px #ff0059;
+    }
+  }
 }
 
 .scoreContainer{
@@ -673,4 +685,14 @@ th{
 
 .challengeUncompleted{
   filter: grayscale(100%);
+}
+
+.completionTable{
+  display: flex;
+
+  flex-direction: row;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 }

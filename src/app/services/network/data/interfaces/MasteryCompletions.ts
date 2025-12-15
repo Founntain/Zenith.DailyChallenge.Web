@@ -7,4 +7,5 @@ export interface MasteryCompletions {
   doubleHole: number | undefined;
   invisible: number | undefined;
   allSpin: number | undefined;
+  reverse: number | undefined;
 }

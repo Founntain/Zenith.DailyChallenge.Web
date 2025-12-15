@@ -33,388 +33,440 @@
   }
 
   <!-- Daily Adventure & Splits -->
-  <div class="userContainer">
-    <h2 class="title">ZDC Stats & History</h2>
-
-    <div class="flexColumn scoreContainer stripes">
-      <img src="assets/score.png" class="hugeMod"/>
-      <span class="scoreDisplay headerText"> {{dailyData.score.toLocaleString()}}</span>
-    </div>
-
-    <!-- Daily Stats -->
-    <div class="flexColumn">
-      <div class="flexContainer">
-        <div class="modContainer nomod">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <p>No Mod</p>
-            <p class="altitude highlight">{{dailyData.altitudes.noMod.toLocaleString()}} M</p>
-            <p class="completions headerText">{{dailyData.totalChallengesCompleted.toLocaleString()}} challenges completed</p>
-          </div>
-        </div>
-        <div class="modContainer expert">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/expert.png" class="bigMod" />
-            <p class="altitude highlight">{{dailyData.altitudes.expert.toLocaleString()}} M</p>
-            <p class="completions headerText">{{dailyData.masteryCompletions?.expert?.toLocaleString() ?? 0}} masteries completed</p>
-          </div>
-        </div>
-        <div class="modContainer nohold">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/nohold.png" class="bigMod" />
-            <p class="altitude highlight">{{dailyData.altitudes.noHold.toLocaleString()}} M</p>
-            <p class="completions headerText">{{dailyData.masteryCompletions?.noHold?.toLocaleString() ?? 0}} mastery completions</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flexContainer">
-        <div class="modContainer messy">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/messy.png" class="bigMod" />
-            <p class="altitude highlight">{{dailyData.altitudes.messy.toLocaleString()}} M</p>
-            <p class="completions">{{dailyData.masteryCompletions?.messy?.toLocaleString() ?? 0}} mastery completions</p>
-          </div>
+  <div class="userContainer" style="padding: 0">
+    <mat-tab-group dynamicHeight>
+      <!-- Daily Stats -->
+      <mat-tab label="Daily Statistics">
+        <div class="flexColumn scoreContainer stripes">
+          <img src="assets/score.png" class="hugeMod"/>
+          <span class="scoreDisplay headerText"> {{dailyData.score.toLocaleString()}}</span>
         </div>
 
-        <div class="modContainer gravity">
-          <div class="stripes"></div>
+        <div class="flexColumn">
+          <div class="flexContainer">
+            <div class="modContainer nomod">
+              <div class="stripes"></div>
 
-          <div class="details">
-            <img src="assets/tetrio-img/mods/gravity.png" class="bigMod" />
-            <p class="altitude highlight">{{dailyData.altitudes.gravity.toLocaleString()}} M</p>
-            <p class="completions headerText">{{dailyData.masteryCompletions?.gravity?.toLocaleString() ?? 0}} mastery completions</p>
-          </div>
-        </div>
-
-        <div class="modContainer volatile">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/volatile.png" class="bigMod" />
-            <p class="altitude highlight">{{dailyData.altitudes.volatile.toLocaleString()}} M</p>
-            <p class="completions headerText">{{dailyData.masteryCompletions?.volatile?.toLocaleString() ?? 0}} mastery completions</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flexContainer">
-        <div class="modContainer doublehole">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/doublehole.png" class="bigMod" />
-            <p class="altitude highlight">{{dailyData.altitudes.doubleHole.toLocaleString()}} M</p>
-            <p class="completions headerText">{{dailyData.masteryCompletions?.doubleHole?.toLocaleString() ?? 0}} mastery completions</p>
-          </div>
-        </div>
-
-        <div class="modContainer invisible">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/invisible.png" class="bigMod" />
-            <p class="altitude highlight">{{dailyData.altitudes.invisible.toLocaleString()}} M</p>
-            <p class="completions headerText">{{dailyData.masteryCompletions?.invisible?.toLocaleString() ?? 0}} mastery completions</p>
-          </div>
-        </div>
-
-        <div class="modContainer allspin">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/allspin.png" class="bigMod" />
-            <p class="altitude highlight">{{dailyData.altitudes.allSpin.toLocaleString()}} M</p>
-            <p class="completions">{{dailyData.masteryCompletions?.allSpin?.toLocaleString() ?? 0}} mastery completions</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--  Recent Days Chart  -->
-    @if (recentDaysChartData !== undefined && dailyExtra.recentDays.length > 0) {
-      <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-right: none; border-left: none">
-        <h2 class="title centerText">Recent 10 days</h2>
-
-        <canvas baseChart type="line" [data]="recentDaysChartData" [options]="recentDaysChartOptions"></canvas>
-      </div>
-    }
-
-    <!--  Mod progression chart  -->
-    @if (modBasedChartData !== undefined && checkModProgression(this.dailyExtra.modProgression)) {
-      <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-right: none; border-left: none">
-        <h2 class="title centerText">Altitude Progression</h2>
-
-        <mat-chip-listbox (change)="onProgressionDensityChanged($event)">
-          <mat-chip-option [value]="25">25 Runs</mat-chip-option>
-          <mat-chip-option [value]="50">50 Runs</mat-chip-option>
-          <mat-chip-option [value]="100" selected>100 Runs</mat-chip-option>
-          <mat-chip-option [value]="250">250 Runs</mat-chip-option>
-          <mat-chip-option [value]="500">500 Runs</mat-chip-option>
-          <mat-chip-option [value]="3000">3000 Runs</mat-chip-option>
-        </mat-chip-listbox>
-
-        <canvas baseChart [type]="'line'" [data]="modBasedChartData" [options]="modBasedChartOptions"></canvas>
-
-      </div>
-    }
-
-    <!-- Splits -->
-    @if (splitTimes !== undefined) {
-      <div>
-      <h2 class="title">Zenith Splits</h2>
-
-      <div class="">
-        <mat-chip-listbox (change)="onSplitFilterChanged($event)">
-          @for (mod of splitMods; track $index) {
-            <mat-chip-option style="display: flex;" [value]="mod">
-              @if($index > 0){
-                <img matChipAvatar src="assets/tetrio-img/mods/{{getModImageFromModList(mod)}}.png">
-              }
-              {{splitModsText[$index]}}
-            </mat-chip-option>
-          }
-        </mat-chip-listbox>
-      </div>
-      <div class="splitContainer">
-        @for (floor of floors; track floor) {
-          <div [class]='["split", floor]'>
-            <div [class]='["splitBackground", floor, getFloorReachedCss(splitTimes[floor])]'></div>
-            <div class="splitWrapper">
-              <div [class]='["flexStretch", "floor", floor, getFloorReachedCss(splitTimes[floor])]'>
-                @if (floor === "potg") {
-                  <div class="flexColumn">
-                    <span>platform of the</span>
-                    <span>gods</span>
-                  </div>
-                }@else{
-                  <span>{{floor}}</span>
-                }
+              <div class="details">
+                <p>No Mod</p>
+                <p class="altitude highlight">{{dailyData.altitudes.noMod.toLocaleString()}} M</p>
+                <p class="completions headerText">{{dailyData.totalChallengesCompleted.toLocaleString()}} challenges completed</p>
               </div>
-              <div class="flexStretch splitItem flexColumn">
-                @if (isNotEmptyTime(splitTimes[floor].bestTime)) {
-                  <span class="headerText" style="font-size: 1.25rem">Best Time</span>
-                }
-                <span class="headerText goldTime" title="Fastest time">{{ getSplitText(splitTimes[floor].bestTime) }}</span>
-                @if (isNotEmptyTime(splitTimes[floor].bestTime)) {
-                  <span class="boldText achievedText" style="margin-bottom:2px">achieved {{ getSplitText(splitTimes[floor].bestTimeAchievedDate) }}</span>
-                }
+            </div>
+            <div class="modContainer expert">
+              <div class="stripes"></div>
+
+              <div class="details">
+                <img src="assets/tetrio-img/mods/expert.png" class="bigMod" />
+                <p class="altitude highlight">{{dailyData.altitudes.expert.toLocaleString()}} M</p>
+                <p class="completions headerText">{{dailyData.masteryCompletions?.expert?.toLocaleString() ?? 0}} masteries completed</p>
               </div>
-              <div class="flexStretch splitItem flexColumn">
-                @if (isNotEmptyTime(splitTimes[floor].averageTime)) {
-                  <span class="headerText" style="font-size: 1.25rem">Average Time</span>
-                }
-                <span class="headerText averageTime" title="Average time">{{ getSplitText(splitTimes[floor].averageTime, true) }}</span>
+            </div>
+            <div class="modContainer nohold">
+              <div class="stripes"></div>
+
+              <div class="details">
+                <img src="assets/tetrio-img/mods/nohold.png" class="bigMod" />
+                <p class="altitude highlight">{{dailyData.altitudes.noHold.toLocaleString()}} M</p>
+                <p class="completions headerText">{{dailyData.masteryCompletions?.noHold?.toLocaleString() ?? 0}} mastery completions</p>
               </div>
             </div>
           </div>
+
+          <div class="flexContainer">
+            <div class="modContainer messy">
+              <div class="stripes"></div>
+
+              <div class="details">
+                <img src="assets/tetrio-img/mods/messy.png" class="bigMod" />
+                <p class="altitude highlight">{{dailyData.altitudes.messy.toLocaleString()}} M</p>
+                <p class="completions">{{dailyData.masteryCompletions?.messy?.toLocaleString() ?? 0}} mastery completions</p>
+              </div>
+            </div>
+
+            <div class="modContainer gravity">
+              <div class="stripes"></div>
+
+              <div class="details">
+                <img src="assets/tetrio-img/mods/gravity.png" class="bigMod" />
+                <p class="altitude highlight">{{dailyData.altitudes.gravity.toLocaleString()}} M</p>
+                <p class="completions headerText">{{dailyData.masteryCompletions?.gravity?.toLocaleString() ?? 0}} mastery completions</p>
+              </div>
+            </div>
+
+            <div class="modContainer volatile">
+              <div class="stripes"></div>
+
+              <div class="details">
+                <img src="assets/tetrio-img/mods/volatile.png" class="bigMod" />
+                <p class="altitude highlight">{{dailyData.altitudes.volatile.toLocaleString()}} M</p>
+                <p class="completions headerText">{{dailyData.masteryCompletions?.volatile?.toLocaleString() ?? 0}} mastery completions</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flexContainer">
+            <div class="modContainer doublehole">
+              <div class="stripes"></div>
+
+              <div class="details">
+                <img src="assets/tetrio-img/mods/doublehole.png" class="bigMod" />
+                <p class="altitude highlight">{{dailyData.altitudes.doubleHole.toLocaleString()}} M</p>
+                <p class="completions headerText">{{dailyData.masteryCompletions?.doubleHole?.toLocaleString() ?? 0}} mastery completions</p>
+              </div>
+            </div>
+
+            <div class="modContainer invisible">
+              <div class="stripes"></div>
+
+              <div class="details">
+                <img src="assets/tetrio-img/mods/invisible.png" class="bigMod" />
+                <p class="altitude highlight">{{dailyData.altitudes.invisible.toLocaleString()}} M</p>
+                <p class="completions headerText">{{dailyData.masteryCompletions?.invisible?.toLocaleString() ?? 0}} mastery completions</p>
+              </div>
+            </div>
+
+            <div class="modContainer allspin">
+              <div class="stripes"></div>
+
+              <div class="details">
+                <img src="assets/tetrio-img/mods/allspin.png" class="bigMod" />
+                <p class="altitude highlight">{{dailyData.altitudes.allSpin.toLocaleString()}} M</p>
+                <p class="completions">{{dailyData.masteryCompletions?.allSpin?.toLocaleString() ?? 0}} mastery completions</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flexContainer">
+            <div class="modContainer reverseMod">
+              <div class="stripes"></div>
+
+              <div class="details">
+                <img src="assets/clear_reverse.png" class="bigMod" />
+                <p class="altitude highlight">{{dailyData.altitudes.reverse.toLocaleString()}} M</p>
+                <p class="completions headerText">{{dailyData.masteryCompletions?.reverse?.toLocaleString() ?? 0}} mastery completions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!--  Recent Days Chart  -->
+      <mat-tab label="Recent 10 days">
+        @if (recentDaysChartData !== undefined && dailyExtra.recentDays.length > 0) {
+          <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-right: none; border-left: none">
+            <h2 class="title centerText">Recent 10 days</h2>
+
+            <canvas baseChart type="line" [data]="recentDaysChartData" [options]="recentDaysChartOptions"></canvas>
+          </div>
         }
-      </div>
-      <div class="linkContainer userInfoContainer">
-        <mat-icon class="icon textShadow" (click)="openTetrioProfile()">double_arrow</mat-icon>
-        <span [routerLink]="['/user', username, 'splits']" class="textShadow headerText" style="font-size: 18pt">View all Splits</span>
-      </div>
-    </div>
-    }
-  </div>
+      </mat-tab>
 
-  <!-- Challenges Completed -->
-  @if(challengeData !== undefined && challengeData.length > 0){
-    <div class="userContainer">
-      <h2 class="title">Completed Challenges</h2>
-      <div>
-        @if (dailyData.challengesCompleted > 10) {
-          <mat-paginator class="borderTop"
-                         [pageSizeOptions]="[10, 25, 50, 100]"
-                         [pageSize]="challengePageSize"
-                         [length]="dailyData.challengesCompleted"
-                         (page)="onPageChange($event, 0)"
-                         aria-label="Select page of runs">
-          </mat-paginator>
+      <!--  Mod progression chart  -->
+      <mat-tab label="Altitude Progression">
+        @if (modBasedChartData !== undefined && checkModProgression(this.dailyExtra.modProgression)) {
+          <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-right: none; border-left: none">
+            <h2 class="title centerText">Altitude Progression</h2>
+
+            <mat-chip-listbox (change)="onProgressionDensityChanged($event)">
+              <mat-chip-option [value]="25">25 Runs</mat-chip-option>
+              <mat-chip-option [value]="50">50 Runs</mat-chip-option>
+              <mat-chip-option [value]="100" selected>100 Runs</mat-chip-option>
+              <mat-chip-option [value]="250">250 Runs</mat-chip-option>
+              <mat-chip-option [value]="500">500 Runs</mat-chip-option>
+              <mat-chip-option [value]="3000">3000 Runs</mat-chip-option>
+            </mat-chip-listbox>
+
+            <canvas baseChart [type]="'line'" [data]="modBasedChartData" [options]="modBasedChartOptions"></canvas>
+
+          </div>
         }
+      </mat-tab>
 
+      <!-- Splits -->
+      <mat-tab label="Zenith Splits">
+        @if (splitTimes !== undefined) {
+          <div>
+            <h2 class="title">Zenith Splits</h2>
 
-        <div style="overflow-x: auto">
-          <table mat-table [dataSource]="challengeData">
-            <ng-container matColumnDef="Date">
-              <th mat-header-cell *matHeaderCellDef> Date </th>
-              <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Status">
-              <th mat-header-cell *matHeaderCellDef> Completion Status </th>
-              <td mat-cell *matCellDef="let element">
-                <div>
-                  <img [class]="getCompletedImage(element.easyCompleted)"    src="assets/clear_easy_2.png" class="mod" />
-                  <img [class]="getCompletedImage(element.normalCompleted)"  src="assets/clear_normal_2.png" class="mod" />
-                  <img [class]="getCompletedImage(element.hardCompleted)"    src="assets/clear_hard_2.png" class="mod" />
-                  <img [class]="getCompletedImage(element.expertCompleted)"  src="assets/clear_expert.png" class="mod" />
-                  <img [class]="getCompletedImage(element.reverseCompleted)" src="assets/clear_reverse.png" class="mod" />
+            <div class="">
+              <mat-chip-listbox (change)="onSplitFilterChanged($event)">
+                @for (mod of splitMods; track $index) {
+                  <mat-chip-option style="display: flex;" [value]="mod">
+                    @if($index > 0){
+                      <img matChipAvatar src="assets/tetrio-img/mods/{{getModImageFromModList(mod)}}.png">
+                    }
+                    {{splitModsText[$index]}}
+                  </mat-chip-option>
+                }
+              </mat-chip-listbox>
+            </div>
+            <div class="splitContainer">
+              @for (floor of floors; track floor) {
+                <div [class]='["split", floor]'>
+                  <div [class]='["splitBackground", floor, getFloorReachedCss(splitTimes[floor])]'></div>
+                  <div class="splitWrapper">
+                    <div [class]='["flexStretch", "floor", floor, getFloorReachedCss(splitTimes[floor])]'>
+                      @if (floor === "potg") {
+                        <div class="flexColumn">
+                          <span>platform of the</span>
+                          <span>gods</span>
+                        </div>
+                      }@else{
+                        <span>{{floor}}</span>
+                      }
+                    </div>
+                    <div class="flexStretch splitItem flexColumn">
+                      @if (isNotEmptyTime(splitTimes[floor].bestTime)) {
+                        <span class="headerText" style="font-size: 1.25rem">Best Time</span>
+                      }
+                      <span class="headerText goldTime" title="Fastest time">{{ getSplitText(splitTimes[floor].bestTime) }}</span>
+                      @if (isNotEmptyTime(splitTimes[floor].bestTime)) {
+                        <span class="boldText achievedText" style="margin-bottom:2px">achieved {{ getSplitText(splitTimes[floor].bestTimeAchievedDate) }}</span>
+                      }
+                    </div>
+                    <div class="flexStretch splitItem flexColumn">
+                      @if (isNotEmptyTime(splitTimes[floor].averageTime)) {
+                        <span class="headerText" style="font-size: 1.25rem">Average Time</span>
+                      }
+                      <span class="headerText averageTime" title="Average time">{{ getSplitText(splitTimes[floor].averageTime, true) }}</span>
+                    </div>
+                  </div>
                 </div>
-              </td>
-            </ng-container>
-
-            <tr mat-header-row sticky *matHeaderRowDef="challengesColumns" ></tr>
-            <tr mat-row *matRowDef="let row; columns: challengesColumns;"></tr>
-          </table>
-        </div>
-
-        @if (dailyData.challengesCompleted > 10) {
-          <mat-paginator class="borderBottom"
-                         [pageSizeOptions]="[10, 25, 50, 100]"
-                         [pageSize]="challengePageSize"
-                         [length]="dailyData.challengesCompleted"
-                         (page)="onPageChange($event, 0)"
-                         aria-label="Select page of runs">
-          </mat-paginator>
+              }
+            </div>
+            <div [routerLink]="['/user', username, 'splits']" class="linkContainer userInfoContainer">
+              <mat-icon class="icon textShadow">double_arrow</mat-icon>
+              <span  class="textShadow headerText" style="font-size: 18pt">View all Splits</span>
+            </div>
+          </div>
         }
-        </div>
-    </div>
-  }
+      </mat-tab>
 
-  <!-- Community Contributions-->
-  @if (communityContributionData !== undefined && communityContributionData.length > 0) {
-    <div class="dailyContainer userContainer">
-      <h2 class="title">Community Challenge Contributions</h2>
-      @if (communityContributionData[0].totalContributions > challengePageSize) {
-        <mat-paginator
-                       class="borderTop"
-                       [pageSizeOptions]="[10, 25, 50, 100]"
-                       [pageSize]="communityChallengePageSize"
-                       [length]="communityContributionData[0].totalContributions"
-                       (page)="onPageChange($event, 1)"
-                       aria-label="Select page of runs">
-        </mat-paginator>
-      }
-
-      <div style="overflow-x: auto">
-        <table mat-table [dataSource]="communityContributionData">
-          <ng-container matColumnDef="Date">
-            <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.challenge}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Contribution">
-            <th mat-header-cell *matHeaderCellDef> Contribution </th>
-            <td mat-cell *matCellDef="let element">
-              {{getCommunityContributionvalue(element.totalAmountContributed, element.conditionType)}}
-            </td>
-          </ng-container>
-
-          <tr mat-header-row sticky *matHeaderRowDef="communityChallengeColumns" ></tr>
-          <tr mat-row *matRowDef="let _; columns: communityChallengeColumns;"></tr>
-        </table>
-      </div>
-
-      @if (communityContributionData[0].totalContributions > challengePageSize) {
-        <mat-paginator
-          class="borderBottom"
-          [pageSizeOptions]="[10, 25, 50, 100]"
-          [pageSize]="communityChallengePageSize"
-          [length]="communityContributionData[0].totalContributions"
-          (page)="onPageChange($event, 1)"
-          aria-label="Select page of runs">
-        </mat-paginator>
-      }
-
-    </div>
-  }
+    </mat-tab-group>
+  </div>
 
   <!-- Submit Button -->
   @if (isSameUser) {
     <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
   }
 
-  @if (runData !== undefined && runData.length > 0) {
-    <div class="runs userContainer">
-      <h2 class="title">Recent Runs</h2>
-
-      @if (dailyData.runs > 25){
-        <mat-paginator class="borderTop"
-                       [pageSizeOptions]="[25, 50, 100, 250]"
-                       [pageSize]="runPageSize"
-                       [length]="dailyData.runs"
-                       (page)="onPageChange($event, 2)"
-                       aria-label="Select page of runs">
-        </mat-paginator>
-      }
-      <div style="overflow-x: auto">
-        <table mat-table [dataSource]="runData">
-          <ng-container matColumnDef="Altitude">
-            <th mat-header-cell *matHeaderCellDef> Altitude </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.altitude}} M</td>
-          </ng-container>
-
-          <ng-container matColumnDef="APM">
-            <th mat-header-cell *matHeaderCellDef> APM </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.apm}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="PPS">
-            <th mat-header-cell *matHeaderCellDef> PPS </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.pps}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="VS">
-            <th mat-header-cell *matHeaderCellDef> VS </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.vs}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="KOs">
-            <th mat-header-cell *matHeaderCellDef> KO's </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.kOs}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="Quads">
-            <th mat-header-cell *matHeaderCellDef> Quads </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.quads}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="Spins">
-            <th mat-header-cell *matHeaderCellDef> Spins </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.spins}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="AllClears">
-            <th mat-header-cell *matHeaderCellDef> PC's </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="Back2Back">
-            <th mat-header-cell *matHeaderCellDef> B2B </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.back2Back}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="Mods">
-            <th mat-header-cell *matHeaderCellDef> Mods </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]" class="centerText">
-              @for (img of getModArray(element.mods); track img){
-                <img [src]="getModImage(img)" class="mod" />
+  <div class="userContainer" style="padding: 0">
+    <mat-tab-group dynamicHeight>
+      <!-- Challenges Completed -->
+      <mat-tab label="Challenges Completed">
+        @if(challengeData !== undefined && challengeData.length > 0){
+          <div class="userContainer" style="padding: 0">
+            <div>
+              @if (dailyData.challengesCompleted > 10) {
+                <mat-paginator class="borderTop"
+                               [pageSizeOptions]="[10, 25, 50, 100]"
+                               [pageSize]="challengePageSize"
+                               [length]="dailyData.challengesCompleted"
+                               (page)="onPageChange($event, 0)"
+                               aria-label="Select page of runs">
+                </mat-paginator>
               }
-            </td>
-          </ng-container>
 
-          <tr mat-header-row sticky *matHeaderRowDef="runColumns" ></tr>
-          <tr mat-row *matRowDef="let row; columns: runColumns;" ></tr>
-        </table>
-      </div>
 
-      @if (dailyData.runs > 25){
-        <mat-paginator class="borderBottom"
-                       [pageSizeOptions]="[25, 50, 100, 250]"
-                       [pageSize]="runPageSize"
-                       [length]="dailyData.runs"
-                       (page)="onPageChange($event, 2)"
-                       aria-label="Select page of runs">
-        </mat-paginator>
-      }
-    </div>
-  }
+              <div style="overflow-x: auto">
+                <table mat-table [dataSource]="challengeData">
+                  <ng-container matColumnDef="Date">
+                    <th mat-header-cell *matHeaderCellDef> Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef> Completion Status </th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="flexStretch completionTable">
+                        <div>
+                          <img [class]="getCompletedImage(element.easyCompleted)"    src="assets/clear_easy_2.png" class="mod" />
+                          <img [class]="getCompletedImage(element.normalCompleted)"  src="assets/clear_normal_2.png" class="mod" />
+                          <img [class]="getCompletedImage(element.hardCompleted)"    src="assets/clear_hard_2.png" class="mod" />
+                          <img [class]="getCompletedImage(element.expertCompleted)"  src="assets/clear_expert.png" class="mod" />
+                          <img [class]="getCompletedImage(element.reverseCompleted)" src="assets/clear_reverse.png" class="mod" />
+                        </div>
+
+                        <div>
+                          <img [class]="getCompletedImage(element.mastery.expertCompleted)" src="assets/tetrio-img/mods/expert.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.noHoldCompleted)" src="assets/tetrio-img/mods/nohold.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.messyCompleted)" src="assets/tetrio-img/mods/messy.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.gravityCompleted)" src="assets/tetrio-img/mods/gravity.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.volatileCompleted)" src="assets/tetrio-img/mods/volatile.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.doubleHoleCompleted)" src="assets/tetrio-img/mods/doublehole.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.invisibleCompleted)" src="assets/tetrio-img/mods/invisible.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.allSpinCompleted)" src="assets/tetrio-img/mods/allspin.png" class="mod" />
+                        </div>
+
+                        <div>
+                          <img [class]="getCompletedImage(element.mastery.expertReversedCompleted)" src="assets/tetrio-img/mods/expert_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.noHoldReversedCompleted)" src="assets/tetrio-img/mods/nohold_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.messyReversedCompleted)" src="assets/tetrio-img/mods/messy_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.gravityReversedCompleted)" src="assets/tetrio-img/mods/gravity_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.volatileReversedCompleted)" src="assets/tetrio-img/mods/volatile_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.doubleHoleReversedCompleted)" src="assets/tetrio-img/mods/doublehole_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.invisibleReversedCompleted)" src="assets/tetrio-img/mods/invisible_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element.mastery.allSpinReversedCompleted)" src="assets/tetrio-img/mods/allspin_reversed.png" class="mod" />
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row sticky *matHeaderRowDef="challengesColumns" ></tr>
+                  <tr mat-row *matRowDef="let row; columns: challengesColumns;"></tr>
+                </table>
+              </div>
+
+              @if (dailyData.challengesCompleted > 10) {
+                <mat-paginator class="borderBottom"
+                               [pageSizeOptions]="[10, 25, 50, 100]"
+                               [pageSize]="challengePageSize"
+                               [length]="dailyData.challengesCompleted"
+                               (page)="onPageChange($event, 0)"
+                               aria-label="Select page of runs">
+                </mat-paginator>
+              }
+            </div>
+          </div>
+        }
+      </mat-tab>
+
+      <!-- Community Contributions-->
+      <mat-tab label="Community Contributions">
+        @if (communityContributionData !== undefined && communityContributionData.length > 0) {
+          <div class="dailyContainer userContainer" style="padding: 0">
+            @if (communityContributionData[0].totalContributions > challengePageSize) {
+              <mat-paginator
+                class="borderTop"
+                [pageSizeOptions]="[10, 25, 50, 100]"
+                [pageSize]="communityChallengePageSize"
+                [length]="communityContributionData[0].totalContributions"
+                (page)="onPageChange($event, 1)"
+                aria-label="Select page of runs">
+              </mat-paginator>
+            }
+
+            <div style="overflow-x: auto">
+              <table mat-table [dataSource]="communityContributionData">
+                <ng-container matColumnDef="Date">
+                  <th mat-header-cell *matHeaderCellDef> Date </th>
+                  <td mat-cell *matCellDef="let element"> {{element.challenge}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Contribution">
+                  <th mat-header-cell *matHeaderCellDef> Contribution </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{getCommunityContributionvalue(element.totalAmountContributed, element.conditionType)}}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row sticky *matHeaderRowDef="communityChallengeColumns" ></tr>
+                <tr mat-row *matRowDef="let _; columns: communityChallengeColumns;"></tr>
+              </table>
+            </div>
+
+            @if (communityContributionData[0].totalContributions > challengePageSize) {
+              <mat-paginator
+                class="borderBottom"
+                [pageSizeOptions]="[10, 25, 50, 100]"
+                [pageSize]="communityChallengePageSize"
+                [length]="communityContributionData[0].totalContributions"
+                (page)="onPageChange($event, 1)"
+                aria-label="Select page of runs">
+              </mat-paginator>
+            }
+
+          </div>
+        }
+      </mat-tab>
+
+      <!-- Recent Runs -->
+      <mat-tab label="Recent Runs">
+        @if (runData !== undefined && runData.length > 0) {
+          <div class="runs userContainer" style="padding: 0">
+            @if (dailyData.runs > 25){
+              <mat-paginator class="borderTop"
+                             [pageSizeOptions]="[25, 50, 100, 250]"
+                             [pageSize]="runPageSize"
+                             [length]="dailyData.runs"
+                             (page)="onPageChange($event, 2)"
+                             aria-label="Select page of runs">
+              </mat-paginator>
+            }
+            <div style="overflow-x: auto">
+              <table mat-table [dataSource]="runData">
+                <ng-container matColumnDef="Altitude">
+                  <th mat-header-cell *matHeaderCellDef> Altitude </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.altitude}} M</td>
+                </ng-container>
+
+                <ng-container matColumnDef="APM">
+                  <th mat-header-cell *matHeaderCellDef> APM </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.apm}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PPS">
+                  <th mat-header-cell *matHeaderCellDef> PPS </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.pps}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="VS">
+                  <th mat-header-cell *matHeaderCellDef> VS </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.vs}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="KOs">
+                  <th mat-header-cell *matHeaderCellDef> KO's </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.kOs}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="Quads">
+                  <th mat-header-cell *matHeaderCellDef> Quads </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.quads}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="Spins">
+                  <th mat-header-cell *matHeaderCellDef> Spins </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.spins}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="AllClears">
+                  <th mat-header-cell *matHeaderCellDef> PC's </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="Back2Back">
+                  <th mat-header-cell *matHeaderCellDef> B2B </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.back2Back}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="Mods">
+                  <th mat-header-cell *matHeaderCellDef> Mods </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]" class="centerText">
+                    @for (img of getModArray(element.mods); track img){
+                      <img [src]="getModImage(img)" class="mod" />
+                    }
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row sticky *matHeaderRowDef="runColumns" ></tr>
+                <tr mat-row *matRowDef="let row; columns: runColumns;" ></tr>
+              </table>
+            </div>
+
+            @if (dailyData.runs > 25){
+              <mat-paginator class="borderBottom"
+                             [pageSizeOptions]="[25, 50, 100, 250]"
+                             [pageSize]="runPageSize"
+                             [length]="dailyData.runs"
+                             (page)="onPageChange($event, 2)"
+                             aria-label="Select page of runs">
+              </mat-paginator>
+            }
+          </div>
+        }
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 }
