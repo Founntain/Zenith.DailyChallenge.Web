@@ -318,7 +318,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
         this.runPageCount = Math.ceil((this.dailyData.runs / this.runPageSize));
 
-        console.log(this.dailyData.altitudePercentages)
+        this.playStyleSegments = [];
 
         for(let i = 0; i < this.dailyData.altitudePercentages.length; i++){
           let segment = this.dailyData.altitudePercentages[i];
