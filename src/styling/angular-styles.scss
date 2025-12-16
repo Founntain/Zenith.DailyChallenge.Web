@@ -7,6 +7,7 @@
 @use 'angular-component-styles/mat-symbols' as *;
 @use 'angular-component-styles/paginator' as *;
 @use 'angular-component-styles/tab' as *;
+@use 'angular-component-styles/expansion' as *;
 
 :root {
   @include mat.chips-overrides((
@@ -34,5 +35,13 @@
     unselected-pressed-state-layer-color: $primary-color,
   ));
 
+  @include mat.tooltip-overrides((
+    container-shape: 'flat',
+    container-color: $background-shade-solid,
 
+    supporting-text-font: 'Catamaran',
+    supporting-text-weight: '600',
+    supporting-text-size: 1rem,
+    supporting-text-color: $text-color,
+  ));
 }

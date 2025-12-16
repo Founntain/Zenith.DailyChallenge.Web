@@ -1,0 +1,9 @@
+<div class="bar stripes">
+  <div
+    class="segment"
+    *ngFor="let segment of segments"
+    [style.flex]="segment.percent"
+    [style.background]="segment.color"
+    matTooltip="{{ segment.percent }}% {{ segment.label }}">
+  </div>
+</div>

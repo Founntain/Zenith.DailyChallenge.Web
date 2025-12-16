@@ -1,6 +1,10 @@
 ﻿@use '@angular/material' as mat;
 @use "../colors" as *;
 
+.mat-mdc-tab-label-container{
+  border-bottom: 1px solid rgba($accent-color, 0.5) !important;
+}
+
 @include mat.tabs-overrides((
   foreground-color: $text-color,
   active-label-text-color: $text-color,
@@ -14,8 +18,10 @@
   active-focus-indicator-color: $primary-color,
   active-hover-indicator-color: $primary-color,
 
+  pagination-icon-color: $text-color,
+
   label-text-font: 'Catamaran',
   label-text-weight: '800',
 
-  label-text-size: 2rem,
+  label-text-size: 1.5rem,
 ));

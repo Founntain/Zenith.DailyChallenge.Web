@@ -22,21 +22,44 @@
     </div>
   </div>
 
+  <!-- Submit Button -->
+  @if (isSameUser) {
+    <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
+  }
+
   <!-- Settings -->
   @if (isSameUser) {
+
     <div class="userContainer">
-      <h2 class="title">Settings</h2>
-      <div style="display: inline-flex; justify-items: center; align-items: center;">
-        <mat-checkbox id="autoTrackingSetting" [checked]="isAutoUpdate" (change)="onAutoTrackingChanged($event)">Enable Auto Tracking?</mat-checkbox>
-      </div>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Settings
+          </mat-panel-title>
+          <mat-panel-description>
+            You can change settings here
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div style="display: inline-flex; justify-items: center; align-items: center;">
+          <mat-checkbox id="autoTrackingSetting" [checked]="isAutoUpdate" (change)="onAutoTrackingChanged($event)">Enable Auto Tracking?</mat-checkbox>
+        </div>
+      </mat-expansion-panel>
     </div>
   }
 
   <!-- Daily Adventure & Splits -->
   <div class="userContainer" style="padding: 0">
-    <mat-tab-group dynamicHeight>
+    <mat-tab-group dynamicHeight class="remove-border-bottom">
       <!-- Daily Stats -->
       <mat-tab label="Daily Statistics">
+        <div style="padding-left: 10px; padding-right: 10px;">
+          <h2 class="headerText">Playstyle</h2>
+          <div style="padding-bottom: 10px">
+            <app-segmentbar [segments]="playStyleSegments"/>
+          </div>
+        </div>
+
         <div class="flexColumn scoreContainer stripes">
           <img src="assets/score.png" class="hugeMod"/>
           <span class="scoreDisplay headerText"> {{dailyData.score.toLocaleString()}}</span>
@@ -154,7 +177,7 @@
       <!--  Recent Days Chart  -->
       <mat-tab label="Recent 10 days">
         @if (recentDaysChartData !== undefined && dailyExtra.recentDays.length > 0) {
-          <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-right: none; border-left: none">
+          <div class="stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px;">
             <h2 class="title centerText">Recent 10 days</h2>
 
             <canvas baseChart type="line" [data]="recentDaysChartData" [options]="recentDaysChartOptions"></canvas>
@@ -165,7 +188,7 @@
       <!--  Mod progression chart  -->
       <mat-tab label="Altitude Progression">
         @if (modBasedChartData !== undefined && checkModProgression(this.dailyExtra.modProgression)) {
-          <div class="baseContainer stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px; border-right: none; border-left: none">
+          <div class="stripesLight" style="margin: 0 -10px 0 -10px; padding: 5px;">
             <h2 class="title centerText">Altitude Progression</h2>
 
             <mat-chip-listbox (change)="onProgressionDensityChanged($event)">
@@ -186,7 +209,7 @@
       <!-- Splits -->
       <mat-tab label="Zenith Splits">
         @if (splitTimes !== undefined) {
-          <div>
+          <div style="margin: 5px">
             <h2 class="title">Zenith Splits</h2>
 
             <div class="">
@@ -246,13 +269,8 @@
     </mat-tab-group>
   </div>
 
-  <!-- Submit Button -->
-  @if (isSameUser) {
-    <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
-  }
-
   <div class="userContainer" style="padding: 0">
-    <mat-tab-group dynamicHeight>
+    <mat-tab-group dynamicHeight class="remove-border-bottom">
       <!-- Challenges Completed -->
       <mat-tab label="Challenges Completed">
         @if(challengeData !== undefined && challengeData.length > 0){

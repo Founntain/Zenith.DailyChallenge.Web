@@ -39,6 +39,14 @@ import { default as Annotation } from 'chartjs-plugin-annotation';
 import {MatSelect} from '@angular/material/select';
 import {Altitudes} from '../../services/network/data/interfaces/Altitudes';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {BarSegmet, SegmentbarComponent} from '../../components/segmentbar/segmentbar.component';
+import {ModHelper} from '../../util/ModHelper';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelDescription,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-user',
@@ -64,12 +72,19 @@ import {MatTab, MatTabGroup} from '@angular/material/tabs';
     MatChipOption,
     MatCheckbox,
     MatTabGroup,
-    MatTab
+    MatTab,
+    SegmentbarComponent,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatExpansionPanelDescription
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnInit, AfterViewInit {
+  private modHelper: ModHelper = new ModHelper();
+
   username!: string;
 
   isAutoUpdate: boolean = false;
@@ -87,6 +102,9 @@ export class UserComponent implements OnInit, AfterViewInit {
   runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Back2Back', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
   communityChallengeColumns: string[] = ['Date', 'Contribution'];
+
+  protected readonly Difficulty = Difficulty;
+  public playStyleSegments: BarSegmet[] = [];
 
   dailyExtra: DailyExtra = { recentDays: [], modProgression: [] };
   recentDaysChartData: ChartConfiguration['data'] | undefined;
@@ -197,7 +215,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     private userService: ZenithUserService,
     private zenithService: ZenithService,
     private cookieHelper: CookieHelper,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) {
     this.runPage = 1;
     this.runPageSize = 25;
@@ -299,6 +317,18 @@ export class UserComponent implements OnInit, AfterViewInit {
         this.dailyData = result;
 
         this.runPageCount = Math.ceil((this.dailyData.runs / this.runPageSize));
+
+        console.log(this.dailyData.altitudePercentages)
+
+        for(let i = 0; i < this.dailyData.altitudePercentages.length; i++){
+          let segment = this.dailyData.altitudePercentages[i];
+          let mod =  i === 0  ? 'No Mod' : this.modHelper.AvailableModsPrettyString[i - 1];
+          let modColor = i === 0 ? '#a8acb0' : `#${this.modHelper.ModColors[i - 1]}`;
+
+          console.log(mod, segment);
+
+          this.playStyleSegments.push({percent: segment,  color: modColor, label: mod})
+        }
       });
 
 
@@ -388,8 +418,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   isNotEmptyTime(time: string) {
     return time != '00:00.000';
   }
-
-  protected readonly Difficulty = Difficulty;
 
   getSpeedrunCompletedClass(altitude: number, speedrun: boolean, speedrunSeen: boolean) {
     if (speedrun && altitude >= 1650) {
@@ -504,8 +532,6 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.modBasedChartData = {
         datasets: chartHelper.getModBasedChartData(this.dailyExtra.modProgression),
       }
-
-      console.log(this.modBasedChartData, this.dailyExtra.modProgression);
     });
   }
 

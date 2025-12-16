@@ -26,6 +26,17 @@
       <span>Resources belong to <a class="highlight" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="highlight" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
       <span>Icon and Background made by <span class="highlight"><a class="highlight" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span></span>
     </div>
+
+    <div class="thankyouBackground">
+      <div class="mastery boldText" style="padding: 5px">
+        <span>I want to thank </span><span class="highlight">you</span><span>; the player for playing the Zenith Daily Challenge this year.</span> <br>
+        <span>Zenith Daily Challenge went live with its first set of challenges on </span><span class="highlight">9th April 2025</span>.<br>
+        <span>I added, improved, fixed or even remove features throughout the year. I value your feedback and greatly appreciate it and without it we won't be here today!</span> <br>
+        <span>Thank you for playing and I hope you enjoyed it as much as I enjoyed making it. I can't wait to to see what the new year brings to ZDC.</span> <br><br>
+        <span style="font-size: 1.5rem;">So once again</span>
+        <h1 class="headerText highlight" style="font-size: 2rem; margin-top: 0; letter-spacing: 5px">THANK YOU!</h1>
+      </div>
+    </div>
   </div>
   @if (isLoggedIn) {
     <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
@@ -425,43 +436,43 @@
 
         <ng-container matColumnDef="Score">
           <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" title="Score/Rating"/>
+            <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" matTooltip="Score/Rating"/>
           </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.score.toLocaleString()}}</td>
         </ng-container>
 
         <ng-container matColumnDef="EasyChallengesCompleted">
           <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/clear_easy_2.png" height="36" width="36" title="Easy Challenges Completed"/>
+            <img class="headerImage" ngSrc="assets/clear_easy_2.png" height="36" width="36" matTooltip="Easy Challenges Completed"/>
           </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.easyChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
 
         <ng-container matColumnDef="NormalChallengesCompleted">
           <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/clear_normal_2.png" height="36" width="36" title="Normal Challenges Completed"/>
+            <img class="headerImage" ngSrc="assets/clear_normal_2.png" height="36" width="36" matTooltip="Normal Challenges Completed"/>
           </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.normalChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
 
         <ng-container matColumnDef="HardChallengesCompleted">
           <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/clear_hard_2.png" height="36" width="36" title="Hard Challenges Completed"/>
+            <img class="headerImage" ngSrc="assets/clear_hard_2.png" height="36" width="36" matTooltip="Hard Challenges Completed"/>
           </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.hardChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
 
         <ng-container matColumnDef="ExpertChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" title="Expert Challenges Completed"/> </th>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" matTooltip="Expert Challenges Completed"/> </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.expertChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
 
         <ng-container matColumnDef="ReverseChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" title="Reverse Challenges Completed"/> </th>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" matTooltip="Reverse Challenges Completed"/> </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.reverseChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
         <ng-container matColumnDef="MasteryChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery_2.png" height="36" width="36" title="Mastery Challenges Completed"/> </th>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery_2.png" height="36" width="36" matTooltip="Mastery Challenges Completed"/> </th>
           <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.masteryChallengesCompleted.toLocaleString()}}</td>
         </ng-container>
 

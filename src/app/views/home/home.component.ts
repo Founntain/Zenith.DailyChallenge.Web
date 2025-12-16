@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ZenithService} from '../../services/network/zenith.service';
-import {ChallengeComponent} from '../challenge/challenge.component';
-import {NgClass, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
+import {ChallengeComponent} from '../../components/challenge/challenge.component';
+import {NgClass, NgOptimizedImage} from '@angular/common';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
-import {concatWith, interval} from 'rxjs';
+import {interval} from 'rxjs';
 import { NgZone } from '@angular/core';
 import {
   MatCell,
@@ -27,6 +27,7 @@ import {TodayCompletions} from '../../services/network/data/interfaces/TodayComp
 import {Condition} from '../../services/network/data/interfaces/Condition';
 import {SettingsService} from '../../services/settings.service';
 import {ServerStatistics} from '../../services/network/data/interfaces/ServerStatistics';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-home',
@@ -44,7 +45,8 @@ import {ServerStatistics} from '../../services/network/data/interfaces/ServerSta
     MatHeaderCellDef,
     RouterLink,
     NgOptimizedImage,
-    NgClass
+    NgClass,
+    MatTooltip
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

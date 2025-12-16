@@ -41,7 +41,8 @@
         <span class="headerText uppercase" style="font-size: 1.5rem; margin-top: 10px">Completed by</span>
         <div class="flexStretch flexRow verticalCenter gap flexWrap justifyCenter">
           @for (user of challenge.users; track $index){
-            <span [ngClass]="['boldText', 'uppercase', 'conditionValue', 'link', this.getDifficultyText(challenge.points, '', true)]" style="font-size: 1.25rem" title="Completed at {{user.completedAt.toLocaleString()}}">{{user.username}}</span>
+            <span [ngClass]="['boldText', 'uppercase', 'conditionValue', 'link', this.getDifficultyText(challenge.points, '', true)]" style="font-size: 1.25rem"
+                  matTooltip="Completed at {{user.completedAt.toLocaleString()}}">{{user.username}}</span>
           }
         </div>
       </div>

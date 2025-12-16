@@ -9,6 +9,7 @@ import {ArchiveService} from '../../services/network/archive.service';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
 import {Component} from '@angular/core';
 import {min} from 'rxjs';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-daily-archive',
@@ -17,6 +18,7 @@ import {min} from 'rxjs';
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTooltip,
   ],
   providers: [
     provideNativeDateAdapter(),

@@ -182,8 +182,23 @@ tr{
   );
 }
 
+.thankyouBackground{
+  width: 100%;
+
+  background: linear-gradient(
+      to right,
+      rgba(darken($accent-color, 8%), 0.75),
+      rgba(darken($accent-color, 6%), 0.75),
+      rgba(darken($accent-color, 4%), 0.75),
+      rgba(darken($accent-color, 2%), 0.75),
+      rgba($accent-color, 0.75),
+      rgba(lighten($accent-color, 6%), 0.75),
+      rgba(lighten($accent-color, 14%), 0.75),
+      rgba(lighten($accent-color, 22%), 0.75)
+  );
+}
+
 .masteryReverseBackground{
-  // fff800 e345d5 dd6943 f6a53f e3445f 4382db 8443de 43de9d
   width: 100%;
 
   background: linear-gradient(

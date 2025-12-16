@@ -1,7 +1,6 @@
-import {Component, Input, input, OnChanges, OnInit} from '@angular/core';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {Component, Input, OnChanges} from '@angular/core';
+import {NgClass} from '@angular/common';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
-import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
 

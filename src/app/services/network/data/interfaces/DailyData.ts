@@ -11,6 +11,7 @@ export interface DailyData {
   totalChallengesCompleted: number;
   userInfo: SlimUserinfo | undefined;
   altitudes: Altitudes;
+  altitudePercentages: number[];
   masteryCompletions: MasteryCompletions | undefined;
   score: number;
 }

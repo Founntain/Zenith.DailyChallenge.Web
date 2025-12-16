@@ -1,12 +1,12 @@
 import {provideRouter, Routes} from '@angular/router';
-import {HomeComponent} from './components/home/home.component';
-import {UserComponent} from './components/user/user.component';
+import {HomeComponent} from './views/home/home.component';
+import {UserComponent} from './views/user/user.component';
 import {ApplicationConfig} from '@angular/core';
 import {ChallengeComponent} from './components/challenge/challenge.component';
-import {SplitsComponent} from './components/splits/splits.component';
-import {LeaderboardComponent} from './components/leaderboard/leaderboard.component';
-import {CommunityArchiveComponent} from './components/community-archive/community-archive.component';
-import {DailyArchiveComponent} from './components/daily-archive/daily-archive.component';
+import {SplitsComponent} from './views/splits/splits.component';
+import {LeaderboardComponent} from './views/leaderboard/leaderboard.component';
+import {CommunityArchiveComponent} from './views/community-archive/community-archive.component';
+import {DailyArchiveComponent} from './views/daily-archive/daily-archive.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },

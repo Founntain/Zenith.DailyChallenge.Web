@@ -109,8 +109,6 @@
   }
 
   public getModBasedChartData(data: any){
-    console.log(data.noMod)
-
     let hitradius = 10;
 
     return [

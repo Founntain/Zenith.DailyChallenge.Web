@@ -1,0 +1,22 @@
+@use '../../../styling/colors' as *;
+
+.bar {
+  display: flex;
+  height: 15px;
+  width: 100%;
+  border-radius: 999px;
+  overflow: hidden;
+  background-color: $text-color;
+
+  border: 2px solid $text-color;
+}
+
+.segment {
+  height: 100%;
+
+  transition: filter 0.3s ease;
+
+  &:hover{
+    filter: brightness(1.5);
+  }
+}
