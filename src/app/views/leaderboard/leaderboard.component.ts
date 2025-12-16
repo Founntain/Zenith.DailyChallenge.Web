@@ -13,6 +13,7 @@ import {DailyLeaderboard} from '../../services/network/data/interfaces/DailyLead
 import {ZenithService} from '../../services/network/zenith.service';
 import {RouterLink} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-leaderboard',
@@ -30,6 +31,7 @@ import {MatPaginator} from '@angular/material/paginator';
     RouterLink,
     MatPaginator,
     MatHeaderCellDef,
+    MatTooltip,
   ],
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.scss'
