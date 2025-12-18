@@ -1,0 +1,50 @@
+<div class="header headerText stripes">
+  @if (!isLoggedIn){
+    <div class="headerText centerText">
+      ZDC - Menu
+    </div>
+  } @else if (userProfileData !== undefined){
+    <div class="userInfo boldText profileSplit">
+      @if (userProfileData.avatarRevision !== undefined && userProfileData.avatarRevision !== null) {
+        <img class="profilePicture" src="https://tetr.io/user-content/avatars/{{userProfileData.userId}}.jpg?rv={{userProfileData.avatarRevision}}" />
+      }
+
+      @if(userProfileData.bannerRevision !== undefined && userProfileData.bannerRevision !== null) {
+        <img class="banner" src="https://tetr.io/user-content/banners/{{userProfileData.userId}}.jpg?rv={{userProfileData.bannerRevision}}" />
+      }
+
+      <a [routerLink]="['/user', userProfileData.username]">{{userProfileData.username}}</a>
+    </div>
+  }
+</div>
+
+@if(isLoggedIn){
+  <div class="challengeCompletions stripes centerText">
+    <img [class]="[getCompletionCss(todayUsersCompletions?.easyCompleted)]" src="/assets/clear_easy_2.png" class="mod" />
+    <img [class]="[getCompletionCss(todayUsersCompletions?.normalCompleted)]" src="/assets/clear_normal_2.png" class="mod" />
+    <img [class]="[getCompletionCss(todayUsersCompletions?.hardCompleted)]" src="/assets/clear_hard_2.png" class="mod" />
+    <img [class]="[getCompletionCss(todayUsersCompletions?.expertCompleted)]" src="/assets/clear_expert.png" class="mod" />
+    <img [class]="[getCompletionCss(todayUsersCompletions?.reverseCompleted)]" src="/assets/clear_reverse.png" class="mod" />
+  </div>
+}
+
+<div class="menuItems">
+  <div class="menuItem" [routerLink]="['/daily-archive']">
+    <mat-icon>chevron_right</mat-icon>
+    <span>Daily Archive</span>
+  </div>
+
+  <div class="menuItem" [routerLink]="['/cc-archive']">
+    <mat-icon>chevron_right</mat-icon>
+    <span>Community Challenge Archive</span>
+  </div>
+
+  <div class="menuItem" [routerLink]="['/leaderboard']">
+    <mat-icon>chevron_right</mat-icon>
+    <span>Leaderboard</span>
+  </div>
+</div>
+
+<div class="footer stripes" (click)="drawer.close()">
+  <span>CLOSE</span>
+</div>

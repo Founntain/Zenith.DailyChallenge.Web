@@ -1,3 +1,5 @@
+@use "../styling/colors" as *;
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -15,4 +17,17 @@
 
 .main-content {
   flex: 1;
+}
+
+.drawer-container{
+  background: transparent;
+  color: $text-color
+}
+
+.sidenav{
+  background: $background-color;
+  color: $text-color;
+
+  border-right: 2px solid $accent-color;
+  border-radius: 0;
 }

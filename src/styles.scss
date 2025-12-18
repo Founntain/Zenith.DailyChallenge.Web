@@ -19,6 +19,17 @@
   font-style: normal;
 }
 
+:focus {
+  outline: none;
+}
+
+.mat-drawer-backdrop.mat-drawer-shown {
+  backdrop-filter: blur(10px) !important;
+  border-right: 1px solid $accent-color;
+
+  transition: .2s all ease-in-out !important;
+}
+
 html {
   @include mat.theme((
     color: (

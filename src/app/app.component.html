@@ -1,8 +1,14 @@
 <div class="app-container">
-  <app-header/>
-  <div class="main-content">
-    <router-outlet />
-  </div>
+  <mat-drawer-container class="drawer-container">
+    <app-header [drawer]="drawer"/>
 
-  <app-footer/>
+    <mat-drawer #drawer class="sidenav" mode="over" (openedChange)="onDrawerToggle($event)">
+      <app-side-menu [drawer]="drawer"/>
+    </mat-drawer>
+    <div class="main-content">
+      <router-outlet />
+    </div>
+
+    <app-footer/>
+  </mat-drawer-container>
 </div>

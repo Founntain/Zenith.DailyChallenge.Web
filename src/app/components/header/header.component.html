@@ -1,6 +1,10 @@
 <header class="stripes">
   <div class="flexHeader">
-    <h1 class="marginLeft headerText"><a [routerLink]="['']">ZENITH DAILY CHALLENGE</a></h1>
+    <div class="marginLeft flexRow verticalCenter centerText">
+      <mat-icon class="verticalCenter menuBtn" (click)="drawer.toggle()">menu</mat-icon>
+      <span class="headerText verticalCenter centerText title marginLeft"><a [routerLink]="['']">ZENITH DAILY CHALLENGE</a></span>
+    </div>
+
     <nav class="boldText">
       @if (!isLoggedIn){
         <div>

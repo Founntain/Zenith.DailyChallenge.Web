@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {CookieHelper} from '../../util/CookieHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
@@ -7,6 +7,7 @@ import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {AuthService} from '../../services/network/auth.service';
 import {MatIcon} from '@angular/material/icon';
+import {MatDrawer} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,8 @@ import {MatIcon} from '@angular/material/icon';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit{
+  @Input() drawer!: MatDrawer;
+
   userProfileData: UserProfileData | undefined;
   isLoggedIn: boolean = false;
 

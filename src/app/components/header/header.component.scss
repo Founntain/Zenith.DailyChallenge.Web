@@ -10,7 +10,7 @@ header {
     transition: color 0.3s;
 
     &:hover{
-      color: $secondary-color !important;
+      color: $secondary-color;
     }
   }
 
@@ -18,8 +18,29 @@ header {
     margin-left: 10px;
   }
 
+  .title{
+    font-size: 1.5rem;
+
+    transition: all .3s ease-in-out;
+
+    &:hover {
+      color: $secondary-color !important;
+      letter-spacing: 1px;
+    }
+  }
+
+  .menuBtn{
+    color: $text-color;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+
+    &:hover{
+      color: $secondary-color;
+    }
+  }
+
   a {
-    color: $primary-color !important;
+    color: $primary-color;
     text-decoration: none;
     cursor: pointer;
   }
@@ -50,14 +71,17 @@ header {
     }
 
     nav a {
-      color: white;
       text-decoration: none;
       margin: 0 15px;
       font-size: 18px;
-    }
 
-    nav a:hover {
-      text-decoration: underline;
+      transition: all .3s ease-in-out;
+
+      &:hover {
+        color: $secondary-color;
+        letter-spacing: 5px;
+        transform: skewY(-2deg);
+      }
     }
 
     nav .userInfo {
