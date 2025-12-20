@@ -1,0 +1,10 @@
+<div class="reverseTitle boldText">
+  <span
+    *ngFor="let item of stableSplitTitle"
+    class="zsrnc"
+    [style.--i]="item.index"
+    [style.--sa]="item.sa"
+    [style.--sb]="item.sb">
+    <span>{{ item.char }}</span>
+  </span>
+</div>

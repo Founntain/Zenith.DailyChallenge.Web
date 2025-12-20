@@ -28,6 +28,7 @@ import {Condition} from '../../services/network/data/interfaces/Condition';
 import {SettingsService} from '../../services/settings.service';
 import {ServerStatistics} from '../../services/network/data/interfaces/ServerStatistics';
 import {MatTooltip} from '@angular/material/tooltip';
+import {ZenithTextWobbleComponent} from '../../components/zenith-text-wobble/zenith-text-wobble.component';
 
 @Component({
   selector: 'app-home',
@@ -46,7 +47,8 @@ import {MatTooltip} from '@angular/material/tooltip';
     RouterLink,
     NgOptimizedImage,
     NgClass,
-    MatTooltip
+    MatTooltip,
+    ZenithTextWobbleComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

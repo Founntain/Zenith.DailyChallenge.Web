@@ -1,0 +1,54 @@
+@use '../../../styles' as *;
+@use '../../../styling/colors' as *;
+@use '../../../styling/mixins' as mix;
+
+.reverseTitle {
+  color: white;
+  font-size: 2.5rem;
+  text-shadow: 0 3px $reverse-accent-color, 0 6px $reverse-accent-color, 0 6px 8px $reverse-accent-color, 0 6px 16px $reverse-accent-color;
+  letter-spacing: 7px;
+  font-weight: 900;
+  text-align: center;
+  pointer-events: none;
+
+  .zsrnc {
+    display: inline-block;
+    margin: 0 0.2rem;
+    // Only the translation wobble remains here
+    animation: 1.5s calc(-.4s * var(--i)) ZenithReversenameLetterWobble ease-in-out alternate infinite;
+    will-change: transform; // Hint to the browser for smoother animation
+
+    & > span {
+      display: inline-block;
+      // Use the stable randomized variables
+      animation: var(--sa) var(--sb) ZenithReversenameLetterWobbleRotate ease-in-out alternate infinite;
+      will-change: transform;
+    }
+  }
+}
+
+// Add these at the bottom of the file
+@keyframes ZenithReversenameLetterAppear {
+  0% {
+    opacity: 0;
+    color: $reverse-accent-color;
+  }
+  10% {
+    opacity: 1;
+    color: $reverse-accent-color;
+  }
+  100% {
+    opacity: 1;
+    color: #fff;
+  }
+}
+
+@keyframes ZenithReversenameLetterWobble {
+  from { transform: translate3d(-3px, -4.5px, 0); } // Use translate3d for hardware acceleration
+  to { transform: translate3d(3px, 4.5px, 0); }
+}
+
+@keyframes ZenithReversenameLetterWobbleRotate {
+  from { transform: rotate3d(0, 0, 1, -4deg); } // Use rotate3d
+  to { transform: rotate3d(0, 0, 1, 4deg); }
+}

@@ -3,11 +3,13 @@ import {NgClass} from '@angular/common';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
+import {ZenithTextWobbleComponent} from '../zenith-text-wobble/zenith-text-wobble.component';
 
 @Component({
   selector: 'app-challenge',
   imports: [
     NgClass,
+    ZenithTextWobbleComponent,
   ],
   templateUrl: './challenge.component.html',
   styleUrl: './challenge.component.scss'
