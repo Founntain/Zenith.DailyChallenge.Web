@@ -1,10 +1,11 @@
 @use '../../../styles' as *;
 @use '../../../styling/colors' as *;
+@use '../../../styling/base' as base; // Import the mixin
 
 .title{
   font-size: 2rem !important;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     font-size: 14pt !important;
   }
 }
@@ -67,7 +68,7 @@
 
   font-size: 1.1rem;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     font-size: 1rem;
   }
 }
@@ -89,7 +90,7 @@
     text-align: center;
   }
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     flex-direction: column;
   }
 }

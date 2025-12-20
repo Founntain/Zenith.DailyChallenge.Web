@@ -127,43 +127,27 @@ hr{
   }
 }
 
-.stripes{
-  background: $stipes-background;
-
-  &.borderTop{
-    border-top: 3px solid #00000033;
-  }
-
-  &.borderBottom{
-    border-bottom: 3px solid #00000033;
-  }
+%base-stripes {
+  &.borderTop { border-top: 3px solid #00000033; }
+  &.borderBottom { border-bottom: 3px solid #00000033; }
 }
 
-.stripesLight{
+.stripes {
+  background: $stipes-background;
+  @extend %base-stripes;
+}
+
+.stripesLight {
   background: $stripes-light-background;
-
-  &.borderTop{
-    border-top: 3px solid #00000033;
-  }
-
-  &.borderBottom{
-    border-bottom: 3px solid #00000033;
-  }
+  @extend %base-stripes;
 }
 
 .stripesGoal {
   background: rgba(147, 51, 234, 0.3);
-
-  &.borderTop {
-    border-top: 3px solid #00000033;
-  }
-
-  &.borderBottom {
-    border-bottom: 3px solid #00000033;
-  }
+  @extend %base-stripes;
 }
 
-.mod{
+.mod {
   max-height: 32px;
   max-width: 32px;
   margin: 1px;

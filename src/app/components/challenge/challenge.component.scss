@@ -1,5 +1,6 @@
 @use '../../../styles' as *;
 @use '../../../styling/colors' as *;
+@use '../../../styling/mixins' as mix;
 
 .difTitle{
   margin: 0;
@@ -45,34 +46,14 @@
 
       .conditionValue {
         @extend .headerText;
-
         font-size: 1.5rem;
       }
 
-      .Easy {
-        color: white;
-        text-shadow: 0 3px $easy-text-color, 0 6px 8px $easy-text-color;
-      }
-
-      .Normal{
-        color: #fff;
-        text-shadow: 0 3px $normal-accent-color, 0 6px 8px $normal-accent-color;
-      }
-
-      .Hard{
-        color: #fff;
-        text-shadow: 0 3px $hard-accent-color, 0 6px 8px $hard-accent-color;
-      }
-
-      .Expert{
-        color: #fff;
-        text-shadow: 0 3px $expert-accent-color, 0 6px 8px $expert-accent-color;
-      }
-
-      .Reverse{
-        color: #fff;
-        text-shadow: 0 3px #ff0059,0 6px 8px #ff0059;
-      }
+      .Easy    { @include mix.text-glow($easy-text-color); }
+      .Normal  { @include mix.text-glow($normal-accent-color); }
+      .Hard    { @include mix.text-glow($hard-accent-color); }
+      .Expert  { @include mix.text-glow($expert-accent-color); }
+      .Reverse { @include mix.text-glow($reverse-accent-color); }
     }
   }
 
@@ -90,46 +71,16 @@
 
     .baseCompleted{
       @extend .headerText;
-
       color: #FFF;
       font-size: 1.5rem;
       position: relative;
 
-      &.challengeCompleted{
-        text-shadow: 0 3px #00b341, 0 6px 8px #00b341;
-        animation: pulse-glow 2s ease-in-out infinite;
-
-
-        @keyframes pulse-glow {
-          0% {
-            text-shadow: 0 3px #00b341, 0 6px 8px rgba(0, 179, 65, 0.5);
-          }
-          50% {
-            text-shadow: 0 3px #00b341, 0 6px 12px rgba(0, 179, 65, 1);
-          }
-          100% {
-            text-shadow: 0 3px #00b341, 0 6px 8px rgba(0, 179, 65, 0.5);
-          }
-        }
-
+      &.challengeCompleted {
+        @include mix.pulse-animation(pulse-glow-green, #00b341);
       }
 
-      &.challengeNotCompleted{
-        text-shadow: 0 3px #ff0059,0 6px 8px #ff0059;
-        animation: pulse-glow-red 2s ease-in-out infinite;
-
-        @keyframes pulse-glow-red {
-          0% {
-            text-shadow: 0 3px #ff0059, 0 6px 8px rgba(255, 0, 89, 0.5);
-          }
-          50% {
-            text-shadow: 0 3px #ff0059, 0 6px 12px rgba(255, 0, 89, 1);
-          }
-          100% {
-            text-shadow: 0 3px #ff0059, 0 6px 8px rgba(255, 0, 89, 0.5);
-          }
-        }
-
+      &.challengeNotCompleted {
+        @include mix.pulse-animation(pulse-glow-red, #ff0059);
       }
     }
   }

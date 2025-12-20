@@ -1,5 +1,17 @@
 ﻿@use 'colors' as *;
 
+@mixin mobile {
+  @media screen and (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin desktop-large {
+  @media screen and (min-width: 1500px) {
+    @content;
+  }
+}
+
 .normalText{
   font-family: "Telex", sans-serif;
   font-weight: 400;

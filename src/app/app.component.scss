@@ -17,11 +17,13 @@
 
 .main-content {
   flex: 1;
+
 }
 
 .drawer-container{
   background: transparent;
-  color: $text-color
+  color: $text-color;
+  height: 100vh; // Ensure the container has a defined height for sticky to work
 }
 
 .sidenav{

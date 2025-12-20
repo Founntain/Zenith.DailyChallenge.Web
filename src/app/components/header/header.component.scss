@@ -2,6 +2,11 @@
 @use '../../../styling/colors' as *;
 
 header {
+  position: sticky;
+  top: 0;
+  z-index: 1000; // Ensure it stays above main content
+  width: 100%;
+
   .icon{
     color: $primary-color;
     margin-right: 5px;

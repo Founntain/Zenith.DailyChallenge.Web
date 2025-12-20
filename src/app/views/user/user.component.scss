@@ -1,6 +1,30 @@
 @use '../../../styles' as *;
 @use '../../../styling/splits' as *;
 @use '../../../styling/colors' as *;
+@use '../../../styling/mixins' as mix;
+
+// Map for dynamic mod styles
+$mods: (
+  "expert": rgba(255, 248, 0, 0.75),
+  "nohold": rgba(227, 69, 213, 0.75),
+  "messy": rgba(221, 105, 67, 0.75),
+  "gravity": rgba(246, 165, 63, 0.75),
+  "volatile": rgba(227, 68, 95, 0.75),
+  "doublehole": rgba(67, 130, 219, 0.75),
+  "invisible": rgba(132, 67, 222, 0.75),
+  "allspin": rgba(67, 222, 157, 0.75),
+);
+
+@each $name, $color in $mods {
+  .modContainer.#{$name} {
+    border: $color 3px solid;
+    background-color: $color;
+    .highlight {
+      @extend .headerText;
+      text-shadow: 0 3px $color, 0 6px 16px $color;
+    }
+  }
+}
 
 .marginLeft{
   margin-left: 10px;
@@ -205,35 +229,11 @@
         filter: grayscale(100%) !important;
       }
 
-      &.hotel{
-        background-color: rgba($hotel-color, 0.3);
-      }
-
-      &.casino{
-        background-color: rgba($casino-color, 0.3);
-      }
-
-      &.arena{
-        background-color: rgba($arena-color, 0.3);
-      }
-      &.museum{
-        background-color: rgba($museum-color, 0.3);
-      }
-
-      &.offices{
-        background-color: rgba($offices-color, 0.3);
-      }
-
-      &.laboratory{
-        background-color: rgba($laboratory-color, 0.3);
-      }
-
-      &.core{
-        background-color: rgba($core-color, 0.3);
-      }
-
-      &.corruption{
-        background-color: rgba($corruption-color, 0.3);
+      // Generate floor background colors
+      @each $floor, $color in $floor-colors {
+        &.#{$floor} {
+          background-color: rgba($color, 0.3);
+        }
       }
 
       &.potg{
@@ -253,51 +253,18 @@
 
     border-top: 1px solid rgba($text-color, 0.8);
 
-    &.hotel{
-      border-left: $zenithSplitsBorderWidth solid $hotel-color;
-      border-right: $zenithSplitsBorderWidth solid $hotel-color;
-      border-bottom: $zenithSplitsBorderWidth solid $hotel-color;
-    }
-
-    &.casino{
-      border-left: $zenithSplitsBorderWidth solid $casino-color;
-      border-right: $zenithSplitsBorderWidth solid $casino-color;
-    }
-
-    &.arena{
-      border-left: $zenithSplitsBorderWidth solid $arena-color;
-      border-right: $zenithSplitsBorderWidth solid $arena-color;
-    }
-
-    &.museum{
-      border-left: $zenithSplitsBorderWidth solid $museum-color;
-      border-right: $zenithSplitsBorderWidth solid $museum-color;
-    }
-
-    &.offices{
-      border-left: $zenithSplitsBorderWidth solid $offices-color;
-      border-right: $zenithSplitsBorderWidth solid $offices-color;
-    }
-
-    &.laboratory{
-      border-left: $zenithSplitsBorderWidth solid $laboratory-color;
-      border-right: $zenithSplitsBorderWidth solid $laboratory-color;
-    }
-
-    &.core{
-      border-left: $zenithSplitsBorderWidth solid $core-color;
-      border-right: $zenithSplitsBorderWidth solid $core-color;
-    }
-
-    &.corruption{
-      border-left: $zenithSplitsBorderWidth solid $corruption-color;
-      border-right: $zenithSplitsBorderWidth solid $corruption-color;
-    }
-
-    &.potg{
-      border-top: $zenithSplitsBorderWidth solid $potg-color;
-      border-left: $zenithSplitsBorderWidth solid $potg-color;
-      border-right: $zenithSplitsBorderWidth solid $potg-color;
+    // Generate floor borders
+    @each $floor, $color in $floor-colors {
+      &.#{$floor} {
+        border-left: $zenithSplitsBorderWidth solid $color;
+        border-right: $zenithSplitsBorderWidth solid $color;
+        @if $floor == "hotel" {
+          border-bottom: $zenithSplitsBorderWidth solid $color;
+        }
+        @if $floor == "potg" {
+          border-top: $zenithSplitsBorderWidth solid $color;
+        }
+      }
     }
 
     .splitBackground{
@@ -318,40 +285,16 @@
         filter: grayscale(100%) blur(5px) opacity(0.5);
       }
 
-      &.hotel{
-        background-image: url('https://tetr.io/res/bg/zenith/2fa.jpg');
-      }
+      // Map for background images
+      $floor-images: (
+        "hotel": "2fa", "casino": "3fa", "arena": "4fa", "museum": "5fa",
+        "offices": "6fa", "laboratory": "7fa", "core": "8fa", "corruption": "9fa", "potg": "10fa"
+      );
 
-      &.casino{
-        background-image: url('https://tetr.io/res/bg/zenith/3fa.jpg');
-      }
-
-      &.arena{
-        background-image: url('https://tetr.io/res/bg/zenith/4fa.jpg');
-      }
-
-      &.museum{
-        background-image: url('https://tetr.io/res/bg/zenith/5fa.jpg');
-      }
-
-      &.offices{
-        background-image: url('https://tetr.io/res/bg/zenith/6fa.jpg');
-      }
-
-      &.laboratory{
-        background-image: url('https://tetr.io/res/bg/zenith/7fa.jpg');
-      }
-
-      &.core{
-        background-image: url('https://tetr.io/res/bg/zenith/8fa.jpg');
-      }
-
-      &.corruption{
-        background-image: url('https://tetr.io/res/bg/zenith/9fa.jpg');
-      }
-
-      &.potg{
-        background-image: url('https://tetr.io/res/bg/zenith/10fa.jpg');
+      @each $floor, $img in $floor-images {
+        &.#{$floor} {
+          background-image: url('https://tetr.io/res/bg/zenith/#{$img}.jpg');
+        }
       }
     }
 
@@ -549,94 +492,6 @@ th{
       @extend .headerText;
 
       text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
-    }
-  }
-
-  &.expert {
-    border: rgba(255, 248, 0, 0.75) 3px solid;
-    background-color: rgba(255, 248, 0, 0.75);
-
-    .highlight {
-      @extend .headerText;
-
-      text-shadow: 0 3px rgba(255, 248, 0, 0.75), 0 6px 16px rgba(255, 248, 0, 0.75);
-    }
-  }
-
-  &.nohold {
-    border: rgba(227, 69, 213, 0.75) 3px solid;
-    background-color: rgba(227, 69, 213, 0.75);
-
-    .highlight {
-      @extend .headerText;
-
-      text-shadow: 0 3px rgba(227, 69, 213, 0.75), 0 6px 16px rgba(227, 69, 213, 0.75);
-    }
-  }
-
-  &.messy {
-    border: rgba(221, 105, 67, 0.75) 3px solid;
-    background-color: rgba(221, 105, 67, 0.75);
-
-    .highlight {
-      @extend .headerText;
-
-      text-shadow: 0 3px rgba(221, 105, 67, 0.75), 0 6px 16px rgba(221, 105, 67, 0.75);
-    }
-  }
-
-  &.gravity {
-    border: rgba(246, 165, 63, 0.75) 3px solid;
-    background-color: rgba(246, 165, 63, 0.75);
-
-    .highlight {
-      @extend .headerText;
-
-      text-shadow: 0 3px rgba(246, 165, 63, 0.75), 0 6px 16px rgba(246, 165, 63, 0.75);
-    }
-  }
-
-  &.volatile {
-    border: rgba(222, 68, 95, 0.75) 3px solid;
-    background-color: rgba(227, 68, 95, 0.75);
-
-    .highlight {
-      @extend .headerText;
-
-      text-shadow: 0 3px rgba(222, 68, 95, 0.75), 0 6px 16px rgba(222, 68, 95, 0.75);
-    }
-  }
-
-  &.doublehole {
-    border: rgba(67, 130, 219, 0.75) 3px solid;
-    background-color: rgba(67, 130, 219, 0.75);
-
-    .highlight {
-      @extend .headerText;
-
-      text-shadow: 0 3px rgba(67, 130, 219, 0.75), 0 6px 16px rgba(67, 130, 219, 0.75);
-    }
-  }
-
-  &.invisible {
-    border: rgba(132, 67, 222, 0.75) 3px solid;
-    background-color: rgba(132, 67, 222, 0.75);
-
-    .highlight {
-      @extend .headerText;
-
-      text-shadow: 0 3px rgba(132, 67, 222, 0.75), 0 6px 16px rgba(132, 67, 222, 0.75);
-    }
-  }
-
-  &.allspin {
-    border: rgba(67, 222, 157, 0.75) 3px solid;
-    background-color: rgba(67, 222, 157, 0.75);
-
-    .highlight {
-      @extend .headerText;
-
-      text-shadow: 0 3px rgba(67, 222, 157, 0.75), 0 6px 16px rgba(67, 222, 157, 0.75);
     }
   }
 

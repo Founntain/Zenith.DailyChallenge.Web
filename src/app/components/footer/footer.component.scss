@@ -1,7 +1,13 @@
 ﻿@use '../../../styles' as *;
 @use '../../../styling/colors' as *;
+@use '../../../styling/base' as base;
 
 footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
+  width: 100%;
+
   .marginLeft{
     margin-left: 10px;
   }
@@ -12,7 +18,6 @@ footer {
     cursor: pointer;
   }
 
-  width: 100%;
   background: #1976d2;
   color: white;
   display: flex;
@@ -25,7 +30,7 @@ footer {
   border-right: 2px solid $accent-color;
   box-sizing: border-box;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     border-left: none;
     border-right: none;
   }
@@ -40,7 +45,7 @@ footer {
     margin: 0 15px;
     font-size: 18px;
 
-    @media screen and (max-width: 600px) {
+    @include base.mobile {
       font-size: 12px;
     }
   }

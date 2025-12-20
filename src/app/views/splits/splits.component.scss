@@ -62,39 +62,10 @@
       width: initial;
     }
 
-    &.hotel{
-      background-color: rgba($hotel-color, 1);
-    }
-
-    &.casino{
-      background-color: rgba($casino-color, 1);
-    }
-
-    &.arena{
-      background-color: rgba($arena-color, 1);
-    }
-    &.museum{
-      background-color: rgba($museum-color, 1);
-    }
-
-    &.offices{
-      background-color: rgba($offices-color, 1);
-    }
-
-    &.laboratory{
-      background-color: rgba($laboratory-color, 1);
-    }
-
-    &.core{
-      background-color: rgba($core-color, 1);
-    }
-
-    &.corruption{
-      background-color: rgba($corruption-color, 1);
-    }
-
-    &.potg{
-      background-color: rgba($potg-color, 1);
+    @each $floor, $color in $floor-colors {
+      &.#{$floor} {
+        background-color: rgba($color, 1);
+      }
     }
   }
 

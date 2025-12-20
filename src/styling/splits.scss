@@ -7,3 +7,17 @@ $laboratory-color: rgba(0, 221, 255, 0.8);
 $core-color: rgba(255, 0, 111, 0.8);
 $corruption-color: rgba(152, 255, 178, 0.8);
 $potg-color: rgba(214, 119, 255, 0.6);
+
+// Create a map for the floor colors
+$floor-colors: (
+  "hotel": $hotel-color,
+  "casino": $casino-color,
+  "arena": $arena-color,
+  "museum": $museum-color,
+  "offices": $offices-color,
+  "laboratory": $laboratory-color,
+  "core": $core-color,
+  "corruption": $corruption-color,
+  "potg": $potg-color
+);
+

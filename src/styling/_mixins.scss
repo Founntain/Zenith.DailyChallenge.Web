@@ -1,0 +1,23 @@
+﻿@mixin text-glow($color, $depth: 8px) {
+  color: #fff;
+  text-shadow: 0 3px $color, 0 6px $depth $color;
+}
+
+@mixin pulse-animation($name, $color) {
+  animation: #{$name} 2s ease-in-out infinite;
+
+  @keyframes #{$name} {
+    0%, 100% { text-shadow: 0 3px $color, 0 6px 8px rgba($color, 0.5); }
+    50% { text-shadow: 0 3px $color, 0 6px 12px $color; }
+  }
+}
+
+@mixin scroll-animation($duration: 40s) {
+  background-size: 200% 200%;
+  animation: scroll-bg $duration linear infinite;
+
+  @keyframes scroll-bg {
+    0% { background-position: 0 0; }
+    100% { background-position: 100% 100%; }
+  }
+}
