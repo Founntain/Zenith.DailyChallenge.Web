@@ -1,7 +1,7 @@
 <div class="challengeWrapper">
   <div class="completionStatus borderBottom">
     @if(difficultCssClass === 'Reverse'){
-      <app-zenith-text-wobble [text]="difficultyText"/>
+      <app-zenith-text-wobble [text]="difficultyText" [upperCase]="true"/>
     } @else {
       <h1 class="headerText difTitle">{{ difficultyText }}</h1>
     }
