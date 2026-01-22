@@ -9,7 +9,7 @@ import {
   MatRow, MatRowDef, MatTable
 } from "@angular/material/table";
 import {NgIf, NgOptimizedImage} from "@angular/common";
-import {DailyLeaderboard} from '../../services/network/data/interfaces/DailyLeaderboard';
+import {GlobalLeaderboard} from '../../services/network/data/interfaces/GlobalLeaderboard';
 import {ZenithService} from '../../services/network/zenith.service';
 import {RouterLink} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
@@ -43,7 +43,7 @@ export class LeaderboardComponent implements OnInit {
     this.pageCount = 10;
   }
 
-  leaderboardData: DailyLeaderboard | undefined = undefined;
+  leaderboardData: GlobalLeaderboard | undefined = undefined;
   leaderboardColumns: string[] = ['Username', 'Score', 'EasyChallengesCompleted', 'NormalChallengesCompleted', 'HardChallengesCompleted', 'ExpertChallengesCompleted', 'ReverseChallengesCompleted', 'MasteryChallengesCompleted'];
 
   page: number;
@@ -51,7 +51,7 @@ export class LeaderboardComponent implements OnInit {
   pageCount: number;
 
   ngOnInit() {
-    this.zenithService.getLeaderboard().subscribe(result => {
+    this.zenithService.getGlobalLeaderboard().subscribe(result => {
       this.leaderboardData = result;
     })
   }
@@ -63,7 +63,7 @@ export class LeaderboardComponent implements OnInit {
     }
 
   private loadLeaderboardData() {
-    this.zenithService.getLeaderboard(this.page, this.pageSize).subscribe(result => {
+    this.zenithService.getGlobalLeaderboard(this.page, this.pageSize).subscribe(result => {
       this.leaderboardData = result;
     })
   }

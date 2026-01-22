@@ -183,22 +183,6 @@ tr{
   );
 }
 
-.thankyouBackground{
-  width: 100%;
-
-  background: linear-gradient(
-      to right,
-      rgba(darken($accent-color, 8%), 0.75),
-      rgba(darken($accent-color, 6%), 0.75),
-      rgba(darken($accent-color, 4%), 0.75),
-      rgba(darken($accent-color, 2%), 0.75),
-      rgba($accent-color, 0.75),
-      rgba(lighten($accent-color, 6%), 0.75),
-      rgba(lighten($accent-color, 14%), 0.75),
-      rgba(lighten($accent-color, 22%), 0.75)
-  );
-}
-
 .masteryReverseBackground{
   width: 100%;
 

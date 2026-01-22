@@ -5,6 +5,7 @@ import {FooterComponent} from './components/footer/footer.component';
 import {MatDrawer, MatDrawerContainer} from '@angular/material/sidenav';
 import {SideMenuComponent} from './components/side-menu/side-menu.component';
 import {filter} from 'rxjs';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent {
   @ViewChild('drawer') drawer!: MatDrawer;
 
   title = 'Zenith DailyChallenge Web';
+  isLocal = false;
 
   constructor(private router: Router) {
     this.router.events
@@ -23,9 +25,13 @@ export class AppComponent {
       .subscribe(() => {
         this.drawer.close();
       });
+
+    this.isLocal = !environment.production;
   }
 
   onDrawerToggle(opened: boolean) {
     document.body.style.overflow = opened ? 'hidden' : '';
   }
+
+  protected readonly environment = environment;
 }

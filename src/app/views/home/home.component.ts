@@ -14,7 +14,7 @@ import {
   MatHeaderRowDef,
   MatRow, MatRowDef, MatTable
 } from '@angular/material/table';
-import {DailyLeaderboard} from '../../services/network/data/interfaces/DailyLeaderboard';
+import {GlobalLeaderboard, SeasonalLeaderboard} from '../../services/network/data/interfaces/GlobalLeaderboard';
 import {RouterLink} from '@angular/router';
 import {CommunityChallenge} from '../../services/network/data/interfaces/CommunityChallenge';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
@@ -29,6 +29,8 @@ import {SettingsService} from '../../services/settings.service';
 import {ServerStatistics} from '../../services/network/data/interfaces/ServerStatistics';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ZenithTextWobbleComponent} from '../../components/zenith-text-wobble/zenith-text-wobble.component';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {LeaderboardService} from '../../services/network/leaderboard.service';
 
 @Component({
   selector: 'app-home',
@@ -48,7 +50,9 @@ import {ZenithTextWobbleComponent} from '../../components/zenith-text-wobble/zen
     NgOptimizedImage,
     NgClass,
     MatTooltip,
-    ZenithTextWobbleComponent
+    ZenithTextWobbleComponent,
+    MatTabGroup,
+    MatTab
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -65,16 +69,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   date: string = "";
   runsUntilUnixSeconds: number = 0;
   communityChallengeEndDateUnixSeconds: number = 0;
+  leaderboardChallengeEndDateUnixSeconds: number = 0;
 
-  leaderboardData: DailyLeaderboard | undefined;
-  leaderboardColumns: string[] = ['Username', 'Score', 'EasyChallengesCompleted', 'NormalChallengesCompleted', 'HardChallengesCompleted', 'ExpertChallengesCompleted', 'ReverseChallengesCompleted', 'MasteryChallengesCompleted'];
+  globalLeaderboardData: GlobalLeaderboard | undefined;
+  globalLeaderboardColumns: string[] = ['Username', 'Score', 'EasyChallengesCompleted', 'NormalChallengesCompleted', 'HardChallengesCompleted', 'ExpertChallengesCompleted', 'ReverseChallengesCompleted', 'MasteryChallengesCompleted'];
+
+  seasonalLeaderboardData : SeasonalLeaderboard | undefined;
+  seasonalLeaderboardColumns: string[] = ['Username', 'Score'];
 
   communityChallengeData: CommunityChallenge | undefined;
 
   nextSubmissionPossibleUnixSeconds: number = 0;
   timeLeft: string = "";
-  autoUpdateTimeLeft: string = "0M 0S";
   communityTimeLeft: string = "";
+  leaderboardTimeLeft: string = "";
+  autoUpdateTimeLeft: string = "0M 0S";
   isCommunityChallengeFinished: string = "";
 
   recentContributions: RecentCommunityContribution[] = [];
@@ -84,6 +93,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private zenithService: ZenithService,
+    private leaderboardService: LeaderboardService,
     private authService: AuthService,
     private userService: ZenithUserService,
     private cookieHelper: CookieHelper,
@@ -102,8 +112,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.communityChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
     })
 
-    this.zenithService.getLeaderboard().subscribe(result => {
-      this.leaderboardData = result;
+    this.leaderboardService.getLeaderboard().subscribe(result => {
+      this.seasonalLeaderboardData = result;
+      this.leaderboardChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
+    })
+
+    this.zenithService.getGlobalLeaderboard().subscribe(result => {
+      this.globalLeaderboardData = result;
     })
 
     this.zenithService.getServerStatistics().subscribe(result => {
@@ -119,6 +134,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.ngZone.run(() => {
             this.updateTimeLeft();
             this.updateCommunityTimeLeft();
+            this.updateLeaderboardTimeLeft();
             this.updateAutoUpdateTimer();
           });
         });
@@ -184,6 +200,29 @@ export class HomeComponent implements OnInit, OnDestroy {
     let timeTuple = this.unixSecondsToString(timeDifference);
 
     this.communityTimeLeft = `${timeTuple[0]}d ${timeTuple[1]}h ${timeTuple[2]}m ${timeTuple[3]}s`;
+  }
+
+  private updateLeaderboardTimeLeft(){
+    if(this.leaderboardChallengeEndDateUnixSeconds == 0) return;
+
+    if(this.leaderboardChallengeEndDateUnixSeconds == -1){
+      this.leaderboardTimeLeft = "♾️ time"
+      return;
+    }
+
+    const currentDate = new Date();
+    const targetDate = new Date(this.leaderboardChallengeEndDateUnixSeconds * 1000);
+
+    const timeDifference = targetDate.getTime() - currentDate.getTime();
+
+    if (timeDifference <= 0) {
+      this.leaderboardTimeLeft = "Time's up!";
+      return;
+    }
+
+    let timeTuple = this.unixSecondsToString(timeDifference);
+
+    this.leaderboardTimeLeft = `${timeTuple[0]}d ${timeTuple[1]}h ${timeTuple[2]}m ${timeTuple[3]}s`;
   }
 
   private updateTimeLeft(){

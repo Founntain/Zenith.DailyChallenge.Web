@@ -1,4 +1,10 @@
 <div class="app-container">
+  @if(isLocal){
+    <div class="local-warning-banner">
+      ⚠️ development build  ️⚠️
+    </div>
+  }
+
   <mat-drawer-container class="drawer-container">
     <app-header [drawer]="drawer"/>
 
