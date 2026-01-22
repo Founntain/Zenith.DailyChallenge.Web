@@ -31,3 +31,8 @@ export interface SeasonalLeaderboardEntry {
   username: string;
   score: number;
 }
+
+export interface SeasonalPlacement{
+  placement: number;
+  seasonName: string;
+}

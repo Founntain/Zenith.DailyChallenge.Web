@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserProfileData} from './data/interfaces/UserProfileData';
 import {environment} from '../../../environments/environment';
-import {SeasonalLeaderboard} from './data/interfaces/GlobalLeaderboard';
+import {SeasonalLeaderboard, SeasonalPlacement} from './data/interfaces/GlobalLeaderboard';
 import {DailyChallengeArchive} from './data/interfaces/DailyChallengeArchive';
 
 @Injectable({
@@ -19,5 +19,9 @@ export class LeaderboardService {
     if (date == null) return this.http.get<SeasonalLeaderboard>(`${this.baseUrl}`);
 
     return this.http.get<SeasonalLeaderboard>(`${this.baseUrl}?date=${date}`);
+  }
+
+  getLeaderboardPosition(username: string): Observable<SeasonalPlacement>{
+    return this.http.get<SeasonalPlacement>(`${this.baseUrl}/${username}`);
   }
 }
