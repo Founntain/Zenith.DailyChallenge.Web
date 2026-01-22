@@ -27,10 +27,12 @@
     <img [class]="[getCompletionCss(todayUsersCompletions?.reverseCompleted)]" src="/assets/clear_reverse.png" class="mod" />
   </div>
 
-  <div class="challengeCompletions stripes centerText flexColumn">
-    <span><span class="headerText" style="font-size: 1.5rem">{{numberHelper.toOrdinal(seasonPlacement)}}</span> place in</span>
-    <span class="headerText">{{seasonName}}</span>
-  </div>
+  @if (seasonPlacement > 0) {
+    <div class="challengeCompletions stripes centerText flexColumn">
+      <span><span class="headerText" style="font-size: 1.5rem">{{numberHelper.toOrdinal(seasonPlacement)}}</span> place in</span>
+      <span class="headerText">{{seasonName}}</span>
+    </div>
+  }
 }
 
 <div class="menuItems">
