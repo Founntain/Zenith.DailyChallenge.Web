@@ -4,4 +4,6 @@
   avatar: string | undefined;
   banner: string | undefined;
   tetrioRank: string | undefined;
+  totalXP: number;
+  level: number;
 }

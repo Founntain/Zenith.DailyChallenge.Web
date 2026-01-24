@@ -31,6 +31,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {ZenithTextWobbleComponent} from '../../components/zenith-text-wobble/zenith-text-wobble.component';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {LeaderboardService} from '../../services/network/leaderboard.service';
+import {NumberUtils} from '../../util/NumberUtils';
 
 @Component({
   selector: 'app-home',
@@ -57,7 +58,10 @@ import {LeaderboardService} from '../../services/network/leaderboard.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
+
 export class HomeComponent implements OnInit, OnDestroy {
+  private numberUtils: NumberUtils = new NumberUtils();
+
   private timerId: any;
   private contributionTimerId: any;
   protected readonly Difficulty = Difficulty;
@@ -76,6 +80,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   seasonalLeaderboardData : SeasonalLeaderboard | undefined;
   seasonalLeaderboardColumns: string[] = ['Username', 'Score'];
+
+  legacyLeaderboardData : any | undefined;
+  legacyLeaderboardColumns: string[] = ['Username', 'Score'];
 
   communityChallengeData: CommunityChallenge | undefined;
 
@@ -117,8 +124,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.leaderboardChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
     })
 
-    this.zenithService.getGlobalLeaderboard().subscribe(result => {
+    this.leaderboardService.getGlobalLeaderboard().subscribe(result => {
       this.globalLeaderboardData = result;
+    })
+
+    this.leaderboardService.getLegacyLeaderboard().subscribe(result => {
+      this.legacyLeaderboardData = result;
     })
 
     this.zenithService.getServerStatistics().subscribe(result => {
@@ -594,5 +605,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log(`${Math.round((currentValue / target) * 100)}%`)
 
     return `${Math.round((currentValue / target) * 100)}%`;
+  }
+
+  protected getLevelTagShape(level: number) {
+    const parts = this.numberUtils.splitInto4PlaceValues(level)
+
+    let x = parts[1] >= 500 ? parts[1] - 500 : parts[1];
+
+    return "lt_shape_" + Math.floor(x/ 100);
+  }
+
+  protected getLevelTagBadgeColor(level: number) {
+    const parts = this.numberUtils.splitInto4PlaceValues(level)
+    const combinedParts = parts[0] + parts[1];
+
+    return "lt_badge_color_" + Math.floor(combinedParts / 500);
+  }
+
+  protected getLevelTagShapeColor(level: number) {
+    const parts = this.numberUtils.splitInto4PlaceValues(level)
+    const combinedParts = parts[2] + parts[3];
+
+
+    return "lt_shape_color_" + Math.floor(combinedParts / 10);
   }
 }

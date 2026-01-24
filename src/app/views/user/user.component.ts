@@ -47,6 +47,8 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
+import {NumberUtils} from '../../util/NumberUtils';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-user',
@@ -77,13 +79,15 @@ import {
     MatExpansionPanel,
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
-    MatExpansionPanelDescription
+    MatExpansionPanelDescription,
+    MatTooltip
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnInit, AfterViewInit {
   private modHelper: ModHelper = new ModHelper();
+  private numberUtils: NumberUtils = new NumberUtils();
 
   username!: string;
 
@@ -412,6 +416,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   getCompletedImage(completed: any) {
+    if(completed == null) return "challengeUncompleted";
+
     return completed ? "" : "challengeUncompleted"
   }
 
@@ -537,5 +543,28 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   protected getReverseAltitudeSum(altitudes: Altitudes) {
     return 0;
+  }
+
+  protected getLevelTagShape() {
+    const parts = this.numberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
+
+    let x = parts[1] >= 500 ? parts[1] - 500 : parts[1];
+
+    return "lt_shape_" + Math.floor(x/ 100);
+  }
+
+  protected getLevelTagBadgeColor() {
+    const parts = this.numberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
+    const combinedParts = parts[0] + parts[1];
+
+    return "lt_badge_color_" + Math.floor(combinedParts / 500);
+  }
+
+  protected getLevelTagShapeColor() {
+    const parts = this.numberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
+    const combinedParts = parts[2] + parts[3];
+
+
+    return "lt_shape_color_" + Math.floor(combinedParts / 10);
   }
 }

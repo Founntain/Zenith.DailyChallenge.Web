@@ -1,0 +1,158 @@
+﻿@use "colors" as *;
+@use "base" as *;
+
+.leveltag {
+  @extend .headerText;
+
+  position: relative;
+  display: inline-block;
+  font-size: 1.1em;
+  padding: 0.2em 1em 0 0.3em;
+  line-height: 1em;
+  color: $text-color;
+  font-weight: 900;
+  text-shadow: 0 0 2px #0006;
+  margin-right: 1em;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: #f00;
+    z-index: -1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: calc(100% - 0.5em);
+    top: 0;
+    bottom: 0;
+    width: 1.5em;
+    background-color: #f00;
+    z-index: -1;
+  }
+
+  // --- Shapes (badge + item) ---
+  $badge-shapes: (
+    0: polygon(0.2em 0, 100% 0, calc(100% - 0.7em) 100%, 0.2em 100%, 0 calc(100% - 0.2em), 0 0.2em),
+    1: polygon(0.2em 0, 100% 0, calc(100% - 0.7em) 100%, 0.2em 100%, 0 calc(100% - 0.2em), 0 0.2em),
+    2: polygon(0.2em 0, 100% 0, calc(100% - 0.6em) 50%, 100% 100%, 0.2em 100%, 0 calc(100% - 0.2em), 0 0.2em),
+    3: polygon(0.2em 0, 100% 0, calc(100% - 0.5em) 50%, 100% 100%, 0.2em 100%, 0 calc(100% - 0.2em), 0 0.2em),
+    4: polygon(0.2em 0, 100% 0, calc(100% - 0.4em) 30%, calc(100% - 0.4em) 70%, 100% 100%, 0.2em 100%, 0 calc(100% - 0.2em), 0 0.2em),
+  );
+
+  $item-shapes: (
+    0: polygon(0.7em 0, 1em 0, 0.3em 100%, 0 100%),
+    1: polygon(0.7em 0, 1.4em 100%, 0 100%),
+    2: polygon(0.7em 0, 0.1em 50%, 0.7em 100%, 1.3em 50%),
+    3: polygon(0.7em 0, 0.2em 50%, 0.7em 100%, 1.2em 75%, 1.2em 25%),
+    4: polygon(0.75em 0, 0.25em 30%, 0.25em 70%, 0.75em 100%, 1.25em 70%, 1.25em 30%),
+  );
+
+  @each $i, $poly in $badge-shapes {
+    &.lt_shape_#{$i}::before {
+      clip-path: $poly;
+    }
+  }
+
+  @each $i, $poly in $item-shapes {
+    &.lt_shape_#{$i}::after {
+      clip-path: $poly;
+    }
+  }
+
+  // --- Badge colors (backgrounds) ---
+  $badge-colors: (
+    0: linear-gradient(to bottom, #a9a9a9 0%, #c9c9c9 50%, #e4e4e4 50%, #c3c3c3 100%),
+    1: linear-gradient(to bottom, #bc3535 0%, #fd3535 50%, #ff6d6d 50%, #f02d2d 100%),
+    2: linear-gradient(to bottom, #bb6a34 0%, #f56200 50%, #ffa162 50%, #ef7320 100%),
+    3: linear-gradient(to bottom, #c6b734 0%, #e9d41e 50%, #edde5f 50%, #e9d41e 100%),
+    4: linear-gradient(to bottom, #82b933 0%, #90dd21 50%, #b5f856 50%, #90dd21 100%),
+    5: linear-gradient(to bottom, #31b951 0%, #23ee53 50%, #7df89a 50%, #23ee53 100%),
+    6: linear-gradient(to bottom, #31a89b 0%, #22f0da 50%, #8afdf1 50%, #22f0da 100%),
+    7: linear-gradient(to bottom, #31599b 0%, #1f6cec 50%, #84b2fe 50%, #1f6cec 100%),
+    8: linear-gradient(to bottom, #673aba 0%, #8644ff 50%, #bb96ff 50%, #8644ff 100%),
+    9: linear-gradient(to bottom, #aa35ab 0%, #e81bea 50%, #fea4ff 50%, #e81bea 100%),
+  );
+
+  @each $i, $bg in $badge-colors {
+    &.lt_badge_color_#{$i}::before {
+      background: $bg;
+    }
+  }
+
+  // --- Item colors (right sliver) ---
+  $shape-colors: (
+    0: linear-gradient(to bottom, #c9c9c9 0%, #e4e4e4 50%, #c9c9c9 100%),
+    1: linear-gradient(to bottom, #fd3535 0%, #ff6d6d 50%, #fd3535 100%),
+    2: linear-gradient(to bottom, #f56200 0%, #ffa162 50%, #f56200 100%),
+    3: linear-gradient(to bottom, #e9d41e 0%, #edde5f 50%, #e9d41e 100%),
+    4: linear-gradient(to bottom, #90dd21 0%, #b5f856 50%, #90dd21 100%),
+    5: linear-gradient(to bottom, #23ee53 0%, #7df89a 50%, #23ee53 100%),
+    6: linear-gradient(to bottom, #22f0da 0%, #8afdf1 50%, #22f0da 100%),
+    7: linear-gradient(to bottom, #1f6cec 0%, #84b2fe 50%, #1f6cec 100%),
+    8: linear-gradient(to bottom, #8644ff 0%, #bb96ff 50%, #8644ff 100%),
+    9: linear-gradient(to bottom, #e81bea 0%, #fea4ff 50%, #e81bea 100%),
+  );
+
+  @each $i, $bg in $shape-colors {
+    &.lt_shape_color_#{$i}::after {
+      background: $bg;
+    }
+  }
+
+  // --- Number/text color variants (deduped) ---
+  @mixin number-style($color, $shadow: 0 0 2px #0006) {
+    color: $color;
+    text-shadow: $shadow;
+  }
+
+  &.lt_badge_color_0 { @include number-style(#000d); }
+  &.lt_badge_color_1 { @include number-style(#fffd); }
+  &.lt_badge_color_2 { @include number-style(#000d); }
+  &.lt_badge_color_3 { @include number-style(#000d); }
+  &.lt_badge_color_4 { @include number-style(#000d); }
+  &.lt_badge_color_5 { @include number-style(#000d); }
+  &.lt_badge_color_6 { @include number-style(#000d); }
+  &.lt_badge_color_7 { @include number-style(#fffd); }
+  &.lt_badge_color_8 { @include number-style(#fffd); }
+  &.lt_badge_color_9 { @include number-style(#fffd); }
+
+  // --- Special variants ---
+  &.lt_golden {
+    @include number-style(
+        #fff,
+        0 0 4px #ff5400,
+      // NOTE: if you want the repeated shadows exactly as before, keep the long list:
+      // 0 0 4px #ff5400, 0 0 4px #ff5400, 0 0 4px #ff5400,
+      // 0 0 2px #ff5400, 0 0 2px #ff5400, 0 0 2px #ff5400
+    );
+
+    &::before {
+      clip-path: polygon(0.2em 0, calc(100% - 0.7em) 0, calc(100% - 0.35em) 50%, calc(100% - 0.7em) 100%, 0.2em 100%, 0 calc(100% - 0.2em), 0 0.2em);
+      background: linear-gradient(to bottom, #ffd800 0%, #fff 50%, #ff7800 50%, #ffd800 100%);
+    }
+
+    &::after {
+      background: linear-gradient(to bottom, #88bad9 0%, #fff 50%, #776ddc 50%, #bbb5f0 100%);
+      clip-path: polygon(0 0, 0.3em 0, 0.65em 50%, 0.3em 100%, 0 100%, 0.3em 50%);
+    }
+  }
+
+  &.lt_null {
+    color: #fff8;
+    margin-right: 0.35em;
+
+    &::before {
+      clip-path: polygon(0.2em 0, 100% 0, calc(100% - 0.7em) 100%, 0.2em 100%, 0 calc(100% - 0.2em), 0 0.2em);
+      background: #111a;
+    }
+
+    &::after {
+      background: #111a;
+      clip-path: polygon(0.7em 0, 1em 0, 0.3em 100%, 0 100%);
+    }
+  }
+}

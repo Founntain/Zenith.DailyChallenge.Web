@@ -14,6 +14,7 @@ import {ZenithService} from '../../services/network/zenith.service';
 import {RouterLink} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTooltip} from '@angular/material/tooltip';
+import {LeaderboardService} from '../../services/network/leaderboard.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -37,7 +38,7 @@ import {MatTooltip} from '@angular/material/tooltip';
   styleUrl: './leaderboard.component.scss'
 })
 export class LeaderboardComponent implements OnInit {
-  constructor(private zenithService: ZenithService) {
+  constructor(private zenithService: ZenithService, private leaderboardService: LeaderboardService) {
     this.page = 1;
     this.pageSize = 30;
     this.pageCount = 10;
@@ -51,7 +52,7 @@ export class LeaderboardComponent implements OnInit {
   pageCount: number;
 
   ngOnInit() {
-    this.zenithService.getGlobalLeaderboard().subscribe(result => {
+    this.leaderboardService.getGlobalLeaderboard().subscribe(result => {
       this.leaderboardData = result;
     })
   }
@@ -63,7 +64,7 @@ export class LeaderboardComponent implements OnInit {
     }
 
   private loadLeaderboardData() {
-    this.zenithService.getGlobalLeaderboard(this.page, this.pageSize).subscribe(result => {
+    this.leaderboardService.getGlobalLeaderboard(this.page, this.pageSize).subscribe(result => {
       this.leaderboardData = result;
     })
   }

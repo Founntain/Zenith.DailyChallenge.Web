@@ -13,13 +13,25 @@
       @if (dailyData.userInfo?.avatar !== undefined && dailyData.userInfo?.avatar !== null) {
         <img src="https://tetr.io/user-content/avatars/{{dailyData.userInfo?.userId}}.jpg?rv={{dailyData.userInfo?.avatar}}" class="profileImage">
       }
-      <span class="title username textShadow headerText uppercase">{{username}}'s</span><span class="title username textShadow">profile</span>
-      <img src="assets/tetrio-img/ranks/{{dailyData.userInfo?.tetrioRank}}.png" class="mod">
+      <div class="flexColumn">
+        <div class="flexRow gap verticalCenter">
+          <span class="title username textShadow headerText uppercase">{{username}}'s</span><span class="title username textShadow">profile</span>
+          <img src="assets/tetrio-img/ranks/{{dailyData.userInfo?.tetrioRank}}.png" class="mod">
+        </div>
+        <div class="leveltag" [class]="[getLevelTagShape(), getLevelTagBadgeColor(), getLevelTagShapeColor()]"
+             style="align-self: flex-start; width: fit-content"
+             matTooltip="{{dailyData.userInfo?.totalXP?.toLocaleString()}} XP" >{{ dailyData.userInfo?.level?.toLocaleString() }}</div>
+      </div>
+
     </div>
     <div class="linkContainer userInfoContainer">
         <mat-icon class="icon textShadow" (click)="openTetrioProfile()">double_arrow</mat-icon>
         <span (click)="openTetrioProfile()" class="textShadow uppercase headerText" style="font-size: 18pt">TETR.IO profile</span>
     </div>
+  </div>
+
+  <div class="flexStretch levelBanner">
+
   </div>
 
   <!-- Submit Button -->
@@ -299,33 +311,33 @@
                     <td mat-cell *matCellDef="let element">
                       <div class="flexStretch completionTable">
                         <div>
-                          <img [class]="getCompletedImage(element.easyCompleted)"    src="assets/clear_easy_2.png" class="mod" />
-                          <img [class]="getCompletedImage(element.normalCompleted)"  src="assets/clear_normal_2.png" class="mod" />
-                          <img [class]="getCompletedImage(element.hardCompleted)"    src="assets/clear_hard_2.png" class="mod" />
-                          <img [class]="getCompletedImage(element.expertCompleted)"  src="assets/clear_expert.png" class="mod" />
-                          <img [class]="getCompletedImage(element.reverseCompleted)" src="assets/clear_reverse.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.easyCompleted)"    src="assets/clear_easy_2.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.normalCompleted)"  src="assets/clear_normal_2.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.hardCompleted)"    src="assets/clear_hard_2.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.expertCompleted)"  src="assets/clear_expert.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.reverseCompleted)" src="assets/clear_reverse.png" class="mod" />
                         </div>
 
                         <div>
-                          <img [class]="getCompletedImage(element.mastery.expertCompleted)" src="assets/tetrio-img/mods/expert.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.noHoldCompleted)" src="assets/tetrio-img/mods/nohold.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.messyCompleted)" src="assets/tetrio-img/mods/messy.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.gravityCompleted)" src="assets/tetrio-img/mods/gravity.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.volatileCompleted)" src="assets/tetrio-img/mods/volatile.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.doubleHoleCompleted)" src="assets/tetrio-img/mods/doublehole.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.invisibleCompleted)" src="assets/tetrio-img/mods/invisible.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.allSpinCompleted)" src="assets/tetrio-img/mods/allspin.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.expertCompleted)" src="assets/tetrio-img/mods/expert.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.noHoldCompleted)" src="assets/tetrio-img/mods/nohold.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.messyCompleted)" src="assets/tetrio-img/mods/messy.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.gravityCompleted)" src="assets/tetrio-img/mods/gravity.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.volatileCompleted)" src="assets/tetrio-img/mods/volatile.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.doubleHoleCompleted)" src="assets/tetrio-img/mods/doublehole.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.invisibleCompleted)" src="assets/tetrio-img/mods/invisible.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.allSpinCompleted)" src="assets/tetrio-img/mods/allspin.png" class="mod" />
                         </div>
 
                         <div>
-                          <img [class]="getCompletedImage(element.mastery.expertReversedCompleted)" src="assets/tetrio-img/mods/expert_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.noHoldReversedCompleted)" src="assets/tetrio-img/mods/nohold_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.messyReversedCompleted)" src="assets/tetrio-img/mods/messy_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.gravityReversedCompleted)" src="assets/tetrio-img/mods/gravity_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.volatileReversedCompleted)" src="assets/tetrio-img/mods/volatile_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.doubleHoleReversedCompleted)" src="assets/tetrio-img/mods/doublehole_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.invisibleReversedCompleted)" src="assets/tetrio-img/mods/invisible_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element.mastery.allSpinReversedCompleted)" src="assets/tetrio-img/mods/allspin_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.expertReversedCompleted)" src="assets/tetrio-img/mods/expert_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.noHoldReversedCompleted)" src="assets/tetrio-img/mods/nohold_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.messyReversedCompleted)" src="assets/tetrio-img/mods/messy_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.gravityReversedCompleted)" src="assets/tetrio-img/mods/gravity_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.volatileReversedCompleted)" src="assets/tetrio-img/mods/volatile_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.doubleHoleReversedCompleted)" src="assets/tetrio-img/mods/doublehole_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.invisibleReversedCompleted)" src="assets/tetrio-img/mods/invisible_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage(element?.mastery?.allSpinReversedCompleted)" src="assets/tetrio-img/mods/allspin_reversed.png" class="mod" />
                         </div>
                       </div>
                     </td>

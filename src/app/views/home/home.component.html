@@ -427,7 +427,8 @@
                   <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
                   <td mat-cell *matCellDef="let element" >
                     <div class="flexRow" style="align-items: center; gap: 5px">
-                      <img src="https://tetr.io/res/league-ranks/{{element.rank}}.png" class="mod">
+                      <div class="leveltag" [class]="[getLevelTagShape(element.level), getLevelTagBadgeColor(element.level), getLevelTagShapeColor(element.level)]"
+                           style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
                       <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
                     </div>
                   </td>
@@ -492,6 +493,36 @@
         </div>
       }
     </mat-tab>
+    <mat-tab label="Legacy Leaderboard">
+      @if (legacyLeaderboardData?.leaderboard?.length ?? 0 > 0) {
+        <div class="">
+          <div style="overflow-x: auto;">
+            <table mat-table [dataSource]="legacyLeaderboardData?.leaderboard ?? []">
+              <ng-container matColumnDef="Username">
+                <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
+                <td mat-cell *matCellDef="let element" >
+                  <div class="flexRow" style="align-items: center; gap: 5px">
+                    <div class="leveltag" [class]="[getLevelTagShape(element.level), getLevelTagBadgeColor(element.level), getLevelTagShapeColor(element.level)]"
+                         style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
+                    <div class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Score">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
+                  <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" matTooltip="Score/Rating"/>
+                </th>
+                <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.score.toLocaleString()}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="legacyLeaderboardColumns" ></tr>
+              <tr mat-row *matRowDef="let _; columns: legacyLeaderboardColumns;" ></tr>
+            </table>
+          </div>
+        </div>
+      }
+    </mat-tab>
     <mat-tab label="All Time Leaderboard">
       @if (globalLeaderboardData?.leaderboard?.length ?? 0 > 0) {
         <div class="">
@@ -501,8 +532,9 @@
                 <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
                 <td mat-cell *matCellDef="let element" >
                   <div class="flexRow" style="align-items: center; gap: 5px">
-                    <img src="https://tetr.io/res/league-ranks/{{element.rank}}.png" class="mod">
-                    <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
+                    <div class="leveltag" [class]="[getLevelTagShape(element.level), getLevelTagBadgeColor(element.level), getLevelTagShapeColor(element.level)]"
+                         style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
+                    <div class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</div>
                   </div>
                 </td>
               </ng-container>

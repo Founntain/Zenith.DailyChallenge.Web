@@ -30,6 +30,7 @@ export interface SeasonalLeaderboardEntry {
   rank: string;
   username: string;
   score: number;
+  level: number;
 }
 
 export interface SeasonalPlacement{
