@@ -3,17 +3,20 @@ import {environment} from '../../../environments/environment';
 import {CookieHelper} from '../../util/CookieHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
-import {NgIf} from '@angular/common';
+import {AsyncPipe, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {AuthService} from '../../services/network/auth.service';
 import {MatIcon} from '@angular/material/icon';
 import {MatDrawer} from '@angular/material/sidenav';
+import {UserSessionService} from '../../services/user-session.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-header',
   imports: [
     RouterLink,
-    MatIcon
+    MatIcon,
+    AsyncPipe
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -21,10 +24,15 @@ import {MatDrawer} from '@angular/material/sidenav';
 export class HeaderComponent implements OnInit{
   @Input() drawer!: MatDrawer;
 
-  userProfileData: UserProfileData | undefined;
-  isLoggedIn: boolean = false;
+  user$: Observable<UserProfileData | null>;
 
-  constructor(private userApi: ZenithUserService, private authApi: AuthService, private cookieHelper: CookieHelper) {
+  constructor(
+    private readonly session: UserSessionService,
+    private userApi: ZenithUserService,
+    private authApi: AuthService,
+    private cookieHelper: CookieHelper)
+  {
+      this.user$ = this.session.user$;
   }
 
   loginClick(){
@@ -37,20 +45,7 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit() {
-    let username = this.cookieHelper.getCookieByName('username');
 
-    this.authApi.isUserAuthorized().subscribe({
-      next: (result) => {
-        this.userProfileData = result;
-
-        if(this.userProfileData != null){
-          this.isLoggedIn = true;
-        }
-      },
-      error: (e) => {
-        this.isLoggedIn = false;
-      }
-    })
   }
 
   logout() {

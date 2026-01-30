@@ -15,7 +15,7 @@
       <span class="highlight uppercase">  all </span>
       <span>conditions for a difficulty! You can complete multiple difficulties with one run.</span>
     </div>
-    @if (!isLoggedIn) {
+    @if (!(user$ | async)) {
       <div class="flexColumn">
         <span>You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>
         <span class="highlight">Your discord account has to be linked to your TETR.IO account and is publicly visible!</span>
@@ -27,7 +27,7 @@
       <span>Icon and Background made by <span class="highlight"><a class="highlight" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span></span>
     </div>
   </div>
-  @if (isLoggedIn) {
+  @if (user$ | async; as user) {
     <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
   }
 </div>

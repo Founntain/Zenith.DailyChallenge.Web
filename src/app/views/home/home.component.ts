@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ZenithService} from '../../services/network/zenith.service';
 import {ChallengeComponent} from '../../components/challenge/challenge.component';
-import {NgClass, NgOptimizedImage} from '@angular/common';
+import {AsyncPipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
-import {interval} from 'rxjs';
+import {firstValueFrom, interval, Observable, take} from 'rxjs';
 import { NgZone } from '@angular/core';
 import {
   MatCell,
@@ -32,6 +32,8 @@ import {ZenithTextWobbleComponent} from '../../components/zenith-text-wobble/zen
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {LeaderboardService} from '../../services/network/leaderboard.service';
 import {NumberUtils} from '../../util/NumberUtils';
+import {UserSessionService} from '../../services/user-session.service';
+import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 
 @Component({
   selector: 'app-home',
@@ -53,13 +55,16 @@ import {NumberUtils} from '../../util/NumberUtils';
     MatTooltip,
     ZenithTextWobbleComponent,
     MatTabGroup,
-    MatTab
+    MatTab,
+    AsyncPipe
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
+  public user$: Observable<UserProfileData | null>;
+
   private numberUtils: NumberUtils = new NumberUtils();
 
   private timerId: any;
@@ -67,7 +72,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   protected readonly Difficulty = Difficulty;
 
   isAutoTracking: boolean = false;
-  isLoggedIn: boolean = false;
 
   dailyChallenges: DailyChallenge[] = [];
   date: string = "";
@@ -105,7 +109,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     private userService: ZenithUserService,
     private cookieHelper: CookieHelper,
     private ngZone: NgZone,
-    private settingsService: SettingsService) {  }
+    private settingsService: SettingsService,
+    private readonly session: UserSessionService)
+  {
+      this.user$ = this.session.user$;
+  }
 
   ngOnInit(): void {
     this.loadUsersTodaysCompletions();
@@ -167,23 +175,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  private loadUsersTodaysCompletions() {
-    this.authService.isUserAuthorized().subscribe({
-      next: (result) => {
-        if(result != null){
-          this.isLoggedIn = true;
+  private async loadUsersTodaysCompletions() {
+    const user = await firstValueFrom(this.user$.pipe(take(1)));
 
-          let username = this.cookieHelper.getCookieByName('username');
-
-          this.userService.getTodaysChallengeCompletions(username).subscribe(result => {
-            this.todayUsersCompletions = result;
-          })
-        }
-      },
-      error: (e) => {
-        this.isLoggedIn = false;
-      }
-    })
+    if(user){
+      this.userService.getTodaysChallengeCompletions(user.username).subscribe(result => {
+        this.todayUsersCompletions = result;
+      })
+    }
   }
 
   private unixSecondsToString(unixSeconds: number): [number, number, number, number]{
