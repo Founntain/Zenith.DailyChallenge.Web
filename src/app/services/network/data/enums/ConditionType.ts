@@ -10,4 +10,6 @@
   Finesse,
   Back2Back,
   TotalBonus,
+  App,
+  Lines
 }

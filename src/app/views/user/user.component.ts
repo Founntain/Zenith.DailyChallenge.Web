@@ -463,6 +463,10 @@ export class UserComponent implements OnInit, AfterViewInit {
         return `${totalAsLocale} B2B`;
       case ConditionType.TotalBonus:
         return `${totalAsLocale} Bonus`;
+      case ConditionType.App:
+        return `${totalAsLocale} APP`;
+      case ConditionType.Lines:
+        return `${totalAsLocale} Lines`;
     }
   }
 

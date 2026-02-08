@@ -51,6 +51,10 @@ export class ChallengeHelper {
         return `Achieve`;
       case ConditionType.Back2Back:
         return `Obtain`;
+      case ConditionType.App:
+        return `Get`;
+      case ConditionType.Lines:
+        return `Clear`;
       default:
         return ""
     }
@@ -78,6 +82,10 @@ export class ChallengeHelper {
         return [value, '% FINESSE'];
       case ConditionType.Back2Back:
         return [value, ' B2B'];
+      case ConditionType.App:
+        return [value, ' APP'];
+      case ConditionType.Lines:
+        return [value, ' Lines'];
       default:
         return []
     }

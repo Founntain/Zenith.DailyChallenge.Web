@@ -116,8 +116,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadUsersTodaysCompletions();
-
     this.zenithService.getDailyChallenges().subscribe(result => {
       this.dailyChallenges = result;
     })
@@ -161,6 +159,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
 
     this.updateCommunityGoal();
+    this.loadUsersTodaysCompletions();
 
     this.ngZone.runOutsideAngular(() => {
       this.contributionTimerId = interval(10000).subscribe(() => {
@@ -176,11 +175,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private async loadUsersTodaysCompletions() {
+
     const user = await firstValueFrom(this.user$.pipe(take(1)));
 
     if(user){
       this.userService.getTodaysChallengeCompletions(user.username).subscribe(result => {
         this.todayUsersCompletions = result;
+      })
+    }else{
+      this.user$.subscribe(user => {
+        if(user){
+          this.userService.getTodaysChallengeCompletions(user.username).subscribe(result => {
+            this.todayUsersCompletions = result;
+          })
+        }
       })
     }
   }
