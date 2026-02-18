@@ -19,9 +19,9 @@
 
         @if (communityChallenge.name !== undefined) {
           <div class="flexStretch flexColumn">
-            <span class="headerText title"> {{communityChallenge.name}}</span>
+            <span class="headerText title" style="font-weight: 800"> {{communityChallenge.name}}</span>
             @if (communityChallenge.description !== undefined) {
-              <span class="headerText"> {{communityChallenge.description}}</span>
+              <span class="boldText"> {{communityChallenge.description}}</span>
             }
           </div>
         }
@@ -32,7 +32,7 @@
           }
         </div>
 
-        <div class="headerText title">
+        <div class="bold title" style="font-weight: 800">
           <span>{{communityChallenge.value.toLocaleString()}} {{getTypeSuffix(communityChallenge.conditionType)}}</span>
           <span> / </span>
           <span>{{communityChallenge.targetValue.toLocaleString()}} {{getTypeSuffix(communityChallenge.conditionType)}}</span>
@@ -47,7 +47,7 @@
           <th mat-header-cell *matHeaderCellDef class="headerText"> Username </th>
           <td mat-cell *matCellDef="let element" >
             <div class="flexRow" style="align-items: center; gap: 5px">
-              <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.name]">{{element.name}}</a>
+              <a class="link headerText uppercase" style="vertical-align: center; font-weight: 800" [routerLink]="['/user', element.name]">{{element.name}}</a>
             </div>
           </td>
         </ng-container>

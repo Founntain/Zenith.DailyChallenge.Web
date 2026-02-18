@@ -1,12 +1,14 @@
-// Main Colors - Soft & Modern
-$text-color: #e2e8f0;
-$background-color: #0f172a;     // Deep slate (kept)
-$background-shade: rgba(51, 65, 85, 0.3);
-$background-shade-solid: rgb(25, 36, 55);
-$primary-color: #a974d4;        // Vibrant orange
-$secondary-color: #ffcca1;      // Lighter orange
-$accent-color: #8b5cf6;         // Purple (kept)
-$shadow-color: rgba(0, 0, 0, 0.4);
+// Main Colors - Neutral Charcoal + Single Accent (Indigo)
+$text-color: #e7e7ea;                   // Soft neutral near-white (less blue)
+$background-color: #1b1f27;                 // medium charcoal
+$background-shade-solid: #232834;           // surfaces/cards
+$background-shade: rgba(255, 255, 255, 0.10); // subtle overlay
+
+$primary-color: #e7e5e4;
+$accent-color: #e7e5e4;
+$secondary-color: #a1a1aa;
+$colorful-accent-color: #92affc;
+$shadow-color: rgba(0, 0, 0, 0.55);
 
 // Difficulty colors
 $easy-text-color: #6baeff;

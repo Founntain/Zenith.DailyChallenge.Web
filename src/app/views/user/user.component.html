@@ -257,7 +257,7 @@
                       }
                       <span class="headerText goldTime" title="Fastest time">{{ getSplitText(splitTimes[floor].bestTime) }}</span>
                       @if (isNotEmptyTime(splitTimes[floor].bestTime)) {
-                        <span class="boldText achievedText" style="margin-bottom:2px">achieved {{ getSplitText(splitTimes[floor].bestTimeAchievedDate) }}</span>
+                        <span class="headerText achievedText" style="margin-bottom:2px">achieved {{ getSplitText(splitTimes[floor].bestTimeAchievedDate) }}</span>
                       }
                     </div>
                     <div class="flexStretch splitItem flexColumn">
@@ -272,7 +272,7 @@
             </div>
             <div [routerLink]="['/user', username, 'splits']" class="linkContainer userInfoContainer">
               <mat-icon class="icon textShadow">double_arrow</mat-icon>
-              <span  class="textShadow headerText" style="font-size: 18pt">View all Splits</span>
+              <span  class="textShadow boldText" style="font-size: 18pt">View all Splits</span>
             </div>
           </div>
         }
@@ -461,14 +461,14 @@
                   <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.spins}}</td>
                 </ng-container>
 
-                <ng-container matColumnDef="AllClears">
-                  <th mat-header-cell *matHeaderCellDef> PC's </th>
-                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
-                </ng-container>
-
                 <ng-container matColumnDef="Back2Back">
                   <th mat-header-cell *matHeaderCellDef> B2B </th>
                   <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.back2Back}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="AllClears">
+                  <th mat-header-cell *matHeaderCellDef> PC's </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.allClears}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="Mods">

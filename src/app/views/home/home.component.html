@@ -3,7 +3,9 @@
 <div class="baseContainer">
   <div class="container gap">
     <img src="assets/banner.png" style="width: 100%; height: auto" />
-
+<!--    <div>-->
+<!--      <h1 class="headerText"> ZENITH DAILY CHALLENGE</h1>-->
+<!--    </div>-->
     <div>
       <span>Tackle on challenges and push yourself to the limit, or learn playstyles you never tried before. Everyone is welcome to give it a try!</span>
     </div>
@@ -46,7 +48,12 @@
 <!--      <span class="date">Daylies for </span>-->
       <span class="date highlight">{{date}}</span>
     </div>
-    <div class="clock centerText"><span class="clock highlight">{{timeLeft}}</span> remaining</div>
+    <div>
+      <div class="flexContainer verticalCenter justifyCenter clock highlight gap">
+        <mat-icon class="">alarm</mat-icon>
+        <span class="">{{timeLeft}}</span>
+      </div>
+    </div>
   </div>
 
   @if (dailyChallenges.length > 0) {
@@ -179,20 +186,23 @@
       <a>Currently no community challenge is active.</a>
       <sub style="margin-bottom: 10px">Please check back later.</sub>
     </div>
-  } @else{
+  }@else{
     <!-- CC Active -->
     <div class="simpleContainer gap" style="width: 100%;">
 
       <div class="clock">
-        Ends in: <span class="clock highlight">{{communityTimeLeft}}</span>
+        <div class="flexContainer verticalCenter justifyCenter clock highlight gap">
+          <mat-icon class="">alarm</mat-icon>
+          <span class="clock highlight">{{communityTimeLeft}}</span>
+        </div>
       </div>
 
       @if (communityChallengeData?.communityChallenge?.description !== undefined) {
         <span class="headerText" style="font-size: 1.25rem; white-space: pre-line">{{ communityChallengeData.communityChallenge.description }}</span>
       }
 
-      <a class="highlight uppercase headerText">as a community</a>
-      <div class="bigText gap">
+      <a class="highlight uppercase boldText">as a community</a>
+      <div class="bigText boldText gap">
         <a class="">{{getCommunityPromptPrefix()}}</a>
         <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
         <a class="">{{getCommunityPromptSuffix()}}</a>
@@ -234,10 +244,10 @@
 
             <div class="flexColumn flexStretch gap gridFill" style="justify-content: center; align-items: center;">
               <a class="highlight bigGoalText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
-              <span class="bigText">of</span>
+              <span class="bigText boldText">of</span>
               <a class="highlight bigGoalText">{{getCommunityPromptValue()}}</a>
 <!--              <span class="bigText">{{getCommunityPromptProgressSuffix()}}</span>-->
-              <span class="bigText">by <span class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.participants}} participants</span></span>
+              <span class="bigText boldText">by <span class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.participants}} participants</span></span>
             </div>
           </div>
         </div>
@@ -248,7 +258,7 @@
               @if (! contribution.isLate) {
                 <div class="flexRow gap" style="justify-content: center; align-items: end">
                   <a class="flexStretch contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a>
-                  <span class="flexStretch "> contributed </span>
+                  <span class="flexStretch boldText"> contributed </span>
                   <span class="flexStretch highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span>
                 </div>
               }@else{
@@ -277,12 +287,12 @@
       </div>
 
       <div class="flexColumn">
-        <span class="boldText" style="font-size: 1.3rem; letter-spacing: 3px">Climbed a total of</span>
+        <span class="headerText" style="font-size: 1.3rem; letter-spacing: 3px">Climbed a total of</span>
         <span class="scoreDisplay bigScoreText"> {{serverStatistics.altitudes.total.toLocaleString()}} M</span>
       </div>
 
       <div class="">
-        <div class="boldText" style="font-size: 1.3rem">
+        <div class="headerText" style="font-size: 1.3rem">
           <span style="letter-spacing: 5px">by </span>
           <span style="" class="highlight">{{serverStatistics.totalUsers}}</span>
           <span style="letter-spacing: 5px"> Users of which </span>

@@ -3,6 +3,8 @@
 @use '../../../styling/mixins' as mix;
 
 .difTitle{
+  @extend .boldText;
+
   margin: 0;
 }
 
@@ -70,7 +72,10 @@
     }
 
     .baseCompleted{
-      @extend .headerText;
+      @extend .normalText;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+
       color: #FFF;
       font-size: 1.5rem;
       position: relative;

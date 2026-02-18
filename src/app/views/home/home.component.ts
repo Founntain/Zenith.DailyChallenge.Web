@@ -34,6 +34,7 @@ import {LeaderboardService} from '../../services/network/leaderboard.service';
 import {NumberUtils} from '../../util/NumberUtils';
 import {UserSessionService} from '../../services/user-session.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
@@ -56,7 +57,8 @@ import {UserProfileData} from '../../services/network/data/interfaces/UserProfil
     ZenithTextWobbleComponent,
     MatTabGroup,
     MatTab,
-    AsyncPipe
+    AsyncPipe,
+    MatIcon
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

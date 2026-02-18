@@ -13,7 +13,7 @@
   @include mat.chips-overrides((
     label-text-color: $text-color,
     selected-label-text-color: $background-color,
-    label-text-font: 'Hind Madurai',
+    label-text-font: 'Inter',
     outline-color: $text-color,
     focus-outline-color: $primary-color,
     label-text-weight: 800,
@@ -21,7 +21,7 @@
 
   @include mat.checkbox-overrides((
     label-text-color: $text-color,
-    label-text-font: 'Hind Madurai',
+    label-text-font: 'Inter',
     label-text-weight: 800,
     selected-icon-color: $primary-color,
     selected-hover-icon-color: rgba($primary-color, 0.75),
@@ -39,7 +39,7 @@
     container-shape: 'flat',
     container-color: $background-shade-solid,
 
-    supporting-text-font: 'Catamaran',
+    supporting-text-font: 'Inter',
     supporting-text-weight: '600',
     supporting-text-size: 1rem,
     supporting-text-color: $text-color,

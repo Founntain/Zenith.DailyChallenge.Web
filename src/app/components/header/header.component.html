@@ -5,9 +5,9 @@
       <span class="headerText verticalCenter centerText title marginLeft"><a [routerLink]="['']">ZENITH DAILY CHALLENGE</a></span>
     </div>
 
-    <nav class="boldText">
+    <nav class="headerText">
       @if (user$ | async; as user) {
-        <div class="userInfo boldText">
+        <div class="userInfo headerText">
           @if (user.avatarRevision !== undefined && user.avatarRevision !== null) {
             <img
               class="profilePicture"

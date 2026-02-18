@@ -24,14 +24,10 @@
 }
 
 .bigHighlightText{
-  @extend .headerText;
-
   font-size: 2rem !important;
 }
 
 .bigGoalText{
-  @extend .headerText;
-
   font-size: 3rem !important;
 
   @media screen and (max-width: 600px) {
@@ -65,7 +61,7 @@
   @extend .boldText;
 
   color: $text-color;
-  text-shadow: 0 3px rgba($primary-color, 0.7);
+  text-shadow: 0 1px #CCBBCC, 0 2px 8px #CCBBCC;
 
   font-size: 1.1rem;
 
@@ -75,8 +71,9 @@
 }
 
 .clock, .date{
+  @extend .headerText;
+
   font-size: 1.5rem !important;
-  font-family: "Catamaran", sans-serif;
 }
 
 .challengeContainer {
@@ -132,39 +129,6 @@ tr{
 .contributorsBorder {
   display: block;
   border: 1px solid $community-text-color;
-}
-
-.brick {
-  background: repeating-linear-gradient( -45deg, #0d0d0d, #0d0d0d 12px, #1a1a1a 12px, #1a1a1a 25px );
-  border-top: 3px solid #333333;
-  border-left: 3px solid #262626;
-  border-bottom: 3px solid #0d0d0d;
-  border-right: 3px solid #1a1a1a;
-  color: #757575;
-  text-shadow: 0 0 16px rgba(86, 85, 85, 0.4);
-
-  background-size: 200% 200%;
-
-  animation: scroll 40s linear infinite;
-
-  @keyframes scroll {
-    0% {
-      background-position: 0 0;
-    }
-    100% {
-      background-position: 100% 100%;
-    }
-  }
-
-  h1{
-    font-size: 2rem;
-  }
-
-  .highlight {
-    font-family: 'HUN', sans-serif;
-    color: #b4b4b4;
-    text-shadow: 0 3px #333333, 0 6px #333333, 0 6px 8px #333333, 0 6px 16px #333333;
-  }
 }
 
 .masteryBackground{
@@ -372,7 +336,7 @@ tr{
 }
 
 .autoSubmitContainer{
-  font-family: 'CB', "Helvetica Neue", sans-serif, serif;
+  @extend .boldText;
 
   span{
     font-size: 1.5rem;
@@ -646,7 +610,7 @@ tr{
 
   .highlight{
     color: white;
-    text-shadow: 0 3px $accent-color;
+    text-shadow: 0 1px $colorful-accent-color, 0 2px 8px $colorful-accent-color;
   }
 
   @media screen and (max-width: 600px) {

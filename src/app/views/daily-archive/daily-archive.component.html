@@ -1,8 +1,8 @@
 <div>
   <div class="baseContainer flexColumn centerText">
-    <span class="headerText" style="font-size: 2rem">Daily Archive</span>
+    <span class="boldText" style="font-size: 2rem">Daily Archive</span>
     @if(archiveData[0] !== undefined){
-      <span class="headerText" style="font-size: 1.5rem">{{archiveData[0].date}}</span>
+      <span class="boldText" style="font-size: 1.5rem">{{archiveData[0].date}}</span>
     }
     <div>
       <mat-form-field>
@@ -17,7 +17,7 @@
   @for(challenge of archiveData; track $index){
     <div [ngClass]="['baseContainer', 'baseContainer', 'flexStretch', 'flexRow', getDifficultyCssClass(challenge.points)]" style="min-height: 200px">
       <div [ngClass]="['flexStretch centerText verticalCenter stripesLight', isReverse(challenge.points)]">
-        <span class="headerText" style="font-size: 4rem;">{{getDifficultyText(challenge.points, challenge.mods[0], false)}}</span>
+        <span class="headerText uppercase" style="font-size: 3.5rem; font-weight: 800">{{getDifficultyText(challenge.points, challenge.mods[0], false)}}</span>
       </div>
       <div class="flexStretch flexColumn borderSides stripesLight">
           <div class="flexRow flexStretch">
@@ -25,7 +25,7 @@
               <div  class="valueWrapper flexStretch">
                 <a class="boldText">{{ getPrefix(condition.type) }}</a>
                 <div>
-                  <a [ngClass]="['conditionValue', this.getDifficultyText(challenge.points, '', true)]">{{ condition.value }}</a>
+                  <a [ngClass]="['conditionValue', 'headerText', this.getDifficultyText(challenge.points, '', true)]">{{ condition.value }}</a>
                   <a class="conditionValueSuffix boldText">{{ getValue(condition.type, condition.value)[1] }}</a>
                 </div>
               </div>
@@ -41,7 +41,7 @@
         <span class="headerText uppercase" style="font-size: 1.5rem; margin-top: 10px">Completed by</span>
         <div class="flexStretch flexRow verticalCenter gap flexWrap justifyCenter">
           @for (user of challenge.users; track $index){
-            <span [ngClass]="['boldText', 'uppercase', 'conditionValue', 'link', this.getDifficultyText(challenge.points, '', true)]" style="font-size: 1.25rem"
+            <span [ngClass]="['headerText', 'uppercase', 'conditionValue', 'link', this.getDifficultyText(challenge.points, '', true)]" style="font-size: 1.25rem; font-weight: 800"
                   matTooltip="Completed at {{user.completedAt.toLocaleString()}}">{{user.username}}</span>
           }
         </div>

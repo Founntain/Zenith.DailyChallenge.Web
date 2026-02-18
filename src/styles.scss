@@ -54,8 +54,7 @@ html{
 }
 
 html, body {
-  font-family: "Telex", sans-serif;
-  font-weight: 400;
+  @extend .normalText;
 
   border: none;
 }
@@ -97,9 +96,9 @@ hr{
 
   color: $text-color !important;
   font-size: 64pt;
-  font-weight: bold;
+  font-weight: 800;
 
-  background-color: rgba($accent-color, 0.8);
+  background-color: rgba($colorful-accent-color, 0.8);
   border-top: 3px solid    rgba($background-color, 0.8);
   border-left: 3px solid   rgba($background-color, 0.8);
   border-bottom: 3px solid rgba($background-color, 0.8);

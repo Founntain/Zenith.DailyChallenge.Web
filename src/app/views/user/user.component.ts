@@ -103,7 +103,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   splitMods:string[] =  ['nomod', 'expert', 'nohold', 'messy', 'gravity', 'volatile', 'doublehole', 'invisible', 'allspin', 'expert_reversed', 'nohold_reversed', 'messy_reversed', 'gravity_reversed', 'volatile_reversed', 'doublehole_reversed', 'invisible_reversed', 'allspin_reversed']
   splitModsText: string[] = ['No Mod', 'Expert', 'No Hold', 'Messy', 'Gravity', 'Volatile', 'Double Hole', 'Invisible', 'All Spin', 'The Tyrant', 'Asceticism', 'Loaded Dice', 'Freefall', 'Last Stand', 'Damnation', 'The Exile', 'The Warlock']
 
-  runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'AllClears', 'Back2Back', 'Mods'];
+  runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'Back2Back', 'AllClears', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
   communityChallengeColumns: string[] = ['Date', 'Contribution'];
 
@@ -124,7 +124,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         ticks: {
           color: '#e2e8f0',
           font: {
-            family: 'Hind Madurai',
+            family: 'Inter',
             weight: 'bold',
             size: 14,
           },
@@ -138,7 +138,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         ticks: {
           color: 'rgb(169, 116, 212, 1)',
           font: {
-            family: 'Hind Madurai',
+            family: 'Inter',
             weight: 'bold',
             size: 18,
           }
@@ -152,7 +152,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         ticks: {
           color: '#e2e8f0',
           font: {
-            family: 'Hind Madurai',
+            family: 'Inter',
             weight: 'bold',
             size: 18,
           }
@@ -169,12 +169,12 @@ export class UserComponent implements OnInit, AfterViewInit {
         intersect: false,
         titleAlign: 'center',
         titleFont: {
-          family: 'Hind Madurai',
+          family: 'Inter',
           weight: 'bold',
           size: 18,
         },
         bodyFont: {
-          family: 'Hind Madurai',
+          family: 'Inter',
           weight: 'bold',
           size: 16,
         },
@@ -182,7 +182,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       legend: {
         labels: {
           font: {
-            family: 'Hind Madurai',
+            family: 'Inter',
             weight: 'bold',
             size: 16,
           }
@@ -259,7 +259,7 @@ export class UserComponent implements OnInit, AfterViewInit {
             color: '#e2e8f0',
               autoSkip: true,
               font: {
-                family: 'Hind Madurai',
+                family: 'Inter',
                 weight: 'bold',
                 size: 14,
               }
@@ -273,7 +273,7 @@ export class UserComponent implements OnInit, AfterViewInit {
           ticks: {
             color: '#e2e8f0',
               font: {
-                family: 'Hind Madurai',
+                family: 'Inter',
                 weight: 'bold',
                 size: 18,
               }
@@ -292,7 +292,7 @@ export class UserComponent implements OnInit, AfterViewInit {
             size: 0
           },
           bodyFont: {
-            family: 'Hind Madurai',
+            family: 'Inter',
             weight: 'bold',
             size: 18,
           }
@@ -300,7 +300,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         legend: {
           labels: {
             font: {
-              family: 'Hind Madurai',
+              family: 'Inter',
                 weight: 'bold',
                 size: 16,
             }

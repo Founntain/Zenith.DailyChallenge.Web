@@ -296,7 +296,7 @@
 
   public getModChartAnnotations(): any{
     let annotationFont = {
-      family: 'Hind Madurai',
+      family: 'Space Grotesk',
       weight: 'bold',
       size: 14,
     }

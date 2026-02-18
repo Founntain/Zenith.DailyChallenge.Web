@@ -15,7 +15,7 @@ header {
     transition: color 0.3s;
 
     &:hover{
-      color: $secondary-color;
+      color: $colorful-accent-color;
     }
   }
 
@@ -29,7 +29,7 @@ header {
     transition: all .3s ease-in-out;
 
     &:hover {
-      color: $secondary-color !important;
+      color: $colorful-accent-color !important;
       letter-spacing: 1px;
     }
   }
@@ -40,7 +40,7 @@ header {
     transition: color 0.3s ease-in-out;
 
     &:hover{
-      color: $secondary-color;
+      color: $colorful-accent-color;
     }
   }
 
@@ -83,7 +83,7 @@ header {
       transition: all .3s ease-in-out;
 
       &:hover {
-        color: $secondary-color;
+        color: $colorful-accent-color;
         letter-spacing: 5px;
         transform: skewY(-2deg);
       }
