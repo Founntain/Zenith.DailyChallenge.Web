@@ -1,0 +1,168 @@
+@if (run) {
+  <div class="flexContainer">
+    <div class="flexContainer flexColumn centerText headerText runHeader" style="position: relative;" >
+      <div [class]='["splitBackground", getFloorKey(run.floor)]'></div>
+      <span style="font-size: 4rem;text-shadow: 0 0 10px black, 0 0 20px white;">{{roundNumber(run.altitude)}} M</span>
+      <span style="font-size: 2rem">{{floorToName(run.floor)}}</span>
+      <div>
+        @for (mod of getMods(run.mods); track $index) {
+          <img [src]="getModImage(mod)" class="mod"/>
+        }
+      </div>
+      <span style="margin-bottom: 5px">Reason of death: {{gameOverFlavourText(run.gameOverReason)}}</span>
+    </div>
+    <div class="flexContainer flexRow gap centerText headerText stripes runHeader" style="font-size: 2.5rem; padding: 10px">
+      <div class="flexStretch">{{roundNumber(run.pps)}} PPS</div>
+      <div class="flexStretch">{{roundNumber(run.apm)}} APM</div>
+      <div class="flexStretch">{{roundNumber(run.vs)}} VS</div>
+    </div>
+    <div class="gap" style="padding: 10px">
+      <div class="flexContainer flexRow flexStretch gap">
+        <div class="flexContainer flexColumn flexStretch centerText sectionBorder attack">
+          <div class="headerText" style="font-size: 1.5rem">Attack</div>
+          <div class="flexContainer flexColumn flexStretch">
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Garbage Sent:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem">{{roundNumber(run.garbageSent, 0)}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Max Spike:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{run.garbageMaxSpike}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">APP:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.app)}}</span>
+            </div>
+            <div class="statRow" matTooltip="Meassured agression based on the ratio of garbage sent to garbage received.">
+              <span class="headerText" style="font-size: 1.25rem;">Aggression Score</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.agressionScore)}} <span style="font-size: 1.5rem"> / 100</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="flexContainer flexColumn flexStretch centerText sectionBorder defense">
+          <div class="headerText" style="font-size: 1.5rem">Defense</div>
+          <div class="flexContainer flexColumn flexStretch">
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Garbage Received:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.garbageReceived, 0)}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Garbage Cleared:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.garbageCleared, 0)}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Cancel rate:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.garbageCleared / run.garbageReceived * 100, 2)}} %</span>
+            </div>
+            <div class="statRow" matTooltip="Measures survival quality under pressure.">
+              <span class="headerText" style="font-size: 1.25rem;">Defense Score</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.defenseScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flexContainer flexRow flexStretch gap">
+        <div class="flexContainer flexColumn flexStretch centerText sectionBorder efficiency">
+          <div class="headerText" style="font-size: 1.5rem">Stability</div>
+          <div class="flexContainer flexColumn flexStretch">
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Finesse:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.finesse)}} %</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Pieces placed:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.piecesPlaced, 0)}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Inputs:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.inputs, 0)}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Holds:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.holds, 0)}}</span>
+            </div>
+            <div class="statRow" matTooltip="Measures mechanical precision.">
+              <span class="headerText" style="font-size: 1.25rem;">Stability Score</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.stabilityScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="flexContainer flexColumn flexStretch centerText sectionBorder playstyle">
+          <div class="headerText" style="font-size: 1.5rem">Playstyle</div>
+          <div class="flexContainer flexColumn flexStretch">
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Quads:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{run.quads}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Spins:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{run.spins}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Back2Back:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{run.back2Back}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Max Combo:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{run.topCombo}}</span>
+            </div>
+            <div class="statRow" matTooltip="Measures how well aggression and defense are balanced.">
+              <span class="headerText" style="font-size: 1.25rem;">Playstyle Score</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.pressureScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flexContainer flexRow flexStretch gap">
+        <div class="flexContainer flexColumn flexStretch centerText sectionBorder rank">
+          <div class="headerText" style="font-size: 1.5rem">Game Performance</div>
+          <div class="flexContainer flexColumn flexStretch">
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Position:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{run.finalPosition}} <span style="font-size: 1.5rem"> / {{run.peakPlayerCount}}</span></span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Peak Climbspeed:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.peakRank)}}</span>
+            </div>
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Targeting:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.targetingFactor,2)}}x</span>
+            </div>
+
+            <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Performance Score</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.totalScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="flexContainer centerText verticalCenter">
+    <span>loading...</span>
+  </div>
+}

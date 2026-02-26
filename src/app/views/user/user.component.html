@@ -481,7 +481,7 @@
                 </ng-container>
 
                 <tr mat-header-row sticky *matHeaderRowDef="runColumns" ></tr>
-                <tr mat-row *matRowDef="let row; columns: runColumns;" ></tr>
+                <tr mat-row class="clickable" *matRowDef="let row; columns: runColumns;" [routerLink]="['/user', username, 'run', row.tetrioId]"></tr>
               </table>
             </div>
 

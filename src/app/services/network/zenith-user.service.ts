@@ -6,7 +6,7 @@ import {environment} from '../../../environments/environment';
 import {UserProfileData} from './data/interfaces/UserProfileData';
 import {Overlay} from '@angular/cdk/overlay';
 import {DailyData} from './data/interfaces/DailyData';
-import {Run} from './data/interfaces/Run';
+import {DetailedRun, Run, RunResponse} from './data/interfaces/Run';
 import {ChallengeCompletion} from './data/interfaces/ChallengeCompletion';
 import {CommunityChallengeContributions} from './data/interfaces/CommunityChallengeContributions';
 import {TodayCompletions} from './data/interfaces/TodayCompletions';
@@ -31,6 +31,10 @@ export class ZenithUserService {
 
   getDailyExtra(username: string, progressionLimit: number = 100): Observable<DailyExtra>{
     return this.http.get<DailyExtra>(`${this.baseUrl}${username}/dailyExtra?progressionLimit=${progressionLimit}`);
+  }
+
+  getRun(username: string, runId: string): Observable<RunResponse>{
+    return this.http.get<RunResponse>(`${this.baseUrl}${username}/run/${runId}`);
   }
 
   getRuns(username: string, page: number, pageSize: number): Observable<Run[]>{

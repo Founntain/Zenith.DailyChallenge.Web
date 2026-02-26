@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {ZenithService} from '../../services/network/zenith.service';
 import {DailyData} from '../../services/network/data/interfaces/DailyData';
@@ -49,6 +49,7 @@ import {
 } from '@angular/material/expansion';
 import {NumberUtils} from '../../util/NumberUtils';
 import {MatTooltip} from '@angular/material/tooltip';
+import {DailyHelper} from '../../util/DailyHelper';
 
 @Component({
   selector: 'app-user',
@@ -87,6 +88,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 })
 export class UserComponent implements OnInit, AfterViewInit {
   private modHelper: ModHelper = new ModHelper();
+  private dailyHelper: DailyHelper = new DailyHelper();
   private numberUtils: NumberUtils = new NumberUtils();
 
   username!: string;
@@ -220,6 +222,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     private zenithService: ZenithService,
     private cookieHelper: CookieHelper,
     private settingsService: SettingsService,
+    private readonly router: Router
   ) {
     this.runPage = 1;
     this.runPageSize = 25;
@@ -329,8 +332,6 @@ export class UserComponent implements OnInit, AfterViewInit {
           let mod =  i === 0  ? 'No Mod' : this.modHelper.AvailableModsPrettyString[i - 1];
           let modColor = i === 0 ? '#a8acb0' : `#${this.modHelper.ModColors[i - 1]}`;
 
-          console.log(mod, segment);
-
           this.playStyleSegments.push({percent: segment,  color: modColor, label: mod})
         }
       });
@@ -406,7 +407,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   getModImage(mod: string) {
-    return `/assets/tetrio-img/mods/${mod}.png`;
+    return this.dailyHelper.getModImageUrl(mod);
   }
 
   getModArray(mods: string) {
@@ -570,5 +571,10 @@ export class UserComponent implements OnInit, AfterViewInit {
 
 
     return "lt_shape_color_" + Math.floor(combinedParts / 10);
+  }
+
+  protected goToRunDetails(run: any) {
+    console.log('XDD')
+    this.router.navigate(['/runs', run.tetrioId]);
   }
 }

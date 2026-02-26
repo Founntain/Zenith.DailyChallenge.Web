@@ -1,0 +1,87 @@
+@use '../../../styling/colors' as *;
+
+.runHeader{
+  border-bottom: 3px solid $accent-color;
+
+  text-shadow: 0 0 10px black;
+}
+
+.splitBackground{
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  z-index: -1;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+
+  filter: opacity(0.5);
+
+  &.notReached{
+    filter: grayscale(100%) blur(5px) opacity(0.5);
+  }
+
+  // Map for background images
+  $floor-images: (
+    "hob": "1fa", "hotel": "2fa", "casino": "3fa", "arena": "4fa", "museum": "5fa",
+    "offices": "6fa", "laboratory": "7fa", "core": "8fa", "corruption": "9fa", "potg": "10fa"
+  );
+
+  @each $floor, $img in $floor-images {
+    &.#{$floor} {
+      background-image: url('https://tetr.io/res/bg/zenith/#{$img}.jpg');
+    }
+  }
+}
+
+.statRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0;
+}
+
+.dots {
+  flex: 1;
+  border-bottom: 3px dotted rgba(255,255,255,0.1);
+  margin: 0 8px;
+  height: 0.6em;
+}
+
+.value {
+  font-variant-numeric: tabular-nums;
+}
+
+.sectionBorder{
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  border: 3px solid $accent-color;
+  background: rgba($background-dark-shade, .2);
+  border-radius: 2px;
+  padding: 16px;
+
+
+  &.attack{
+    border-color: orangered;
+  }
+
+  &.defense{
+    border-color: mediumpurple;
+  }
+
+  &.efficiency{
+    border-color: cornflowerblue;
+  }
+
+  &.playstyle{
+    border-color: palegreen;
+  }
+
+  &.rank{
+    border-color: gold;
+  }
+}
