@@ -76,6 +76,17 @@
   justify-content: center;
 }
 
+.alignCenter{
+  align-items: center;
+}
+
+.dots {
+  flex: 1;
+  border-bottom: 3px dotted rgba(255,255,255,0.1);
+  margin: 0 8px;
+  //height: 0.6em;
+}
+
 .clickable {
   cursor: pointer;
 

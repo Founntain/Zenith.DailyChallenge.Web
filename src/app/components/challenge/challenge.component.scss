@@ -8,6 +8,10 @@
   margin: 0;
 }
 
+.conditionSuffix{
+  font-size: 1.75rem !important;
+}
+
 .challengeWrapper{
   display: flex;
   flex-direction: column;
@@ -24,6 +28,7 @@
   }
 
   .reverseFlavorText{
+    font-size: 1.25rem;
     color: $reverse-accent-color;
     margin-top: -10px;
     margin-bottom: 10px;
@@ -31,6 +36,7 @@
 
   .conditionsWrapper{
     display: flex;
+    flex-direction: column;
     text-align: center;
     justify-content: center;
     gap: 25px;
@@ -38,7 +44,7 @@
 
     .valueWrapper {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
 
@@ -48,7 +54,7 @@
 
       .conditionValue {
         @extend .headerText;
-        font-size: 1.5rem;
+        font-size: 2rem;
       }
 
       .Easy    { @include mix.text-glow($easy-text-color); }

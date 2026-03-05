@@ -144,18 +144,6 @@ $mods: (
   cursor: pointer;
 }
 
-@mixin clip-right-slant($offset, $side: bottom) {
-  $xr: 100% - $offset; // compile-time math, no calc() in output
-
-  @if $side == top {
-    // Right edge slopes down-right (top-right inset)
-    clip-path: polygon(0 0, $xr 0, 100% 100%, 0 100%);
-  } @else {
-    // Right edge slopes up-right (bottom-right inset)
-    clip-path: polygon(0 0, 100% 0, $xr 100%, 0 100%);
-  }
-}
-
 .splitContainer{
   display: flex;
   flex-direction: column-reverse;
@@ -220,7 +208,7 @@ $mods: (
 
       padding-right: 20px;
 
-      @include clip-right-slant(15%, bottom);
+      @include mix.clip-right-slant(15%, bottom);
 
       @media screen and (max-width: 600px) {
         letter-spacing: 0;

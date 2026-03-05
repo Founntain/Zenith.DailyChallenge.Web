@@ -21,3 +21,25 @@
     100% { background-position: 100% 100%; }
   }
 }
+
+@mixin clip-right-slant($offset, $side: bottom) {
+  $xr: 100% - $offset;
+
+  @if $side == top {
+    clip-path: polygon(0 0, $xr 0, 100% 100%, 0 100%);
+  } @else {
+    clip-path: polygon(0 0, 100% 0, $xr 100%, 0 100%);
+  }
+}
+
+@mixin clip-left-slant($offset, $side: bottom) {
+  $xl: $offset;
+
+  @if $side == top {
+    // top-left corner is pushed in by $offset
+    clip-path: polygon($xl 0, 100% 0, 100% 100%, 0 100%);
+  } @else {
+    // bottom-left corner is pushed in by $offset
+    clip-path: polygon(0 0, 100% 0, 100% 100%, $xl 100%);
+  }
+}

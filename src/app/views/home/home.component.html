@@ -35,7 +35,7 @@
 </div>
 
 <!-- Daily Challenges -->
-<div class="baseContainer padding">
+<div class="baseContainer">
   @if (isAutoTracking) {
     <div class="autoSubmitContainer stripes">
       <span>auto submit is enabled</span>
@@ -43,15 +43,24 @@
     </div>
   }
 
-  <div class="flexColumn" style="margin-bottom: 10px">
-    <div class="centerText">
-<!--      <span class="date">Daylies for </span>-->
-      <span class="date highlight">{{date}}</span>
-    </div>
-    <div>
-      <div class="flexContainer verticalCenter justifyCenter clock highlight gap">
-        <mat-icon class="">alarm</mat-icon>
-        <span class="">{{timeLeft}}</span>
+<!--  <div class="flexColumn stripes padding" style="margin: -10px -10px 10px -10px; border-bottom: 2px dotted white">-->
+<!--    <div class="centerText">-->
+<!--      <span class="date highlight">{{date}}</span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <div class="flexContainer verticalCenter justifyCenter clock highlight gap">-->
+<!--        <mat-icon class="">alarm</mat-icon>-->
+<!--        <span class="">{{timeLeft}}</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="flexContainer flexColumn flexStretch stripes" style="height: 100px">
+    <span class="date verticalCenter flexStretch centerText">{{date}}</span>
+    <div class="verticalCenter flexStretch">
+      <div class="timerContainer verticalCenter justifyCenter gap headerText" style="gap: 20px">
+        <mat-icon class="timerIcon">alarm</mat-icon>
+        <span class="timer">{{timeLeft}}</span>
       </div>
     </div>
   </div>
@@ -499,7 +508,7 @@
       } @else {
         <div class="flexColumn centerText">
           <span class="headerText bigHighlightText highlight">There is currently no seasonal leaderboard running!</span>
-          <img class="contributorsBorder" src="assets/tetrio-img/error1.gif" style="margin: auto; margin-bottom: 10px; border-radius: 50%; border-width: 3px"/>
+          <img class="baseBorder" src="assets/tetrio-img/error1.gif" style="margin: auto; margin-bottom: 10px; border-radius: 50%; border-width: 3px"/>
         </div>
       }
     </mat-tab>

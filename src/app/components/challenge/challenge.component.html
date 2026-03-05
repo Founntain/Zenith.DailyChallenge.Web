@@ -24,21 +24,25 @@
     <div class="conditionsWrapper" style="padding: 10px">
       @for (condition of processedConditions; track $index){
         <div  class="valueWrapper">
-          <a class="boldText">{{ condition.prefix }}</a>
-          <div>
-            <a [ngClass]="['conditionValue', difficultCssClass]">{{ condition.value }}</a>
-            <a class="conditionValueSuffix boldText">{{ condition.suffix }}</a>
-          </div>
+          <span class="conditionSuffix boldText">{{ condition.suffix }}</span>
+          <span class="dots"></span>
+          <span [ngClass]="['conditionValue', difficultCssClass]">{{ condition.value.toLocaleString() }}</span>
         </div>
       }
     </div>
   </div>
+  @if (modImages.length > 0) {
+    <div class="flexContainer flexRow flexStretch alignCenter" style="padding: 10px">
+      <span class="conditionSuffix boldText">Mods</span>
+      <span class="dots"></span>
 
-  <div style="padding: 10px">
-    @for (imgSrc of modImages; track $index){
-     <img [src]="imgSrc" class="mod"/>
-    }
-  </div>
+      <div class="flexContainer flexRow justifyCenter alignCenter">
+        @for (imgSrc of modImages; track $index){
+         <img [src]="imgSrc" class="bigMod"/>
+        }
+      </div>
+    </div>
+  }
 
   <div class="completionStatus borderTop">
     @if(isCompleted){

@@ -1,7 +1,8 @@
 @use '../../../styles' as *;
 @use '../../../styling/colors' as *;
 @use '../../../styling/xp' as *;
-@use '../../../styling/base' as base; // Import the mixin
+@use '../../../styling/base' as base;
+@use '../../../styling/mixins' as mix;
 
 .title{
   font-size: 2rem !important;
@@ -70,12 +71,6 @@
   }
 }
 
-.clock, .date{
-  @extend .headerText;
-
-  font-size: 1.5rem !important;
-}
-
 .challengeContainer {
   width: 100%;
   display: flex;
@@ -129,6 +124,11 @@ tr{
 .contributorsBorder {
   display: block;
   border: 1px solid $community-text-color;
+}
+
+.baseBorder {
+  display: block;
+  border: 1px solid $accent-color;
 }
 
 .masteryBackground{
@@ -654,28 +654,59 @@ tr{
  }
 }
 
-/* Grid layering container */
 .layeredGrid {
   display: grid;
   height: 100%;
   width: 100%;
-  /* place-items: center is set inline in template to match current styles */
 }
 
-/* Make an element fill the grid area and sit behind by default */
 .gridFill {
   grid-area: 1 / 1 / -1 / -1;
 }
 
-/* Control stacking order (optional, if you need consistent layering) */
 .stripesLight.gridFill {
-  z-index: 1; /* base background stripes */
+  z-index: 1;
 }
 
 .stripesGoal.gridFill {
-  z-index: 2; /* progress overlay stripes */
+  z-index: 2;
 }
 
 .layeredGrid > .flexColumn.gridFill {
-  z-index: 3; /* content on top */
+  z-index: 3;
+}
+
+.timerContainer{
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 600px) {
+    margin: 0;
+  }
+}
+
+.date{
+  @extend .headerText;
+
+  font-size: 2rem;
+
+  @media screen and (max-width: 600px) {
+    font-size: 1.5rem;
+  }
+}
+
+.timer{
+  font-size: 2.5rem;
+
+  @media screen and (max-width: 600px) {
+    font-size: 1.5rem;
+  }
+}
+
+.timerIcon{
+  transform: scale(2);
+
+  @media screen and (max-width: 600px) {
+    transform: scale(1);
+  }
 }

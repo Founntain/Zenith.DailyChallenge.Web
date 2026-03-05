@@ -4,12 +4,16 @@
       <div [class]='["splitBackground", getFloorKey(run.floor)]'></div>
       <span style="font-size: 4rem;text-shadow: 0 0 10px black, 0 0 20px white;">{{roundNumber(run.altitude)}} M</span>
       <span style="font-size: 2rem">{{floorToName(run.floor)}}</span>
-      <div>
-        @for (mod of getMods(run.mods); track $index) {
-          <img [src]="getModImage(mod)" class="mod"/>
-        }
-      </div>
-      <span style="margin-bottom: 5px">Reason of death: {{gameOverFlavourText(run.gameOverReason)}}</span>
+      @if (run.mods && run.mods.length > 0) {
+        <div>
+          @for (mod of getMods(run.mods); track $index) {
+            <img [src]="getModImage(mod)" class="mod"/>
+          }
+        </div>
+      }
+      @if (run.gameOverReason) {
+        <span style="margin-bottom: 5px">Reason of death: {{gameOverFlavourText(run.gameOverReason)}}</span>
+      }
     </div>
     <div class="flexContainer flexRow gap centerText headerText stripes runHeader" style="font-size: 2.5rem; padding: 10px">
       <div class="flexStretch">{{roundNumber(run.pps)}} PPS</div>

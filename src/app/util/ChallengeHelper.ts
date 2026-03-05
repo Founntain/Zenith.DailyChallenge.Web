@@ -63,9 +63,9 @@ export class ChallengeHelper {
   getValue(type: number, value: number):any []{
     switch(type){
       case ConditionType.KOs:
-        return [value, ' KOs'];
+        return [value, ' KO\'s'];
       case ConditionType.Height:
-        return [value, 'M'];
+        return [value, 'Altitude'];
       case ConditionType.Quads:
         return [value, ' Quads'];
       case ConditionType.Spins:
@@ -81,7 +81,7 @@ export class ChallengeHelper {
       case ConditionType.Finesse:
         return [value, '% FINESSE'];
       case ConditionType.Back2Back:
-        return [value, ' B2B'];
+        return [value, ' Back 2 Back'];
       case ConditionType.App:
         return [value, ' APP'];
       case ConditionType.Lines:
