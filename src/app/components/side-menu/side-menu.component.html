@@ -35,6 +35,10 @@
   }
 }
 
+<div class="flexRow alignCenter justifyCenter" style="margin-top: 5px">
+  <input class="inputField stripes" maxlength="16" type="text" placeholder="Search for user" (keyup)="search($event)" />
+</div>
+
 <div class="menuItems">
   <div class="menuItem" [routerLink]="['/daily-archive']">
     <mat-icon>chevron_right</mat-icon>

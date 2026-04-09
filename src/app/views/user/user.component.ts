@@ -96,7 +96,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   isAutoUpdate: boolean = false;
   isSameUser: boolean = false;
 
-  dailyData!: DailyData;
+  dailyData: DailyData | undefined;
   splitTimes!: ZenithSplits;
   runData: Run[] = [];
   challengeData: ChallengeCompletion[] = [];
@@ -107,7 +107,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'Back2Back', 'AllClears', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
-  communityChallengeColumns: string[] = ['Date', 'Contribution'];
+  communityChallengeColumns: string[] = ['Date', 'Contribution', 'Final Placement'];
 
   protected readonly Difficulty = Difficulty;
   public playStyleSegments: BarSegmet[] = [];
@@ -320,22 +320,31 @@ export class UserComponent implements OnInit, AfterViewInit {
 
       this.isSameUser = this.username == username;
 
-      this.userService.getDaily(this.username).subscribe(result => {
-        this.dailyData = result;
+      this.userService.getDaily(this.username).subscribe({
+        next: result => {
+          this.dailyData = result;
 
-        this.runPageCount = Math.ceil((this.dailyData.runs / this.runPageSize));
+          this.runPageCount = Math.ceil((this.dailyData.runs / this.runPageSize));
 
-        this.playStyleSegments = [];
+          this.playStyleSegments = [];
 
-        for(let i = 0; i < this.dailyData.altitudePercentages.length; i++){
-          let segment = this.dailyData.altitudePercentages[i];
-          let mod =  i === 0  ? 'No Mod' : this.modHelper.AvailableModsPrettyString[i - 1];
-          let modColor = i === 0 ? '#a8acb0' : `#${this.modHelper.ModColors[i - 1]}`;
+          for(let i = 0; i < this.dailyData.altitudePercentages.length; i++){
+            let segment = this.dailyData.altitudePercentages[i];
+            let mod =  i === 0  ? 'No Mod' : this.modHelper.AvailableModsPrettyString[i - 1];
+            let modColor = i === 0 ? '#a8acb0' : `#${this.modHelper.ModColors[i - 1]}`;
 
-          this.playStyleSegments.push({percent: segment,  color: modColor, label: mod})
+            if(i === 9){
+              mod = 'Reverse Mods'
+              modColor = '#b01b47';
+            }
+
+            this.playStyleSegments.push({percent: segment,  color: modColor, label: mod})
+          }
+        },
+        error: error => {
+          this.dailyData = undefined;
         }
       });
-
 
       this.loadDailyExtra();
       this.loadSplitTimes(null, false)
@@ -472,6 +481,9 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   openTetrioProfile() {
+    if(!this.dailyData) return;
+
+
     window.location.href = `https://ch.tetr.io/u/${this.dailyData.tetrioId}`;
   }
 
@@ -551,6 +563,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   protected getLevelTagShape() {
+    if(!this.dailyData) return;
+
     const parts = this.numberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
 
     let x = parts[1] >= 500 ? parts[1] - 500 : parts[1];
@@ -559,6 +573,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   protected getLevelTagBadgeColor() {
+    if(!this.dailyData) return;
+
     const parts = this.numberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
     const combinedParts = parts[0] + parts[1];
 
@@ -566,6 +582,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   protected getLevelTagShapeColor() {
+    if(!this.dailyData) return;
+
     const parts = this.numberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
     const combinedParts = parts[2] + parts[3];
 

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatIcon} from '@angular/material/icon';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {CookieHelper} from '../../util/CookieHelper';
 import {NumberUtils} from '../../util/NumberUtils';
@@ -39,6 +39,7 @@ export class SideMenuComponent implements OnInit{
     private userService: ZenithUserService,
     private leaderboardService: LeaderboardService,
     private cookieHelper: CookieHelper,
+    private readonly router: Router
     )
   {
     this.user$ = this.session.user$;
@@ -71,4 +72,20 @@ export class SideMenuComponent implements OnInit{
   }
 
 
+  protected search(event: KeyboardEvent) {
+    if (event.key !== 'Enter') {
+      return;
+    }
+
+    const input = event.target as HTMLInputElement;
+    const value = input.value.trim();
+
+    if (!value) {
+      return;
+    }
+
+    this.router.navigate(['/user', value]);
+
+    input.value = '';
+  }
 }

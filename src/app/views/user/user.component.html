@@ -380,7 +380,7 @@
             <div style="overflow-x: auto">
               <table mat-table [dataSource]="communityContributionData">
                 <ng-container matColumnDef="Date">
-                  <th mat-header-cell *matHeaderCellDef> Date </th>
+                  <th mat-header-cell *matHeaderCellDef> Date / Name</th>
                   <td mat-cell *matCellDef="let element"> {{element.challenge}} </td>
                 </ng-container>
 
@@ -389,6 +389,11 @@
                   <td mat-cell *matCellDef="let element">
                     {{getCommunityContributionvalue(element.totalAmountContributed, element.conditionType)}}
                   </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Final Placement">
+                  <th mat-header-cell *matHeaderCellDef> Placement </th>
+                  <td mat-cell *matCellDef="let element"> {{element.placement}} of {{element.participantCount}}</td>
                 </ng-container>
 
                 <tr mat-header-row sticky *matHeaderRowDef="communityChallengeColumns" ></tr>

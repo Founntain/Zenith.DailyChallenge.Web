@@ -119,3 +119,13 @@ table.mat-mdc-table .clickable:hover {
     background-color: rgba(33, 150, 243, 0.12);
   }
 }
+
+.inputField{
+  @extend .headerText;
+
+  font-size: 1.3em;
+  padding: 10px;
+  border: 1px solid $accent-color;
+  background-color: $background-shade;
+  color: $text-color;
+}
