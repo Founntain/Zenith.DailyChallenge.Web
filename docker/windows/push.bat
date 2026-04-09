@@ -1,1 +1,1 @@
-﻿docker image push founntain/zenith.dailychallenge.webangular:latest
+docker image push founntain/zenith.dailychallenge.webangular:latest

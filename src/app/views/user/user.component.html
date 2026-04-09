@@ -428,22 +428,22 @@
               <table mat-table [dataSource]="runData">
                 <ng-container matColumnDef="Altitude">
                   <th mat-header-cell *matHeaderCellDef> Altitude </th>
-                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.altitude}} M</td>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.altitude.toFixed(3)}} M</td>
                 </ng-container>
 
                 <ng-container matColumnDef="APM">
                   <th mat-header-cell *matHeaderCellDef> APM </th>
-                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.apm}}</td>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.apm.toFixed(3)}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="PPS">
                   <th mat-header-cell *matHeaderCellDef> PPS </th>
-                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.pps}}</td>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.pps.toFixed(3)}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="VS">
                   <th mat-header-cell *matHeaderCellDef> VS </th>
-                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.vs}}</td>
+                  <td mat-cell *matCellDef="let element" [ngClass]="[getSpeedrunCompletedClass(element.altitude, element.speedrunCompleted, element.speedrunSeen)]"> {{element.vs.toFixed(3)}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="KOs">

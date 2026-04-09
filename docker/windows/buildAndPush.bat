@@ -1,2 +1,2 @@
-﻿call build.bat
+call build.bat
 call push.bat
