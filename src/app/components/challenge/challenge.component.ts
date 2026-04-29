@@ -18,8 +18,6 @@ export class ChallengeComponent implements OnChanges{
   @Input() challenge!: DailyChallenge;
   @Input() isCompleted!: boolean;
 
-  challengeHelper: ChallengeHelper = new ChallengeHelper();
-
   difficultyText: string = "";
   difficultCssClass: string = "";
   reverseText: string = "";
@@ -57,24 +55,24 @@ export class ChallengeComponent implements OnChanges{
   }
 
   getConditionText(type: number, value: number): string{
-    return this.challengeHelper.getConditionText(type, value);
+    return ChallengeHelper.getConditionText(type, value);
   }
 
   getPrefix(type: number): string{
-    return this.challengeHelper.getPrefix(type);
+    return ChallengeHelper.getPrefix(type);
   }
 
   getValue(type: number, value: number):any []{
-    return this.challengeHelper.getValue(type, value);
+    return ChallengeHelper.getValue(type, value);
   }
 
 
   getDifficultyText(difficulty: number, getCssClass = false): string{
-    return this.challengeHelper.getDifficultyText(difficulty, this.challenge.mods, getCssClass);
+    return ChallengeHelper.getDifficultyText(difficulty, this.challenge.mods, getCssClass);
   }
 
   getReverseFlavorText(): string{
-    return this.challengeHelper.getReverseFlavorText(this.challenge.mods);
+    return ChallengeHelper.getReverseFlavorText(this.challenge.mods);
   }
 
   getModImage(mod: string) {

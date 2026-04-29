@@ -1,20 +1,20 @@
 ﻿import {Splits} from '../services/network/data/interfaces/Splits';
 
 export class DailyHelper {
-  floors: (keyof Splits)[] = ['hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
-  allFloors: string[] = ['hob', 'hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
+  public static floors: (keyof Splits)[] = ['hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
+  public static allFloors: string[] = ['hob', 'hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
 
-  roundNumber(value: number, decimalPoints: number = 2){
+  public static roundNumber(value: number, decimalPoints: number = 2){
     // if(value === undefined) return "0";
 
     return value.toFixed(decimalPoints).toLocaleString();
   }
 
-  getFloorKey(floor: number){
+  public static getFloorKey(floor: number){
     return this.allFloors[floor - 1];
   }
 
-  getFloorLongName(floor: number){
+  public static getFloorLongName(floor: number){
     switch(floor){
       case 1: return "Hall of Beginnings";
       case 2: return "The Hotel";
@@ -30,7 +30,7 @@ export class DailyHelper {
     }
   }
 
-  getFloorByAltitude(altitude: number){
+  public static getFloorByAltitude(altitude: number){
     if(altitude >= 1650) return 10;
     if(altitude < 1650 && altitude >= 1350) return 9;
     if(altitude < 1350 && altitude >= 1100) return 8;
@@ -45,7 +45,7 @@ export class DailyHelper {
     return 0;
   }
 
-  getModImageUrl(mod: string){
+  public static getModImageUrl(mod: string){
     return `/assets/tetrio-img/mods/${mod}.png`;
   }
 }

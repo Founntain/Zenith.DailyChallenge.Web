@@ -177,3 +177,43 @@ select {
   outline: none !important;        /* Prevents focus outline */
   background: none !important;     /* Removes background if needed */
 }
+
+.link {
+  color: $text-color !important;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.flexContainer{
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    margin: 0;
+  }
+}
+
+.simpleContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title{
+  font-size: 2rem !important;
+
+  @include mobile {
+    font-size: 14pt !important;
+  }
+}
+
+.bigText{
+  font-size: 1.5rem;
+}
+
+.bigHighlightText{
+  font-size: 2rem !important;
+}

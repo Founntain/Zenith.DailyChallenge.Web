@@ -29,7 +29,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 
 export class DailyArchiveComponent {
   archiveData: DailyChallengeArchive[] = [];
-  challengeHelper: ChallengeHelper = new ChallengeHelper();
   currentDate: any;
   minDate: any;
   maxDate: any;
@@ -72,23 +71,23 @@ export class DailyArchiveComponent {
   }
 
   getConditionText(type: number, value: number): string{
-    return this.challengeHelper.getConditionText(type, value);
+    return ChallengeHelper.getConditionText(type, value);
   }
 
   getPrefix(type: number): string{
-    return this.challengeHelper.getPrefix(type);
+    return ChallengeHelper.getPrefix(type);
   }
 
   getValue(type: number, value: number):any []{
-    return this.challengeHelper.getValue(type, value);
+    return ChallengeHelper.getValue(type, value);
   }
 
   getDifficultyText(difficulty: number, mods: string, getCssClass = false): string{
-    return this.challengeHelper.getDifficultyText(difficulty, mods, getCssClass);
+    return ChallengeHelper.getDifficultyText(difficulty, mods, getCssClass);
   }
 
   getReverseFlavorText(mods: string): string{
-    return this.challengeHelper.getReverseFlavorText(mods);
+    return ChallengeHelper.getReverseFlavorText(mods);
   }
 
   getModImage(mod: string) {

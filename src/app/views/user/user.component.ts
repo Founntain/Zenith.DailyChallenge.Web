@@ -87,10 +87,6 @@ import {DailyHelper} from '../../util/DailyHelper';
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnInit, AfterViewInit {
-  private modHelper: ModHelper = new ModHelper();
-  private dailyHelper: DailyHelper = new DailyHelper();
-  private numberUtils: NumberUtils = new NumberUtils();
-
   username!: string;
 
   isAutoUpdate: boolean = false;
@@ -330,8 +326,8 @@ export class UserComponent implements OnInit, AfterViewInit {
 
           for(let i = 0; i < this.dailyData.altitudePercentages.length; i++){
             let segment = this.dailyData.altitudePercentages[i];
-            let mod =  i === 0  ? 'No Mod' : this.modHelper.AvailableModsPrettyString[i - 1];
-            let modColor = i === 0 ? '#a8acb0' : `#${this.modHelper.ModColors[i - 1]}`;
+            let mod =  i === 0  ? 'No Mod' : ModHelper.AvailableModsPrettyString[i - 1];
+            let modColor = i === 0 ? '#a8acb0' : `#${ModHelper.ModColors[i - 1]}`;
 
             if(i === 9){
               mod = 'Reverse Mods'
@@ -416,7 +412,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   getModImage(mod: string) {
-    return this.dailyHelper.getModImageUrl(mod);
+    return DailyHelper.getModImageUrl(mod);
   }
 
   getModArray(mods: string) {
@@ -565,7 +561,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   protected getLevelTagShape() {
     if(!this.dailyData) return;
 
-    const parts = this.numberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
+    const parts = NumberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
 
     let x = parts[1] >= 500 ? parts[1] - 500 : parts[1];
 
@@ -575,7 +571,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   protected getLevelTagBadgeColor() {
     if(!this.dailyData) return;
 
-    const parts = this.numberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
+    const parts = NumberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
     const combinedParts = parts[0] + parts[1];
 
     return "lt_badge_color_" + Math.floor(combinedParts / 500);
@@ -584,7 +580,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   protected getLevelTagShapeColor() {
     if(!this.dailyData) return;
 
-    const parts = this.numberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
+    const parts = NumberUtils.splitInto4PlaceValues(this.dailyData.userInfo?.level ?? 1)
     const combinedParts = parts[2] + parts[3];
 
 
