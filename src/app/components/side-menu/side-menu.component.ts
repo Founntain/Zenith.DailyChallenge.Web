@@ -28,8 +28,6 @@ export class SideMenuComponent implements OnInit{
 
   user$: Observable<UserProfileData | null>;
 
-  public numberHelper: NumberUtils = new NumberUtils();
-
   todayUsersCompletions: TodayCompletions | undefined;
   seasonPlacement: number = -1;
   seasonName: string = "";
@@ -88,4 +86,6 @@ export class SideMenuComponent implements OnInit{
 
     input.value = '';
   }
+
+  protected readonly NumberUtils = NumberUtils;
 }

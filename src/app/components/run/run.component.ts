@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
-import {ZenithService} from '../../services/network/zenith.service';
-import {CookieHelper} from '../../util/CookieHelper';
-import {SettingsService} from '../../services/settings.service';
 import {DetailedRun} from '../../services/network/data/interfaces/Run';
-import {ChallengeHelper} from '../../util/ChallengeHelper';
 import {DailyHelper} from '../../util/DailyHelper';
 import {Splits} from '../../services/network/data/interfaces/Splits';
 import {RunAnalyzer} from '../../util/RunAnalyzer';
@@ -36,12 +32,8 @@ export class RunComponent implements OnInit{
   totalScore: number = 0;
 
   constructor(
-    private route: ActivatedRoute,
-    private userService: ZenithUserService,
-    private zenithService: ZenithService,
-    private cookieHelper: CookieHelper,
-    private settingsService: SettingsService,
-    private readonly router: Router
+    private readonly route: ActivatedRoute,
+    private readonly userService: ZenithUserService,
   ) {
 
   }
@@ -70,19 +62,19 @@ export class RunComponent implements OnInit{
 
 
   floorToName(floor: number) {
-    if(floor == 0 && this.run?.altitude) floor = this.dailyHelper.getFloorByAltitude(this.run.altitude)
+    if(floor == 0 && this.run?.altitude) floor = DailyHelper.getFloorByAltitude(this.run.altitude)
 
-    return this.dailyHelper.getFloorLongName(floor);
+    return DailyHelper.getFloorLongName(floor);
   }
 
   getFloorKey(floor: number) {
-    if(floor == 0 && this.run?.altitude) floor = this.dailyHelper.getFloorByAltitude(this.run.altitude)
+    if(floor == 0 && this.run?.altitude) floor = DailyHelper.getFloorByAltitude(this.run.altitude)
 
-    return this.dailyHelper.getFloorKey(floor);
+    return DailyHelper.getFloorKey(floor);
   }
 
   roundNumber(value: number, decimalPoints: number = 2){
-    return this.dailyHelper.roundNumber(value, decimalPoints);
+    return DailyHelper.roundNumber(value, decimalPoints);
   }
 
   getMods(modString: string) {
@@ -90,7 +82,7 @@ export class RunComponent implements OnInit{
   }
 
   getModImage(mod: string) {
-    return this.dailyHelper.getModImageUrl(mod);
+    return DailyHelper.getModImageUrl(mod);
   }
 
   protected gameOverFlavourText(gameOverReason: string) {

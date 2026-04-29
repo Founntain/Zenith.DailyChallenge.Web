@@ -1,5 +1,5 @@
 ﻿export class NumberUtils {
-  public toOrdinal(n: number): string {
+  public static toOrdinal(n: number): string {
     const num = Math.trunc(n);
     const abs = Math.abs(num);
 
@@ -14,7 +14,7 @@
     }
   }
 
-  public splitInto4PlaceValues(n: number): [number, number, number, number] {
+  public static splitInto4PlaceValues(n: number): [number, number, number, number] {
     // handle sign, ignore decimals
     const sign = Math.sign(n) || 1;
     n = Math.abs(Math.trunc(n));

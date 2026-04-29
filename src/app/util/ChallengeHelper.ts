@@ -2,7 +2,7 @@ import {ConditionType} from '../services/network/data/enums/ConditionType';
 import {Difficulty} from '../services/network/data/enums/Difficulty';
 
 export class ChallengeHelper {
-  getConditionText(type: number, value: number): string{
+  public static getConditionText(type: number, value: number): string{
     switch(type){
       case ConditionType.KOs:
         return `Get ${value} KO's`;
@@ -29,7 +29,7 @@ export class ChallengeHelper {
     }
   }
 
-  getPrefix(type: number): string{
+  public static getPrefix(type: number): string{
     switch(type){
       case ConditionType.KOs:
         return `Get`;
@@ -60,7 +60,7 @@ export class ChallengeHelper {
     }
   }
 
-  getValue(type: number, value: number):any []{
+  public static getValue(type: number, value: number):any []{
     switch(type){
       case ConditionType.KOs:
         return [value, ' KO\'s'];
@@ -91,7 +91,7 @@ export class ChallengeHelper {
     }
   }
 
-  getDifficultyText(difficulty: number, mods:string, getCssClass = false): string{
+  public static getDifficultyText(difficulty: number, mods:string, getCssClass = false): string{
     switch(difficulty){
       case Difficulty.VeryEasy:
         return "Very Easy";
@@ -123,7 +123,7 @@ export class ChallengeHelper {
     }
   }
 
-  getReverseFlavorText(mods: string): string{
+  public static getReverseFlavorText(mods: string): string{
     switch (mods) {
       case "expert_reversed": return "Fear, Oppression, And Limitless Ambition";
       case "nohold_reversed": return "A Detachment From Even That Which Is Moderate";
