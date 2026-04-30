@@ -1,0 +1,103 @@
+<div [ngClass]="['container', 'challenge', 'community', 'gap', isCommunityChallengeFinished]">
+  <div class="stripesLight borderBottom" style="width: 100%">
+    @if (communityChallengeData?.communityChallenge?.name !== null) {
+      <h1 class="headerText" style="margin: 10px;">{{ communityChallengeData?.communityChallenge.name.toUpperCase() }}</h1>
+    }@else{
+      <h1 class="headerText" style="margin: 10px;">COMMUNITY CHALLENGE</h1>
+    }
+  </div>
+
+  <!-- No CC Active -->
+  @if (communityChallengeData == null || communityChallengeData.communityChallenge === undefined){
+    <div class="simpleContainer gap">
+      <a>Currently no community challenge is active.</a>
+      <sub style="margin-bottom: 10px">Please check back later.</sub>
+    </div>
+  }@else{
+    <!-- CC Active -->
+    <div class="simpleContainer gap" style="width: 100%;">
+
+      <div class="clock">
+        <div class="flexContainer verticalCenter justifyCenter clock highlight gap">
+          <mat-icon class="">alarm</mat-icon>
+          <span class="clock highlight">{{communityTimeLeft}}</span>
+        </div>
+      </div>
+
+      @if (communityChallengeData?.communityChallenge?.description !== undefined) {
+        <span class="headerText" style="font-size: 1.25rem; white-space: pre-line">{{ communityChallengeData.communityChallenge.description }}</span>
+      }
+
+      <a class="highlight uppercase boldText">as a community</a>
+      <div class="bigText boldText gap">
+        <a class="">{{getCommunityPromptPrefix()}}</a>
+        <a class="highlight bigHighlightText">{{getCommunityPromptValue()}}</a>
+        <a class="">{{getCommunityPromptSuffix()}}</a>
+      </div>
+      @if(communityChallengeData?.communityChallenge?.mods !== null && communityChallengeData?.communityChallenge?.mods.length > 0){
+        <div class="gap">
+          @for (mod of communityChallengeData?.communityChallenge?.mods; track $index) {
+            <img class="bigMod flexStretch" src="assets/tetrio-img/mods/{{mod}}.png">
+          }
+        </div>
+      }
+
+      <div class="flexContainer flexColumn flexStretch" style="width: 100%; ">
+        <div class="flexColumn flexStretch contributorsBorder" style="max-height: 437px; overflow-y: auto;">
+          <table mat-table [dataSource]="communityChallengeData.topContributers ?? []">
+            <ng-container matColumnDef="Username">
+              <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
+              <td mat-cell *matCellDef="let element" >
+                <div class="flexRow" style="align-items: center; gap: 5px">
+                  <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Contributions">
+              <th mat-header-cell *matHeaderCellDef class="headerText" style="text-align: center; padding: 5px">Contributions </th>
+              <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" >{{getContributionValue(element.amount, communityChallengeData.communityChallenge.conditionType)}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['Username', 'Contributions']; sticky: true" ></tr>
+            <tr mat-row *matRowDef="let _; columns: ['Username', 'Contributions'];" ></tr>
+          </table>
+        </div>
+
+        <div class="flexContainer flexStretch stripesLight contributorsBorder" style="justify-items: center; align-items: center;">
+          <div class="layeredGrid stripesLight contributorsBorder">
+            <div class="stripesGoal gridFill" style="height: 100%" [style.width]="getCommunityGoalPercentage(communityChallengeData.communityChallenge.value, communityChallengeData.communityChallenge.targetValue)"></div>
+            <div class="stripesLight gridFill"></div>
+
+            <div class="flexColumn flexStretch gap gridFill" style="justify-content: center; align-items: center;">
+              <a class="highlight bigGoalText">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</a>
+              <span class="bigText boldText">of</span>
+              <a class="highlight bigGoalText">{{getCommunityPromptValue()}}</a>
+              <!--              <span class="bigText">{{getCommunityPromptProgressSuffix()}}</span>-->
+              <span class="bigText boldText">by <span class="highlight bigHighlightText">{{communityChallengeData.communityChallenge.participants}} participants</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flexColumn flexStretch contributorsBorder">
+          @for (contribution of recentContributions; track contribution){
+            <div class="">
+              @if (! contribution.isLate) {
+                <div class="flexRow gap" style="justify-content: center; align-items: end">
+                  <a class="flexStretch contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a>
+                  <span class="flexStretch boldText"> contributed </span>
+                  <span class="flexStretch highlight">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span>
+                </div>
+              }@else{
+                <div>
+                  <a class="contributionName highlight uppercase" [routerLink]="['/user', contribution.username]">{{contribution.username}}</a> contributed <span class="highlight">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span> . . . but was too late :c
+                </div>
+              }
+
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

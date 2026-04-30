@@ -1,0 +1,135 @@
+@if (serverStatistics !== undefined) {
+  <div class="baseContainer">
+    <h1 class="headerText centerText" style="margin: 5px">ZDC Server Statistics</h1>
+
+    <div class="flexColumn scoreContainer centerText stripes gap">
+      <div class="flexColumn">
+        <img src="assets/score.png" class="hugeMod" style="margin: auto"/>
+        <span class="scoreDisplay bigScoreText"> {{serverStatistics.totalScore.toLocaleString()}}</span>
+      </div>
+
+      <div class="flexColumn">
+        <span class="headerText" style="font-size: 1.3rem; letter-spacing: 3px">Climbed a total of</span>
+        <span class="scoreDisplay bigScoreText"> {{serverStatistics.altitudes.total.toLocaleString()}} M</span>
+      </div>
+
+      <div class="">
+        <div class="headerText" style="font-size: 1.3rem">
+          <span style="letter-spacing: 5px">by </span>
+          <span style="" class="highlight">{{serverStatistics.totalUsers}}</span>
+          <span style="letter-spacing: 5px"> Users of which </span>
+          <span style="" class="highlight">{{serverStatistics.rankedUsers}}</span>
+          <span style="letter-spacing: 5px"> are ranked</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flexColumn">
+      <div class="flexContainer">
+        <div class="modContainer nomod">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <p>No Mod</p>
+            <p class="altitude highlight">{{serverStatistics.altitudes.noMod.toLocaleString()}} M</p>
+          </div>
+        </div>
+        <div class="modContainer expert">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/expert.png" class="bigMod" />
+            <p class="altitude highlight">{{serverStatistics.altitudes.expert.toLocaleString()}} M</p>
+          </div>
+        </div>
+        <div class="modContainer nohold">
+          <div class="stripes"></div>
+
+          <div class="details">
+            <img src="assets/tetrio-img/mods/nohold.png" class="bigMod" />
+            <p class="altitude highlight">{{serverStatistics.altitudes.noHold.toLocaleString()}} M</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flexContainer">
+      <div class="modContainer messy">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/messy.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.messy.toLocaleString()}} M</p>
+        </div>
+      </div>
+
+      <div class="modContainer gravity">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/gravity.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.gravity.toLocaleString()}} M</p>
+        </div>
+      </div>
+
+      <div class="modContainer volatile">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/volatile.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.volatile.toLocaleString()}} M</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flexContainer">
+      <div class="modContainer doublehole">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/doublehole.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.doubleHole.toLocaleString()}} M</p>
+        </div>
+      </div>
+
+      <div class="modContainer invisible">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/invisible.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.invisible.toLocaleString()}} M</p>
+        </div>
+      </div>
+
+      <div class="modContainer allspin">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/tetrio-img/mods/allspin.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.allSpin.toLocaleString()}} M</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flexContainer">
+      <div class="modContainer reverseMod">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/clear_reverse.png" class="bigMod" />
+          <p class="altitude highlight">{{serverStatistics.altitudes.reverse.toLocaleString()}} M</p>
+        </div>
+      </div>
+
+      <div class="modContainer masteryMod masteryBackground">
+        <div class="stripes"></div>
+
+        <div class="details">
+          <img src="assets/mastery_2.png" class="bigMod" />
+          <p class="altitude highlight uppercase">{{(serverStatistics.masteryScore / 2).toLocaleString()}} masteries</p>
+        </div>
+      </div>
+    </div>
+  </div>
+}
