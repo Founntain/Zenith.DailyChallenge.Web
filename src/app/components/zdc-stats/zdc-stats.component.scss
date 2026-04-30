@@ -1,0 +1,157 @@
+@use '../../../styles' as *;
+@use '../../../styling/colors' as *;
+@use '../../../styling/xp' as *;
+@use '../../../styling/base' as base;
+@use '../../../styling/mixins' as mix;
+
+$mod-colors: (
+  expert: rgba(255, 248, 0, 0.75),
+  nohold: rgba(227, 69, 213, 0.75),
+  messy: rgba(221, 105, 67, 0.75),
+  gravity: rgba(246, 165, 63, 0.75),
+  volatile: rgba(222, 68, 95, 0.75),
+  doublehole: rgba(67, 130, 219, 0.75),
+  invisible: rgba(132, 67, 222, 0.75),
+  allspin: rgba(67, 222, 157, 0.75)
+);
+
+.scoreContainer {
+  color: white;
+  text-shadow: 0 2px #CCBBCC, 0 3px 10px #CCBBCC;
+
+  background-color: $background-color;
+  border: #DCD 3px solid;
+
+  margin: 0 5px;
+  padding: 10px;
+
+  .bigScoreText {
+    @extend .headerText;
+
+    font-size: 3rem;
+  }
+
+  .highlight {
+    color: white;
+    text-shadow: 0 1px $colorful-accent-color, 0 2px 8px $colorful-accent-color;
+  }
+
+  @include base.mobile {
+    font-size: 2rem;
+
+    img {
+      max-height: 64px;
+      max-width: 64px;
+    }
+  }
+}
+
+.modContainer {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+
+  color: #FFF !important;
+
+  @include base.mobile {
+    width: initial;
+  }
+
+  .stripes {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background: repeating-linear-gradient(
+      -45deg,
+      #0d0d0d55,
+      #0d0d0d55 12px,
+      #1a1a1a55 12px,
+      #1a1a1a55 25px
+    );
+
+    .borderTop {
+      border-top: 3px solid #FFF;
+    }
+
+    .borderBottom {
+      border-bottom: 3px solid #00000033;
+    }
+  }
+
+  .details {
+    @extend .headerText;
+
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    height: 100%;
+
+    h2,
+    h3 {
+      margin: 0;
+      flex: 1;
+    }
+
+    img {
+      flex: 1;
+      margin: auto;
+    }
+
+    .altitude {
+      font-size: 3rem;
+      margin: 0;
+    }
+  }
+
+  .highlight {
+    @extend .headerText;
+
+    color: white;
+  }
+
+  &.nomod {
+    background-color: $background-color;
+    border: #DCD 3px solid;
+
+    .highlight {
+      text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
+    }
+  }
+
+  @each $mod, $color in $mod-colors {
+    &.#{$mod} {
+      border: $color 3px solid;
+      background-color: $color;
+
+      .highlight {
+        text-shadow: 0 3px $color, 0 6px 16px $color;
+      }
+    }
+  }
+
+  &.reverseMod {
+    border: 3px solid #ff0059;
+    background-color: rgba(170, 0, 89, 0.5);
+
+    .highlight {
+      text-shadow: 0 3px #ff0059, 0 6px 16px #ff0059;
+    }
+  }
+
+  &.masteryMod {
+    border: 3px solid #FFDDFF;
+
+    .highlight {
+      text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
+    }
+  }
+}
