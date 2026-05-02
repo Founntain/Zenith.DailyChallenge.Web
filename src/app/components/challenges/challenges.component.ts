@@ -14,6 +14,7 @@ import {TimeHelper} from '../../util/TimeHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {UserSessionService} from '../../services/user-session.service';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-challenges',
@@ -21,7 +22,9 @@ import {UserSessionService} from '../../services/user-session.service';
     ChallengeComponent,
     ZenithTextWobbleComponent,
     NgClass,
-    MatIcon
+    MatIcon,
+    MatTabGroup,
+    MatTab
   ],
   templateUrl: './challenges.component.html',
   styleUrl: './challenges.component.scss'

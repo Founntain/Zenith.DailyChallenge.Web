@@ -365,25 +365,23 @@
       <mat-tab label="Seasonal">
         @if (seasonalData !== undefined && seasonalData.length > 0) {
           <div style="overflow-x: auto">
-            <table mat-table [dataSource]="communityContributionData">
+            <table mat-table [dataSource]="seasonalData">
               <ng-container matColumnDef="Season">
                 <th mat-header-cell *matHeaderCellDef> Season </th>
-                <td mat-cell *matCellDef="let element"> {{element.challenge}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.seasonName}} </td>
               </ng-container>
 
               <ng-container matColumnDef="Score">
-                <th mat-header-cell *matHeaderCellDef> <img src="assets/score.png" class="mod"> </th>
-                <td mat-cell *matCellDef="let element">
-                  {{getCommunityContributionvalue(element.totalAmountContributed, element.conditionType)}}
-                </td>
+                <th mat-header-cell *matHeaderCellDef class="centerText"> <img src="assets/score.png" class="mod" style="margin: auto"> </th>
+                <td mat-cell *matCellDef="let element" class="centerText">{{element.seasonScore}}</td>
               </ng-container>
 
               <ng-container matColumnDef="Placement">
                 <th mat-header-cell *matHeaderCellDef> Placement </th>
-                <td mat-cell *matCellDef="let element"> {{element.placement}} of {{element.participantCount}}</td>
+                <td mat-cell *matCellDef="let element"> {{element.seasonPlacement}} of {{element.seasonParticipants}}</td>
               </ng-container>
 
-              <tr mat-header-row sticky *matHeaderRowDef="communityChallengeColumns" ></tr>
+              <tr mat-header-row sticky *matHeaderRowDef="['Season','Score','Placement']" ></tr>
               <tr mat-row *matRowDef="let _; columns: ['Season','Score','Placement'];"></tr>
             </table>
           </div>

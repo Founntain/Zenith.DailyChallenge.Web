@@ -4,6 +4,10 @@
 @use '../../../styling/base' as base;
 @use '../../../styling/mixins' as mix;
 
+.borderBottom2{
+  border-bottom: 3px solid rgba($text-color, 1);
+}
+
 .date{
   @extend .headerText;
 
@@ -154,4 +158,57 @@
     color: white;
     text-shadow: 0 1px $reverse-accent-color, 0 3px 10px $reverse-accent-color;
   }
+}
+
+.masteryNew{
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(8, 10, 14, 0.55),
+    rgba(8, 10, 14, 0.55) 12px,
+    rgba(22, 25, 32, 0.55) 12px,
+    rgba(22, 25, 32, 0.55) 25px
+  );
+
+  border-top: 3px solid #3a404a;
+  border-left: 3px solid #4b5260;
+  border-bottom: 3px solid #252a33;
+  border-right: 3px solid #171b22;
+  color: white;
+  text-shadow: 0 0 16px rgba(120, 130, 150, 0.35);
+
+  background-size: 200% 200%;
+
+  animation: scroll 40s linear infinite;
+
+  @keyframes scroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+
+  .highlight {
+    @extend .headerText;
+
+    color: white;
+    text-shadow: 0 1px #343a46, 0 3px 12px rgba(72, 82, 102, 0.9);
+  }
+}
+
+.masteryNewBackground{
+  width: 100%;
+
+  background: linear-gradient(
+    to right,
+    rgba(5, 7, 10, 0.85),
+    rgba(12, 15, 20, 0.85),
+    rgba(18, 22, 30, 0.85),
+    rgba(25, 29, 39, 0.85),
+    rgba(33, 37, 48, 0.85),
+    rgba(42, 47, 60, 0.85),
+    rgba(52, 55, 70, 0.85),
+    rgba(60, 58, 76, 0.85)
+  );
 }

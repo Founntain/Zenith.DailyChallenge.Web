@@ -1,6 +1,6 @@
 @if (run) {
-  <div class="flexContainer">
-    <div class="flexContainer flexColumn centerText headerText runHeader" style="position: relative;" >
+  <div class="flexColumn">
+    <div class="flexColumn centerText headerText runHeader" style="position: relative;" >
       <div [class]='["splitBackground", getFloorKey(run.floor)]'></div>
       <span style="font-size: 4rem;text-shadow: 0 0 10px black, 0 0 20px white;" matTooltip="{{roundNumber(run.altitude, 5)}} Meters">{{roundNumber(run.altitude, 3)}} M</span>
       <span style="font-size: 2rem">{{floorToName(run.floor)}}</span>
@@ -15,16 +15,16 @@
         <span style="margin-bottom: 5px">Reason of death: {{gameOverFlavourText(run.gameOverReason)}}</span>
       }
     </div>
-    <div class="flexContainer flexRow gap centerText headerText stripes runHeader" style="font-size: 2.5rem; padding: 10px">
+    <div class="flexRow gap centerText headerText stripes runHeader" style="font-size: 2.5rem; padding: 10px">
       <div class="flexStretch" matTooltip="{{roundNumber(run.pps, 5)}} PPS">{{roundNumber(run.pps, 3)}} PPS</div>
       <div class="flexStretch" matTooltip="{{roundNumber(run.apm, 5)}} APM">{{roundNumber(run.apm, 3)}} APM</div>
       <div class="flexStretch" matTooltip="{{roundNumber(run.vs, 5)}} VS">{{roundNumber(run.vs, 3)}} VS</div>
     </div>
     <div class="gap" style="padding: 10px">
-      <div class="flexContainer flexRow flexStretch gap">
-        <div class="flexContainer flexColumn flexStretch centerText sectionBorder attack">
+      <div class="flexRow flexStretch gap">
+        <div class="flexColumn flexStretch centerText sectionBorder attack">
           <div class="headerText" style="font-size: 1.5rem">Attack</div>
-          <div class="flexContainer flexColumn flexStretch">
+          <div class="flexColumn flexStretch">
             <div class="statRow">
               <span class="headerText" style="font-size: 1.25rem;">Garbage Sent:</span>
               <span class="dots"></span>
@@ -47,9 +47,9 @@
             </div>
           </div>
         </div>
-        <div class="flexContainer flexColumn flexStretch centerText sectionBorder defense">
+        <div class="flexColumn flexStretch centerText sectionBorder defense">
           <div class="headerText" style="font-size: 1.5rem">Defense</div>
-          <div class="flexContainer flexColumn flexStretch">
+          <div class="flexColumn flexStretch">
             <div class="statRow">
               <span class="headerText" style="font-size: 1.25rem;">Garbage Received:</span>
               <span class="dots"></span>
@@ -73,10 +73,10 @@
           </div>
         </div>
       </div>
-      <div class="flexContainer flexRow flexStretch gap">
-        <div class="flexContainer flexColumn flexStretch centerText sectionBorder efficiency">
+      <div class="flexRow flexStretch gap">
+        <div class="flexColumn flexStretch centerText sectionBorder efficiency">
           <div class="headerText" style="font-size: 1.5rem">Stability</div>
-          <div class="flexContainer flexColumn flexStretch">
+          <div class="flexColumn flexStretch">
             <div class="statRow">
               <span class="headerText" style="font-size: 1.25rem;">Finesse:</span>
               <span class="dots"></span>
@@ -104,9 +104,9 @@
             </div>
           </div>
         </div>
-        <div class="flexContainer flexColumn flexStretch centerText sectionBorder playstyle">
+        <div class="flexColumn flexStretch centerText sectionBorder playstyle">
           <div class="headerText" style="font-size: 1.5rem">Playstyle</div>
-          <div class="flexContainer flexColumn flexStretch">
+          <div class="flexColumn flexStretch">
             <div class="statRow">
               <span class="headerText" style="font-size: 1.25rem;">Quads:</span>
               <span class="dots"></span>
@@ -135,10 +135,10 @@
           </div>
         </div>
       </div>
-      <div class="flexContainer flexRow flexStretch gap">
-        <div class="flexContainer flexColumn flexStretch centerText sectionBorder rank">
+      <div class="flexRow flexStretch gap">
+        <div class="flexColumn flexStretch centerText sectionBorder rank">
           <div class="headerText" style="font-size: 1.5rem">Game Performance</div>
-          <div class="flexContainer flexColumn flexStretch">
+          <div class="flexColumn flexStretch">
             <div class="statRow">
               <span class="headerText" style="font-size: 1.25rem;">Position:</span>
               <span class="dots"></span>
