@@ -12,6 +12,7 @@ import {CommunityChallengeContributions} from './data/interfaces/CommunityChalle
 import {TodayCompletions} from './data/interfaces/TodayCompletions';
 import {ZenithSplits} from './data/interfaces/ZenithSplits';
 import {DailyExtra} from './data/interfaces/DailyExtra';
+import {SeasonalUserData} from './data/interfaces/SeasonalUserData';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +67,9 @@ export class ZenithUserService {
 
   getChallengeCompletions(username: string, page: number, pageSize: number): Observable<ChallengeCompletion[]>{
     return this.http.get<ChallengeCompletion[]>(`${this.baseUrl}${username}/challengeCompletions?page=${page}&pageSize=${pageSize}`);
+  }
+
+  getSeasonalHistory(username: string): Observable<SeasonalUserData[]>{
+    return this.http.get<SeasonalUserData[]>(`${this.baseUrl}${username}/seasonalHistory`);
   }
 }

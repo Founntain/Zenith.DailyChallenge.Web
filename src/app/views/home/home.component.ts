@@ -57,7 +57,8 @@ import {ZdcStatsComponent} from '../../components/zdc-stats/zdc-stats.component'
     AsyncPipe,
     ChallengesComponent,
     CommunityChallengeComponent,
-    ZdcStatsComponent
+    ZdcStatsComponent,
+    NgClass
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
