@@ -50,6 +50,7 @@ import {
 import {NumberUtils} from '../../util/NumberUtils';
 import {MatTooltip} from '@angular/material/tooltip';
 import {DailyHelper} from '../../util/DailyHelper';
+import {SeasonalUserData} from '../../services/network/data/interfaces/SeasonalUserData';
 
 @Component({
   selector: 'app-user',
@@ -97,6 +98,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   runData: Run[] = [];
   challengeData: ChallengeCompletion[] = [];
   communityContributionData: CommunityChallengeContributions[] = [];
+  seasonalData: SeasonalUserData[] = [];
 
   splitMods:string[] =  ['nomod', 'expert', 'nohold', 'messy', 'gravity', 'volatile', 'doublehole', 'invisible', 'allspin', 'expert_reversed', 'nohold_reversed', 'messy_reversed', 'gravity_reversed', 'volatile_reversed', 'doublehole_reversed', 'invisible_reversed', 'allspin_reversed']
   splitModsText: string[] = ['No Mod', 'Expert', 'No Hold', 'Messy', 'Gravity', 'Volatile', 'Double Hole', 'Invisible', 'All Spin', 'The Tyrant', 'Asceticism', 'Loaded Dice', 'Freefall', 'Last Stand', 'Damnation', 'The Exile', 'The Warlock']
@@ -207,6 +209,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   floors: (keyof Splits)[] = ['hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  loadSeasonalDa: any;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -346,6 +349,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.loadSplitTimes(null, false)
       this.loadRunData();
       this.loadChallengeData();
+      this.loadSeasonalData();
       this.loadCommunityContributionData();
     })
 
@@ -587,8 +591,14 @@ export class UserComponent implements OnInit, AfterViewInit {
     return "lt_shape_color_" + Math.floor(combinedParts / 10);
   }
 
-  protected goToRunDetails(run: any) {
-    console.log('XDD')
-    this.router.navigate(['/runs', run.tetrioId]);
+  private loadSeasonalData() {
+    this.userService.getSeasonalHistory(this.username).subscribe({
+      next: (result) => {
+        this.seasonalData = result;
+      },
+      error: (error) => {
+        console.error('Error fetching seasonal data:', error);
+      }
+    })
   }
 }

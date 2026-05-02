@@ -362,6 +362,34 @@
         }
       </mat-tab>
 
+      <mat-tab label="Seasonal">
+        @if (seasonalData !== undefined && seasonalData.length > 0) {
+          <div style="overflow-x: auto">
+            <table mat-table [dataSource]="communityContributionData">
+              <ng-container matColumnDef="Season">
+                <th mat-header-cell *matHeaderCellDef> Season </th>
+                <td mat-cell *matCellDef="let element"> {{element.challenge}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Score">
+                <th mat-header-cell *matHeaderCellDef> <img src="assets/score.png" class="mod"> </th>
+                <td mat-cell *matCellDef="let element">
+                  {{getCommunityContributionvalue(element.totalAmountContributed, element.conditionType)}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Placement">
+                <th mat-header-cell *matHeaderCellDef> Placement </th>
+                <td mat-cell *matCellDef="let element"> {{element.placement}} of {{element.participantCount}}</td>
+              </ng-container>
+
+              <tr mat-header-row sticky *matHeaderRowDef="communityChallengeColumns" ></tr>
+              <tr mat-row *matRowDef="let _; columns: ['Season','Score','Placement'];"></tr>
+            </table>
+          </div>
+        }
+      </mat-tab>
+
       <!-- Community Contributions-->
       <mat-tab label="Community Contributions">
         @if (communityContributionData !== undefined && communityContributionData.length > 0) {
