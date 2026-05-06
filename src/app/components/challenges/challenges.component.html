@@ -137,17 +137,57 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="? ? ?">
+    <mat-tab label="Weekly">
       <div style="margin: 10px">
         <div class="challengeContainer gap">
-          <div class="masteryNewBackground gap">
-            <div class="challenge baseMastery masteryNew gap">
-              <h1 class="highlight" style="margin: 2px;">? ? ?</h1>
+          <div class="weeklyBackground gap">
+            <div class="challenge baseMastery weekly gap">
+              @if(weeklyChallenge !== undefined)
+              {
+                <h1 class="highlight" style="margin: 2px;">Week {{weeklyChallenge.week}}</h1>
 
-              <div>
-                <span>something new is coming soon™️</span>
-              </div>
+                <hr>
 
+                <div class="flexColumn alignCenter" style="margin-top: 10px; margin-bottom: 10px">
+                  <img src="assets/score.png" class="hugeMod" />
+                  <div class="score-comparison">
+                    <span class="headerText bigText score-left">{{getScores()[0]}}</span>
+                    <span class="headerText bigText score-slash">/</span>
+                    <span class="headerText bigText score-right">{{getScores()[1]}}</span>
+                  </div>
+                </div>
+
+                <hr style="margin: 0 100px 0 100px;">
+
+                <div class="flexContainer flexStretch justifyCenter">
+                  @for (condition of weeklyChallenge.condtions; track $index) {
+                    <div class="flexColumn flexStretch alignCenter">
+                      <h2>{{ChallengeHelperObj.getWeeklyPrefix(condition.type)}}</h2>
+                      <div class="score-comparison">
+                        <span class="headerText bigText score-left">{{getWeeklyChallengeProgress($index)}}</span>
+                        <span class="headerText bigText score-slash">/</span>
+                        <span class="headerText bigText score-right">{{condition.value.toLocaleString()}} </span>
+                        <span class="headerText score-unit">{{ChallengeHelperObj.getWeeklySuffix(condition.type)}}</span>
+                      </div>
+                      <div class="flexContainer justifyCenter" style="margin-top: 10px">
+                        <img src="{{getWeeklyCompletionImage($index, condition.value)}}" class="weeklyProgressIcon">
+                      </div>
+                    </div>
+                  }
+                </div>
+
+                <div style="padding: 20px 50px">
+                  <div class="progress progress--animated" [style.--progress]="getWeeklyObjectiveCompletedCountPercentage() + '%'">
+                    <div class="progress__fill"></div>
+                  </div>
+                </div>
+
+                <div class="headerText bigText" style="margin: 20px">
+                  <span style="font-size: 2rem">{{getWeeklyObjectiveCompletedCount()}}</span>
+                  <span> / </span>
+                  <span>{{weeklyChallenge.condtions.length}} Objectives completed</span>
+                </div>
+              }
             </div>
           </div>
         </div>

@@ -15,6 +15,9 @@ import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {UserSessionService} from '../../services/user-session.service';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {WeeklyChallenge, WeeklyChallengeProgress} from '../../services/network/data/interfaces/WeeklyChallenge';
+import {ChallengeHelper} from '../../util/ChallengeHelper';
+import {DailyHelper} from '../../util/DailyHelper';
 
 @Component({
   selector: 'app-challenges',
@@ -32,6 +35,7 @@ import {MatTab, MatTabGroup} from '@angular/material/tabs';
 export class ChallengesComponent implements OnInit, OnDestroy {
   public user$: Observable<UserProfileData | null>;
   protected readonly Difficulty = Difficulty;
+  protected readonly ChallengeHelperObj = ChallengeHelper;
 
   private timerId: any;
 
@@ -41,6 +45,9 @@ export class ChallengesComponent implements OnInit, OnDestroy {
 
   dailyChallenges: DailyChallenge[] = [];
   todayUsersCompletions: TodayCompletions | undefined;
+
+  weeklyChallenge: WeeklyChallenge | undefined;
+  weeklyChallengeProgress: WeeklyChallengeProgress | undefined;
 
   constructor(
     private readonly zenithService: ZenithService,
@@ -67,6 +74,10 @@ export class ChallengesComponent implements OnInit, OnDestroy {
           });
         });
       });
+    })
+
+    this.zenithService.getWeekly().subscribe(result => {
+      this.weeklyChallenge = result;
     })
 
     this.loadUsersTodaysCompletions();
@@ -104,11 +115,19 @@ export class ChallengesComponent implements OnInit, OnDestroy {
       this.userService.getTodaysChallengeCompletions(user.username).subscribe(result => {
         this.todayUsersCompletions = result;
       })
+
+      this.zenithService.getWeeklyProgression(user.username).subscribe(result => {
+        this.weeklyChallengeProgress = result;
+      })
     }else{
       this.user$.subscribe(user => {
         if(user){
           this.userService.getTodaysChallengeCompletions(user.username).subscribe(result => {
             this.todayUsersCompletions = result;
+          })
+
+          this.zenithService.getWeeklyProgression(user.username).subscribe(result => {
+            this.weeklyChallengeProgress = result;
           })
         }
       })
@@ -213,5 +232,65 @@ export class ChallengesComponent implements OnInit, OnDestroy {
       default:
         return []
     }
+  }
+
+  protected readonly ChallengeHelper = ChallengeHelper;
+
+  protected getWeeklyChallengeProgress($index: number): string {
+    if(!this.weeklyChallengeProgress?.progress) return "0"
+
+    return DailyHelper.roundNumber(this.weeklyChallengeProgress.progress[$index]?.currentProgress ?? 0);
+  }
+
+  protected getWeeklyCompletionImage($index: number, value: number) {
+    if(!this.weeklyChallengeProgress?.progress) return "assets/weekly-not-done.png";
+
+    return (this.weeklyChallengeProgress.progress[$index]?.isCompleted ?? false) ? "assets/weekly-done.png" : "assets/weekly-not-done.png";
+  }
+
+  protected getWeeklyObjectiveCompletedCount(): number{
+    let amount = 0;
+
+    if(!this.weeklyChallengeProgress?.progress) return amount;
+
+    return this.weeklyChallengeProgress.progress.filter(progress => progress.isCompleted).length;
+  }
+
+  protected getWeeklyObjectiveCompletedCountPercentage(): number{
+    if( ! this.weeklyChallengeProgress?.progress) return  0;
+
+    let values:number[] = [];
+
+    for (let i = 0; i < this.weeklyChallengeProgress.progress.length; i++) {
+      let progress = this.weeklyChallengeProgress.progress[i].currentProgress;
+      let targetValue = this.weeklyChallenge?.condtions[i].value ?? 0;
+
+      if(progress === 0 || targetValue === 0){
+        values.push(0)
+        continue;
+      }
+
+      values.push(progress / targetValue * 100);
+    }
+
+    return values.reduce((acc, val) => acc + val, 0) / values.length;
+  }
+
+  protected getScores(){
+    let scoreAchieved = 0;
+    let maxScore = 0;
+
+    if(! this.weeklyChallenge?.condtions) return  [scoreAchieved, maxScore];
+
+    maxScore = (this.weeklyChallenge.condtions.length * 10) * 2;
+
+    if( ! this.weeklyChallengeProgress?.progress) return  [scoreAchieved, maxScore];
+
+    scoreAchieved = this.getWeeklyObjectiveCompletedCount();
+
+    if(scoreAchieved > 0)
+      scoreAchieved *= 10;
+
+    return [scoreAchieved, maxScore]
   }
 }

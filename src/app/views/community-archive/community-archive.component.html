@@ -1,18 +1,18 @@
 @if (communityChallenge !== undefined) {
   <div class="baseContainer ">
 
-    <div class="flexContainer flexColumn">
-      <div class="flexContainer flexStretch flexRow borderBottom">
-        <div class="flexContainer flexStretch centerText headerText pageText navButton" (click)="goToPage(communityChallenge.previousChallengeId)">
+    <div class="flexColumn">
+      <div class="flexStretch flexRow borderBottom">
+        <div class="flexStretch centerText headerText pageText navButton" (click)="goToPage(communityChallenge.previousChallengeId)">
           <span>PREVIOUS</span>
         </div>
 
-        <div class="flexContainer flexStretch centerText headerText pageText navButton" (click)="goToPage(communityChallenge.nextChallengeId)">
+        <div class="flexStretch centerText headerText pageText navButton" (click)="goToPage(communityChallenge.nextChallengeId)">
           <span>NEXT</span>
         </div>
       </div>
 
-      <div class="flexContainer flexStretch flexColumn centerText">
+      <div class="flexStretch flexColumn centerText">
         <span class="headerText title"> Community Challenge </span>
 
         <span class="boldText">{{communityChallenge.startDate}} - {{communityChallenge.endDate}}</span>
