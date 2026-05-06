@@ -1,0 +1,45 @@
+﻿.ratio-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: black;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+.ratio-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ratio-left {
+  flex: 444;
+}
+
+.ratio-right {
+  flex: 777;
+}
+
+.ratio-slash {
+  flex: 0 0 auto;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  padding: 0 0.15em;
+}
+
+.ratio-unit {
+  flex: 0 0 auto;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  font-weight: 900;
+  color: #666;
+  padding-left: 0.2em;
+  white-space: nowrap;
+}

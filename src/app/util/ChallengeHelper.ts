@@ -1,4 +1,4 @@
-import {ConditionType} from '../services/network/data/enums/ConditionType';
+import {ConditionType, WeeklyConditionType} from '../services/network/data/enums/ConditionType';
 import {Difficulty} from '../services/network/data/enums/Difficulty';
 
 export class ChallengeHelper {
@@ -55,6 +55,59 @@ export class ChallengeHelper {
         return `Get`;
       case ConditionType.Lines:
         return `Clear`;
+      default:
+        return ""
+    }
+  }
+
+  public static getWeeklyPrefix(type: number): string{
+    switch(type){
+      case WeeklyConditionType.Height:
+        return `Accumulate`;
+      case WeeklyConditionType.KOs:
+        return `Eliminate`;
+      case WeeklyConditionType.Quads:
+        return `Clear`;
+      case WeeklyConditionType.Spins:
+        return `Clear`;
+      case WeeklyConditionType.AllClears:
+        return `Get`;
+      case WeeklyConditionType.BackToBack:
+        return `Get`;
+      case WeeklyConditionType.TotalBonus:
+        return `Achieve`;
+      case WeeklyConditionType.LinesCleared:
+        return `Clear`;
+      case WeeklyConditionType.GarbageSent:
+        return `Send`;
+      case WeeklyConditionType.GarbageCleared:
+        return `Cancel`;
+      default:
+        return ""
+    }
+  }
+
+  public static getWeeklySuffix(type: number): string{
+    switch(type){
+      case WeeklyConditionType.Height:
+        return `M`;
+      case WeeklyConditionType.KOs:
+        return `Players`;
+      case WeeklyConditionType.Quads:
+        return `Quads`;
+      case WeeklyConditionType.Spins:
+        return `Spins`;
+      case WeeklyConditionType.AllClears:
+        return `AllClears`;
+      case WeeklyConditionType.BackToBack:
+        return `B2B`;
+      case WeeklyConditionType.TotalBonus:
+        return `Bonus`;
+      case WeeklyConditionType.LinesCleared:
+        return `Lines`;
+      case WeeklyConditionType.GarbageSent:
+      case WeeklyConditionType.GarbageCleared:
+        return `Garbage`;
       default:
         return ""
     }

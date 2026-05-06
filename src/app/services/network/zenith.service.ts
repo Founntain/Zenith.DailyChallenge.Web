@@ -7,6 +7,7 @@ import {GlobalLeaderboard} from './data/interfaces/GlobalLeaderboard';
 import {CommunityChallenge} from './data/interfaces/CommunityChallenge';
 import {RecentCommunityContribution} from './data/interfaces/RecentCommunityContribution';
 import {ServerStatistics} from './data/interfaces/ServerStatistics';
+import {WeeklyChallenge, WeeklyChallengeProgress} from './data/interfaces/WeeklyChallenge';
 
 @Injectable({
   providedIn: 'root'
@@ -22,26 +23,34 @@ export class ZenithService {
   }
 
   getDailyChallenges(): Observable<DailyChallenge[]>{
-    return this.http.get<DailyChallenge[]>(this.baseUrl + '/daily');
+    return this.http.get<DailyChallenge[]>(`${this.baseUrl}/daily`);
   }
 
   getCommunityChallenge(): Observable<CommunityChallenge>{
-    return this.http.get<CommunityChallenge>(this.baseUrl + '/daily/getCommunityChallenge');
+    return this.http.get<CommunityChallenge>(`${this.baseUrl}/daily/getCommunityChallenge`);
   }
 
   getRecentCommunityContributions(): Observable<RecentCommunityContribution[]>{
-    return this.http.get<RecentCommunityContribution[]>(this.baseUrl + '/daily/getRecentCommunityContributions');
+    return this.http.get<RecentCommunityContribution[]>(`${this.baseUrl}/daily/getRecentCommunityContributions`);
   }
 
   getSplitLeaderboard(): Observable<DailyChallenge[]>{
-    return this.http.get<DailyChallenge[]>(this.baseUrl + '/daily/getSplitLeaderboard');
+    return this.http.get<DailyChallenge[]>(`${this.baseUrl}/daily/getSplitLeaderboard`);
   }
 
   getServerStatistics(): Observable<ServerStatistics>{
-    return this.http.get<ServerStatistics>(this.baseUrl + '/daily/getServerStatistics');
+    return this.http.get<ServerStatistics>(`${this.baseUrl}/daily/getServerStatistics`);
   }
 
   submitRuns(): Observable<any>{
-    return this.http.post(this.baseUrl + '/daily/submit', {}, { withCredentials: true });
+    return this.http.post(`${this.baseUrl}/daily/submit`, {}, { withCredentials: true });
+  }
+
+  getWeekly(): Observable<WeeklyChallenge>{
+    return this.http.get<WeeklyChallenge>(`${this.baseUrl}/weekly`);
+  }
+
+  getWeeklyProgression(username: string): Observable<WeeklyChallengeProgress>{
+    return this.http.get<WeeklyChallengeProgress>(`${this.baseUrl}/weekly/${username}/progression`);
   }
 }
