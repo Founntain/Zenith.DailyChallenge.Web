@@ -1,9 +1,9 @@
-// Main Colors - Neutral Charcoal + Single Accent (Indigo)
-$text-color: #e7e7ea;                   // Soft neutral near-white (less blue)
-$background-color: #1b1f27;                 // medium charcoal
-$background-shade-solid: #232834;           // surfaces/cards
-$background-shade: rgba(255, 255, 255, 0.10); // subtle overlay
-$background-dark-shade: #0e0f13;                 // medium charcoal
+$text-color: #e7e7ea;
+$subtle-text-color: rgba($text-color, 0.4);
+$background-color: #1b1f27;
+$background-shade-solid: #232834;
+$background-shade: rgba(255, 255, 255, 0.10);
+$background-dark-shade: #0e0f13;
 
 $primary-color: #e7e5e4;
 $accent-color: #e7e5e4;

@@ -270,7 +270,11 @@ export class ChallengesComponent implements OnInit, OnDestroy {
         continue;
       }
 
-      values.push(progress / targetValue * 100);
+      let val = progress / targetValue * 100;
+
+      if(val > 100) val = 100;
+
+      values.push(val);
     }
 
     return values.reduce((acc, val) => acc + val, 0) / values.length;

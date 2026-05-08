@@ -499,12 +499,8 @@ th{
 }
 
 .scoreContainer{
-  font-family: 'CB', "Helvetica Neue", sans-serif, serif;
-  font-size: 3rem;
-
   color: white;
 
-  text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -526,6 +522,16 @@ th{
      max-width: 64px;
    }
  }
+}
+
+.scoreDisplay{
+  text-shadow: 0 3px #CCBBCC, 0 6px 16px #CCBBCC;
+  font-size: 3rem;
+}
+
+.scoreDisplaySub{
+  font-size: 1.1rem;
+  color: rgba($text-color, 0.4);
 }
 
 .challengeUncompleted{

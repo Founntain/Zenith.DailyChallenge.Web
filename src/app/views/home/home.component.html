@@ -7,7 +7,7 @@
 <!--      <h1 class="headerText"> ZENITH DAILY CHALLENGE</h1>-->
 <!--    </div>-->
     <div>
-      <span>Tackle on challenges and push yourself to the limit, or learn playstyles you never tried before. Everyone is welcome to give it a try!</span>
+      <span>Welcome! No matter how you found this place, I do welcome you! Here you can find challenges in various difficulties, mod based challenges and community challenges or you can use this site to track your runs and stats.</span>
     </div>
 
     <div>
@@ -27,6 +27,7 @@
     <div class="flexColumn">
       <span>Resources belong to <a class="highlight" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="highlight" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
       <span>Icon and Background made by <span class="highlight"><a class="highlight" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span></span>
+      <span>Weekly Icons by <span class="highlight"><a class="highlight" href="https://www.shenzhia.de/" style="text-decoration: none">PinkMilkTea</a></span></span>
     </div>
   </div>
   @if (user$ | async; as user) {
@@ -68,7 +69,7 @@
                   <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
                   <td mat-cell *matCellDef="let element" >
                     <div class="flexRow" style="align-items: center; gap: 5px">
-                      <div class="leveltag" [class]="[getLevelTagShape(element.level), getLevelTagBadgeColor(element.level), getLevelTagShapeColor(element.level)]"
+                      <div class="leveltag" [class]="[DailyHelper.getLevelTagShape(element.level), DailyHelper.getLevelTagBadgeColor(element.level), DailyHelper.getLevelTagShapeColor(element.level)]"
                            style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
                       <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
                     </div>
@@ -81,41 +82,6 @@
                   </th>
                   <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.score.toLocaleString()}}</td>
                 </ng-container>
-
-      <!--          <ng-container matColumnDef="EasyChallengesCompleted">-->
-      <!--            <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">-->
-      <!--              <img class="headerImage" ngSrc="assets/clear_easy_2.png" height="36" width="36" matTooltip="Easy Challenges Completed"/>-->
-      <!--            </th>-->
-      <!--            <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.easyChallengesCompleted.toLocaleString()}}</td>-->
-      <!--          </ng-container>-->
-
-      <!--          <ng-container matColumnDef="NormalChallengesCompleted">-->
-      <!--            <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">-->
-      <!--              <img class="headerImage" ngSrc="assets/clear_normal_2.png" height="36" width="36" matTooltip="Normal Challenges Completed"/>-->
-      <!--            </th>-->
-      <!--            <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.normalChallengesCompleted.toLocaleString()}}</td>-->
-      <!--          </ng-container>-->
-
-      <!--          <ng-container matColumnDef="HardChallengesCompleted">-->
-      <!--            <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">-->
-      <!--              <img class="headerImage" ngSrc="assets/clear_hard_2.png" height="36" width="36" matTooltip="Hard Challenges Completed"/>-->
-      <!--            </th>-->
-      <!--            <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.hardChallengesCompleted.toLocaleString()}}</td>-->
-      <!--          </ng-container>-->
-
-      <!--          <ng-container matColumnDef="ExpertChallengesCompleted">-->
-      <!--            <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" matTooltip="Expert Challenges Completed"/> </th>-->
-      <!--            <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.expertChallengesCompleted.toLocaleString()}}</td>-->
-      <!--          </ng-container>-->
-
-      <!--          <ng-container matColumnDef="ReverseChallengesCompleted">-->
-      <!--            <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" matTooltip="Reverse Challenges Completed"/> </th>-->
-      <!--            <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.reverseChallengesCompleted.toLocaleString()}}</td>-->
-      <!--          </ng-container>-->
-      <!--          <ng-container matColumnDef="MasteryChallengesCompleted">-->
-      <!--            <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery_2.png" height="36" width="36" matTooltip="Mastery Challenges Completed"/> </th>-->
-      <!--            <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.masteryChallengesCompleted.toLocaleString()}}</td>-->
-      <!--          </ng-container>-->
 
                 <tr mat-header-row *matHeaderRowDef="seasonalLeaderboardColumns" ></tr>
                 <tr mat-row *matRowDef="let _; columns: seasonalLeaderboardColumns;" ></tr>
@@ -143,7 +109,7 @@
                 <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
                 <td mat-cell *matCellDef="let element" >
                   <div class="flexRow" style="align-items: center; gap: 5px">
-                    <div class="leveltag" [class]="[getLevelTagShape(element.level), getLevelTagBadgeColor(element.level), getLevelTagShapeColor(element.level)]"
+                    <div class="leveltag" [class]="[DailyHelper.getLevelTagShape(element.level), DailyHelper.getLevelTagBadgeColor(element.level), DailyHelper.getLevelTagShapeColor(element.level)]"
                          style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
                     <div class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</div>
                   </div>
@@ -173,8 +139,7 @@
                 <th mat-header-cell *matHeaderCellDef class="headerText"> Name </th>
                 <td mat-cell *matCellDef="let element" >
                   <div class="flexRow" style="align-items: center; gap: 5px">
-                    <div class="leveltag" [class]="[getLevelTagShape(element.level), getLevelTagBadgeColor(element.level), getLevelTagShapeColor(element.level)]"
-                         style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
+                    <div class="leveltag" [class]="[DailyHelper.getLevelTagShape(element.level), DailyHelper.getLevelTagBadgeColor(element.level), DailyHelper.getLevelTagShapeColor(element.level)]" style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
                     <div class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</div>
                   </div>
                 </td>
@@ -236,7 +201,7 @@
 </div>
 
 <div class="baseContainer centerText">
-  <div class="flexColumn boldText support" style="font-size: 1.1rem;">
+  <div class="flexColumn headerText support" style="font-size: 1.1rem;">
     <span>If you want to support me for making ZDC, maybe consider gifting me TETR.IO supporter.</span>
     <span>This way you support the game, osk and me!</span>
     <span>Or give the GitHub <a href="https://github.com/Founntain/Zenith.DailyChallenge.Web" class="highlight">Repository</a> a ⭐, maybe a ⭐ for the <a href="https://github.com/Founntain/TETRIO.Overlay" class="highlight">backend</a> too.</span>

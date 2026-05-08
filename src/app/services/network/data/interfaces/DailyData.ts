@@ -14,4 +14,5 @@ export interface DailyData {
   altitudePercentages: number[];
   masteryCompletions: MasteryCompletions | undefined;
   score: number;
+  seasonalScore: number;
 }

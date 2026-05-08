@@ -81,7 +81,7 @@ export class ChallengeHelper {
       case WeeklyConditionType.GarbageSent:
         return `Send`;
       case WeeklyConditionType.GarbageCleared:
-        return `Cancel`;
+        return `Clear`;
       default:
         return ""
     }

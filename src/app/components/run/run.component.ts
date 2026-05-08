@@ -6,11 +6,13 @@ import {DailyHelper} from '../../util/DailyHelper';
 import {Splits} from '../../services/network/data/interfaces/Splits';
 import {RunAnalyzer} from '../../util/RunAnalyzer';
 import {MatTooltip} from '@angular/material/tooltip';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-run',
   imports: [
-    MatTooltip
+    MatTooltip,
+    DatePipe
   ],
   templateUrl: './run.component.html',
   styleUrl: './run.component.scss'
