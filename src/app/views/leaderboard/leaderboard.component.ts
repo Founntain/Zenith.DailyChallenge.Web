@@ -15,6 +15,7 @@ import {RouterLink} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTooltip} from '@angular/material/tooltip';
 import {LeaderboardService} from '../../services/network/leaderboard.service';
+import {DailyHelper} from '../../util/DailyHelper';
 
 @Component({
   selector: 'app-leaderboard',
@@ -38,6 +39,8 @@ import {LeaderboardService} from '../../services/network/leaderboard.service';
   styleUrl: './leaderboard.component.scss'
 })
 export class LeaderboardComponent implements OnInit {
+  protected readonly DailyHelper = DailyHelper;
+
   constructor(private zenithService: ZenithService, private leaderboardService: LeaderboardService) {
     this.page = 1;
     this.pageSize = 30;

@@ -1,4 +1,5 @@
 ﻿import {Splits} from '../services/network/data/interfaces/Splits';
+import {NumberUtils} from './NumberUtils';
 
 export class DailyHelper {
   public static floors: (keyof Splits)[] = ['hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
@@ -47,5 +48,28 @@ export class DailyHelper {
 
   public static getModImageUrl(mod: string){
     return `/assets/tetrio-img/mods/${mod}.png`;
+  }
+
+  public static getLevelTagShape(level: number) {
+    const parts = NumberUtils.splitInto4PlaceValues(level)
+
+    let x = parts[1] >= 500 ? parts[1] - 500 : parts[1];
+
+    return "lt_shape_" + Math.floor(x/ 100);
+  }
+
+  public static getLevelTagBadgeColor(level: number) {
+    const parts = NumberUtils.splitInto4PlaceValues(level)
+    const combinedParts = parts[0] + parts[1];
+
+    return "lt_badge_color_" + Math.floor(combinedParts / 500);
+  }
+
+  public static getLevelTagShapeColor(level: number) {
+    const parts = NumberUtils.splitInto4PlaceValues(level)
+    const combinedParts = parts[2] + parts[3];
+
+
+    return "lt_shape_color_" + Math.floor(combinedParts / 10);
   }
 }

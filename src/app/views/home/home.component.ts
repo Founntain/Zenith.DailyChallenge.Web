@@ -35,6 +35,7 @@ import {ChallengesComponent} from '../../components/challenges/challenges.compon
 import {TimeHelper} from '../../util/TimeHelper';
 import {CommunityChallengeComponent} from '../../components/community-challenge/community-challenge.component';
 import {ZdcStatsComponent} from '../../components/zdc-stats/zdc-stats.component';
+import {DailyHelper} from '../../util/DailyHelper';
 
 @Component({
   selector: 'app-home',
@@ -65,6 +66,8 @@ import {ZdcStatsComponent} from '../../components/zdc-stats/zdc-stats.component'
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
+  protected readonly DailyHelper = DailyHelper;
+
   public user$: Observable<UserProfileData | null>;
 
   @ViewChild(ChallengesComponent)
@@ -180,28 +183,5 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }
     })
-  }
-
-  protected getLevelTagShape(level: number) {
-    const parts = NumberUtils.splitInto4PlaceValues(level)
-
-    let x = parts[1] >= 500 ? parts[1] - 500 : parts[1];
-
-    return "lt_shape_" + Math.floor(x/ 100);
-  }
-
-  protected getLevelTagBadgeColor(level: number) {
-    const parts = NumberUtils.splitInto4PlaceValues(level)
-    const combinedParts = parts[0] + parts[1];
-
-    return "lt_badge_color_" + Math.floor(combinedParts / 500);
-  }
-
-  protected getLevelTagShapeColor(level: number) {
-    const parts = NumberUtils.splitInto4PlaceValues(level)
-    const combinedParts = parts[2] + parts[3];
-
-
-    return "lt_shape_color_" + Math.floor(combinedParts / 10);
   }
 }
