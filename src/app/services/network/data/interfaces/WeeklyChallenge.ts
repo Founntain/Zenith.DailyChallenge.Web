@@ -10,6 +10,7 @@ export interface WeeklyChallenge {
 
 export interface WeeklyChallengeProgress {
   week: number;
+  isCompleted: boolean;
   progress: WeeklyChallengeConditionProgress[];
 }
 

@@ -2,10 +2,13 @@
 @use '../../../styling/base' as *;
 
 .runHeader{
-  border-bottom: 3px solid $accent-color;
+  border: solid $accent-color;
+  border-width: 0 0 3px 0;
+  border-image: $colorful-accent-gradient 1;
 
   text-shadow: 0 0 10px black;
 }
+
 
 .splitBackground{
   position: absolute;
@@ -60,22 +63,22 @@
 
 
   &.attack{
-    border-color: orangered;
+    border-image: linear-gradient(145deg, orangered, #ffb347) 1;
   }
 
   &.defense{
-    border-color: mediumpurple;
+    border-image: linear-gradient(145deg, mediumpurple, #c7a6ff) 1;
   }
 
   &.efficiency{
-    border-color: cornflowerblue;
+    border-image: linear-gradient(145deg, cornflowerblue, #a37fff) 1;
   }
 
   &.playstyle{
-    border-color: palegreen;
+    border-image: linear-gradient(145deg, palegreen, #dfff7f) 1;
   }
 
   &.rank{
-    border-color: gold;
+    border-image: linear-gradient(145deg, gold, #fff3a3) 1;
   }
 }

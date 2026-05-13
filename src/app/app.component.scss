@@ -32,8 +32,9 @@
   background: $background-color;
   color: $text-color;
 
-  border-right: 2px solid $accent-color;
-  border-radius: 0;
+  border:solid $accent-color;
+  border-width: 0 2px 0 0;
+  border-image: $colorful-accent-gradient 1;
 }
 
 .local-warning-banner {

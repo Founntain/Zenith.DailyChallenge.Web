@@ -25,9 +25,9 @@
     }
 
     <div class="flexColumn">
-      <span>Resources belong to <a class="highlight" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="highlight" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
-      <span>Icon and Background made by <span class="highlight"><a class="highlight" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span></span>
-      <span>Weekly Icons by <span class="highlight"><a class="highlight" href="https://www.shenzhia.de/" style="text-decoration: none">PinkMilkTea</a></span></span>
+      <span>Resources belong to <a class="link" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="link" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
+      <span>Icon and Background made by <a class="link" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span>
+      <span>Weekly Icons by <a class="link" href="https://www.shenzhia.de/" style="text-decoration: none">PinkMilkTea</a></span>
     </div>
   </div>
   @if (user$ | async; as user) {
@@ -71,7 +71,7 @@
                     <div class="flexRow" style="align-items: center; gap: 5px">
                       <div class="leveltag" [class]="[DailyHelper.getLevelTagShape(element.level), DailyHelper.getLevelTagBadgeColor(element.level), DailyHelper.getLevelTagShapeColor(element.level)]"
                            style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
-                      <a class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</a>
+                      <span class="headerText uppercase" style="vertical-align: center">{{element.username}}</span>
                     </div>
                   </td>
                 </ng-container>
@@ -84,7 +84,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="seasonalLeaderboardColumns" ></tr>
-                <tr mat-row *matRowDef="let _; columns: seasonalLeaderboardColumns;" ></tr>
+                <tr mat-row class="clickable" *matRowDef="let row; columns: seasonalLeaderboardColumns; " [routerLink]="['/user', row.username]"></tr>
               </table>
             } @else {
               <div class="centerText">
@@ -111,7 +111,7 @@
                   <div class="flexRow" style="align-items: center; gap: 5px">
                     <div class="leveltag" [class]="[DailyHelper.getLevelTagShape(element.level), DailyHelper.getLevelTagBadgeColor(element.level), DailyHelper.getLevelTagShapeColor(element.level)]"
                          style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
-                    <div class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</div>
+                    <div class="headerText uppercase" style="vertical-align: center">{{element.username}}</div>
                   </div>
                 </td>
               </ng-container>
@@ -124,7 +124,7 @@
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="legacyLeaderboardColumns" ></tr>
-              <tr mat-row *matRowDef="let _; columns: legacyLeaderboardColumns;" ></tr>
+              <tr mat-row class="clickable" *matRowDef="let row; columns: legacyLeaderboardColumns;" [routerLink]="['/user', row.username]"></tr>
             </table>
           </div>
         </div>
@@ -140,7 +140,7 @@
                 <td mat-cell *matCellDef="let element" >
                   <div class="flexRow" style="align-items: center; gap: 5px">
                     <div class="leveltag" [class]="[DailyHelper.getLevelTagShape(element.level), DailyHelper.getLevelTagBadgeColor(element.level), DailyHelper.getLevelTagShapeColor(element.level)]" style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
-                    <div class="link headerText uppercase" style="vertical-align: center" [routerLink]="['/user', element.username]">{{element.username}}</div>
+                    <div class="headerText uppercase" style="vertical-align: center">{{element.username}}</div>
                   </div>
                 </td>
               </ng-container>
@@ -188,7 +188,7 @@
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="globalLeaderboardColumns" ></tr>
-              <tr mat-row *matRowDef="let _; columns: globalLeaderboardColumns;" ></tr>
+              <tr mat-row class="clickable" *matRowDef="let row; columns: globalLeaderboardColumns;" [routerLink]="['/user', row.username]"></tr>
             </table>
           </div>
           <div class="centerText uppercase">
@@ -200,10 +200,10 @@
   </mat-tab-group>
 </div>
 
-<div class="baseContainer centerText">
+<div class="baseContainer centerText" style="padding: 5px">
   <div class="flexColumn headerText support" style="font-size: 1.1rem;">
     <span>If you want to support me for making ZDC, maybe consider gifting me TETR.IO supporter.</span>
     <span>This way you support the game, osk and me!</span>
-    <span>Or give the GitHub <a href="https://github.com/Founntain/Zenith.DailyChallenge.Web" class="highlight">Repository</a> a ⭐, maybe a ⭐ for the <a href="https://github.com/Founntain/TETRIO.Overlay" class="highlight">backend</a> too.</span>
+    <span>Or give the GitHub <a href="https://github.com/Founntain/Zenith.DailyChallenge.Web" class="link">Repository</a> a ⭐, maybe a ⭐ for the <a href="https://github.com/Founntain/TETRIO.Overlay" class="link">backend</a> too.</span>
   </div>
 </div>

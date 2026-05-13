@@ -15,7 +15,7 @@ header {
     transition: color 0.3s;
 
     &:hover{
-      color: $colorful-accent-color;
+      color: $colorful-accent-gradientColor2;
     }
   }
 
@@ -25,22 +25,28 @@ header {
 
   .title{
     font-size: 1.5rem;
+    color: $text-color;
 
     transition: all .3s ease-in-out;
 
     &:hover {
-      color: $colorful-accent-color !important;
+      color: $colorful-accent-gradientColor2 !important;
       letter-spacing: 1px;
     }
   }
 
   .menuBtn{
-    color: $text-color;
+    background-image: $text-color;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: $text-color;
+
     cursor: pointer;
     transition: color 0.3s ease-in-out;
 
     &:hover{
-      color: $colorful-accent-color;
+      background-image: $colorful-accent-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
 
@@ -63,6 +69,8 @@ header {
     border-bottom: 2px solid $accent-color;
     border-left: 2px solid $accent-color;
     border-right: 2px solid $accent-color;
+
+    border-image: $colorful-accent-gradient 0 2 2 2;
     box-sizing: border-box;
 
     @media screen and (max-width: 600px) {
@@ -76,6 +84,8 @@ header {
     }
 
     nav a {
+      color: $text-color;
+
       text-decoration: none;
       margin: 0 15px;
       font-size: 18px;
@@ -83,7 +93,8 @@ header {
       transition: all .3s ease-in-out;
 
       &:hover {
-        color: $colorful-accent-color;
+        color: $colorful-accent-gradientColor2;
+
         letter-spacing: 5px;
         transform: skewY(-2deg);
       }

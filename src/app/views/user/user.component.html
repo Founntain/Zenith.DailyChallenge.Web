@@ -42,7 +42,7 @@
   <!-- Settings -->
   @if (isSameUser) {
 
-    <div class="userContainer">
+    <div class="userContainer borderTopBottom">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -289,11 +289,10 @@
       <!-- Challenges Completed -->
       <mat-tab label="Challenges Completed">
         @if(challengeData !== undefined && challengeData.length > 0){
-          <div class="userContainer" style="padding: 0">
+          <div class="" style="padding: 0">
             <div>
               @if (dailyData.challengesCompleted > 10) {
-                <mat-paginator class="borderTop"
-                               [pageSizeOptions]="[10, 25, 50, 100]"
+                <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"
                                [pageSize]="challengePageSize"
                                [length]="dailyData.challengesCompleted"
                                (page)="onPageChange($event, 0)"
@@ -394,10 +393,9 @@
       <!-- Community Contributions-->
       <mat-tab label="Community Contributions">
         @if (communityContributionData !== undefined && communityContributionData.length > 0) {
-          <div class="dailyContainer userContainer" style="padding: 0">
+          <div class="dailyContainer" style="padding: 0">
             @if (communityContributionData[0].totalContributions > challengePageSize) {
               <mat-paginator
-                class="borderTop"
                 [pageSizeOptions]="[10, 25, 50, 100]"
                 [pageSize]="communityChallengePageSize"
                 [length]="communityContributionData[0].totalContributions"
@@ -448,10 +446,9 @@
       <!-- Recent Runs -->
       <mat-tab label="Recent Runs">
         @if (runData !== undefined && runData.length > 0) {
-          <div class="runs userContainer" style="padding: 0">
+          <div class="runs" style="padding: 0">
             @if (dailyData.runs > 25){
-              <mat-paginator class="borderTop"
-                             [pageSizeOptions]="[25, 50, 100, 250]"
+              <mat-paginator [pageSizeOptions]="[25, 50, 100, 250]"
                              [pageSize]="runPageSize"
                              [length]="dailyData.runs"
                              (page)="onPageChange($event, 2)"

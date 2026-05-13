@@ -10,7 +10,7 @@ footer {
   z-index: 1000;
 
   min-width: 1080px;
-  max-width: 1500px;
+  max-width: 2000px;
   margin: auto;
 
   @media screen and (max-width: 1080px) {
@@ -36,9 +36,11 @@ footer {
   justify-content: space-between;
   font-size: 0.75rem;
   height: 50px;
-  border-top: 2px solid $accent-color;
-  border-left: 2px solid $accent-color;
-  border-right: 2px solid $accent-color;
+
+  border: solid;
+  border-width: 2px 2px 0 2px;
+  border-image: $colorful-accent-gradient 1;
+
   box-sizing: border-box;
 
   @include base.mobile {

@@ -25,7 +25,9 @@
 
 .mat-drawer-backdrop.mat-drawer-shown {
   backdrop-filter: blur(10px) !important;
-  border-right: 1px solid $accent-color;
+  border: solid $accent-color;
+  border-width: 0 2px 0 0;
+  border-image: $colorful-accent-gradient 1;
 
   transition: .2s all ease-in-out !important;
 }
@@ -65,13 +67,18 @@ body {
   background-color: $background-color !important;
 
   min-width: 1080px;
-  max-width: 1500px;
+  max-width: 2000px;
 
   @media screen and (max-width: 1080px) {
     width: 100%;
     margin: initial;
     min-width: initial;
   }
+}
+
+a{
+  color: $text-color;
+  text-decoration: none;
 }
 
 hr{
@@ -98,7 +105,7 @@ hr{
   font-size: 64pt;
   font-weight: 800;
 
-  background-color: rgba($colorful-accent-color, 0.8);
+  background: $colorful-accent-gradient;
   border-top: 3px solid    rgba($background-color, 0.8);
   border-left: 3px solid   rgba($background-color, 0.8);
   border-bottom: 3px solid rgba($background-color, 0.8);
@@ -179,9 +186,26 @@ select {
 }
 
 .link {
+  @extend .headerText;
+  font-weight: bold;
+
   color: $text-color !important;
+  background-image: $colorful-accent-gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-decoration: none;
   cursor: pointer;
+
+  transition: all .3s ease-in-out;
+
+  &:hover{
+    //background-image: $colorful-accent-gradient;
+    //-webkit-background-clip: text;
+    //-webkit-text-fill-color: transparent;
+
+    letter-spacing: 3px;
+    transform: skewY(-2deg);
+  }
 }
 
 .flexContainer{

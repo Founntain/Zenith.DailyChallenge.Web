@@ -1,9 +1,17 @@
 @use '../../../styles' as *;
 @use '../../../styling/colors' as *;
 
+.baseContainer{
+  @extend .baseContainer;
+
+  border: 1px solid;
+  //border-width: 0 0 0 1px;
+  border-image: $colorful-accent-gradient 1;
+}
+
 .borderSides{
-  border-left: 1px solid rgb($background-shade, 0.5);
-  border-right: 1px solid rgb($background-shade, 0.5);
+  border-left: 1px solid rgb($colorful-accent-gradientColor2, 0.5);
+  border-right: 1px solid rgb($colorful-accent-gradientColor2, 0.5);
 }
 
 .valueWrapper {

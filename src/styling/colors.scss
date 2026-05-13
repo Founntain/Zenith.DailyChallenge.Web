@@ -1,7 +1,7 @@
 $text-color: #e7e7ea;
 $subtle-text-color: rgba($text-color, 0.4);
-$background-color: #1b1f27;
-$background-shade-solid: #232834;
+$background-color: #211b27;
+$background-shade-solid: #2c2334;
 $background-shade: rgba(255, 255, 255, 0.10);
 $background-dark-shade: #0e0f13;
 
@@ -9,7 +9,13 @@ $primary-color: #e7e5e4;
 $accent-color: #e7e5e4;
 $secondary-color: #a1a1aa;
 $colorful-accent-color: #92affc;
+$colorful-accent-gradientColor1: mediumpurple;
+$colorful-accent-gradientColor2: #c7a6ff;
+$colorful-accent-gradient: linear-gradient(145deg, mediumpurple, #c7a6ff);
+$colorful-accent-90gradient: linear-gradient(90deg, mediumpurple, #c7a6ff);
 $shadow-color: rgba(0, 0, 0, 0.55);
+
+$border-color-gradient: linear-gradient(145deg, gold, #fff3a3);
 
 // Difficulty colors
 $easy-text-color: #6baeff;

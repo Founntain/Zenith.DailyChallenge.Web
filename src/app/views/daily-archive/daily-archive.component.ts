@@ -10,6 +10,7 @@ import {Difficulty} from '../../services/network/data/enums/Difficulty';
 import {Component} from '@angular/core';
 import {min} from 'rxjs';
 import {MatTooltip} from '@angular/material/tooltip';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-daily-archive',
@@ -19,6 +20,7 @@ import {MatTooltip} from '@angular/material/tooltip';
     MatFormFieldModule,
     MatInputModule,
     MatTooltip,
+    RouterLink,
   ],
   providers: [
     provideNativeDateAdapter(),

@@ -33,7 +33,7 @@ $mod-colors: (
 
   .highlight {
     color: white;
-    text-shadow: 0 1px $colorful-accent-color, 0 2px 8px $colorful-accent-color;
+    text-shadow: 0 1px $colorful-accent-gradientColor2, 0 2px 8px $colorful-accent-gradientColor2;
   }
 
   @include base.mobile {

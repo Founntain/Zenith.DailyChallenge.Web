@@ -4,8 +4,10 @@
 @use '../../../styling/base' as base;
 @use '../../../styling/mixins' as mix;
 
-.borderBottom2{
-  border-bottom: 3px solid rgba($text-color, 1);
+.challengeBorder{
+  border: solid $accent-color;
+  border-width: 3px 0 3px 0px;
+  border-image: $colorful-accent-gradient 1;
 }
 
 hr{

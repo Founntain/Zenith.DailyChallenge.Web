@@ -7,7 +7,9 @@
   height: 100vh; // Ensure the container takes full height
   max-height: 100vh;
 
-  border-left: 1px solid $accent-color;
+  border: solid;
+  border-width: 0 0 0 1px;
+  border-image: $colorful-accent-gradient 1;
 }
 
 .header{
@@ -17,7 +19,9 @@
   font-size: 1.5rem;
   letter-spacing: 5px;
 
-  border-bottom: 2px solid $accent-color;
+  border: solid;
+  border-width: 0 0 2px 0;
+  border-image: $colorful-accent-gradient 1;
 
   margin-bottom: 5px;
   //padding: 10px;
@@ -30,7 +34,9 @@
     .profilePicture {
       max-height: 64px;
       //border-radius: 50%;
-      border-right: 2px solid $accent-color;
+      border: solid;
+      border-width: 0 2px 0 0;
+      border-image: $colorful-accent-gradient 1;
     }
   }
 
@@ -50,7 +56,7 @@
     transition: all .3s ease-in-out;
 
     &:hover {
-      color: $colorful-accent-color;
+      color: $colorful-accent-gradientColor2;
       letter-spacing: 10px;
     }
   }
@@ -89,7 +95,7 @@
   transition: all 0.2s ease-in-out;
 
   &:hover{
-    color: $primary-color;
+    color: $colorful-accent-gradientColor2;
 
     letter-spacing: 1px;
     transform: skewX(-10deg);
@@ -101,7 +107,8 @@
 
   text-align: center;
   margin-top: auto;
-  border-top: 1px solid $accent-color; // Optional: adds a visual separator
+  border: 1px solid;
+  border-image: $colorful-accent-gradient 1;
   padding: 10px 0;
 
   cursor: pointer;
@@ -112,7 +119,9 @@
 }
 
 .challengeCompletions{
-  border-bottom: 2px solid $accent-color;
+  border: solid $accent-color;
+  border-width: 0 0 2px 0;
+  border-image: $colorful-accent-gradient 1;
 }
 
 .challengeUncompleted{

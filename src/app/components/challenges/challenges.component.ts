@@ -9,7 +9,7 @@ import {Condition} from '../../services/network/data/interfaces/Condition';
 import {NgClass} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {ZenithService} from '../../services/network/zenith.service';
-import {firstValueFrom, interval, Observable, take} from 'rxjs';
+import {firstValueFrom, interval, max, Observable, take} from 'rxjs';
 import {TimeHelper} from '../../util/TimeHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
@@ -257,13 +257,13 @@ export class ChallengesComponent implements OnInit, OnDestroy {
   }
 
   protected getWeeklyObjectiveCompletedCountPercentage(): number{
-    if( ! this.weeklyChallengeProgress?.progress) return  0;
+    if( ! this.weeklyChallengeProgress?.progress || ! this.weeklyChallenge?.condtions ) return  0;
 
     let values:number[] = [];
 
-    for (let i = 0; i < this.weeklyChallengeProgress.progress.length; i++) {
-      let progress = this.weeklyChallengeProgress.progress[i].currentProgress;
+    for (let i = 0; i < this.weeklyChallenge?.condtions.length; i++) {
       let targetValue = this.weeklyChallenge?.condtions[i].value ?? 0;
+      let progress = this.weeklyChallengeProgress.progress[i].currentProgress;
 
       if(progress === 0 || targetValue === 0){
         values.push(0)
@@ -292,8 +292,10 @@ export class ChallengesComponent implements OnInit, OnDestroy {
 
     scoreAchieved = this.getWeeklyObjectiveCompletedCount();
 
-    if(scoreAchieved > 0)
-      scoreAchieved *= 10;
+    if(scoreAchieved > 0) scoreAchieved *= 10;
+
+    if(this.weeklyChallengeProgress.isCompleted) scoreAchieved = maxScore;
+
 
     return [scoreAchieved, maxScore]
   }

@@ -54,8 +54,9 @@
 }
 
 .baseContainer{
-  //background-color: $background-shade;
-  border: 1px solid $accent-color;
+  border: solid $accent-color;
+  border-width: 0 1px 0 1px;
+  border-image: $colorful-accent-90gradient 1;
 }
 
 .flexRow{
@@ -105,13 +106,13 @@
     td,
     th {
       background: $stripes-light-background;
-      color: $colorful-accent-color; // lighter text (good for dark-ish UIs)
+      color: $colorful-accent-gradientColor2; // lighter text (good for dark-ish UIs)
     }
 
     // Optional accent stripe on the first column
     td:first-child,
     th:first-child {
-      box-shadow: inset 4px 0 0 0 $colorful-accent-color;
+      box-shadow: inset 4px 0 0 0 $colorful-accent-gradientColor2;
     }
   }
 }

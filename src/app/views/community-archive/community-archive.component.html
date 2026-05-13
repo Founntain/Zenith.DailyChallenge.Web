@@ -47,18 +47,18 @@
           <th mat-header-cell *matHeaderCellDef class="headerText"> Username </th>
           <td mat-cell *matCellDef="let element" >
             <div class="flexRow" style="align-items: center; gap: 5px">
-              <a class="link headerText uppercase" style="vertical-align: center; font-weight: 800" [routerLink]="['/user', element.name]">{{element.name}}</a>
+              <span class="headerText uppercase" style="vertical-align: center; font-weight: 800" >{{element.name}}</span>
             </div>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="Contributions">
-          <th mat-header-cell *matHeaderCellDef class="headerText" style="text-align: center"> Contributions</th>
-          <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.contributions.toLocaleString()}} {{getTypeSuffix(communityChallenge.conditionType)}}</td>
+          <th mat-header-cell *matHeaderCellDef class="headerText" style="text-align: center">{{getTypeSuffix(communityChallenge.conditionType)}}</th>
+          <td mat-cell *matCellDef="let element" class="headerText" style="text-align: center" > {{element.contributions.toLocaleString()}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns" ></tr>
-        <tr mat-row *matRowDef="let _; columns: columns;" ></tr>
+        <tr mat-row class="clickable" *matRowDef="let row; columns: columns;" [routerLink]="['/user', row.name]"></tr>
       </table>
     </div>
   </div>

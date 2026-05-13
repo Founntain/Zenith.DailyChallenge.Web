@@ -13,6 +13,9 @@
 
   background-color: rgba(52, 20, 85, 0.5);
 
+  border: 1px solid;
+  border-image: $colorful-accent-gradient 1;
+
   color: $community-text-color;
 
   .highlight {

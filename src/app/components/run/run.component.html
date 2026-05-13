@@ -140,6 +140,11 @@
           <div class="headerText" style="font-size: 1.5rem">Game Performance</div>
           <div class="flexColumn flexStretch">
             <div class="statRow">
+              <span class="headerText" style="font-size: 1.25rem;">Time alive:</span>
+              <span class="dots"></span>
+              <span class="headerText" style="font-size: 2rem"> {{run.totalTime | date:'m:ss'}}</span>
+            </div>
+            <div class="statRow">
               <span class="headerText" style="font-size: 1.25rem;">Position:</span>
               <span class="dots"></span>
               <span class="headerText" style="font-size: 2rem"> {{run.finalPosition}} <span style="font-size: 1.5rem"> / {{run.peakPlayerCount}}</span></span>
