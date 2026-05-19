@@ -129,7 +129,8 @@ $mods: (
 }
 
 .borderTopBottom{
-  border: 1px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
   border-image: $colorful-accent-gradient 1;
 }
 

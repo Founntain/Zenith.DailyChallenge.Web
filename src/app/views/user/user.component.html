@@ -6,7 +6,7 @@
     <h3 style="text-align: center; text-decoration: underline; font-weight: normal">Maybe encourage <span class="uppercase">{{username}}</span> to start their ZDC Career today!</h3>
   </div>
 }@else{
-  <div class="userContainer" style="position: relative; padding: 0">
+  <div class="userContainer borderTopBottom" style="position: relative; padding: 0">
     <div class="userBanner" [style.backgroundImage]="'url(https://tetr.io/user-content/banners/' + (dailyData.userInfo?.userId) + '.jpg?rv='+ (dailyData.userInfo?.banner) + ')'"></div>
 
     <div class="flexRow gap userInfoContainer">
@@ -284,7 +284,7 @@
     </mat-tab-group>
   </div>
 
-  <div class="userContainer" style="padding: 0">
+  <div class="userContainer borderTopBottom" style="padding: 0">
     <mat-tab-group dynamicHeight class="remove-border-bottom">
       <!-- Challenges Completed -->
       <mat-tab label="Challenges Completed">
