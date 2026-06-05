@@ -3,7 +3,7 @@ import {ChallengeComponent} from "../challenge/challenge.component";
 import {ZenithTextWobbleComponent} from "../zenith-text-wobble/zenith-text-wobble.component";
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
-import {ConditionType} from '../../services/network/data/enums/ConditionType';
+import {ConditionType, WeeklyConditionType} from '../../services/network/data/enums/ConditionType';
 import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
 import {Condition} from '../../services/network/data/interfaces/Condition';
 import {NgClass} from '@angular/common';
@@ -39,8 +39,8 @@ export class ChallengesComponent implements OnInit, OnDestroy {
 
   private timerId: any;
 
-  date: string = "";
-  timeLeft: string = "";
+  date: string = "fetching...";
+  timeLeft: string = "fetching...";
   runsUntilUnixSeconds: number = 0;
 
   dailyChallenges: DailyChallenge[] = [];
@@ -242,10 +242,25 @@ export class ChallengesComponent implements OnInit, OnDestroy {
     return DailyHelper.roundNumber(this.weeklyChallengeProgress.progress[$index]?.currentProgress ?? 0);
   }
 
-  protected getWeeklyCompletionImage($index: number, value: number) {
-    if(!this.weeklyChallengeProgress?.progress) return "assets/weekly-not-done.png";
+  protected getWeeklyCompletionImage($index: number, value: number, type: number): string {
+    if(!this.weeklyChallengeProgress?.progress) return "assets/weekly/not-done.png";
 
-    return (this.weeklyChallengeProgress.progress[$index]?.isCompleted ?? false) ? "assets/weekly-done.png" : "assets/weekly-not-done.png";
+    const isCompleted = this.weeklyChallengeProgress.progress[$index]?.isCompleted ?? false;
+
+    if(!isCompleted) return "assets/weekly/not-done.png"
+
+    switch (type) {
+      case WeeklyConditionType.Height:
+        return "assets/weekly/altitude.png"
+      case WeeklyConditionType.AllClears:
+        return "assets/weekly/all-clears.png";
+      case WeeklyConditionType.LinesCleared:
+        return "assets/weekly/clear-lines.png";
+      case WeeklyConditionType.Spins:
+        return "assets/weekly/spins.png";
+      default:
+        return "assets/weekly/done.png";
+    }
   }
 
   protected getWeeklyObjectiveCompletedCount(): number{

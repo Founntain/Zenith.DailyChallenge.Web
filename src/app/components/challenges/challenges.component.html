@@ -57,6 +57,10 @@
 
         </div>
       }
+      @else
+      {
+        <h1 class="centerText">fetching challenges...</h1>
+      }
     </mat-tab>
     <mat-tab label="Daily Masteries">
       <div style="margin: 10px">
@@ -170,7 +174,7 @@
                         <span class="headerText score-unit">{{ChallengeHelperObj.getWeeklySuffix(condition.type)}}</span>
                       </div>
                       <div class="flexContainer justifyCenter" style="margin-top: 10px">
-                        <img src="{{getWeeklyCompletionImage($index, condition.value)}}" class="weeklyProgressIcon">
+                        <img src="{{getWeeklyCompletionImage($index, condition.value, condition.type)}}" class="weeklyProgressIcon">
                       </div>
                     </div>
                   }
