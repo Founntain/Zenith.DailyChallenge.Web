@@ -82,7 +82,7 @@ export class SideMenuComponent implements OnInit{
       return;
     }
 
-    this.router.navigate(['/user', value]);
+    this.router.navigate(['/u', value]);
 
     input.value = '';
   }

@@ -101,7 +101,15 @@
 
     $zenithSplitsBorderWidth: 5px;
 
-    border-top: 1px solid rgba($text-color, 0.8);
+    border-top: 1px solid rgba($background-shade, 0.8);
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover{
+      border-top: 1px solid transparent;
+      transform: scale(1.02);
+      z-index: 10000;
+    }
 
     // Generate floor borders
     @each $floor, $color in $floor-colors {
@@ -127,7 +135,7 @@
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
-      background-attachment: fixed;
+      background-attachment: scroll;
 
       filter: opacity(0.5);
 

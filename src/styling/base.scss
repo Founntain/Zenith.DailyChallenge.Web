@@ -1,8 +1,4 @@
 ﻿@use 'colors' as *;
-@font-face {
-  font-family: 'DSEG7';
-  src: url('../assets/fonts/DSEG7ClassicMini-Regular.ttf') format('truetype');
-}
 
 @mixin mobile {
   @media screen and (max-width: 600px) {
@@ -53,6 +49,11 @@
 .verticalCenter{
   align-content: center;
   align-items: center;
+}
+
+.verticalEnd{
+  align-content: end;
+  align-items: end;
 }
 
 .hugeGap{

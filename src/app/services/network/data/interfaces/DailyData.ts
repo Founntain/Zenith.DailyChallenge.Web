@@ -21,6 +21,7 @@ export interface DailyDataNew {
   tetrioId: string;
   username: string;
   score: number;
+  seasonalScore: number;
   avatar: number
   banner: number
   title: string;
@@ -33,18 +34,18 @@ export interface DailyDataNew {
   altitudePercentages: number[];
 }
 
-interface RecentAverage {
+export interface RecentAverage {
   date: string;
   average: number;
 }
 
-interface UserAverages {
+export interface UserAverages {
   average: number;
   recent: RecentAverage[];
   improvement: number;
 }
 
-interface FloorAverages {
+export interface FloorAverages {
   average: number;
   floors: number[];
 }

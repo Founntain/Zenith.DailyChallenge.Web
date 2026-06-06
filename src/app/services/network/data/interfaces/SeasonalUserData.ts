@@ -1,6 +1,6 @@
 export interface SeasonalUserData {
   seasonName: string;
-  seasonPlacements: number;
+  seasonPlacement: number;
   seasonParticipants: number;
   seasonScore: number;
 }

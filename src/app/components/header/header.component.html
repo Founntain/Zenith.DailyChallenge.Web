@@ -15,7 +15,7 @@
             />
           }
 
-          <a [routerLink]="['/user', user.username]">{{ user.username }}</a>
+          <a [routerLink]="['/u', user.username]">{{ user.username }}</a>
           <mat-icon class="icon" (click)="logout()">logout</mat-icon>
         </div>
       } @else {

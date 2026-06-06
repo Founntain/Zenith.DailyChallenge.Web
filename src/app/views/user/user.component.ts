@@ -72,7 +72,6 @@ import {ZenithSplitsComponent} from '../../components/zenith-splits/zenith-split
     MatIcon,
     RouterLink,
     BaseChartDirective,
-    MatChipAvatar,
     MatChipListbox,
     MatChipOption,
     MatCheckbox,
@@ -235,78 +234,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     Chart.register(Annotation);
     let chartHelper = new ChartHelper();
-
-    this.modBasedChartOptions = {
-      elements: {
-        line: {
-          borderWidth: 2,
-          tension: 1,
-          stepped: 'after'
-        },
-        point: {
-          radius: 0,
-            hitRadius: 10
-        }
-      },
-      scales: {
-        x: {
-          beginAtZero: false,
-          min: 1,
-          type: 'linear',
-            ticks: {
-            color: '#e2e8f0',
-              autoSkip: true,
-              font: {
-                family: 'Inter',
-                weight: 'bold',
-                size: 14,
-              }
-          }
-        },
-        y: {
-          position: 'left',
-            grid: {
-            color: 'rgb(255, 255, 255, 0.25)',
-          },
-          ticks: {
-            color: '#e2e8f0',
-              font: {
-                family: 'Inter',
-                weight: 'bold',
-                size: 18,
-              }
-          },
-        },
-      },
-      interaction: {
-        mode: 'index',
-        intersect: false,
-      },
-      plugins: {
-        tooltip: {
-          mode: 'index',
-          intersect: false,
-          titleFont: {
-            size: 0
-          },
-          bodyFont: {
-            family: 'Inter',
-            weight: 'bold',
-            size: 18,
-          }
-        },
-        legend: {
-          labels: {
-            font: {
-              family: 'Inter',
-                weight: 'bold',
-                size: 16,
-            }
-          }
-        },
-        annotation: chartHelper.getModChartAnnotations()
-      }
-    }
 
     this.route.paramMap.subscribe(params => {
       this.username = params.get('username')!;
@@ -503,12 +430,12 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.dailyExtra = result;
 
       this.recentDaysChartData = {
-        datasets: chartHelper.getRecentDaysChartData(this.dailyExtra.recentDays),
+        datasets: ChartHelper.getRecentDaysChartData(this.dailyExtra.recentDays),
         labels: this.dailyExtra.recentDays.map(x => {return x.date})
       }
 
       this.modBasedChartData = {
-        datasets: chartHelper.getModBasedChartData(this.dailyExtra.modProgression),
+        datasets: ChartHelper.getModBasedChartData(this.dailyExtra.modProgression),
       }
     });
   }

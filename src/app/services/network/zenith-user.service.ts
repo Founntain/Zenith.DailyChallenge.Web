@@ -33,6 +33,10 @@ export class ZenithUserService {
     return this.http.get<DailyDataNewExtra>(`${this.baseUrl}${username}/extra`);
   }
 
+  getProgression(username: string, progressionLimit: number = 100): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}${username}/progression?progressionLimit=${progressionLimit}`);
+  }
+
 
   getDaily(username: string): Observable<DailyData>{
     return this.http.get<DailyData>(`${this.baseUrl}${username}/daily`);

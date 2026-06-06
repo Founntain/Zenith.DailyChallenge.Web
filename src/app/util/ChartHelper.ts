@@ -31,6 +31,7 @@ export class ChartHelper{
       }
     }
   }
+
   static getCleanLineChartOptions(): ChartConfiguration<'line'>['options'] {
     return {
       elements: {
@@ -89,6 +90,80 @@ export class ChartHelper{
     }
   }
 
+  static getProgressionChartOptions(): ChartConfiguration<'line'>['options'] {
+    return {
+      elements: {
+        line: {
+          borderWidth: 2,
+          tension: 1,
+          stepped: 'after'
+        },
+        point: {
+          radius: 0,
+          hitRadius: 10
+        }
+      },
+      scales: {
+        x: {
+          beginAtZero: false,
+          min: 1,
+          type: 'linear',
+          ticks: {
+            color: '#e2e8f0',
+            autoSkip: true,
+            font: {
+              family: 'Faculty Glyphic',
+              weight: 'bold',
+              size: 14,
+            }
+          }
+        },
+        y: {
+          position: 'left',
+          grid: {
+            color: 'rgb(255, 255, 255, 0.25)',
+          },
+          ticks: {
+            color: '#e2e8f0',
+            font: {
+              family: 'Faculty Glyphic',
+              weight: 'bold',
+              size: 18,
+            }
+          },
+        },
+      },
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      plugins: {
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          titleFont: {
+            size: 0
+          },
+          bodyFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 18,
+          }
+        },
+        legend: {
+          labels: {
+            font: {
+              family: 'Faculty Glyphic',
+              weight: 'bold',
+              size: 16,
+            }
+          }
+        },
+        annotation: ChartHelper.getModChartAnnotations()
+      }
+    }
+  }
+
   public getChartData(
     datasets: any[],
     labels: any[],
@@ -125,7 +200,7 @@ export class ChartHelper{
     return result;
   }
 
-  public getRecentDaysChartData(data: any[]){
+  public static getRecentDaysChartData(data: any[]){
     return [
       {
         data: data.map(x => {return x.apm.avg}),
@@ -198,7 +273,7 @@ export class ChartHelper{
     ]
   }
 
-  public getModBasedChartData(data: any){
+  public static getModBasedChartData(data: any){
     let hitradius = 10;
 
     return [
@@ -384,7 +459,7 @@ export class ChartHelper{
     ]
   }
 
-  public getModChartAnnotations(): any{
+  public static getModChartAnnotations(): any{
     let annotationFont = {
       family: 'Space Grotesk',
       weight: 'bold',
@@ -523,7 +598,7 @@ export class ChartHelper{
     }
   }
 
-  public getFloorChartData(data: any[]){
+  public static getFloorChartData(data: any[]){
     return [
       {
         data: data.map(x => {return x}),
@@ -535,7 +610,7 @@ export class ChartHelper{
     ]
   }
 
-  public getLineChartData(data: any[], label: string, pointColor: string){
+  public static getLineChartData(data: any[], label: string, pointColor: string){
     return [
       {
         data: data.map(x => {return x}),

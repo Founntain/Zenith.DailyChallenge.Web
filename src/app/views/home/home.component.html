@@ -84,7 +84,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="seasonalLeaderboardColumns" ></tr>
-                <tr mat-row class="clickable" *matRowDef="let row; columns: seasonalLeaderboardColumns; " [routerLink]="['/user', row.username]"></tr>
+                <tr mat-row class="clickable" *matRowDef="let row; columns: seasonalLeaderboardColumns; " [routerLink]="['/u', row.username]"></tr>
               </table>
             } @else {
               <div class="centerText">
@@ -124,7 +124,7 @@
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="legacyLeaderboardColumns" ></tr>
-              <tr mat-row class="clickable" *matRowDef="let row; columns: legacyLeaderboardColumns;" [routerLink]="['/user', row.username]"></tr>
+              <tr mat-row class="clickable" *matRowDef="let row; columns: legacyLeaderboardColumns;" [routerLink]="['/u', row.username]"></tr>
             </table>
           </div>
         </div>
@@ -188,7 +188,7 @@
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="globalLeaderboardColumns" ></tr>
-              <tr mat-row class="clickable" *matRowDef="let row; columns: globalLeaderboardColumns;" [routerLink]="['/user', row.username]"></tr>
+              <tr mat-row class="clickable" *matRowDef="let row; columns: globalLeaderboardColumns;" [routerLink]="['/u', row.username]"></tr>
             </table>
           </div>
           <div class="centerText uppercase">
