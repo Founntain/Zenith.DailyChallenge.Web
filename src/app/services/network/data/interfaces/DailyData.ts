@@ -16,3 +16,43 @@ export interface DailyData {
   score: number;
   seasonalScore: number;
 }
+
+export interface DailyDataNew {
+  tetrioId: string;
+  username: string;
+  score: number;
+  avatar: number
+  banner: number
+  title: string;
+  runs: number;
+  topAltitude: number;
+  garbageSend: number;
+  garbageCleared: number;
+  kos: number;
+  timePlayed: number;
+  altitudePercentages: number[];
+}
+
+interface RecentAverage {
+  date: string;
+  average: number;
+}
+
+interface UserAverages {
+  average: number;
+  recent: RecentAverage[];
+  improvement: number;
+}
+
+interface FloorAverages {
+  average: number;
+  floors: number[];
+}
+
+export interface DailyDataNewExtra {
+  floors: FloorAverages;
+  apm: UserAverages;
+  vs: UserAverages;
+  pps: UserAverages;
+  altitude: UserAverages
+}

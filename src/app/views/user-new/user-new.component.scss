@@ -1,0 +1,213 @@
+@use '../../../styles' as *;
+@use '../../../styling/splits' as *;
+@use '../../../styling/colors' as *;
+@use '../../../styling/xp' as *;
+@use '../../../styling/mixins' as mix;
+@use '../../../styling/splits' as *;
+
+.profileImage{
+  width: auto;
+  height: auto;
+  max-width: 96px;
+  border-radius: 50%;
+
+  border: 2px solid $colorful-accent-gradientColor2;
+}
+
+.numeric{
+  @extend .numeric;
+
+  font-size: 1.4rem;
+}
+
+
+.numericFancy{
+  @extend .numericFancy;
+
+  font-size: 1.5rem;
+}
+
+.statCard{
+  background: $background-shade-solid;
+  padding: 1rem;
+  border-radius: 0.25rem;
+
+  max-height: 100px;
+
+  transition: transform 0.2s ease-in-out;
+
+  &:hover{
+    transform: translateY(-10px);
+  }
+
+  &.fullWidth{
+    width: 100%;
+  }
+}
+
+.runCard{
+  @extend .statCard;
+
+  max-height: 100px !important;
+  cursor: pointer;
+
+  transition: transform 0.2s ease-in-out;
+
+  &:hover{
+    transform: translateX(-10px);
+  }
+}
+
+
+.movableLink{
+  transition: 0.2s ease-in-out;
+
+  &:hover{
+    transform: translateX(-10px);
+  }
+}
+
+.floorBorder{
+  border-left: 3px solid $colorful-accent-gradientColor2;
+
+
+  @each $floor, $color in $floor-colors {
+    &.#{$floor} {
+      border-color: rgba($color, 1);
+    }
+  }
+}
+
+.iconAccent{
+  color: $colorful-accent-gradientColor2;
+
+  @each $floor, $color in $floor-colors {
+    &.#{$floor} {
+      color: rgba($color, 1);
+    }
+  }
+}
+
+.sectionHeader {
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.sectionHeaderTitle {
+  flex: 1 1 auto;
+  text-align: start;
+  font-size: 2rem;
+}
+
+.sectionHeaderAction {
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.dailyDot {
+  display: block;
+
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  border: none;
+
+  background: rgba($text-color, 0.95);
+  box-shadow:
+    0 0 6px rgba( $text-color, 0.9),
+    0 0 14px rgba($text-color, 0.65),
+    0 0 24px rgba($text-color, 0.35);
+
+  &.easy{
+    background: rgba($easy-text-color, 0.95);
+
+    box-shadow:
+      0 0 6px rgba($easy-text-color, 0.9),
+      0 0 14px rgba($easy-text-color, 0.65),
+      0 0 24px rgba($easy-text-color, 0.35);
+  }
+
+  &.normal{
+    background: rgba($normal-text-color, 0.95);
+
+    box-shadow:
+      0 0 6px rgba($normal-text-color, 0.9),
+      0 0 14px rgba($normal-text-color, 0.65),
+      0 0 24px rgba($normal-text-color, 0.35);
+  }
+
+  &.hard{
+    background: rgba($hard-text-color, 0.95);
+
+    box-shadow:
+      0 0 6px rgba($hard-text-color, 0.9),
+      0 0 14px rgba($hard-text-color, 0.65),
+      0 0 24px rgba($hard-text-color, 0.35);
+  }
+
+  &.expert{
+    background: rgba($expert-text-color, 0.95);
+
+    box-shadow:
+      0 0 6px rgba($expert-text-color, 0.9),
+      0 0 14px rgba($expert-text-color, 0.65),
+      0 0 24px rgba($expert-text-color, 0.35);
+  }
+
+  &.reverse{
+    background: rgba($reverse-accent-color, 0.95);
+
+    box-shadow:
+      0 0 6px rgba($reverse-accent-color, 0.9),
+      0 0 14px rgba($reverse-accent-color, 0.65),
+      0 0 24px rgba($reverse-accent-color, 0.35);
+  }
+
+  &.mastery{
+    background: rgba($colorful-accent-gradientColor2, 0.95);
+
+    box-shadow:
+      0 0 6px rgba($colorful-accent-gradientColor2, 0.9),
+      0 0 14px rgba($colorful-accent-gradientColor2, 0.65),
+      0 0 24px rgba($colorful-accent-gradientColor2, 0.35);
+  }
+
+  &.masteryReverse{
+    background: rgba($reverse-dark-accent-color, 0.95);
+
+    box-shadow:
+      0 0 6px rgba($reverse-dark-accent-color, 0.9),
+      0 0 14px rgba($reverse-dark-accent-color, 0.65),
+      0 0 24px rgba($reverse-dark-accent-color, 0.35);
+  }
+}
+
+.profileButton{
+  display: block;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  border: 1px solid transparent;
+  border-radius: 0.2rem;
+
+  transition: color 0.3s ease;
+
+  &.active{
+    border: 1px solid $colorful-accent-gradientColor2;
+
+    color: $colorful-accent-gradientColor2;
+    text-shadow:
+      0 0 6px rgba($colorful-accent-gradientColor2, 0.9);
+      //0 0 14px rgba($colorful-accent-gradientColor2, 0.65);
+      //0 0 24px rgba($colorful-accent-gradientColor2, 0.35);
+    box-shadow:
+      0 0 6px rgba($colorful-accent-gradientColor2, 0.9);
+      //0 0 14px rgba($colorful-accent-gradientColor2, 0.65);
+      //0 0 24px rgba($colorful-accent-gradientColor2, 0.35);
+  }
+
+  &:hover{
+    color: $colorful-accent-gradientColor2;
+  }
+}

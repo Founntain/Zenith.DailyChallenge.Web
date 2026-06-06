@@ -8,10 +8,12 @@ import {LeaderboardComponent} from './views/leaderboard/leaderboard.component';
 import {CommunityArchiveComponent} from './views/community-archive/community-archive.component';
 import {DailyArchiveComponent} from './views/daily-archive/daily-archive.component';
 import {RunComponent} from './components/run/run.component';
+import {UserNewComponent} from './views/user-new/user-new.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'user/:username', component: UserComponent },
+    { path: 'usern/:username', component: UserNewComponent },
     { path: 'user/:username/splits', component: SplitsComponent },
     { path: 'challenge', component: ChallengeComponent },
     { path: 'leaderboard', component: LeaderboardComponent },

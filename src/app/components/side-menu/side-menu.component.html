@@ -1,6 +1,6 @@
-<div class="header headerText stripes">
+<div class="header headerTextFancy stripes">
   @if (user$ | async; as user){
-    <div class="userInfo boldText profileSplit">
+    <div class="userInfo headerTextFancy profileSplit">
       @if (user.avatarRevision !== undefined && user.avatarRevision !== null) {
         <img class="profilePicture" src="https://tetr.io/user-content/avatars/{{user.userId}}.jpg?rv={{user.avatarRevision}}" />
       }
@@ -12,7 +12,7 @@
       <a [routerLink]="['/user', user.username]">{{user.username}}</a>
     </div>
   } @else {
-    <div class="headerText centerText">
+    <div class="headerTextFancy centerText">
       ZDC - Menu
     </div>
   }
@@ -36,7 +36,7 @@
 }
 
 <div class="flexRow alignCenter justifyCenter" style="margin-top: 5px">
-  <input class="inputField stripes" maxlength="16" type="text" placeholder="Search for user" (keyup)="search($event)" />
+  <input class="inputField stripes uppercase" maxlength="16" type="text" placeholder="Search for user" (keyup)="search($event)" />
 </div>
 
 <div class="menuItems">

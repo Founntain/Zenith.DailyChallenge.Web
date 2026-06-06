@@ -1,4 +1,94 @@
-﻿export class ChartHelper{
+﻿import {DailyHelper} from './DailyHelper';
+import {ChartConfiguration} from 'chart.js';
+
+export class ChartHelper{
+  static getFloorChartOptions(): ChartConfiguration<'doughnut'>['options'] {
+    return {
+      elements: {
+        arc: {
+          borderWidth: 0.7,
+        }
+      },
+      plugins: {
+        tooltip: {
+          mode: 'index',
+          intersect: true,
+          titleAlign: 'center',
+          titleFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 14,
+          },
+          bodyFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 12,
+          },
+        },
+        legend: {
+          display: false
+        }
+      }
+    }
+  }
+  static getCleanLineChartOptions(): ChartConfiguration<'line'>['options'] {
+    return {
+      elements: {
+        line: {
+          tension: .5,
+        },
+        point: {
+          radius: 3,
+          hoverRadius: 3,
+        },
+      },
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          titleAlign: 'center',
+          titleFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 14,
+          },
+          bodyFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 12,
+          },
+        },
+      },
+      scales: {
+        x: {
+          display: false,
+          grid: {
+            display: false,
+          },
+          ticks: {
+            display: false,
+          },
+        },
+        y: {
+          display: false,
+          grid: {
+            display: false,
+          },
+          ticks: {
+            display: false,
+          },
+        },
+      },
+    }
+  }
+
   public getChartData(
     datasets: any[],
     labels: any[],
@@ -431,5 +521,31 @@
         },
       }
     }
+  }
+
+  public getFloorChartData(data: any[]){
+    return [
+      {
+        data: data.map(x => {return x}),
+        backgroundColor: DailyHelper.floorColors,
+        pointHitRadius: 20,
+        fill: 'origin',
+        yAxisID: 'yLeft',
+      },
+    ]
+  }
+
+  public getLineChartData(data: any[], label: string, pointColor: string){
+    return [
+      {
+        data: data.map(x => {return x}),
+        borderColor: 'rgb(255,255,255)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: pointColor,
+        label: label,
+        pointHitRadius: 2,
+        fill: 'origin',
+      },
+    ]
   }
 }

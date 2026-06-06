@@ -186,7 +186,7 @@ select {
 }
 
 .link {
-  @extend .headerText;
+  @extend .headerTextFancy;
   font-weight: bold;
 
   color: $text-color !important;

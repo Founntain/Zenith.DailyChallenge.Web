@@ -5,9 +5,9 @@
     } @else {
       <h1 class="difTitle">{{ difficultyText }}</h1>
     }
-    <div class="boldText">
+    <div class="normalText">
       <span>Completed by </span>
-      <span class="completionCount headerText">{{challenge.completions}}</span>
+      <span class="completionCount boldText">{{challenge.completions}}</span>
       <span> user</span>
       @if (challenge.completions != 1) {
         <span>s</span>

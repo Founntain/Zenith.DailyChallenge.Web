@@ -51,6 +51,7 @@ import {NumberUtils} from '../../util/NumberUtils';
 import {MatTooltip} from '@angular/material/tooltip';
 import {DailyHelper} from '../../util/DailyHelper';
 import {SeasonalUserData} from '../../services/network/data/interfaces/SeasonalUserData';
+import {ZenithSplitsComponent} from '../../components/zenith-splits/zenith-splits.component';
 
 @Component({
   selector: 'app-user',
@@ -82,7 +83,8 @@ import {SeasonalUserData} from '../../services/network/data/interfaces/SeasonalU
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     MatExpansionPanelDescription,
-    MatTooltip
+    MatTooltip,
+    ZenithSplitsComponent
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -94,14 +96,10 @@ export class UserComponent implements OnInit, AfterViewInit {
   isSameUser: boolean = false;
 
   dailyData: DailyData | undefined;
-  splitTimes!: ZenithSplits;
   runData: Run[] = [];
   challengeData: ChallengeCompletion[] = [];
   communityContributionData: CommunityChallengeContributions[] = [];
   seasonalData: SeasonalUserData[] = [];
-
-  splitMods:string[] =  ['nomod', 'expert', 'nohold', 'messy', 'gravity', 'volatile', 'doublehole', 'invisible', 'allspin', 'expert_reversed', 'nohold_reversed', 'messy_reversed', 'gravity_reversed', 'volatile_reversed', 'doublehole_reversed', 'invisible_reversed', 'allspin_reversed']
-  splitModsText: string[] = ['No Mod', 'Expert', 'No Hold', 'Messy', 'Gravity', 'Volatile', 'Double Hole', 'Invisible', 'All Spin', 'The Tyrant', 'Asceticism', 'Loaded Dice', 'Freefall', 'Last Stand', 'Damnation', 'The Exile', 'The Warlock']
 
   runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'Back2Back', 'AllClears', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
@@ -205,8 +203,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   communityChallengePage: number;
   communityChallengePageSize: number;
   communityChallengePageCount: number;
-
-  floors: (keyof Splits)[] = ['hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   loadSeasonalDa: any;
@@ -346,7 +342,6 @@ export class UserComponent implements OnInit, AfterViewInit {
       });
 
       this.loadDailyExtra();
-      this.loadSplitTimes(null, false)
       this.loadRunData();
       this.loadChallengeData();
       this.loadSeasonalData();
@@ -491,46 +486,6 @@ export class UserComponent implements OnInit, AfterViewInit {
     let isChecked: boolean = event?.checked ?? false;
 
     this.settingsService.setAutoUpdate(isChecked);
-  }
-
-  getSplitText(time: any, average = false) {
-    if(this.isNotEmptyTime(time)){
-      return time;
-    }else{
-      if(average){
-        return 'Not reached yet';
-      }
-      return '';
-    }
-  }
-
-  getFloorReachedCss(time: any) {
-    if(!this.isNotEmptyTime(time)){
-      return 'notReached';
-    }else{
-      return '';
-    }
-  }
-
-  getModImageFromModList(mod: string) {
-    return mod.toLowerCase().replace(/\s+/g, "");
-  }
-
-  onSplitFilterChanged(event: any) {
-    let selectedValue: string;
-
-    if(event.value === undefined)
-      selectedValue = '';
-    else
-      selectedValue = this.getModImageFromModList(event.value)
-
-    this.loadSplitTimes(selectedValue, false);
-  }
-
-  private loadSplitTimes(mod: string | any, soloMod: boolean) {
-    this.userService.getBestSplits(this.username, mod, soloMod).subscribe(result => {
-      this.splitTimes = result;
-    });
   }
 
   onProgressionDensityChanged(event: any) {

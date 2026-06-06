@@ -7,6 +7,7 @@ export interface ChallengeCompletion {
   normalCompleted: boolean;
   hardCompleted: boolean;
   expertCompleted: boolean;
+  reverseCompleted: boolean;
 
   mastery: any;
 }

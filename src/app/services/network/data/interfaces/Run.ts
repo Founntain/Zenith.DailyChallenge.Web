@@ -1,6 +1,7 @@
 ﻿import {Splits} from './Splits';
 
 export interface Run {
+  playedAt: string;
   tetrioId: string;
   mods: string;
   altitude: number;
@@ -18,7 +19,6 @@ export interface Run {
 }
 
 export interface DetailedRun extends Run {
-  playedAt: string
   kOs: number
   allClears: number
   back2Back: number

@@ -4,6 +4,8 @@ import {NumberUtils} from './NumberUtils';
 export class DailyHelper {
   public static floors: (keyof Splits)[] = ['hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
   public static allFloors: string[] = ['hob', 'hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
+  public static allFloorFullNames: string[] = ['Hall of Beginnings', 'The Hotel', 'The Casino', 'The Arena', 'The Museum', 'Abandoned Offices', 'The Laboratory', 'The Core', 'Corruption', 'Platform of the Gods'];
+  public static floorColors: string[] = ['rgba(255, 135, 92, 0.8)', 'rgba(253, 230, 146, 0.8)', 'rgba(255, 199, 136, 0.8)', 'rgba(255, 183, 194, 0.8)', 'rgba(255, 186, 67, 0.8)', 'rgba(255, 145, 123, 0.8)', 'rgba(0, 221, 255, 0.8)', 'rgba(255, 0, 111, 0.8)', 'rgba(152, 255, 178, 0.8)', 'rgba(214, 119, 255, 0.6)'];
 
   public static roundNumber(value: number, decimalPoints: number = 2){
     // if(value === undefined) return "0";

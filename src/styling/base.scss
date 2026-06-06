@@ -1,4 +1,8 @@
 ﻿@use 'colors' as *;
+@font-face {
+  font-family: 'DSEG7';
+  src: url('../assets/fonts/DSEG7ClassicMini-Regular.ttf') format('truetype');
+}
 
 @mixin mobile {
   @media screen and (max-width: 600px) {
@@ -13,19 +17,29 @@
 }
 
 .normalText{
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: "Cabin", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-weight: 400;
 }
 
 .boldText{
-  font-family: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-weight: 800;
+  font-family: "Cabin", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: bold;
   letter-spacing: 0.01em;
 }
 
 .headerText{
   font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-weight: 700;
+}
+
+.headerTextFancy{
+  font-family: "Faculty Glyphic", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 800;
+}
+
+.numeric{
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 800;
 }
 
 .uppercase{
@@ -39,6 +53,14 @@
 .verticalCenter{
   align-content: center;
   align-items: center;
+}
+
+.hugeGap{
+  gap: 1rem;
+}
+
+.bigGap {
+  gap: 20px;
 }
 
 .gap {
@@ -62,6 +84,23 @@
 .flexRow{
   display: flex;
   flex-direction: row;
+
+}
+
+.flexRowWrap{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.flexRowDynamic{
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    margin: 0;
+  }
 }
 
 .flexColumn{
@@ -81,8 +120,24 @@
   justify-content: center;
 }
 
+.justifyLeft{
+  justify-content: start;
+}
+
+.justifyRight{
+  justify-content: end;
+}
+
 .alignCenter{
   align-items: center;
+}
+
+.alignLeft{
+  align-items: start;
+}
+
+.alignRight{
+  align-items: end;
 }
 
 .dots {
@@ -126,7 +181,7 @@ table.mat-mdc-table .clickable:hover {
 }
 
 .inputField{
-  @extend .headerText;
+  @extend .headerTextFancy;
 
   font-size: 1.3em;
   padding: 10px;
