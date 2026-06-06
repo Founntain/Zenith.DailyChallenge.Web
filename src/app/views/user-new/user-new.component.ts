@@ -333,4 +333,16 @@ export class UserNewComponent implements OnInit{
         return `${totalAsLocale} Lines`;
     }
   }
+
+  isSpeedrun(altitude: number, speedrun: boolean, speedrunSeen: boolean) {
+    if (speedrun && altitude >= 1650) {
+      return 'speedrun';
+    }
+
+    if (speedrunSeen || (speedrun && altitude < 1650)) {
+      return 'speedrunSeen';
+    }
+
+    return ''
+  }
 }

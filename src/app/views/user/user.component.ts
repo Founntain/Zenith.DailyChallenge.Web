@@ -26,17 +26,13 @@ import {CommunityChallengeContributions} from '../../services/network/data/inter
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {MatIcon} from '@angular/material/icon';
 import {SettingsService} from '../../services/settings.service';
-
-import {Splits} from '../../services/network/data/interfaces/Splits';
-import { BaseChartDirective } from 'ng2-charts';
+import {BaseChartDirective } from 'ng2-charts';
 import {Chart, ChartConfiguration} from 'chart.js';
-import {MatChipAvatar, MatChipListbox, MatChipOption} from '@angular/material/chips';
-import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits';
+import {MatChipListbox, MatChipOption} from '@angular/material/chips';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {DailyExtra} from '../../services/network/data/interfaces/DailyExtra';
 import {ChartHelper} from '../../util/ChartHelper';
 import { default as Annotation } from 'chartjs-plugin-annotation';
-import {MatSelect} from '@angular/material/select';
 import {Altitudes} from '../../services/network/data/interfaces/Altitudes';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {BarSegmet, SegmentbarComponent} from '../../components/segmentbar/segmentbar.component';

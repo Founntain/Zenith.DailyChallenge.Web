@@ -132,7 +132,7 @@
       <div class="flexColumn flexStretch gap">
         <div class="flexRow verticalCenter sectionHeader">
           <span class="headerTextFancy justifyLeft sectionHeaderTitle">Dailies</span>
-          <div class="flexRow verticalCenter sectionHeaderAction movableLink">
+          <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/u', username, 'dailies']">
             <span class="subtleText justifyRight">Show History</span>
             <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
           </div>
@@ -208,14 +208,14 @@
       <div class="flexColumn flexStretch gap">
         <div class="flexRow verticalCenter sectionHeader">
           <span class="headerTextFancy justifyLeft sectionHeaderTitle">Recent Runs</span>
-          <div class="flexRow verticalCenter sectionHeaderAction movableLink">
+          <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/u', username, 'runs']">
             <span class="subtleText justifyRight">Show History</span>
             <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
           </div>
         </div>
         @if (this.recentRuns.length > 0) {
           @for (run of this.recentRuns; track $index) {
-            <div class="flexRow flexStretch gap card animateLeft" [routerLink]="['/user', username, 'run', run.tetrioId]">
+            <div class="flexRow flexStretch gap card animateLeft" [class]="isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen)" [routerLink]="['/user', username, 'run', run.tetrioId]">
               <div class="flexColumn flexStretch gap floorBorder justifyCenter" [class]="[getFloorKeyFromAltitude(run.altitude)]">
                 <span class="subtleText">{{getFloorNameFromAltitude(run.altitude)}}</span>
                 <span class="numeric">{{roundNumber(run.altitude, 3)}} M</span>
@@ -234,7 +234,7 @@
               </div>
               <div class="flexColumn flexStretch gap justifyCenter">
                 <span class="subtleText">{{ run.playedAt|date:'short' }}</span>
-                <div class="flexRow verticalCenter justifyCenter alignCenter movableLink" style="cursor: pointer">
+                <div class="flexRow verticalCenter justifyCenter alignCenter movableLink clickable">
                   <span class="boldText">View Details</span>
                   <mat-icon class="iconAccent"  [routerLink]="['/user', username, 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
                 </div>
@@ -253,7 +253,7 @@
       <div class="flexColumn flexStretch gap">
         <div class="flexRow verticalCenter sectionHeader">
           <span class="headerTextFancy justifyLeft sectionHeaderTitle">Seasonal</span>
-          <div class="flexRow verticalCenter sectionHeaderAction movableLink">
+          <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/seasonal']">
             <span class="subtleText justifyRight">Show History</span>
             <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
           </div>

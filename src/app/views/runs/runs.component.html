@@ -1,0 +1,68 @@
+<div class="simpleContainer gap" style="margin: 1rem;">
+  <div class="flexRow" style="width: 100%;">
+    <div class="alignLeft justifyLeft flexStretch" style="text-align: start; font-size: 2rem">
+      <span class="headerTextFancy uppercase">{{username}}</span><span>'s past runs</span>
+    </div>
+    <div class="flexRow verticalCenter sectionHeaderAction movableLink justifyRight animateLeft" style="cursor:pointer;" [routerLink]="['/u', username]">
+      <span class="subtleText">Back to <span class="uppercase headerTextFancy">{{username}}</span>'s profile</span>
+      <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+    </div>
+  </div>
+  @for (run of this.runs; track $index) {
+    <div class="flexRow flexStretch gap card animateLeft clickable" [class]="isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen)" style="width: 95%;" [routerLink]="['/u', username, 'run', run.tetrioId]">
+      <div class="flexColumn flexStretch gap floorBorder justifyCenter" [class]="[getFloorKeyFromAltitude(run.altitude)]">
+        <span class="subtleText">{{getFloorNameFromAltitude(run.altitude)}}</span>
+        <span class="numeric headerTextFancy">{{roundNumber(run.altitude, 3)}} M</span>
+      </div>
+      <div class="flexColumn flexStretch gap justifyCenter">
+        <span class="subtleText ">APM</span>
+        <span class="numeric">{{ roundNumber(run.apm, 3) }}</span>
+      </div>
+      <div class="flexColumn flexStretch gap justifyCenter">
+        <span class="subtleText">VS</span>
+        <span class="numeric">{{ roundNumber(run.vs, 3) }}</span>
+      </div>
+      <div class="flexColumn flexStretch gap justifyCenter">
+        <span class="subtleText">PPS</span>
+        <span class="numeric">{{roundNumber(run.pps, 3)}}</span>
+      </div>
+      <div class="flexColumn flexStretch gap justifyCenter">
+        <span class="subtleText">KO's</span>
+        <span class="numeric">{{run.ko}}</span>
+      </div>
+      <div class="flexColumn flexStretch gap justifyCenter">
+        <span class="subtleText">Quads</span>
+        <span class="numeric">{{run.quads}}</span>
+      </div>
+      <div class="flexColumn flexStretch gap justifyCenter">
+        <span class="subtleText">Spins</span>
+        <span class="numeric">{{run.spins}}</span>
+      </div>
+      <div class="flexColumn flexStretch gap justifyCenter">
+        <span class="subtleText">B2B</span>
+        <span class="numeric">{{run.back2Back}}</span>
+      </div>
+      <div class="flexColumn flexStretch gap justifyCenter">
+        <span class="subtleText">Mods</span>
+        @if(run.mods !== ''){
+          <div>
+            @for (mod of DailyHelper.getModArray(run.mods); track $index){
+              <img [src]="DailyHelper.getModImageUrl(mod)" class="mod" />
+            }
+          </div>
+        } @else {
+          -
+        }
+      </div>
+      <div class="flexColumn flexStretch gap justifyCenter">
+        <span class="subtleText">{{ run.playedAt|date:'short' }}</span>
+        <div class="flexRow verticalCenter justifyCenter alignCenter movableLink clickable">
+          <span class="boldText">View Details</span>
+          <mat-icon class="iconAccent"  [routerLink]="['/u', username, 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+        </div>
+      </div>
+    </div>
+  }
+
+  <span class="button" (click)="loadMoreRuns()">load more runs</span>
+</div>

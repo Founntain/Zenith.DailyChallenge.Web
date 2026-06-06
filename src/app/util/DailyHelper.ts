@@ -17,6 +17,12 @@ export class DailyHelper {
     return this.allFloors[floor - 1];
   }
 
+  public static getModArray(mods: string): string[]{
+    if (mods?.length === 0) return [];
+
+    return mods.split(' ');
+  }
+
   public static getFloorLongName(floor: number){
     switch(floor){
       case 1: return "Hall of Beginnings";

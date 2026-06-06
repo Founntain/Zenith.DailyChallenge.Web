@@ -74,5 +74,7 @@ export class ZenithSplitsComponent implements OnInit{
       selectedValue = '';
     else
       selectedValue = this.getModImageFromModList(event.value)
+
+    this.loadSplitTimes(selectedValue, false);
   }
 }

@@ -8,12 +8,12 @@ export interface Run {
   quads: number;
   spins: number;
   allclears: number;
-  kos: number;
+  ko: number;
   apm: number;
   pps: number;
   vs: number;
   finesse: number;
-  back2back: number;
+  back2Back: number;
   speedrunSeen: boolean;
   speedrunCompleted: boolean;
 }
