@@ -215,7 +215,7 @@
         </div>
         @if (this.recentRuns.length > 0) {
           @for (run of this.recentRuns; track $index) {
-            <div class="flexRow flexStretch gap card animateLeft" [class]="isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen)" [routerLink]="['/user', username, 'run', run.tetrioId]">
+            <div class="flexRow flexStretch gap card animateLeft" [class]="isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen)" [routerLink]="['/u', username, 'run', run.tetrioId]">
               <div class="flexColumn flexStretch gap floorBorder justifyCenter" [class]="[getFloorKeyFromAltitude(run.altitude)]">
                 <span class="subtleText">{{getFloorNameFromAltitude(run.altitude)}}</span>
                 <span class="numeric">{{roundNumber(run.altitude, 3)}} M</span>
@@ -236,7 +236,7 @@
                 <span class="subtleText">{{ run.playedAt|date:'short' }}</span>
                 <div class="flexRow verticalCenter justifyCenter alignCenter movableLink clickable">
                   <span class="boldText">View Details</span>
-                  <mat-icon class="iconAccent"  [routerLink]="['/user', username, 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+                  <mat-icon class="iconAccent"  [routerLink]="['/u', username, 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
                 </div>
               </div>
             </div>
