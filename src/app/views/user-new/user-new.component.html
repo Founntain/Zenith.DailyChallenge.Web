@@ -5,7 +5,7 @@
     <!-- Profile Image, username and stats -->
     <div class="flexRowDynamic flexStretch alignCenter" style="width: 100%;">
       <!--    image -->
-      <div class="flexRow alignCenter bigGap">
+      <div class="flexRowDynamic alignCenter bigGap">
         @if (dailyData.avatar !== undefined && dailyData.avatar !== null && dailyData.avatar !== 0) {
           <img src="https://tetr.io/user-content/avatars/{{this.dailyData.tetrioId}}.jpg?rv={{this.dailyData.avatar}}" class="profileImage" />
         }
@@ -59,7 +59,7 @@
 
   <!-- Stat Cards -->
   @if (this.dailyDataExtra) {
-    <div class="flexRowDynamic flexStretch bigGap alignCenter justifyCenter" style="width: 100%;">
+    <div class="flexRowDynamic flexWrap flexStretch bigGap alignCenter justifyCenter" style="width: 100%;">
       <div class="flexRow flexStretch statCard animateTop alignCenter justifyCenter bigGap fullWidth">
         <div class="flexColumn">
           <span class="subtleText">Average Floor</span>

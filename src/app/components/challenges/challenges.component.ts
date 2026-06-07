@@ -253,11 +253,23 @@ export class ChallengesComponent implements OnInit, OnDestroy {
       case WeeklyConditionType.Height:
         return "assets/weekly/altitude.png"
       case WeeklyConditionType.AllClears:
-        return "assets/weekly/all-clears.png";
+        return "assets/weekly/all_clears.png";
       case WeeklyConditionType.LinesCleared:
-        return "assets/weekly/clear-lines.png";
+        return "assets/weekly/clear_lines.png";
       case WeeklyConditionType.Spins:
         return "assets/weekly/spins.png";
+      case WeeklyConditionType.KOs:
+        return "assets/weekly/kos.png";
+      case WeeklyConditionType.Quads:
+        return "assets/weekly/quads.png";
+      case WeeklyConditionType.BackToBack:
+        return "assets/weekly/btb.png";
+      case WeeklyConditionType.GarbageSent:
+        return "assets/weekly/garbage_sent.png";
+      case WeeklyConditionType.GarbageCleared:
+        return "assets/weekly/garbage_clear.png";
+      case WeeklyConditionType.TotalBonus:
+        return "assets/weekly/bonus.png";
       default:
         return "assets/weekly/done.png";
     }
