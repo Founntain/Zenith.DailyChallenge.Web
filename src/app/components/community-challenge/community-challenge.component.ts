@@ -298,8 +298,6 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
   }
 
   getCommunityGoalPercentage(currentValue: number, target: number) {
-    console.log(`${Math.round((currentValue / target) * 100)}%`)
-
     return `${Math.round((currentValue / target) * 100)}%`;
   }
 }

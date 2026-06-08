@@ -12,35 +12,35 @@
     <div class="flexRow flexStretch gap card animateLeft clickable" [class]="isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen)" style="width: 95%;" [routerLink]="['/u', username, 'run', run.tetrioId]">
       <div class="flexColumn flexStretch gap floorBorder justifyCenter" [class]="[getFloorKeyFromAltitude(run.altitude)]">
         <span class="subtleText">{{getFloorNameFromAltitude(run.altitude)}}</span>
-        <span class="numeric headerTextFancy">{{roundNumber(run.altitude, 3)}} M</span>
+        <span class="numeric-stats headerTextFancy">{{roundNumber(run.altitude, 3)}} M</span>
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText ">APM</span>
-        <span class="numeric">{{ roundNumber(run.apm, 3) }}</span>
+        <span class="numeric-stats">{{ roundNumber(run.apm, 3) }}</span>
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText">VS</span>
-        <span class="numeric">{{ roundNumber(run.vs, 3) }}</span>
+        <span class="numeric-stats">{{ roundNumber(run.vs, 3) }}</span>
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText">PPS</span>
-        <span class="numeric">{{roundNumber(run.pps, 3)}}</span>
+        <span class="numeric-stats">{{roundNumber(run.pps, 3)}}</span>
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText">KO's</span>
-        <span class="numeric">{{run.ko}}</span>
+        <span class="numeric-stats">{{run.ko}}</span>
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText">Quads</span>
-        <span class="numeric">{{run.quads}}</span>
+        <span class="numeric-stats">{{run.quads}}</span>
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText">Spins</span>
-        <span class="numeric">{{run.spins}}</span>
+        <span class="numeric-stats">{{run.spins}}</span>
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText">B2B</span>
-        <span class="numeric">{{run.back2Back}}</span>
+        <span class="numeric-stats">{{run.back2Back}}</span>
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText">Mods</span>

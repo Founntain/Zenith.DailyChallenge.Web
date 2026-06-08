@@ -3,7 +3,7 @@
 @use '@angular/material' as mat;
 @use 'styling/colors' as *;
 @use 'styling/angular-styles' as *;
-@use 'styling/base' as *;
+@use 'styling/base' as base;
 
 @font-face {
   font-family: 'HUN';
@@ -115,7 +115,7 @@ hr{
 
   transition: .3s transform,.3s filter,.3s box-shadow;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     font-size: 2rem;
   }
 
@@ -212,7 +212,7 @@ select {
   display: flex;
   flex-direction: row;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     flex-direction: column;
     margin: 0;
   }
@@ -224,14 +224,6 @@ select {
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-.title{
-  font-size: 2rem !important;
-
-  @include mobile {
-    font-size: 14pt !important;
-  }
 }
 
 .bigText{

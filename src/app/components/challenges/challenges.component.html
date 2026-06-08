@@ -22,46 +22,46 @@
   </div>
 
   <mat-tab-group dynamicHeight class="remove-border-bottom" >
-    <mat-tab label="Daily">
-      @if (dailyChallenges.length > 0) {
-        <div style="margin: 10px">
-          <div class="challengeContainer gap">
-            <div class="challenge easy">
-              <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Easy)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Easy)"/>
-            </div>
+<!--    <mat-tab label="Daily">-->
+<!--      @if (dailyChallenges.length > 0) {-->
+<!--        <div style="margin: 10px">-->
+<!--          <div class="challengeContainer gap">-->
+<!--            <div class="challenge easy">-->
+<!--              <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Easy)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Easy)"/>-->
+<!--            </div>-->
 
-            <div class="containerNoMargin challenge normal">
-              <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Normal)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Normal)"/>
-            </div>
-          </div>
+<!--            <div class="containerNoMargin challenge normal">-->
+<!--              <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Normal)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Normal)"/>-->
+<!--            </div>-->
+<!--          </div>-->
 
-          <div class="challengeContainer gap" style="margin-top: 10px">
-            <div class="challenge hard">
-              <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Hard)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Hard)" />
-            </div>
+<!--          <div class="challengeContainer gap" style="margin-top: 10px">-->
+<!--            <div class="challenge hard">-->
+<!--              <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Hard)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Hard)" />-->
+<!--            </div>-->
 
-            @if (getChallengeOfDifficulty(Difficulty.Expert) !== undefined) {
-              <div class="challenge expert">
-                <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Expert)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Expert)"/>
-              </div>
-            }
-          </div>
+<!--            @if (getChallengeOfDifficulty(Difficulty.Expert) !== undefined) {-->
+<!--              <div class="challenge expert">-->
+<!--                <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Expert)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Expert)"/>-->
+<!--              </div>-->
+<!--            }-->
+<!--          </div>-->
 
-          @if (getChallengeOfDifficulty(Difficulty.Reverse) !== undefined) {
-            <div class="challengeContainer gap" style="margin-top: 10px">
-              <div class="challenge reverse">
-                <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Reverse)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Reverse)"/>
-              </div>
-            </div>
-          }
+<!--          @if (getChallengeOfDifficulty(Difficulty.Reverse) !== undefined) {-->
+<!--            <div class="challengeContainer gap" style="margin-top: 10px">-->
+<!--              <div class="challenge reverse">-->
+<!--                <app-challenge [challenge]="getChallengeOfDifficulty(Difficulty.Reverse)" [isCompleted]="getChallengeCompletionOfDifficulty(Difficulty.Reverse)"/>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          }-->
 
-        </div>
-      }
-      @else
-      {
-        <h1 class="centerText">fetching challenges...</h1>
-      }
-    </mat-tab>
+<!--        </div>-->
+<!--      }-->
+<!--      @else-->
+<!--      {-->
+<!--        <h1 class="centerText">fetching challenges...</h1>-->
+<!--      }-->
+<!--    </mat-tab>-->
     <mat-tab label="Daily Masteries">
       <div style="margin: 10px">
         <div class="stripesLight centerText headerText flexColumn" style="margin-left: -10px; margin-right: -10px; margin-top: -10px; padding: 5px; font-size: 1.25rem;">

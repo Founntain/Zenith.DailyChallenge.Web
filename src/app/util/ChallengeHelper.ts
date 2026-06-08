@@ -189,4 +189,91 @@ export class ChallengeHelper {
       default: return ""
     }
   }
+
+  public static getStatFromCondition(conditionType: ConditionType, value: number | string): any {
+    const conditionMap: Record<ConditionType, Omit<any, 'value'> & { formatter?: (val: number | string) => string }> = {
+      [ConditionType.Height]: {
+        icon: 'trending_up',
+        label: 'M',
+        formatter: (val) => `Reach ${val.toLocaleString()} M`
+      },
+      [ConditionType.KOs]: {
+        icon: 'close',
+        label: 'KOs',
+        formatter: (val) => `${val}`
+      },
+      [ConditionType.Quads]: {
+        icon: 'grid_4x4',
+        label: 'Quads',
+        formatter: (val) => `${val} Quads`
+      },
+      [ConditionType.Spins]: {
+        icon: 'refresh',
+        label: 'Spins',
+        formatter: (val) => `${val} Spins`
+      },
+      [ConditionType.AllClears]: {
+        icon: 'check_circle',
+        label: 'All Clears',
+        formatter: (val) => `${val} All Clears`
+      },
+      [ConditionType.Apm]: {
+        icon: 'speed',
+        label: 'APM',
+        formatter: (val) => `${val} APM`
+      },
+      [ConditionType.Pps]: {
+        icon: 'bolt',
+        label: 'PPS',
+        formatter: (val) => `${val} PPS`
+      },
+      [ConditionType.Vs]: {
+        icon: 'sports_esports',
+        label: 'VS',
+        formatter: (val) => `${Number(val).toLocaleString()} VS`
+      },
+      [ConditionType.Finesse]: {
+        icon: 'verified',
+        label: '% Finesse',
+        formatter: (val) => `${val}% Finesse`
+      },
+      [ConditionType.Back2Back]: {
+        icon: 'repeat',
+        label: 'B2B',
+        formatter: (val) => `${val} B2B`
+      },
+      [ConditionType.TotalBonus]: {
+        icon: 'stars',
+        label: 'Total Bonus',
+        formatter: (val) => `${Number(val).toLocaleString()} Bonus`
+      },
+      [ConditionType.App]: {
+        icon: 'filter_9_plus',
+        label: 'APP',
+        formatter: (val) => `${val} APP`
+      },
+      [ConditionType.Lines]: {
+        icon: 'view_stream',
+        label: 'Lines cleared',
+        formatter: (val) => `${val} Lines`
+      }
+    };
+
+    const config = conditionMap[conditionType];
+
+    if (!config) {
+      // Fallback for unknown condition types
+      return {
+        icon: 'help_outline',
+        value: String(value),
+        label: 'Unknown'
+      };
+    }
+
+    return {
+      icon: config['icon'],
+      value: config.formatter ? config.formatter(value) : String(value),
+      label: config['label']
+    };
+  }
 }

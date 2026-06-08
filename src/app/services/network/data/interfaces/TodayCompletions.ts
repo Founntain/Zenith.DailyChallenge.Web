@@ -1,4 +1,5 @@
 export interface TodayCompletions {
+  completedChallengesIds: string[];
   date: string;
   veryEasyCompleted: boolean;
   easyCompleted: boolean;

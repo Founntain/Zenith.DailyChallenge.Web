@@ -1,7 +1,7 @@
 ﻿@use 'colors' as *;
 
 @mixin mobile {
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1000px) {
     @content;
   }
 }
@@ -98,7 +98,7 @@
   display: flex;
   flex-direction: row;
 
-  @media screen and (max-width: 600px) {
+  @media mobile {
     flex-direction: column;
     margin: 0;
   }

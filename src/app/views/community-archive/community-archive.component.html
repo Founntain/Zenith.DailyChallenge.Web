@@ -13,13 +13,13 @@
       </div>
 
       <div class="flexStretch flexColumn centerText">
-        <span class="headerText title"> Community Challenge </span>
+        <span class="headerTextFancy title"> Community Challenge </span>
 
         <span class="boldText">{{communityChallenge.startDate}} - {{communityChallenge.endDate}}</span>
 
         @if (communityChallenge.name !== undefined) {
           <div class="flexStretch flexColumn">
-            <span class="headerText title" style="font-weight: 800"> {{communityChallenge.name}}</span>
+            <span class="headerTextFancy title" style="font-weight: 800"> {{communityChallenge.name}}</span>
             @if (communityChallenge.description !== undefined) {
               <span class="boldText"> {{communityChallenge.description}}</span>
             }

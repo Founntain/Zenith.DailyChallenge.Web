@@ -18,7 +18,7 @@ export class DailyHelper {
   }
 
   public static getModArray(mods: string): string[]{
-    if (mods?.length === 0) return [];
+    if (mods == undefined || mods?.length === 0) return [];
 
     return mods.split(' ');
   }

@@ -21,7 +21,7 @@ hr{
 
   font-size: 2rem;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile  {
     font-size: 1.5rem;
   }
 }
@@ -29,7 +29,7 @@ hr{
 .timer{
   font-size: 2.5rem;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile  {
     font-size: 1.5rem;
   }
 }
@@ -37,7 +37,7 @@ hr{
 .timerIcon{
   transform: scale(2);
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile  {
     transform: scale(1);
   }
 }
@@ -46,7 +46,7 @@ hr{
   display: flex;
   flex-direction: row;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile  {
     margin: 0;
   }
 }

@@ -1,39 +1,41 @@
 <!-- Welcome -->
 
-<div class="baseContainer">
-  <div class="container gap">
-    <img src="assets/banner.png" style="width: 100%; height: auto" />
+<!--<div class="baseContainer">-->
+<!--  <div class="container gap">-->
+<!--    <img src="assets/banner.png" style="width: 100%; height: auto" />-->
+<!--&lt;!&ndash;    <div>&ndash;&gt;-->
+<!--&lt;!&ndash;      <h1 class="headerText"> ZENITH DAILY CHALLENGE</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
 <!--    <div>-->
-<!--      <h1 class="headerText"> ZENITH DAILY CHALLENGE</h1>-->
+<!--      <span>Welcome! No matter how you found this place, I do welcome you! Here you can find challenges in various difficulties, mod based challenges and community challenges or you can use this site to track your runs and stats.</span>-->
 <!--    </div>-->
-    <div>
-      <span>Welcome! No matter how you found this place, I do welcome you! Here you can find challenges in various difficulties, mod based challenges and community challenges or you can use this site to track your runs and stats.</span>
-    </div>
 
-    <div>
-      <span>To complete a challenge, you must submit a</span>
-      <span class="highlight uppercase"> single run </span>
-      <span>that meets</span>
-      <span class="highlight uppercase">  all </span>
-      <span>conditions for a difficulty! You can complete multiple difficulties with one run.</span>
-    </div>
-    @if (!(user$ | async)) {
-      <div class="flexColumn">
-        <span>You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>
-        <span class="highlight">Your discord account has to be linked to your TETR.IO account and is publicly visible!</span>
-      </div>
-    }
+<!--    <div>-->
+<!--      <span>To complete a challenge, you must submit a</span>-->
+<!--      <span class="highlight uppercase"> single run </span>-->
+<!--      <span>that meets</span>-->
+<!--      <span class="highlight uppercase">  all </span>-->
+<!--      <span>conditions for a difficulty! You can complete multiple difficulties with one run.</span>-->
+<!--    </div>-->
+<!--    @if (!(user$ | async)) {-->
+<!--      <div class="flexColumn">-->
+<!--        <span>You can submit runs by <span class="highlight">login in with your discord</span> account and click on your profile in the <span class="highlight">top right.</span></span>-->
+<!--        <span class="highlight">Your discord account has to be linked to your TETR.IO account and is publicly visible!</span>-->
+<!--      </div>-->
+<!--    }-->
 
-    <div class="flexColumn">
-      <span>Resources belong to <a class="link" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="link" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
-      <span>Icon and Background made by <a class="link" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span>
-      <span>Weekly Icons by <a class="link" href="https://www.shenzhia.de/" style="text-decoration: none">PinkMilkTea</a></span>
-    </div>
-  </div>
-  @if (user$ | async; as user) {
-    <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>
-  }
-</div>
+<!--    <div class="flexColumn">-->
+<!--      <span>Resources belong to <a class="link" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="link" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>-->
+<!--      <span>Icon and Background made by <a class="link" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span>-->
+<!--      <span>Weekly Icons by <a class="link" href="https://www.shenzhia.de/" style="text-decoration: none">PinkMilkTea</a></span>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  @if (user$ | async; as user) {-->
+<!--    <div (click)="submitRuns()" class="submitButton"><a>Submit New Runs</a></div>-->
+<!--  }-->
+<!--</div>-->
+
+<app-challenges-new />
 
 <!-- Daily Challenges -->
 <app-challenges />
@@ -202,8 +204,18 @@
 
 <div class="baseContainer centerText" style="padding: 5px">
   <div class="flexColumn headerText support" style="font-size: 1.1rem;">
+    <div class="flexColumn">
+      <span>Resources belong to <a class="link" href="https://osk.sh" style="text-decoration: none">osk</a> and <a class="link" style="text-decoration: none" href="https://tetr.io">TETR.IO</a></span>
+      <span>Icon and Background made by <a class="link" href="https://melisek.dev" style="text-decoration: none">Melisek</a></span>
+      <span>Weekly Icons by <a class="link" href="https://www.shenzhia.de/" style="text-decoration: none">PinkMilkTea</a></span>
+    </div>
+
+    <hr style="width: 100%"/>
+
     <span>If you want to support me for making ZDC, maybe consider gifting me TETR.IO supporter.</span>
     <span>This way you support the game, osk and me!</span>
     <span>Or give the GitHub <a href="https://github.com/Founntain/Zenith.DailyChallenge.Web" class="link">Repository</a> a ⭐, maybe a ⭐ for the <a href="https://github.com/Founntain/TETRIO.Overlay" class="link">backend</a> too.</span>
+
+    <hr style="width: 100%; background: transparent; color: transparent"/>
   </div>
 </div>

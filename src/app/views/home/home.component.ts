@@ -36,6 +36,7 @@ import {TimeHelper} from '../../util/TimeHelper';
 import {CommunityChallengeComponent} from '../../components/community-challenge/community-challenge.component';
 import {ZdcStatsComponent} from '../../components/zdc-stats/zdc-stats.component';
 import {DailyHelper} from '../../util/DailyHelper';
+import {ChallengesNewComponent} from '../../components/challenges-new/challenges-new.component';
 
 @Component({
   selector: 'app-home',
@@ -55,11 +56,11 @@ import {DailyHelper} from '../../util/DailyHelper';
     MatTooltip,
     MatTabGroup,
     MatTab,
-    AsyncPipe,
     ChallengesComponent,
     CommunityChallengeComponent,
     ZdcStatsComponent,
-    NgClass
+    ChallengesNewComponent,
+    ChallengesNewComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

@@ -1,6 +1,7 @@
 @use '../../../styles' as *;
 @use '../../../styling/splits' as *;
 @use '../../../styling/colors' as *;
+@use '../../../styling/base' as base;
 @use '../../../styling/xp' as *;
 @use '../../../styling/mixins' as mix;
 
@@ -33,7 +34,7 @@
       .goldTime{
         font-size: 3rem;
 
-        @media screen and (max-width: 600px) {
+        @include base.mobile {
           font-size: 1.25rem;
         }
       }
@@ -41,13 +42,13 @@
       .averageTime{
         font-size: 2rem;
 
-        @media screen and (max-width: 600px) {
+        @include base.mobile {
           font-size: 1rem;
         }
       }
 
       .achievedText{
-        @media screen and (max-width: 600px) {
+        @include base.mobile {
           font-size: 1rem;
         }
       }
@@ -70,7 +71,7 @@
 
       @include mix.clip-right-slant(15%, bottom);
 
-      @media screen and (max-width: 600px) {
+      @include base.mobile {
         letter-spacing: 0;
         font-size: 1rem !important;
       }
@@ -156,7 +157,7 @@
       }
     }
 
-    @media screen and (max-width: 600px) {
+    @include base.mobile {
       font-size: 2rem;
       text-align: center;
       width: initial;

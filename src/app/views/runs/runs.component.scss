@@ -4,6 +4,7 @@
 @use '../../../styling/xp' as *;
 @use '../../../styling/mixins' as mix;
 @use '../../../styling/splits' as *;
+@use '../../../styling/base' as base;
 
 .animateLeft{
   transition: transform 0.2s ease-in-out;
@@ -89,10 +90,14 @@
   }
 }
 
-.numeric{
+.numeric-stats{
   @extend .numeric;
 
   font-size: 1.4rem;
+
+  @include base.mobile {
+    font-size: 1rem;
+  }
 }
 
 .speedrun{

@@ -4,32 +4,7 @@
 @use '../../../styling/xp' as *;
 @use '../../../styling/mixins' as mix;
 @use '../../../styling/splits' as *;
-
-.accent{
-  color: $colorful-accent-gradientColor2;
-}
-
-.profileImage{
-  width: auto;
-  height: auto;
-  max-width: 96px;
-  border-radius: 50%;
-
-  border: 2px solid $colorful-accent-gradientColor2;
-}
-
-.numeric{
-  @extend .numeric;
-
-  font-size: 1.4rem;
-}
-
-
-.numericFancy{
-  @extend .numericFancy;
-
-  font-size: 1.5rem;
-}
+@use '../../../styling/base' as base;
 
 .statCard{
   background: $background-shade-solid;
@@ -76,8 +51,137 @@
   cursor: pointer;
 
   transition: transform 0.2s ease-in-out;
+}
 
+.profile-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  width: 100%;
+  align-items: center;
 
+  @include base.mobile {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.profile-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+
+  @include base.mobile {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+
+    .playstyleSegments {
+      width: 100%;
+      max-width: 90%;
+
+      align-self: center;
+    }
+  }
+}
+
+.lifetime-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+
+  @include base.mobile {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 2rem;
+
+  @include base.mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.stat-card-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+
+  @extend .statCard;
+  @extend .animateTop;
+}
+
+.overall-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  width: 100%;
+
+  @include base.mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.accent{
+  color: $colorful-accent-gradientColor2;
+}
+
+.profileImage{
+  width: auto;
+  height: auto;
+  max-width: 96px;
+  border-radius: 50%;
+
+  border: 2px solid $colorful-accent-gradientColor2;
+}
+
+.numeric{
+  font-size: 1.4rem;
+}
+
+.numeric-stats{
+  @extend .numeric;
+
+  font-size: 1.4rem;
+
+  @include base.mobile {
+    font-size: 1.2rem;
+  }
+}
+
+.numeric-dynamic{
+  @extend .numeric;
+
+  font-size: 1.4rem;
+
+  @include base.mobile {
+    font-size: 1rem;
+  }
+}
+
+.numericFancy{
+  @extend .numericFancy;
+
+  font-size: 1.5rem;
 }
 
 

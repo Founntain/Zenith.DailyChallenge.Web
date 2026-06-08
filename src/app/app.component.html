@@ -1,7 +1,11 @@
 <div class="app-container">
   @if(isLocal){
-    <div class="local-warning-banner">
-      ⚠️ development build  ️⚠️
+    <div class="dev-banner">
+      <div class="dev-banner-container">
+        <mat-icon class="warning-icon">construction</mat-icon>
+        <span class="banner-text">Development Build</span>
+        <mat-icon class="warning-icon">construction</mat-icon>
+      </div>
     </div>
   }
 

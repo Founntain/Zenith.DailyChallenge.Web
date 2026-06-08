@@ -10,10 +10,11 @@ import {UserProfileData} from './services/network/data/interfaces/UserProfileDat
 import {CookieHelper} from './util/CookieHelper';
 import {AuthService} from './services/network/auth.service';
 import {UserSessionService} from './services/user-session.service';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, MatDrawerContainer, MatDrawer, SideMenuComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, MatDrawerContainer, MatDrawer, SideMenuComponent, MatIcon],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
