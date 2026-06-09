@@ -44,6 +44,8 @@
 }
 
 .menu-title {
+  @extend .headerTextFancy;
+
   display: flex;
   align-items: center;
   gap: 12px;
@@ -111,6 +113,8 @@
     }
 
     .username {
+      @extend .headerTextFancy;
+
       color: $text-color;
       font-size: 1.25rem;
       font-weight: 700;
@@ -168,6 +172,7 @@
   background: $colorful-accent-gradient;
   border-radius: 8px;
   padding: 12px;
+  margin-bottom: 12px;
   text-align: center;
 
   .ranking-badge {
@@ -177,6 +182,8 @@
     margin-bottom: 4px;
 
     .rank-number {
+      @extend .headerTextFancy;
+
       font-size: 1.5rem;
       font-weight: 700;
       color: $text-color;
@@ -190,7 +197,9 @@
   }
 
   .season-name {
-    font-size: 0.875rem;
+    @extend .headerTextFancy;
+
+    font-size: 1.2rem;
     font-weight: 600;
     color: $text-color;
   }
@@ -343,5 +352,40 @@
 
   &:active {
     transform: scale(0.98);
+  }
+}
+
+.section{
+  display: flex;
+}
+
+.submit-btn {
+  @extend .headerTextFancy;
+
+  width: 100%;
+  padding: 10px 24px;
+  background: $colorful-accent-gradient;
+  color: $text-color;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba($colorful-accent-gradientColor1, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($colorful-accent-gradientColor1, 0.5);
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @include base.mobile {
+    padding: 8px 16px;
+    font-size: 14px;
   }
 }

@@ -1,21 +1,21 @@
 <header class="modern-header">
   <div class="header-container">
     <!-- Logo/Icon Section -->
-    <div class="logo-section">
+    <div class="logo-section clickable" [routerLink]="['']">
       <div class="logo-icon">
         <mat-icon>dark_mode</mat-icon>
       </div>
       <span class="logo-text">
-        <a [routerLink]="['']">Zenith<br/>Daily<br/>Challenge</a>
+        <a>Zenith<br/>Daily<br/>Challenge</a>
       </span>
     </div>
 
     <nav class="nav-items">
       <a [routerLink]="['/']" class="nav-link">Home</a>
       <a [routerLink]="['/daily-archive']" class="nav-link">Challenges</a>
-      <a [routerLink]="['/cc-archive']" class="nav-link">Community</a>
+      <a [routerLink]="['/cc']" [class]="['nav-link', this.communityCss]">Community</a>
       <a [routerLink]="['/leaderboard']" class="nav-link">Leaderboards</a>
-      <a [routerLink]="['/seasonal']" class="nav-link">Seasons</a>
+<!--      <a [routerLink]="['/seasonal']" class="nav-link">Seasons</a>-->
 <!--      <a [routerLink]="['/create']" class="nav-link">Create</a>-->
     </nav>
 

@@ -4,39 +4,51 @@ import {ZenithService} from '../../services/network/zenith.service';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
 import {DailyHelper} from '../../util/DailyHelper';
 import {Condition} from '../../services/network/data/interfaces/Condition';
-import {DatePipe, NgOptimizedImage} from '@angular/common';
+import {AsyncPipe, DatePipe, NgOptimizedImage} from '@angular/common';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {firstValueFrom, Observable, take} from 'rxjs';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
-import {UserSessionService} from '../../services/user-session.service';
+import {ZdcSessionService} from '../../services/zdc-session.service';
 import {RouterLink} from '@angular/router';
+import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
+import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
 
 @Component({
   selector: 'app-challenges-new',
   imports: [
     MatIcon,
     DatePipe,
-    RouterLink
+    AsyncPipe
   ],
   templateUrl: './challenges-new.component.html',
   styleUrl: './challenges-new.component.scss'
 })
 export class ChallengesNewComponent implements OnInit, OnDestroy {
   public user$: Observable<UserProfileData | null>;
+  public dailyChallenges$: Observable<DailyChallenge[] | null>;
+  public challengeCompletions$: Observable<TodayCompletions | null>;
   challenges: Challenge[] = [];
   currentIndex = 0;
   autoPlayInterval?: any;
 
+  protected readonly ChallengeHelper = ChallengeHelper;
+
   constructor(
     private zenithService: ZenithService,
     private userService: ZenithUserService,
-    private readonly session: UserSessionService
+    private readonly session: ZdcSessionService
   ) {
     this.user$ = this.session.user$;
+    this.dailyChallenges$ = this.session.dailies$;
+    this.challengeCompletions$ = this.session.challengeCompletions$;
   }
 
   ngOnInit() {
-    this.zenithService.getDailyChallenges().subscribe(async challenges => {
+    this.dailyChallenges$.subscribe(async challenges => {
+      if(challenges === undefined || challenges === null) return;
+
+      this.challenges = [];
+
       for (let i = 0; i < challenges.length; i++) {
         let challenge = challenges[i];
 
@@ -84,7 +96,6 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
     this.stopAutoPlay();
   }
 
-
   goToSlide(index: number) {
     this.currentIndex = index;
     this.resetAutoPlay();
@@ -111,63 +122,28 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
     this.startAutoPlay();
   }
 
-  private lastUpdateSeconds = 0;
-
   submitRuns() {
-    this.zenithService.submitRuns().subscribe({
-      next: (r) => {
-        // Do nothing
-        this.lastUpdateSeconds = new Date().getTime() / 1000;
-
-        // this.loadTodaysCompletions();
-        window.location.reload();
-      },
-      error: (e) => {
-        if(e.status == 400){
-          alert(e.error);
-        }
-        if(e.status == 401){
-          alert(e.error + '\n\nPlease login again.');
-          // window.location.reload();
-        }
-      }
-    })
+    this.session.submitAndUpdate();
   }
 
   private async loadTodaysCompletions() {
     const user = await firstValueFrom(this.user$.pipe(take(1)));
 
-    if (user) {
-      this.userService.getTodaysChallengeCompletions(user?.username).subscribe(result => {
-        for (const id of result.completedChallengesIds ?? []) {
-          const challenge = this.challenges.find(c => c.id === id);
-          if (challenge) {
-            challenge.isCompleted = true;
-          }
+    this.challengeCompletions$.subscribe(result => {
+      if(result === undefined || result === null) return;
+
+      for (const id of result.completedChallengesIds ?? []) {
+        const challenge = this.challenges.find(c => c.id === id);
+        if (challenge) {
+          challenge.isCompleted = true;
         }
-      })
-    }else{
-      this.user$.subscribe(user => {
-        if(user){
-          this.userService.getTodaysChallengeCompletions(user?.username).subscribe(result => {
-            console.log(result)
-
-            for (const id of result.completedChallengesIds ?? []) {
-              const challenge = this.challenges.find(c => c.id === id);
-
-              console.log(id, challenge)
-
-              if (challenge) {
-                challenge.isCompleted = true;
-              }
-            }
-          })
-        }
-      })
-    }
+      }
+    })
   }
 
-  protected readonly ChallengeHelper = ChallengeHelper;
+  protected signIn() {
+    DailyHelper.signIn();
+  }
 }
 
 interface Challenge {

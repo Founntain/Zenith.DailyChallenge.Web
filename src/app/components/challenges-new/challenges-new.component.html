@@ -21,11 +21,7 @@
                 <!-- Badge -->
                 <div class="challenge-badge" [attr.data-difficulty]="challenge.difficultyText">
                   <mat-icon>emoji_events</mat-icon>
-                  @if (challenge.difficultyText === 'reverse') {
-                    <span class="uppercase">{{ChallengeHelper.getReverseFlavorText(challenge.modString)}}</span>
-                  } @else {
-                    <span class="uppercase">{{challenge.difficultyText}} CHALLENGE</span>
-                  }
+                  <span class="uppercase">{{challenge.difficultyText}} CHALLENGE</span>
                 </div>
 
                 <!-- Title -->
@@ -34,6 +30,11 @@
 
                 } @else {
                   <h2 class="challenge-title">{{challenge.number|date:'longDate'}}</h2>
+                }
+
+                <!-- Subtitle -->
+                @if (challenge.difficultyText === 'reverse') {
+                  <h4 class="challenge-subtitle">{{ChallengeHelper.getReverseFlavorText(challenge.modString)}}</h4>
                 }
 
                 <!-- Stats Grid -->
@@ -59,10 +60,17 @@
 
                 <!-- Action Buttons -->
                 <div class="hero-actions">
-                  <button class="primary-btn" (click)="submitRuns()">
-                    <span>SUBMIT RUNS</span>
-                    <mat-icon>arrow_forward</mat-icon>
-                  </button>
+                  @if(user$ | async; as user) {
+                    <button class="primary-btn" (click)="submitRuns()">
+                      <span>SUBMIT RUNS</span>
+                      <mat-icon>arrow_forward</mat-icon>
+                    </button>
+                  } @else {
+                    <button class="primary-btn" (click)="signIn()">
+                      <span>Sign In To Play</span>
+                      <mat-icon>arrow_forward</mat-icon>
+                    </button>
+                  }
 <!--                  <button class="secondary-btn" [routerLink]="['/daily-archive']">-->
 <!--                    <span>LEADERBOARD</span>-->
 <!--                  </button>-->

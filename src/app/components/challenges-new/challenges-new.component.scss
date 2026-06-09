@@ -247,6 +247,22 @@
   }
 }
 
+.challenge-subtitle {
+  @extend .headerTextFancy;
+
+  font-size: 1rem;
+  font-weight: 900;
+  margin: 0;
+  color: $text-color;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1.1;
+
+  @include base.mobile {
+    font-size: 0.8rem;
+  }
+}
+
 .challenge-stats {
   display: flex;
   gap: 24px;

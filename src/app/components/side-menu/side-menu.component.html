@@ -25,11 +25,11 @@
       <div class="challenge-stats">
         <div class="stat-title">Today's Progress</div>
         <div class="challenge-icons">
-          <img [class]="[getCompletionCss(todayUsersCompletions?.easyCompleted)]" src="/assets/clear_easy_2.png" class="challenge-icon" title="Easy" />
-          <img [class]="[getCompletionCss(todayUsersCompletions?.normalCompleted)]" src="/assets/clear_normal_2.png" class="challenge-icon" title="Normal" />
-          <img [class]="[getCompletionCss(todayUsersCompletions?.hardCompleted)]" src="/assets/clear_hard_2.png" class="challenge-icon" title="Hard" />
-          <img [class]="[getCompletionCss(todayUsersCompletions?.expertCompleted)]" src="/assets/clear_expert.png" class="challenge-icon" title="Expert" />
-          <img [class]="[getCompletionCss(todayUsersCompletions?.reverseCompleted)]" src="/assets/clear_reverse.png" class="challenge-icon" title="Reverse" />
+          <img [class]="[getCompletionCss(this.completions?.easyCompleted)]" src="/assets/clear_easy_2.png" class="challenge-icon" title="Easy" />
+          <img [class]="[getCompletionCss(this.completions?.normalCompleted)]" src="/assets/clear_normal_2.png" class="challenge-icon" title="Normal" />
+          <img [class]="[getCompletionCss(this.completions?.hardCompleted)]" src="/assets/clear_hard_2.png" class="challenge-icon" title="Hard" />
+          <img [class]="[getCompletionCss(this.completions?.expertCompleted)]" src="/assets/clear_expert.png" class="challenge-icon" title="Expert" />
+          <img [class]="[getCompletionCss(this.completions?.reverseCompleted)]" src="/assets/clear_reverse.png" class="challenge-icon" title="Reverse" />
         </div>
       </div>
 
@@ -42,6 +42,10 @@
           <span class="season-name">{{seasonName}}</span>
         </div>
       }
+
+      <div class="section">
+        <button class="submit-btn" (click)="submit()">Submit new runs</button>
+      </div>
     } @else {
       <div class="menu-title">
         <mat-icon>emoji_events</mat-icon>
@@ -68,15 +72,27 @@
   <nav class="menu-navigation">
     <div class="nav-section-title">Navigation</div>
 
+    <a class="menu-item" [routerLink]="['']">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+      <mat-icon class="chevron">chevron_right</mat-icon>
+    </a>
+
     <a class="menu-item" [routerLink]="['/daily-archive']">
       <mat-icon>calendar_today</mat-icon>
       <span>Daily Archive</span>
       <mat-icon class="chevron">chevron_right</mat-icon>
     </a>
 
+    <a class="menu-item" [routerLink]="['/cc']">
+      <mat-icon>groups</mat-icon>
+      <span>Community Challenge</span>
+      <mat-icon class="chevron">chevron_right</mat-icon>
+    </a>
+
     <a class="menu-item" [routerLink]="['/cc-archive']">
       <mat-icon>groups</mat-icon>
-      <span>Community Challenges</span>
+      <span>Community Challenge Archive</span>
       <mat-icon class="chevron">chevron_right</mat-icon>
     </a>
 

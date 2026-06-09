@@ -316,23 +316,6 @@ export class UserComponent implements OnInit, AfterViewInit {
     }
   }
 
-  submitRuns() {
-    this.zenithService.submitRuns().subscribe({
-      next: (r) => {
-        window.location.reload();
-      },
-      error: (e) => {
-        if (e.status == 400) {
-          alert(e.error);
-        }
-        if (e.status == 401) {
-          alert(e.error + '\n\nPlease login again.');
-          // window.location.reload();
-        }
-      }
-    })
-  }
-
   getModImage(mod: string) {
     return DailyHelper.getModImageUrl(mod);
   }

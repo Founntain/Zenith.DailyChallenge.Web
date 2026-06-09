@@ -28,7 +28,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {LeaderboardService} from '../../services/network/leaderboard.service';
 import {NumberUtils} from '../../util/NumberUtils';
-import {UserSessionService} from '../../services/user-session.service';
+import {ZdcSessionService} from '../../services/zdc-session.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {MatIcon} from '@angular/material/icon';
 import {ChallengesComponent} from '../../components/challenges/challenges.component';
@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private cookieHelper: CookieHelper,
     private ngZone: NgZone,
     private settingsService: SettingsService,
-    private readonly session: UserSessionService)
+    private readonly session: ZdcSessionService)
   {
       this.user$ = this.session.user$;
   }
@@ -163,26 +163,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.timerId) {
       this.timerId.unsubscribe();
     }
-  }
-
-  submitRuns() {
-    this.zenithService.submitRuns().subscribe({
-      next: (r) => {
-        // Do nothing
-        this.lastUpdateSeconds = new Date().getTime() / 1000;
-
-        // after successfull submission, we update the users data
-        if(this.challengesComponent) this.challengesComponent.loadUsersTodaysCompletions();
-      },
-      error: (e) => {
-        if(e.status == 400){
-          alert(e.error);
-        }
-        if(e.status == 401){
-          alert(e.error + '\n\nPlease login again.');
-          // window.location.reload();
-        }
-      }
-    })
   }
 }

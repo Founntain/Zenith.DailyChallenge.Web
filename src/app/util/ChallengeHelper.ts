@@ -200,7 +200,7 @@ export class ChallengeHelper {
       [ConditionType.KOs]: {
         icon: 'close',
         label: 'KOs',
-        formatter: (val) => `${val}`
+        formatter: (val) => `${val} KO\'s`
       },
       [ConditionType.Quads]: {
         icon: 'grid_4x4',

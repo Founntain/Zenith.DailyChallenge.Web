@@ -41,6 +41,7 @@
             "ssr": {
               "entry": "src/server.ts"
             },
+//            "ssr": false,
             "prerender": false
           },
           "configurations": {
@@ -49,7 +50,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "2MB"
+                  "maximumError": "16MB"
                 },
                 {
                   "type": "anyComponentStyle",

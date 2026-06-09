@@ -13,7 +13,7 @@ import {firstValueFrom, interval, max, Observable, take} from 'rxjs';
 import {TimeHelper} from '../../util/TimeHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
-import {UserSessionService} from '../../services/user-session.service';
+import {ZdcSessionService} from '../../services/zdc-session.service';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {WeeklyChallenge, WeeklyChallengeProgress} from '../../services/network/data/interfaces/WeeklyChallenge';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
@@ -34,6 +34,10 @@ import {DailyHelper} from '../../util/DailyHelper';
 })
 export class ChallengesComponent implements OnInit, OnDestroy {
   public user$: Observable<UserProfileData | null>;
+  public dailyChallenges$: Observable<DailyChallenge[] | null>;
+  public challengeCompletions$: Observable<TodayCompletions | null>;
+  public weekly$: Observable<WeeklyChallenge | null>;
+  public weeklyProgress$: Observable<WeeklyChallengeProgress | null>;
   protected readonly Difficulty = Difficulty;
   protected readonly ChallengeHelperObj = ChallengeHelper;
 
@@ -53,14 +57,38 @@ export class ChallengesComponent implements OnInit, OnDestroy {
     private readonly zenithService: ZenithService,
     private readonly userService: ZenithUserService,
     private readonly ngZone: NgZone,
-    private readonly session: UserSessionService
+    private readonly session: ZdcSessionService
   ) {
     this.user$ = this.session.user$;
+    this.dailyChallenges$ = this.session.dailies$;
+    this.challengeCompletions$ = this.session.challengeCompletions$;
+    this.weekly$ = this.session.weekly$;
+    this.weeklyProgress$ = this.session.weeklyProgress$;
   }
 
   ngOnInit(): void {
-    this.zenithService.getDailyChallenges().subscribe(result => {
+    this.dailyChallenges$.subscribe(result => {
+      if(!result) return;
+
       this.dailyChallenges = result;
+    })
+
+    this.challengeCompletions$.subscribe(result => {
+      if(!result) return;
+
+      this.todayUsersCompletions = result;
+    })
+
+    this.weekly$.subscribe(result => {
+      if(!result) return;
+
+      this.weeklyChallenge = result;
+    })
+
+    this.weeklyProgress$.subscribe(result => {
+      if(!result) return;
+
+      this.weeklyChallengeProgress = result;
     })
 
     this.zenithService.getDates().subscribe(result => {
@@ -76,11 +104,7 @@ export class ChallengesComponent implements OnInit, OnDestroy {
       });
     })
 
-    this.zenithService.getWeekly().subscribe(result => {
-      this.weeklyChallenge = result;
-    })
 
-    this.loadUsersTodaysCompletions();
   }
 
   ngOnDestroy(): void {

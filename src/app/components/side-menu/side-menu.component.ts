@@ -5,13 +5,13 @@ import {UserProfileData} from '../../services/network/data/interfaces/UserProfil
 import {CookieHelper} from '../../util/CookieHelper';
 import {NumberUtils} from '../../util/NumberUtils';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
-import {AuthService} from '../../services/network/auth.service';
 import {MatDrawer} from '@angular/material/sidenav';
 import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
 import {LeaderboardService} from '../../services/network/leaderboard.service';
 import {Observable} from 'rxjs';
-import {UserSessionService} from '../../services/user-session.service';
+import {ZdcSessionService} from '../../services/zdc-session.service';
 import {AsyncPipe} from '@angular/common';
+import {ZenithService} from '../../services/network/zenith.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -25,26 +25,36 @@ import {AsyncPipe} from '@angular/common';
 })
 export class SideMenuComponent implements OnInit{
   @Input() drawer!: MatDrawer;
+  @Input() completions: TodayCompletions | undefined;
 
   user$: Observable<UserProfileData | null>;
+  challengeCompletions$: Observable<TodayCompletions | null>;
 
-  todayUsersCompletions: TodayCompletions | undefined;
+  // todayUsersCompletions: TodayCompletions | undefined;
   seasonPlacement: number = -1;
   seasonName: string = "";
 
   constructor(
-    private readonly session: UserSessionService,
+    private readonly session: ZdcSessionService,
     private userService: ZenithUserService,
+    private zenithService: ZenithService,
     private leaderboardService: LeaderboardService,
     private cookieHelper: CookieHelper,
     private readonly router: Router
     )
   {
     this.user$ = this.session.user$;
+    this.challengeCompletions$ = this.session.challengeCompletions$;
   }
 
   ngOnInit() {
+    this.challengeCompletions$.subscribe(result => {
+      if(!result) return;
 
+      this.completions = result;
+    })
+
+    this.loadSeasonPlacement();
   }
 
   private loadSeasonPlacement() {
@@ -56,13 +66,13 @@ export class SideMenuComponent implements OnInit{
     })
   }
 
-  private loadUsersTodaysCompletions() {
-    let username = this.cookieHelper.getCookieByName('username');
-
-    this.userService.getTodaysChallengeCompletions(username).subscribe(result => {
-      this.todayUsersCompletions = result;
-    });
-  }
+  // private loadUsersTodaysCompletions() {
+  //   let username = this.cookieHelper.getCookieByName('username');
+  //
+  //   this.userService.getTodaysChallengeCompletions(username).subscribe(result => {
+  //     this.todayUsersCompletions = result;
+  //   });
+  // }
 
   protected getCompletionCss(completed: boolean | undefined)
   {
@@ -88,4 +98,8 @@ export class SideMenuComponent implements OnInit{
   }
 
   protected readonly NumberUtils = NumberUtils;
+
+  protected submit() {
+    this.session.submitAndUpdate();
+  }
 }

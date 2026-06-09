@@ -1,45 +1,29 @@
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {CommunityChallenge} from '../../services/network/data/interfaces/CommunityChallenge';
 import {RecentCommunityContribution} from '../../services/network/data/interfaces/RecentCommunityContribution';
-import {interval} from 'rxjs';
+import {interval, Observable} from 'rxjs';
 import {ZenithService} from '../../services/network/zenith.service';
 import {TimeHelper} from '../../util/TimeHelper';
-import {NumberUtils} from '../../util/NumberUtils';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {NgClass} from '@angular/common';
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef,
-  MatRow, MatRowDef,
-  MatTable
-} from '@angular/material/table';
 import {RouterLink} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
+import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
+import {ZdcSessionService} from '../../services/zdc-session.service';
 
 @Component({
   selector: 'app-community-challenge',
   imports: [
     NgClass,
-    MatTable,
-    MatColumnDef,
-    MatHeaderCell,
-    MatCell,
     RouterLink,
     MatIcon,
-    MatHeaderRow,
-    MatRow,
-    MatCellDef,
-    MatHeaderCellDef,
-    MatHeaderRowDef,
-    MatRowDef
   ],
   templateUrl: './community-challenge.component.html',
   styleUrl: './community-challenge.component.scss'
 })
 export class CommunityChallengeComponent implements OnInit, OnDestroy{
+  public communityChallenge$: Observable<CommunityChallenge | null>;
+
   private timerId: any;
   private contributionTimerId: any;
 
@@ -53,14 +37,26 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
 
   constructor(
     private readonly zenithService: ZenithService,
-    private readonly ngZone: NgZone
+    private readonly ngZone: NgZone,
+    private readonly session: ZdcSessionService
   ) {
+    this.communityChallenge$ = this.session.communityChallenge$;
   }
 
   ngOnInit(): void {
-    this.zenithService.getCommunityChallenge().subscribe(result => {
+    this.communityChallenge$.subscribe(result => {
+      if(!result) return;
+
       this.communityChallengeData = result;
       this.communityChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
+
+      if(this.communityChallengeData?.communityChallenge === undefined) return;
+
+      if(this.communityChallengeData.communityChallenge.finished === true){
+        this.isCommunityChallengeFinished = "goalAchieved"
+      }else{
+        this.isCommunityChallengeFinished = ""
+      }
     })
 
     this.zenithService.getDates().subscribe(result => {
@@ -91,7 +87,7 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
   }
 
   private updateCommunityTimeLeft(){
-    if(this.communityChallengeEndDateUnixSeconds == 0) return;
+    if(this.communityChallengeEndDateUnixSeconds === undefined || this.communityChallengeEndDateUnixSeconds == 0) return;
 
     const currentDate = new Date();
     const targetDate = new Date(this.communityChallengeEndDateUnixSeconds * 1000);
@@ -109,18 +105,7 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
   }
 
   private updateCommunityGoal() {
-    this.zenithService.getCommunityChallenge().subscribe(result => {
-      this.communityChallengeData = result;
-      this.communityChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
-
-      if(this.communityChallengeData?.communityChallenge === undefined) return;
-
-      if(this.communityChallengeData.communityChallenge.finished === true){
-        this.isCommunityChallengeFinished = "goalAchieved"
-      }else{
-        this.isCommunityChallengeFinished = ""
-      }
-    })
+    this.session.fetchCommunityChallenge();
 
     this.zenithService.getRecentCommunityContributions().subscribe(result => {
       this.recentContributions = result;
@@ -203,22 +188,22 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
 
     switch (this.communityChallengeData?.communityChallenge.conditionType){
       case ConditionType.Height:
-        prompt = ", while in search for salvation"
+        prompt = " while in search for salvation"
         break;
       case ConditionType.KOs:
         prompt = " lost souls searching for the gods"
         break;
       case ConditionType.Quads:
       case ConditionType.AllClears:
-        prompt = ", without making the walls fall"
+        prompt = " without making the walls fall"
         break;
       case ConditionType.Spins:
-        prompt = ", without getting dizzy"
+        prompt = " without getting dizzy"
         break;
       case ConditionType.Apm:
       case ConditionType.Pps:
       case ConditionType.Vs:
-        prompt = ", by unleashing the power of the gods within you"
+        prompt = " by unleashing the power of the gods within you"
         break;
       case ConditionType.TotalBonus:
         prompt = " while exploring the heights of Zenith"
