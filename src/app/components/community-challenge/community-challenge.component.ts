@@ -10,6 +10,7 @@ import {RouterLink} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {ZdcSessionService} from '../../services/zdc-session.service';
+import {ChallengeHelper} from '../../util/ChallengeHelper';
 
 @Component({
   selector: 'app-community-challenge',
@@ -34,6 +35,8 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
   isCommunityChallengeFinished: string = "";
 
   recentContributions: RecentCommunityContribution[] = [];
+
+  protected readonly ChallengeHelper = ChallengeHelper;
 
   constructor(
     private readonly zenithService: ZenithService,
@@ -216,45 +219,6 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
     return prompt;
   }
 
-  getCommunityPromptProgressSuffix() {
-    let prompt = "";
-
-    switch (this.communityChallengeData?.communityChallenge.conditionType){
-      case ConditionType.Height:
-        prompt = "climbed"
-        break;
-      case ConditionType.KOs:
-        prompt = " souls freed"
-        break;
-      case ConditionType.Quads:
-        prompt = " quads cleared"
-        break;
-      case ConditionType.Spins:
-        prompt = " spins cleared"
-        break;
-      case ConditionType.AllClears:
-        prompt = " all clears cleared"
-        break;
-      case ConditionType.Apm:
-        prompt = "apm unleashed"
-        break;
-      case ConditionType.Pps:
-        prompt = "pps unleashed"
-        break;
-      case ConditionType.Vs:
-        prompt = "vs unleashed"
-        break;
-      case ConditionType.TotalBonus:
-        prompt = " acquired"
-        break;
-      default:
-        prompt = "--- IF YOU SEE THIS TELL FOUNNTAIN HE FORGOT SOMETHING. [4] ---"
-        break;
-    }
-
-    return prompt;
-  }
-
   getContributionValue(value: number, conditionType: ConditionType) {
     let sValue = value.toLocaleString('en-US');
 
@@ -280,9 +244,5 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
       default:
         return"--- IF YOU SEE THIS TELL FOUNNTAIN HE FORGOT SOMETHING. [5] ---"
     }
-  }
-
-  getCommunityGoalPercentage(currentValue: number, target: number) {
-    return `${Math.round((currentValue / target) * 100)}%`;
   }
 }

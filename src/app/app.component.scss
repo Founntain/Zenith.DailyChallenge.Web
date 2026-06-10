@@ -26,7 +26,7 @@
 .drawer-container{
   background: transparent;
   color: $text-color;
-  height: 100vh; // Ensure the container has a defined height for sticky to work
+  height: 100vh;
 }
 
 .sidenav{
@@ -41,7 +41,7 @@
 .dev-banner {
   position: sticky;
   top: 0;
-  z-index: 1001; // Above header
+  z-index: 1001;
   width: 100%;
   background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
   border-bottom: 2px solid #d4af37;
@@ -91,7 +91,6 @@
   }
 }
 
-// Animations
 @keyframes bannerPulse {
   0%, 100% {
     opacity: 1;

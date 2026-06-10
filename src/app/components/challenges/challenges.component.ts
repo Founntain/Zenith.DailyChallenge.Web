@@ -200,10 +200,6 @@ export class ChallengesComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  getModMasteryCompletionCssClass(modStatus: boolean | undefined) {
-    return modStatus ? '' : 'grayScale'
-  }
-
   getMasteryPrefix(type: ConditionType) {
     switch(type){
       case ConditionType.KOs:
@@ -215,7 +211,7 @@ export class ChallengesComponent implements OnInit, OnDestroy {
       case ConditionType.Spins:
         return `Clear `;
       case ConditionType.AllClears:
-        return `Get `;
+        return `Perform `;
       case ConditionType.Apm:
         return `Get `;
       case ConditionType.Pps:

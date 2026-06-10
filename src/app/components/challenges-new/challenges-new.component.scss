@@ -1,3 +1,4 @@
+@use '../../../styles' as *;
 @use '../../../styling/colors' as *;
 @use '../../../styling/base' as base;
 
@@ -6,10 +7,13 @@
   width: 100%;
   margin: 0 auto;
 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  border-bottom: 1px solid $background-shade;
+
   overflow: hidden;
 }
 
-// Carousel Container
 .challenges-carousel {
   position: relative;
   width: 100%;
@@ -24,7 +28,6 @@
   }
 }
 
-// Navigation Buttons
 .carousel-nav {
   position: absolute;
   top: 50%;
@@ -89,7 +92,6 @@
   }
 }
 
-// Track Container
 .carousel-track {
   width: 100%;
   overflow: hidden;
@@ -170,7 +172,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  //max-width: 600px;
   box-sizing: border-box;
 
   @include base.mobile {
@@ -440,7 +441,6 @@
         }
       }
 
-      // Completed state
       &.completed {
         mat-icon {
           color: #00b341;
@@ -448,7 +448,6 @@
         }
       }
 
-      // Active state
       &.active {
         mat-icon {
           font-size: 20px;
@@ -467,7 +466,6 @@
         }
       }
 
-      // Difficulty colors on hover (for non-completed)
       &:not(.completed):not(.active) {
         &[data-difficulty="easy"]:hover mat-icon {
           color: $easy-text-color;
@@ -497,7 +495,6 @@
   }
 }
 
-// Animation for completed challenges
 @keyframes completedPulse {
   0%, 100% {
     transform: scale(1);
@@ -509,7 +506,6 @@
   }
 }
 
-// Keep existing iconPulse animation
 @keyframes iconPulse {
   0%, 100% {
     transform: scale(1);
@@ -518,3 +514,199 @@
     transform: scale(1.1);
   }
 }
+
+.mastery-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  gap: 1rem;
+  margin: 1rem;
+
+  @include base.mobile{
+    flex-direction: column;
+  }
+
+  .mastery-card{
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 32px;
+    border-radius: 6px;
+
+    transition: transform 0.3s ease-in-out;
+
+    &:hover{
+      transform: translateY(-5px);
+    }
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    &.normal{
+      background: $wom-container-gradient;
+    }
+
+    &.reverse{
+      background: $reverse-container-gradient;
+    }
+
+    .mastery-title{
+      @extend .headerTextFancy;
+
+      font-size: 2.5rem;
+
+      @include base.mobile{
+        font-size: 1.75rem;
+      }
+    }
+
+    .mastery-description{
+      font-size: 1.2rem;
+
+      color: rgba($text-color, 0.65);
+    }
+
+    .mastery-mods{
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+      gap: 1rem;
+
+      margin: 0 1rem 0 1rem;
+
+      .bigMod{
+        @extend .bigMod;
+
+        transition-property: transform, filter;
+        transition-duration: 0.3s;
+        transition-timing-function: ease-in-out;
+        //transition: transform 0.3s ease-in-out, filter 0.3 ease-in-out;
+
+        @include base.mobile{
+          max-height: 40px;
+          max-width: 40px;
+          margin: 2px;
+        }
+
+        &:hover{
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    .mastery-conditions{
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-evenly;
+      gap: 4px;
+
+      .mastery-value-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 4px;
+
+        .mastery-prefix{
+          font-size: 1rem;
+
+          color: rgba($text-color, 0.65);
+        }
+
+        .mastery-value{
+          @extend .boldText;
+
+          font-size: 2rem;
+
+          &.normal{
+            background: $gold-gradient;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba($expert-text-color, 0.5);
+          }
+
+          &.reverse{
+            background: $reverse-gradient;
+            text-shadow: 0 0 30px rgba($reverse-accent-color, 0.5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+      }
+    }
+
+    .mastery-progress-container{
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+
+      .mastery-progress-bar{
+        width: 100%;
+        height: 12px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 2px;
+        overflow: hidden;
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+        position: relative;
+
+        .mastery-progress-bar-fill{
+          height: 100%;
+          border-radius: 2px;
+
+          transition: width 1s ease-in-out;
+
+          &.normal{
+            background: $gold-gradient;
+            box-shadow: 0 0 20px rgba($expert-text-color, 0.8);
+          }
+
+          &.reverse{
+            background: $reverse-gradient;
+            box-shadow: 0 0 20px rgba($reverse-accent-color, 0.8);
+          }
+        }
+      }
+    }
+
+    .mastery-reward{
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      vertical-align: center;
+      align-items: center;
+
+      .mastery-img{
+        filter: drop-shadow(0 0 15px rgba($expert-text-color, 0.8));
+
+        transition: transform 0.3s ease-in-out;
+
+        &:hover{
+          transform: scale(1.2);
+        }
+      }
+
+      .reward-container{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        vertical-align: center;
+
+        .reward-title{
+          font-size: 1rem;
+          color: rgba($text-color, 0.65);
+        }
+
+        .reward-text{
+          font-size: 1rem;
+          color: $text-color;
+        }
+      }
+    }
+  }
+}
+

@@ -37,6 +37,7 @@ import {CommunityChallengeComponent} from '../../components/community-challenge/
 import {ZdcStatsComponent} from '../../components/zdc-stats/zdc-stats.component';
 import {DailyHelper} from '../../util/DailyHelper';
 import {ChallengesNewComponent} from '../../components/challenges-new/challenges-new.component';
+import {ChallengeHelper} from '../../util/ChallengeHelper';
 
 @Component({
   selector: 'app-home',
@@ -60,7 +61,9 @@ import {ChallengesNewComponent} from '../../components/challenges-new/challenges
     CommunityChallengeComponent,
     ZdcStatsComponent,
     ChallengesNewComponent,
-    ChallengesNewComponent
+    ChallengesNewComponent,
+    AsyncPipe,
+    MatIcon
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -70,6 +73,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   protected readonly DailyHelper = DailyHelper;
 
   public user$: Observable<UserProfileData | null>;
+  public communityChallenge$: Observable<CommunityChallenge | null>;
 
   @ViewChild(ChallengesComponent)
   private challengesComponent?: ChallengesComponent;
@@ -93,23 +97,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   leaderboardTimeLeft: string = "";
 
+  protected readonly ChallengeHelper = ChallengeHelper;
 
   constructor(
     private zenithService: ZenithService,
     private leaderboardService: LeaderboardService,
-    private authService: AuthService,
-    private userService: ZenithUserService,
-    private cookieHelper: CookieHelper,
     private ngZone: NgZone,
-    private settingsService: SettingsService,
     private readonly session: ZdcSessionService)
   {
       this.user$ = this.session.user$;
+      this.communityChallenge$ = this.session.communityChallenge$;
   }
 
   ngOnInit(): void {
-
-
     this.leaderboardService.getLeaderboard().subscribe(result => {
       this.seasonalLeaderboardData = result;
       this.leaderboardChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;

@@ -28,14 +28,17 @@
   }@else{
     <!-- CC Active -->
     <div class="challenge-content">
-
-      <!-- Top Section: Goal & Description -->
       <div class="hero-section">
-        <div class="hero-middle">
-          @if (communityChallengeData?.communityChallenge?.description !== undefined) {
-            <p class="challenge-description">{{ communityChallengeData.communityChallenge.description }}</p>
-          }
-        </div>
+        @if (communityChallengeData?.communityChallenge?.description !== undefined) {
+          <div class="hero-middle">
+              <div class="hero-background">
+                <img src="https://tetr.io/res/bg/zenith/10fa.jpg" alt="Challenge Background" class="background-image" />
+                <div class="gradient-overlay"></div>
+              </div>
+
+              <p class="challenge-description">{{ communityChallengeData.communityChallenge.description }}</p>
+          </div>
+        }
 
         <div class="hero-sub-section">
           <div class="hero-left">
@@ -66,12 +69,12 @@
                   <span class="target-value">{{getCommunityPromptValue()}}</span>
                 </div>
                 <div class="progress-percentage">
-                  {{getCommunityGoalPercentage(communityChallengeData.communityChallenge.value, communityChallengeData.communityChallenge.targetValue)}}
+                  {{ChallengeHelper.getCommunityGoalPercentage(communityChallengeData.communityChallenge.value, communityChallengeData.communityChallenge.targetValue)}}
                 </div>
               </div>
 
               <div class="progress-bar-track">
-                <div class="progress-bar-fill" [style.width]="getCommunityGoalPercentage(communityChallengeData.communityChallenge.value, communityChallengeData.communityChallenge.targetValue)"></div>
+                <div class="progress-bar-fill" [style.width]="ChallengeHelper.getCommunityGoalPercentage(communityChallengeData.communityChallenge.value, communityChallengeData.communityChallenge.targetValue)"></div>
               </div>
 
               <div class="participants-info">
@@ -84,9 +87,7 @@
 
       </div>
 
-      <!-- Main Grid: Contributors & Activity -->
       <div class="main-grid">
-        <!-- Top Contributors -->
         <div class="card contributors-section">
           <h3 class="card-title">
             <mat-icon class="title-icon">emoji_events</mat-icon>
@@ -107,13 +108,11 @@
                     <span class="contribution-label">contributed</span>
                   </div>
                 </div>
-                <mat-icon class="contributor-icon">person</mat-icon>
               </div>
             }
           </div>
         </div>
 
-        <!-- Recent Activity -->
         <div class="card activity-section">
           <h3 class="card-title">
             <mat-icon class="title-icon">notifications_active</mat-icon>
@@ -129,7 +128,6 @@
                     <span class="activity-text">contributed</span>
                     <span class="activity-value">{{getContributionValue(contribution.amount, contribution.conditionType)}}</span>
                   </div>
-                  <mat-icon class="activity-icon">check_circle</mat-icon>
                 }@else{
                   <div class="activity-indicator late"></div>
                   <div class="activity-details">
@@ -138,7 +136,6 @@
                     <span class="activity-value">{{getContributionValue(contribution.amount, contribution.conditionType).toLocaleString()}}</span>
                     <span class="late-badge">Too Late</span>
                   </div>
-                  <mat-icon class="activity-icon late">schedule</mat-icon>
                 }
               </div>
             }

@@ -28,6 +28,7 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
   public dailyChallenges$: Observable<DailyChallenge[] | null>;
   public challengeCompletions$: Observable<TodayCompletions | null>;
   challenges: Challenge[] = [];
+  masteryChallenges: Challenge[] = [];
   currentIndex = 0;
   autoPlayInterval?: any;
 
@@ -48,6 +49,7 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
       if(challenges === undefined || challenges === null) return;
 
       this.challenges = [];
+      this.masteryChallenges = [];
 
       for (let i = 0; i < challenges.length; i++) {
         let challenge = challenges[i];
@@ -65,10 +67,34 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
           imageUrl: 'https://tetr.io/res/bg/zenith/' + DailyHelper.getFloorByAltitude(challenge.conditions[0].value) + 'fa.jpg',
           remainingTime: (challenge.completions ?? 0).toLocaleString(),
           stats: this.getStatsFromConditions(challenge.conditions),
+          isReverse: challenge.isReverse,
           isCompleted: false
         }
 
         this.challenges.push(c);
+      }
+
+      for(let i = 0; i< challenges.length; i++){
+        let challenge = challenges[i];
+
+        if(challenge === undefined || challenge === null) continue;
+        if (!challenge.isMasteryChallenge) continue;
+
+        let c: Challenge = {
+          id: challenge.id,
+          number: challenge.date,
+          modString: challenge.mods,
+          mods: DailyHelper.getModArray(challenge.mods).map(mod => DailyHelper.getModImageUrl(mod)),
+          difficulty: challenge.points,
+          difficultyText: ChallengeHelper.getDifficultyText(challenge.points, '', true).toLowerCase(),
+          imageUrl: 'https://tetr.io/res/bg/zenith/' + DailyHelper.getFloorByAltitude(challenge.conditions[0].value) + 'fa.jpg',
+          remainingTime: (challenge.completions ?? 0).toLocaleString(),
+          stats: this.getStatsFromConditions(challenge.conditions),
+          isReverse: challenge.isReverse,
+          isCompleted: false
+        }
+
+        this.masteryChallenges.push(c);
       }
 
       await this.loadTodaysCompletions();
@@ -144,6 +170,39 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
   protected signIn() {
     DailyHelper.signIn();
   }
+
+  protected getCompletionPercentage(challenge: Challenge) {
+    let countCompleted = 0;
+
+    const completions = this.session?.snapshotChallengeCompletions?.masteryChallenge;
+
+    if(!completions) return 0;
+
+    if(challenge.isReverse){
+      if(completions.expertReversedCompleted) countCompleted++;
+      if(completions.noHoldReversedCompleted) countCompleted++;
+      if(completions.messyReversedCompleted) countCompleted++;
+      if(completions.gravityReversedCompleted) countCompleted++;
+      if(completions.volatileReversedCompleted) countCompleted++;
+      if(completions.doubleHoleReversedCompleted) countCompleted++;
+      if(completions.invisibleReversedCompleted) countCompleted++;
+      if(completions.allSpinReversedCompleted) countCompleted++;
+
+    }else{
+      if(completions.expertCompleted) countCompleted++;
+      if(completions.noHoldCompleted) countCompleted++;
+      if(completions.messyCompleted) countCompleted++;
+      if(completions.gravityCompleted) countCompleted++;
+      if(completions.volatileCompleted) countCompleted++;
+      if(completions.doubleHoleCompleted) countCompleted++;
+      if(completions.invisibleCompleted) countCompleted++;
+      if(completions.allSpinCompleted) countCompleted++;
+    }
+
+    if(countCompleted == 0) return 0;
+
+    return countCompleted / 8 * 100
+  }
 }
 
 interface Challenge {
@@ -155,6 +214,7 @@ interface Challenge {
   difficultyText: string;
   imageUrl: string;
   remainingTime: string;
-  stats: { icon: string; value: string; label: string }[];
+  stats: { icon: string; prefix: string, value: string; label: string }[];
+  isReverse: boolean;
   isCompleted: boolean;
 }
