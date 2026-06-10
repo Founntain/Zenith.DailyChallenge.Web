@@ -1,129 +1,391 @@
 @use "../../../styles" as *;
 @use "../../../styling/colors" as *;
+@use "../../../styling/base" as base;
 
 :host {
   display: flex;
   flex-direction: column;
-  height: 100vh; // Ensure the container takes full height
+  height: 100vh;
   max-height: 100vh;
-
-  border: solid;
-  border-width: 0 0 0 1px;
-  border-image: $colorful-accent-gradient 1;
+  background: $background-color;
+  border-left: 1px solid $background-shade;
 }
 
-.header{
+.side-menu-container {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 
-  font-size: 1.5rem;
-  letter-spacing: 5px;
-
-  border: solid;
-  border-width: 0 0 2px 0;
-  border-image: $colorful-accent-gradient 1;
-
-  margin-bottom: 5px;
-  //padding: 10px;
-
-  .userInfo {
-    display: flex;
-    align-items: center;
-    text-transform: uppercase;
-
-    .profilePicture {
-      max-height: 64px;
-      //border-radius: 50%;
-      border: solid;
-      border-width: 0 2px 0 0;
-      border-image: $colorful-accent-gradient 1;
-    }
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
   }
 
-  .profileSplit{
-    flex: auto 1;
+  &::-webkit-scrollbar-track {
+    background: $background-dark-shade;
   }
 
-  a {
-    @extend .headerText;
-
-    text-decoration: none;
-    margin: 0 15px;
-    color: $text-color;
-    width: 100%;
-    text-align: center;
-
-    transition: all .3s ease-in-out;
+  &::-webkit-scrollbar-thumb {
+    background: $background-shade;
+    border-radius: 3px;
 
     &:hover {
-      color: $colorful-accent-gradientColor2;
-      letter-spacing: 10px;
+      background: $colorful-accent-color;
+    }
+  }
+}
+
+// Profile Section
+.profile-section {
+  padding: 20px;
+  border-bottom: 1px solid $background-shade;
+}
+
+.menu-title {
+  @extend .headerTextFancy;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $text-color;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  mat-icon {
+    color: $colorful-accent-color;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.user-profile-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: $background-shade-solid;
+  margin-bottom: 16px;
+
+  .profile-banner {
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.7);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(to bottom, transparent, $background-shade-solid);
     }
   }
 
-  .banner{
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.8;
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    gap: 12px;
 
-    max-height: 64px;
+    .profile-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 3px solid $colorful-accent-color;
+      box-shadow: 0 4px 12px rgba($colorful-accent-gradientColor1, 0.4);
+      margin-top: -32px;
+      position: relative;
+      z-index: 1;
+      background: $background-color;
+    }
+
+    .username {
+      @extend .headerTextFancy;
+
+      color: $text-color;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: $colorful-accent-gradientColor2;
+        letter-spacing: 2px;
+      }
+    }
   }
 }
 
-.menuItems{
+.challenge-stats {
+  background: $background-shade;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  .stat-title {
+    color: $secondary-color;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .challenge-icons {
+    display: flex;
+    justify-content: space-around;
+    gap: 8px;
+
+    .challenge-icon {
+      width: 32px;
+      height: 32px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &.challengeUncompleted {
+        filter: grayscale(100%) brightness(0.5);
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+.season-ranking {
+  background: $colorful-accent-gradient;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  text-align: center;
+
+  .ranking-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4px;
+
+    .rank-number {
+      @extend .headerTextFancy;
+
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $text-color;
+    }
+
+    .rank-label {
+      font-size: 0.75rem;
+      color: rgba($text-color, 0.8);
+      text-transform: uppercase;
+    }
+  }
+
+  .season-name {
+    @extend .headerTextFancy;
+
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $text-color;
+  }
+}
+
+// Search Section
+.search-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid $background-shade;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    color: $secondary-color;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    background: $background-shade;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: $text-color;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+
+    &::placeholder {
+      color: $subtle-text-color;
+      text-transform: none;
+    }
+
+    &:focus {
+      background: $background-shade-solid;
+      border-color: $colorful-accent-color;
+      box-shadow: 0 0 0 3px rgba($colorful-accent-color, 0.1);
+    }
+  }
+}
+
+// Menu Navigation
+.menu-navigation {
+  flex: 1;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  flex: 1;
-  margin-top: 10px;
+  gap: 8px;
 }
 
-.menuItem{
-  @extend .headerText;
+.nav-section-title {
+  color: $secondary-color;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  padding-left: 12px;
+}
 
+.menu-item {
   display: flex;
-  flex-direction: row;
-  align-items: start;
-  justify-content: left;
-
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  color: $secondary-color;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
   cursor: pointer;
 
-  transition: all 0.2s ease-in-out;
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
 
-  &:hover{
-    color: $colorful-accent-gradientColor2;
+  span {
+    flex: 1;
+  }
 
-    letter-spacing: 1px;
-    transform: skewX(-10deg);
+  .chevron {
+    color: $subtle-text-color;
+    margin-left: auto;
+  }
+
+  &:hover {
+    background: $background-shade;
+    color: $text-color;
+    transform: translateX(4px);
+
+    .chevron {
+      color: $colorful-accent-color;
+      transform: translateX(4px);
+    }
+  }
+
+  &:active {
+    background: rgba($colorful-accent-color, 0.2);
   }
 }
 
-.footer{
-  @extend .headerText;
+// Footer
+.menu-footer {
+  padding: 20px;
+  border-top: 1px solid $background-shade;
+}
 
-  text-align: center;
-  margin-top: auto;
-  border: 1px solid;
-  border-image: $colorful-accent-gradient 1;
-  padding: 10px 0;
-
+.close-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid $background-shade;
+  border-radius: 8px;
+  color: $secondary-color;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   cursor: pointer;
+  transition: all 0.2s ease;
 
-  font-size: 1.5rem;
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
 
-  letter-spacing: 2px;
+  &:hover {
+    background: $background-shade;
+    border-color: $colorful-accent-color;
+    color: $text-color;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
-.challengeCompletions{
-  border: solid $accent-color;
-  border-width: 0 0 2px 0;
-  border-image: $colorful-accent-gradient 1;
+.section{
+  display: flex;
 }
 
-.challengeUncompleted{
-  filter: grayscale(100%);
+.submit-btn {
+  @extend .headerTextFancy;
+
+  width: 100%;
+  padding: 10px 24px;
+  background: $colorful-accent-gradient;
+  color: $text-color;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba($colorful-accent-gradientColor1, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($colorful-accent-gradientColor1, 0.5);
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @include base.mobile {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 }

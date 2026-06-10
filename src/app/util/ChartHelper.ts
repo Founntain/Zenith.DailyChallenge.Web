@@ -1,4 +1,169 @@
-﻿export class ChartHelper{
+﻿import {DailyHelper} from './DailyHelper';
+import {ChartConfiguration} from 'chart.js';
+
+export class ChartHelper{
+  static getFloorChartOptions(): ChartConfiguration<'doughnut'>['options'] {
+    return {
+      elements: {
+        arc: {
+          borderWidth: 0.7,
+        }
+      },
+      plugins: {
+        tooltip: {
+          mode: 'index',
+          intersect: true,
+          titleAlign: 'center',
+          titleFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 14,
+          },
+          bodyFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 12,
+          },
+        },
+        legend: {
+          display: false
+        }
+      }
+    }
+  }
+
+  static getCleanLineChartOptions(): ChartConfiguration<'line'>['options'] {
+    return {
+      elements: {
+        line: {
+          tension: .5,
+        },
+        point: {
+          radius: 3,
+          hoverRadius: 3,
+        },
+      },
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          titleAlign: 'center',
+          titleFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 14,
+          },
+          bodyFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 12,
+          },
+        },
+      },
+      scales: {
+        x: {
+          display: false,
+          grid: {
+            display: false,
+          },
+          ticks: {
+            display: false,
+          },
+        },
+        y: {
+          display: false,
+          grid: {
+            display: false,
+          },
+          ticks: {
+            display: false,
+          },
+        },
+      },
+    }
+  }
+
+  static getProgressionChartOptions(): ChartConfiguration<'line'>['options'] {
+    return {
+      elements: {
+        line: {
+          borderWidth: 2,
+          tension: 1,
+          stepped: 'after'
+        },
+        point: {
+          radius: 0,
+          hitRadius: 10
+        }
+      },
+      scales: {
+        x: {
+          beginAtZero: false,
+          min: 1,
+          type: 'linear',
+          ticks: {
+            color: '#e2e8f0',
+            autoSkip: true,
+            font: {
+              family: 'Faculty Glyphic',
+              weight: 'bold',
+              size: 14,
+            }
+          }
+        },
+        y: {
+          position: 'left',
+          grid: {
+            color: 'rgb(255, 255, 255, 0.25)',
+          },
+          ticks: {
+            color: '#e2e8f0',
+            font: {
+              family: 'Faculty Glyphic',
+              weight: 'bold',
+              size: 18,
+            }
+          },
+        },
+      },
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      plugins: {
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          titleFont: {
+            size: 0
+          },
+          bodyFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 18,
+          }
+        },
+        legend: {
+          labels: {
+            font: {
+              family: 'Faculty Glyphic',
+              weight: 'bold',
+              size: 16,
+            }
+          }
+        },
+        annotation: ChartHelper.getModChartAnnotations()
+      }
+    }
+  }
+
   public getChartData(
     datasets: any[],
     labels: any[],
@@ -35,7 +200,7 @@
     return result;
   }
 
-  public getRecentDaysChartData(data: any[]){
+  public static getRecentDaysChartData(data: any[]){
     return [
       {
         data: data.map(x => {return x.apm.avg}),
@@ -108,7 +273,7 @@
     ]
   }
 
-  public getModBasedChartData(data: any){
+  public static getModBasedChartData(data: any){
     let hitradius = 10;
 
     return [
@@ -294,7 +459,7 @@
     ]
   }
 
-  public getModChartAnnotations(): any{
+  public static getModChartAnnotations(): any{
     let annotationFont = {
       family: 'Space Grotesk',
       weight: 'bold',
@@ -431,5 +596,31 @@
         },
       }
     }
+  }
+
+  public static getFloorChartData(data: any[]){
+    return [
+      {
+        data: data.map(x => {return x}),
+        backgroundColor: DailyHelper.floorColors,
+        pointHitRadius: 20,
+        fill: 'origin',
+        yAxisID: 'yLeft',
+      },
+    ]
+  }
+
+  public static getLineChartData(data: any[], label: string, pointColor: string){
+    return [
+      {
+        data: data.map(x => {return x}),
+        borderColor: 'rgb(255,255,255)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: pointColor,
+        label: label,
+        pointHitRadius: 2,
+        fill: 'origin',
+      },
+    ]
   }
 }

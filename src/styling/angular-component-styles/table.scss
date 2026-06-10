@@ -1,5 +1,5 @@
 ﻿@use '../colors' as *;
-@use '../base' as *;
+@use '../base' as base;
 
 .mat-mdc-table {
   background: transparent !important;
@@ -18,7 +18,7 @@
 
   font-size: 16pt;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     font-size: 16pt;
   }
 }

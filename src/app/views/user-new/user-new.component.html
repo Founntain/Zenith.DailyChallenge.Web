@@ -1,0 +1,362 @@
+@if(dailyData){
+  <div class="simpleContainer bigGap" style="margin: 1rem">
+
+    @if (this.dailyData) {
+      <!-- Profile Image, username and stats -->
+      <div class="profile-container">
+        <!--  Profile Card  -->
+        <div class="profile-card">
+          @if (dailyData.avatar !== undefined && dailyData.avatar !== null && dailyData.avatar !== 0) {
+            <img src="https://tetr.io/user-content/avatars/{{this.dailyData.tetrioId}}.jpg?rv={{this.dailyData.avatar}}" class="profileImage" />
+          }
+          <div class="flexColumn uppercase gap" style=" width: 100%">
+            <span class="headerTextFancy" style="font-size: 2rem">{{username}}</span>
+            <span class="subtleText">{{ this.dailyData?.title }}</span>
+            <app-segmentbar class="playstyleSegments" [segments]="playStyleSegments"/>
+          </div>
+        </div>
+
+        <!--  User lifetime stats  -->
+        <div class="lifetime-stats-grid">
+          <div class="stat-item">
+            <span class="subtleText">Score</span>
+            <div class="flexRow justifyCenter verticalCenter gap">
+              @if (this.dailyData.seasonalScore > 0) {
+                <span class="boldText subtleText" matTooltip="Score current Season">{{ this.dailyData?.seasonalScore }}</span>
+                <span class="numeric"> / </span>
+              }
+              <span class="numeric-stats"> {{this.dailyData?.score?.toLocaleString()}}</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <span class="subtleText">Runs</span>
+            <span class="numeric-stats">{{this.dailyData?.runs?.toLocaleString()}}</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="subtleText">Top Run</span>
+            <span class="numeric-stats">{{roundNumber(this.dailyData?.topAltitude, 2).toLocaleString()}} M</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="subtleText">Send</span>
+            <span class="numeric-stats">{{this.dailyData?.garbageSend?.toLocaleString()}}</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="subtleText">Cleared</span>
+            <span class="numeric-stats">{{this.dailyData?.garbageCleared?.toLocaleString()}}</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="subtleText">KO's</span>
+            <span class="numeric-stats">{{this.dailyData?.kos?.toLocaleString()}}</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="subtleText">Hours played</span>
+            <span class="numeric-stats">{{this.dailyData?.timePlayed?.toLocaleString()}} h</span>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Stat Cards -->
+    @if (this.dailyDataExtra) {
+      <div class="stat-cards-grid">
+        <div class="stat-card-item">
+          <div class="flexColumn">
+            <span class="subtleText">Average Floor</span>
+            <span class="numeric">{{roundNumber(this.dailyDataExtra.floors?.average, 2)}}</span>
+          </div>
+          <div style="height: 100px; width: 100px">
+            <canvas baseChart type="doughnut" [data]="this.floorChartData" [options]="this.floorChartOptions"></canvas>
+          </div>
+        </div>
+
+        <div class="stat-card-item">
+          <div class="flexRow verticalCenter gap">
+            <div class="flexColumn">
+              <span class="subtleText">APM</span>
+              <span class="numeric">{{ roundNumber(this.dailyDataExtra.apm?.average, 2) }}</span>
+            </div>
+          </div>
+          <mat-icon class="verticalCenter" style="font-size: 2rem; height: 2rem; width: 2rem">{{ getTrendingIcon(this.dailyDataExtra.apm?.recent) }}</mat-icon>
+          <div class="flexRow verticalCenter" style="height: 100px; width: 100px">
+            <canvas baseChart type="line" [data]="this.apmChartData" [options]="this.apmChartOptions"></canvas>
+          </div>
+        </div>
+
+        <div class="stat-card-item">
+          <div class="flexColumn">
+            <span class="subtleText">VS</span>
+            <span class="numeric">{{ roundNumber(this.dailyDataExtra.vs?.average, 2) }}</span>
+          </div>
+          <mat-icon class="verticalCenter" style="font-size: 2rem; height: 2rem; width: 2rem">{{ getTrendingIcon(this.dailyDataExtra.vs?.recent) }}</mat-icon>
+          <div class="flexRow verticalCenter" style="height: 100px; width: 100px">
+            <canvas baseChart type="line" [data]="this.vsChartData" [options]="this.vsChartOptions"></canvas>
+          </div>
+        </div>
+
+        <div class="stat-card-item">
+          <div class="flexColumn">
+            <span class="subtleText">PPS</span>
+            <span class="numeric">{{ roundNumber(this.dailyDataExtra.pps?.average, 2) }}</span>
+          </div>
+          <mat-icon class="verticalCenter" style="font-size: 2rem; height: 2rem; width: 2rem">{{ getTrendingIcon(this.dailyDataExtra.pps?.recent) }}</mat-icon>
+          <div class="flexRow verticalCenter" style="height: 100px; width: 100px">
+            <canvas baseChart type="line" [data]="this.ppsChartData" [options]="this.ppsChartOptions"></canvas>
+          </div>
+        </div>
+
+        <div class="stat-card-item">
+          <div class="flexColumn">
+            <span class="subtleText">Average Altitude</span>
+            <span class="numeric">{{ roundNumber(this.dailyDataExtra.altitude?.average, 2) }}</span>
+          </div>
+          <mat-icon class="verticalCenter" style="font-size: 2rem; height: 2rem; width: 2rem">{{ getTrendingIcon(this.dailyDataExtra.altitude?.recent) }}</mat-icon>
+          <div class="flexRow verticalCenter" style="height: 100px; width: 100px">
+            <canvas baseChart type="line" [data]="this.altitudeChartData" [options]="this.altitudeChartOptions"></canvas>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="flexRowDynamic flexStretch bigGap headerTextFancy">
+      <span (click)="setViewActive('overall')" [class]="isActiveView('overall')" class="profileButton">Overall</span>
+      <span (click)="setViewActive('progression')" [class]="isActiveView('progression')" class="profileButton">Altitude Progression</span>
+      <span (click)="setViewActive('splits')" [class]="isActiveView('splits')" class="profileButton">Zenith Splits</span>
+    </div>
+
+    <!-- Dailies and Recent Runs -->
+    @if(activeView === 'overall'){
+      <div class="overall-grid">
+        <!--  Dailies  -->
+        <div class="flexColumn flexStretch gap">
+          <div class="flexRow verticalCenter sectionHeader">
+            <span class="headerTextFancy justifyLeft sectionHeaderTitle">Dailies</span>
+            <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/u', username, 'dailies']">
+              <span class="subtleText justifyRight">Show History</span>
+              <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+            </div>
+          </div>
+          @if (this.challengeCompletions.length > 0) {
+            @for (day of this.challengeCompletions; track $index){
+              <div class="flexRow bigGap">
+                <mat-expansion-panel style="width: 100%">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{ day.date }}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      <div class="flexRow bigGap verticalCenter" style="padding: 1rem">
+                        <span class="dailyDot easy" [class]="[isChallengeBeaten(day.easyCompleted)]"></span>
+                        <span class="dailyDot normal" [class]="[isChallengeBeaten(day.normalCompleted)]"></span>
+                        <span class="dailyDot hard" [class]="[isChallengeBeaten(day.hardCompleted)]"></span>
+                        <span class="dailyDot expert" [class]="[isChallengeBeaten(day.expertCompleted)]"></span>
+                        <span class="dailyDot reverse" [class]="[isChallengeBeaten(day.reverseCompleted)]"></span>
+                        <span class="dailyDot mastery" [class]="[isMasteryChallengeBeaten(day.mastery, false)]"></span>
+                        <span class="dailyDot masteryReverse" [class]="[isMasteryChallengeBeaten(day.mastery, true)]"></span>
+                      </div>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+                  <div class="normalTextColor flexRowDynamic justifyCenter">
+                    <div class="flexColumn gap" style="margin: 1rem;">
+                      <span class="headerTextFancy" style="font-size: 1.5rem">Challenges</span>
+                      <div>
+                        <img class="mod" [class]="[isChallengeBeaten(day.easyCompleted)]" src="assets/clear_easy_2.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.normalCompleted)]" src="assets/clear_normal_2.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.hardCompleted)]" src="assets/clear_hard_2.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.expertCompleted)]" src="assets/clear_expert.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.reverseCompleted)]" src="assets/clear_reverse.png" />
+                      </div>
+                    </div>
+                    <div class="flexColumn gap">
+                      <span class="headerTextFancy" style="font-size: 1.5rem">Mastery</span>
+                      <div>
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png" />
+                      </div>
+                      <div>
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertReversedCompleted)]" src="assets/tetrio-img/mods/expert_reversed.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.noHoldReversedCompleted)]" src="assets/tetrio-img/mods/nohold_reversed.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.messyReversedCompleted)]" src="assets/tetrio-img/mods/messy_reversed.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.gravityReversedCompleted)]" src="assets/tetrio-img/mods/gravity_reversed.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.volatileReversedCompleted)]" src="assets/tetrio-img/mods/volatile_reversed.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.doubleHoleReversedCompleted)]" src="assets/tetrio-img/mods/doublehole_reversed.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.invisibleReversedCompleted)]" src="assets/tetrio-img/mods/invisible_reversed.png" />
+                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.allSpinReversedCompleted)]" src="assets/tetrio-img/mods/allspin_reversed.png" />
+                      </div>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+
+              </div>
+            }
+          }
+          @else{
+            <span class="headerTextFancy subtleText"> Not played so far</span>
+          }
+
+        </div>
+
+        <!--  Recent Runs  -->
+        <div class="flexColumn flexStretch gap">
+          <div class="flexRow verticalCenter sectionHeader">
+            <span class="headerTextFancy justifyLeft sectionHeaderTitle">Recent Runs</span>
+            <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/u', username, 'runs']">
+              <span class="subtleText justifyRight">Show History</span>
+              <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+            </div>
+          </div>
+          @if (this.recentRuns.length > 0) {
+            @for (run of this.recentRuns; track $index) {
+              <div class="flexRow flexStretch gap card animateLeft" [class]="isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen)" [routerLink]="['/u', username, 'run', run.tetrioId]">
+                <div class="flexColumn flexStretch gap floorBorder justifyCenter" [class]="[getFloorKeyFromAltitude(run.altitude)]">
+                  <span class="subtleText">{{getFloorNameFromAltitude(run.altitude)}}</span>
+                  <span class="numeric-dynamic">{{roundNumber(run.altitude, 3)}} M</span>
+                </div>
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText ">APM</span>
+                  <span class="numeric-dynamic">{{ roundNumber(run.apm, 3) }}</span>
+                </div>
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText">VS</span>
+                  <span class="numeric-dynamic">{{ roundNumber(run.vs, 3) }}</span>
+                </div>
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText">PPS</span>
+                  <span class="numeric-dynamic">{{roundNumber(run.pps, 3)}}</span>
+                </div>
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText">{{ run.playedAt|date:'short' }}</span>
+                  <div class="flexRow verticalCenter justifyCenter alignCenter movableLink clickable">
+                    <span class="boldText">View Details</span>
+                    <mat-icon class="iconAccent"  [routerLink]="['/u', username, 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+                  </div>
+                </div>
+              </div>
+            }
+          }
+          @else{
+            <span class="headerTextFancy subtleText"> Not played so far</span>
+          }
+        </div>
+      </div>
+
+      <div class="overall-grid">
+        <!--  Seasonal  -->
+        <div class="flexColumn flexStretch gap">
+          <div class="flexRow verticalCenter sectionHeader">
+            <span class="headerTextFancy justifyLeft sectionHeaderTitle">Seasonal</span>
+            <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/seasonal']">
+              <span class="subtleText justifyRight">Show History</span>
+              <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+            </div>
+          </div>
+          @if (this.seasonalData.length > 0) {
+            @for ( season of this.seasonalData ; track $index) {
+              <div class="flexRow flexStretch gap card animateRight">
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText">Season</span>
+                  <span class="numeric-dynamic">{{ season.seasonName }}</span>
+                </div>
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText ">Score</span>
+                  <span class="numeric-dynamic">{{ season.seasonScore }}</span>
+                </div>
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText">Placement</span>
+                  <div>
+                    <span class="numeric-dynamic">{{ season.seasonPlacement }}</span>
+                    <span class="numeric-dynamic"> / </span>
+                    <span class="numeric-dynamic">{{ season.seasonParticipants }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          }
+          @else{
+            <span class="headerTextFancy subtleText"> Not participated in any season yet</span>
+          }
+
+        </div>
+
+        <!--  Community Contributions  -->
+        <div class="flexColumn flexStretch gap">
+          <div class="flexRow verticalCenter sectionHeader">
+            <span class="headerTextFancy justifyLeft sectionHeaderTitle">Community Contributions</span>
+            <div class="flexRow verticalCenter sectionHeaderAction movableLink">
+              <span class="subtleText justifyRight" [routerLink]="['/cc-archive']">Show Archive</span>
+              <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+            </div>
+          </div>
+          @if (this.communityContribution.length > 0) {
+            @for ( cc of this.communityContribution ; track $index) {
+              <div class="flexRow flexStretch gap card animateLeft">
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText">Date / Name</span>
+                  <span class="numeric-dynamic">{{ cc.challenge }}</span>
+                </div>
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText ">Contribution</span>
+                  <span class="numeric-dynamic">{{ getCommunityContributionvalue(cc.totalAmountContributed, cc.conditionType) }}</span>
+                </div>
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText ">% Contributed</span>
+                  <span class="numeric-dynamic">{{ cc.contributionPercentage.toLocaleString() }} %</span>
+                </div>
+                <div class="flexColumn flexStretch gap justifyCenter">
+                  <span class="subtleText">Placement</span>
+                  <div>
+                    <span class="numeric-dynamic">{{ cc.placement }}</span>
+                    <span class="numeric-dynamic"> / </span>
+                    <span class="numeric-dynamic">{{ cc.participantCount }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          }
+          @else{
+            <span class="headerTextFancy subtleText"> Not participated in any community challenge</span>
+          }
+        </div>
+      </div>
+    }
+
+    @if (this.activeView === 'progression') {
+      @if (modBasedChartData !== undefined ) {
+        <div class="flexColumn" style="padding: 5px; width: 100%">
+          <mat-chip-listbox (change)="onProgressionDensityChanged($event)">
+            <mat-chip-option [value]="25">25 Runs</mat-chip-option>
+            <mat-chip-option [value]="50">50 Runs</mat-chip-option>
+            <mat-chip-option [value]="100" selected>100 Runs</mat-chip-option>
+            <mat-chip-option [value]="250">250 Runs</mat-chip-option>
+            <mat-chip-option [value]="500">500 Runs</mat-chip-option>
+            <mat-chip-option [value]="1000">1000 Runs</mat-chip-option>
+          </mat-chip-listbox>
+
+          <canvas baseChart [type]="'line'" [data]="modBasedChartData" [options]="modBasedChartOptions"></canvas>
+
+        </div>
+      }
+    }
+
+    @if(this.activeView === 'splits'){
+      <app-zenith-splits [username]="username"></app-zenith-splits>
+    }
+  </div>
+} @else {
+  <div class="simpleContainer bigGap" style="margin: 1rem">
+    <h1 class="headerTextFancy" style="text-align: center">User <span class="uppercase link" style="cursor: default">{{username}}</span> not found</h1>
+    <span class="boldText subtleText" style="text-align: center; ">Maybe encourage <span class="uppercase">{{username}}</span> to start their ZDC Career today!</span>
+  </div>
+}

@@ -2,8 +2,8 @@
   <div class="flexColumn">
     <div class="flexColumn centerText headerText runHeader" style="position: relative;" >
       <div [class]='["splitBackground", getFloorKey(run.floor)]'></div>
-      <span style="font-size: 4rem;text-shadow: 0 0 10px black, 0 0 20px white;" matTooltip="{{roundNumber(run.altitude, 5)}} Meters">{{roundNumber(run.altitude, 3)}} M</span>
-      <span style="font-size: 2rem">{{floorToName(run.floor)}}</span>
+      <span style="font-size: 4rem;text-shadow: 0 0 10px black, 0 0 20px white;" class="headerTextFancy" matTooltip="{{roundNumber(run.altitude, 5)}} Meters">{{roundNumber(run.altitude, 3)}} M</span>
+      <span style="font-size: 2rem" class="headerTextFancy">{{floorToName(run.floor)}}</span>
       @if (run.mods && run.mods.length > 0) {
         <div>
           @for (mod of getMods(run.mods); track $index) {
@@ -12,10 +12,10 @@
         </div>
       }
       @if (run.gameOverReason) {
-        <span style="margin-bottom: 5px">Reason of death: {{gameOverFlavourText(run.gameOverReason)}}</span>
+        <span style="margin-bottom: 5px" class="boldText">Reason of death: {{gameOverFlavourText(run.gameOverReason)}}</span>
       }
     </div>
-    <div class="flexRow gap centerText headerText stripes runHeader" style="font-size: 2.5rem; padding: 10px">
+    <div class="flexRow gap centerText headerTextFancy stripes runHeader" style="font-size: 2.5rem; padding: 10px">
       <div class="flexStretch" matTooltip="{{roundNumber(run.pps, 5)}} PPS">{{roundNumber(run.pps, 3)}} PPS</div>
       <div class="flexStretch" matTooltip="{{roundNumber(run.apm, 5)}} APM">{{roundNumber(run.apm, 3)}} APM</div>
       <div class="flexStretch" matTooltip="{{roundNumber(run.vs, 5)}} VS">{{roundNumber(run.vs, 3)}} VS</div>
@@ -23,147 +23,147 @@
     <div class="gap" style="padding: 10px">
       <div class="flexRow flexStretch gap">
         <div class="flexColumn flexStretch centerText sectionBorder attack">
-          <div class="headerText" style="font-size: 1.5rem">Attack</div>
+          <div class="headerTextFancy" style="font-size: 1.5rem">Attack</div>
           <div class="flexColumn flexStretch">
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Garbage Sent:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Garbage Sent:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem">{{roundNumber(run.garbageSent, 0)}}</span>
+              <span class="boldText" style="font-size: 2rem">{{roundNumber(run.garbageSent, 0)}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Max Spike:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Max Spike:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{run.garbageMaxSpike}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{run.garbageMaxSpike}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">APP:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">APP:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.app)}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.app)}}</span>
             </div>
             <div class="statRow" matTooltip="Meassured agression based on the ratio of garbage sent to garbage received.">
-              <span class="headerText" style="font-size: 1.25rem;">Aggression Score</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Aggression Score</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.agressionScore)}} <span style="font-size: 1.5rem"> / 100</span></span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(this.agressionScore)}} <span style="font-size: 1.5rem"> / 100</span></span>
             </div>
           </div>
         </div>
         <div class="flexColumn flexStretch centerText sectionBorder defense">
-          <div class="headerText" style="font-size: 1.5rem">Defense</div>
+          <div class="headerTextFancy" style="font-size: 1.5rem">Defense</div>
           <div class="flexColumn flexStretch">
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Garbage Received:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Garbage Received:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.garbageReceived, 0)}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.garbageReceived, 0)}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Garbage Cleared:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Garbage Cleared:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.garbageCleared, 0)}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.garbageCleared, 0)}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Cancel rate:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Cancel rate:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.garbageCleared / run.garbageReceived * 100, 2)}} %</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.garbageCleared / run.garbageReceived * 100, 2)}} %</span>
             </div>
             <div class="statRow" matTooltip="Measures survival quality under pressure.">
-              <span class="headerText" style="font-size: 1.25rem;">Defense Score</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Defense Score</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.defenseScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(this.defenseScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
             </div>
           </div>
         </div>
       </div>
       <div class="flexRow flexStretch gap">
         <div class="flexColumn flexStretch centerText sectionBorder efficiency">
-          <div class="headerText" style="font-size: 1.5rem">Stability</div>
+          <div class="headerTextFancy" style="font-size: 1.5rem">Stability</div>
           <div class="flexColumn flexStretch">
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Finesse:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Finesse:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.finesse)}} %</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.finesse)}} %</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Pieces placed:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Pieces placed:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.piecesPlaced, 0)}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.piecesPlaced, 0)}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Inputs:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Inputs:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.inputs, 0)}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.inputs, 0)}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Holds:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Holds:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.holds, 0)}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.holds, 0)}}</span>
             </div>
             <div class="statRow" matTooltip="Measures mechanical precision.">
-              <span class="headerText" style="font-size: 1.25rem;">Stability Score</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Stability Score</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.stabilityScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(this.stabilityScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
             </div>
           </div>
         </div>
         <div class="flexColumn flexStretch centerText sectionBorder playstyle">
-          <div class="headerText" style="font-size: 1.5rem">Playstyle</div>
+          <div class="headerTextFancy" style="font-size: 1.5rem">Playstyle</div>
           <div class="flexColumn flexStretch">
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Quads:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Quads:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{run.quads}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{run.quads}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Spins:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Spins:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{run.spins}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{run.spins}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Back2Back:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Back2Back:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{run.back2Back}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{run.back2Back}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Max Combo:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Max Combo:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{run.topCombo}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{run.topCombo}}</span>
             </div>
             <div class="statRow" matTooltip="Measures how well aggression and defense are balanced.">
-              <span class="headerText" style="font-size: 1.25rem;">Playstyle Score</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Playstyle Score</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.pressureScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(this.pressureScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
             </div>
           </div>
         </div>
       </div>
       <div class="flexRow flexStretch gap">
         <div class="flexColumn flexStretch centerText sectionBorder rank">
-          <div class="headerText" style="font-size: 1.5rem">Game Performance</div>
+          <div class="headerTextFancy" style="font-size: 1.5rem">Game Performance</div>
           <div class="flexColumn flexStretch">
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Time alive:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Time alive:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{run.totalTime | date:'m:ss'}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{run.totalTime | date:'m:ss'}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Position:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Position:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{run.finalPosition}} <span style="font-size: 1.5rem"> / {{run.peakPlayerCount}}</span></span>
+              <span class="boldText" style="font-size: 2rem"> {{run.finalPosition}} <span style="font-size: 1.5rem"> / {{run.peakPlayerCount}}</span></span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Peak Climbspeed:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Peak Climbspeed:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.peakRank)}}</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.peakRank)}}</span>
             </div>
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Targeting:</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Targeting:</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(run.targetingFactor,2)}}x</span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(run.targetingFactor,2)}}x</span>
             </div>
 
             <div class="statRow">
-              <span class="headerText" style="font-size: 1.25rem;">Performance Score</span>
+              <span class="headerTextFancy" style="font-size: 1.25rem;">Performance Score</span>
               <span class="dots"></span>
-              <span class="headerText" style="font-size: 2rem"> {{roundNumber(this.totalScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
+              <span class="boldText" style="font-size: 2rem"> {{roundNumber(this.totalScore)}}<span style="font-size: 1.5rem"> / 100</span></span>
             </div>
           </div>
         </div>

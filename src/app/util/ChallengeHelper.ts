@@ -189,4 +189,154 @@ export class ChallengeHelper {
       default: return ""
     }
   }
+
+  public static getStatFromCondition(conditionType: ConditionType, value: number | string): any {
+    const conditionMap: Record<ConditionType, Omit<any, 'value'> & { formatter?: (val: number | string) => string }> = {
+      [ConditionType.Height]: {
+        icon: 'trending_up',
+        prefix: 'Reach',
+        label: 'M',
+        formatter: (val) => `${val.toLocaleString()} M`
+      },
+      [ConditionType.KOs]: {
+        icon: 'close',
+        prefix: 'Get',
+        label: 'KOs',
+        formatter: (val) => `${val} KO\'s`
+      },
+      [ConditionType.Quads]: {
+        icon: 'grid_4x4',
+        prefix: 'Clear',
+        label: 'Quads',
+        formatter: (val) => `${val} Quads`
+      },
+      [ConditionType.Spins]: {
+        icon: 'refresh',
+        prefix: 'Clear',
+        label: 'Spins',
+        formatter: (val) => `${val} Spins`
+      },
+      [ConditionType.AllClears]: {
+        icon: 'check_circle',
+        prefix: 'Perform',
+        label: 'All Clears',
+        formatter: (val) => `${val} All Clears`
+      },
+      [ConditionType.Apm]: {
+        icon: 'speed',
+        prefix: 'Get',
+        label: 'APM',
+        formatter: (val) => `${val} APM`
+      },
+      [ConditionType.Pps]: {
+        icon: 'flash_on',
+        prefix: 'Get',
+        label: 'PPS',
+        formatter: (val) => `${val} PPS`
+      },
+      [ConditionType.Vs]: {
+        icon: 'sports_esports',
+        prefix: 'Get',
+        label: 'VS',
+        formatter: (val) => `${Number(val).toLocaleString()} VS`
+      },
+      [ConditionType.Finesse]: {
+        icon: 'verified',
+        prefix: 'Achieve',
+        label: '% Finesse',
+        formatter: (val) => `${val}% Finesse`
+      },
+      [ConditionType.Back2Back]: {
+        icon: 'new_releases',
+        prefix: 'Obtain',
+        label: 'B2B',
+        formatter: (val) => `${val} B2B`
+      },
+      [ConditionType.TotalBonus]: {
+        icon: 'stars',
+        prefix: 'Obtain',
+        label: 'Total Bonus',
+        formatter: (val) => `${Number(val).toLocaleString()} Bonus`
+      },
+      [ConditionType.App]: {
+        icon: 'filter_9_plus',
+        prefix: 'Get',
+        label: 'APP',
+        formatter: (val) => `${val} APP`
+      },
+      [ConditionType.Lines]: {
+        icon: 'view_stream',
+        prefix: 'Clear',
+        label: 'Lines cleared',
+        formatter: (val) => `${val} Lines`
+      }
+    };
+
+    const config = conditionMap[conditionType];
+
+    if (!config) {
+      // Fallback for unknown condition types
+      return {
+        icon: 'help_outline',
+        prefix: '?',
+        value: String(value),
+        label: 'Unknown'
+      };
+    }
+
+    return {
+      icon: config['icon'],
+      prefix: config['prefix'],
+      value: config.formatter ? config.formatter(value) : String(value),
+      label: config['label']
+    };
+  }
+
+  public static getCommunityPromptValue(val: number, conditionType: ConditionType){
+    let prompt = "";
+    let value = val.toLocaleString('en-US');
+
+    switch (conditionType) {
+      case ConditionType.Height:
+        prompt = `${value} M`
+        break;
+      case ConditionType.KOs:
+        prompt = `${value} `
+        break;
+      case ConditionType.Quads:
+        prompt = `${value} quads`
+        break;
+      case ConditionType.Spins:
+        prompt = `${value} spins`
+        break;
+      case ConditionType.AllClears:
+        prompt = `${value} all clears`
+        break;
+      case ConditionType.Apm:
+        prompt = `${value} APM`
+        break;
+      case ConditionType.Pps:
+        prompt = `${value} PPS`
+        break;
+      case ConditionType.Vs:
+        prompt = `${value} VS`
+        break;
+      case ConditionType.TotalBonus:
+        prompt = `${value} Bonus`
+        break;
+      default:
+        prompt = "--- IF YOU SEE THIS TELL FOUNNTAIN HE FORGOT SOMETHING. [2] ---"
+        break;
+    }
+
+    return prompt;
+  }
+
+  public static getCommunityGoalPercentage(currentValue: number, target: number) {
+    return `${Math.round((currentValue / target) * 100)}%`;
+  }
+
+  public static getModMasteryCompletionCssClass(modStatus: boolean | undefined) {
+    return modStatus ? '' : 'grayScale'
+  }
 }

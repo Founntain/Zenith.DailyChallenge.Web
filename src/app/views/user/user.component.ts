@@ -26,17 +26,13 @@ import {CommunityChallengeContributions} from '../../services/network/data/inter
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {MatIcon} from '@angular/material/icon';
 import {SettingsService} from '../../services/settings.service';
-
-import {Splits} from '../../services/network/data/interfaces/Splits';
-import { BaseChartDirective } from 'ng2-charts';
+import {BaseChartDirective } from 'ng2-charts';
 import {Chart, ChartConfiguration} from 'chart.js';
-import {MatChipAvatar, MatChipListbox, MatChipOption} from '@angular/material/chips';
-import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits';
+import {MatChipListbox, MatChipOption} from '@angular/material/chips';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {DailyExtra} from '../../services/network/data/interfaces/DailyExtra';
 import {ChartHelper} from '../../util/ChartHelper';
 import { default as Annotation } from 'chartjs-plugin-annotation';
-import {MatSelect} from '@angular/material/select';
 import {Altitudes} from '../../services/network/data/interfaces/Altitudes';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {BarSegmet, SegmentbarComponent} from '../../components/segmentbar/segmentbar.component';
@@ -51,6 +47,7 @@ import {NumberUtils} from '../../util/NumberUtils';
 import {MatTooltip} from '@angular/material/tooltip';
 import {DailyHelper} from '../../util/DailyHelper';
 import {SeasonalUserData} from '../../services/network/data/interfaces/SeasonalUserData';
+import {ZenithSplitsComponent} from '../../components/zenith-splits/zenith-splits.component';
 
 @Component({
   selector: 'app-user',
@@ -71,7 +68,6 @@ import {SeasonalUserData} from '../../services/network/data/interfaces/SeasonalU
     MatIcon,
     RouterLink,
     BaseChartDirective,
-    MatChipAvatar,
     MatChipListbox,
     MatChipOption,
     MatCheckbox,
@@ -82,7 +78,8 @@ import {SeasonalUserData} from '../../services/network/data/interfaces/SeasonalU
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     MatExpansionPanelDescription,
-    MatTooltip
+    MatTooltip,
+    ZenithSplitsComponent
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -94,14 +91,10 @@ export class UserComponent implements OnInit, AfterViewInit {
   isSameUser: boolean = false;
 
   dailyData: DailyData | undefined;
-  splitTimes!: ZenithSplits;
   runData: Run[] = [];
   challengeData: ChallengeCompletion[] = [];
   communityContributionData: CommunityChallengeContributions[] = [];
   seasonalData: SeasonalUserData[] = [];
-
-  splitMods:string[] =  ['nomod', 'expert', 'nohold', 'messy', 'gravity', 'volatile', 'doublehole', 'invisible', 'allspin', 'expert_reversed', 'nohold_reversed', 'messy_reversed', 'gravity_reversed', 'volatile_reversed', 'doublehole_reversed', 'invisible_reversed', 'allspin_reversed']
-  splitModsText: string[] = ['No Mod', 'Expert', 'No Hold', 'Messy', 'Gravity', 'Volatile', 'Double Hole', 'Invisible', 'All Spin', 'The Tyrant', 'Asceticism', 'Loaded Dice', 'Freefall', 'Last Stand', 'Damnation', 'The Exile', 'The Warlock']
 
   runColumns: string[] = ['Altitude', 'APM', 'PPS', 'VS', 'KOs', 'Quads', 'Spins', 'Back2Back', 'AllClears', 'Mods'];
   challengesColumns: string[] = ['Date', 'Status'];
@@ -206,8 +199,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   communityChallengePageSize: number;
   communityChallengePageCount: number;
 
-  floors: (keyof Splits)[] = ['hotel', 'casino', 'arena', 'museum', 'offices', 'laboratory', 'core', 'corruption', 'potg'];
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   loadSeasonalDa: any;
 
@@ -239,78 +230,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     Chart.register(Annotation);
     let chartHelper = new ChartHelper();
-
-    this.modBasedChartOptions = {
-      elements: {
-        line: {
-          borderWidth: 2,
-          tension: 1,
-          stepped: 'after'
-        },
-        point: {
-          radius: 0,
-            hitRadius: 10
-        }
-      },
-      scales: {
-        x: {
-          beginAtZero: false,
-          min: 1,
-          type: 'linear',
-            ticks: {
-            color: '#e2e8f0',
-              autoSkip: true,
-              font: {
-                family: 'Inter',
-                weight: 'bold',
-                size: 14,
-              }
-          }
-        },
-        y: {
-          position: 'left',
-            grid: {
-            color: 'rgb(255, 255, 255, 0.25)',
-          },
-          ticks: {
-            color: '#e2e8f0',
-              font: {
-                family: 'Inter',
-                weight: 'bold',
-                size: 18,
-              }
-          },
-        },
-      },
-      interaction: {
-        mode: 'index',
-        intersect: false,
-      },
-      plugins: {
-        tooltip: {
-          mode: 'index',
-          intersect: false,
-          titleFont: {
-            size: 0
-          },
-          bodyFont: {
-            family: 'Inter',
-            weight: 'bold',
-            size: 18,
-          }
-        },
-        legend: {
-          labels: {
-            font: {
-              family: 'Inter',
-                weight: 'bold',
-                size: 16,
-            }
-          }
-        },
-        annotation: chartHelper.getModChartAnnotations()
-      }
-    }
 
     this.route.paramMap.subscribe(params => {
       this.username = params.get('username')!;
@@ -346,7 +265,6 @@ export class UserComponent implements OnInit, AfterViewInit {
       });
 
       this.loadDailyExtra();
-      this.loadSplitTimes(null, false)
       this.loadRunData();
       this.loadChallengeData();
       this.loadSeasonalData();
@@ -396,23 +314,6 @@ export class UserComponent implements OnInit, AfterViewInit {
 
         break;
     }
-  }
-
-  submitRuns() {
-    this.zenithService.submitRuns().subscribe({
-      next: (r) => {
-        window.location.reload();
-      },
-      error: (e) => {
-        if (e.status == 400) {
-          alert(e.error);
-        }
-        if (e.status == 401) {
-          alert(e.error + '\n\nPlease login again.');
-          // window.location.reload();
-        }
-      }
-    })
   }
 
   getModImage(mod: string) {
@@ -493,46 +394,6 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.settingsService.setAutoUpdate(isChecked);
   }
 
-  getSplitText(time: any, average = false) {
-    if(this.isNotEmptyTime(time)){
-      return time;
-    }else{
-      if(average){
-        return 'Not reached yet';
-      }
-      return '';
-    }
-  }
-
-  getFloorReachedCss(time: any) {
-    if(!this.isNotEmptyTime(time)){
-      return 'notReached';
-    }else{
-      return '';
-    }
-  }
-
-  getModImageFromModList(mod: string) {
-    return mod.toLowerCase().replace(/\s+/g, "");
-  }
-
-  onSplitFilterChanged(event: any) {
-    let selectedValue: string;
-
-    if(event.value === undefined)
-      selectedValue = '';
-    else
-      selectedValue = this.getModImageFromModList(event.value)
-
-    this.loadSplitTimes(selectedValue, false);
-  }
-
-  private loadSplitTimes(mod: string | any, soloMod: boolean) {
-    this.userService.getBestSplits(this.username, mod, soloMod).subscribe(result => {
-      this.splitTimes = result;
-    });
-  }
-
   onProgressionDensityChanged(event: any) {
     this.loadDailyExtra(event.value)
   }
@@ -548,12 +409,12 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.dailyExtra = result;
 
       this.recentDaysChartData = {
-        datasets: chartHelper.getRecentDaysChartData(this.dailyExtra.recentDays),
+        datasets: ChartHelper.getRecentDaysChartData(this.dailyExtra.recentDays),
         labels: this.dailyExtra.recentDays.map(x => {return x.date})
       }
 
       this.modBasedChartData = {
-        datasets: chartHelper.getModBasedChartData(this.dailyExtra.modProgression),
+        datasets: ChartHelper.getModBasedChartData(this.dailyExtra.modProgression),
       }
     });
   }

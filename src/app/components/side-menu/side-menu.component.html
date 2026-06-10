@@ -1,61 +1,113 @@
-<div class="header headerText stripes">
-  @if (user$ | async; as user){
-    <div class="userInfo boldText profileSplit">
-      @if (user.avatarRevision !== undefined && user.avatarRevision !== null) {
-        <img class="profilePicture" src="https://tetr.io/user-content/avatars/{{user.userId}}.jpg?rv={{user.avatarRevision}}" />
+<div class="side-menu-container">
+  <!-- User Profile Section -->
+  <div class="profile-section">
+    @if (user$ | async; as user) {
+      <div class="user-profile-card">
+        @if(user.bannerRevision !== undefined && user.bannerRevision !== null) {
+          <div class="profile-banner">
+            <img src="https://tetr.io/user-content/banners/{{user.userId}}.jpg?rv={{user.bannerRevision}}" alt="Banner" />
+          </div>
+        }
+
+        <div class="profile-content">
+          @if (user.avatarRevision !== undefined && user.avatarRevision !== null) {
+            <img
+              class="profile-avatar"
+              src="https://tetr.io/user-content/avatars/{{user.userId}}.jpg?rv={{user.avatarRevision}}"
+              alt="{{user.username}}"
+            />
+          }
+          <a [routerLink]="['/u', user.username]" class="username">{{user.username}}</a>
+        </div>
+      </div>
+
+      <!-- Challenge Completions -->
+      <div class="challenge-stats">
+        <div class="stat-title">Today's Progress</div>
+        <div class="challenge-icons">
+          <img [class]="[getCompletionCss(this.completions?.easyCompleted)]" src="/assets/clear_easy_2.png" class="challenge-icon" title="Easy" />
+          <img [class]="[getCompletionCss(this.completions?.normalCompleted)]" src="/assets/clear_normal_2.png" class="challenge-icon" title="Normal" />
+          <img [class]="[getCompletionCss(this.completions?.hardCompleted)]" src="/assets/clear_hard_2.png" class="challenge-icon" title="Hard" />
+          <img [class]="[getCompletionCss(this.completions?.expertCompleted)]" src="/assets/clear_expert.png" class="challenge-icon" title="Expert" />
+          <img [class]="[getCompletionCss(this.completions?.reverseCompleted)]" src="/assets/clear_reverse.png" class="challenge-icon" title="Reverse" />
+        </div>
+      </div>
+
+      @if (seasonPlacement > 0) {
+        <div class="season-ranking">
+          <div class="ranking-badge">
+            <span class="rank-number">{{NumberUtils.toOrdinal(seasonPlacement)}}</span>
+            <span class="rank-label">place in</span>
+          </div>
+          <span class="season-name">{{seasonName}}</span>
+        </div>
       }
 
-      @if(user.bannerRevision !== undefined && user.bannerRevision !== null) {
-        <img class="banner" src="https://tetr.io/user-content/banners/{{user.userId}}.jpg?rv={{user.bannerRevision}}" />
-      }
+      <div class="section">
+        <button class="submit-btn" (click)="submit()">Submit new runs</button>
+      </div>
+    } @else {
+      <div class="menu-title">
+        <mat-icon>emoji_events</mat-icon>
+        <span>ZDC Menu</span>
+      </div>
+    }
+  </div>
 
-      <a [routerLink]="['/user', user.username]">{{user.username}}</a>
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-input-wrapper">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input
+        class="search-input"
+        maxlength="16"
+        type="text"
+        placeholder="Search for user..."
+        (keyup)="search($event)"
+      />
     </div>
-  } @else {
-    <div class="headerText centerText">
-      ZDC - Menu
-    </div>
-  }
-</div>
-
-@if(user$ | async; as user){
-  <div class="challengeCompletions stripes centerText">
-    <img [class]="[getCompletionCss(todayUsersCompletions?.easyCompleted)]" src="/assets/clear_easy_2.png" class="mod" />
-    <img [class]="[getCompletionCss(todayUsersCompletions?.normalCompleted)]" src="/assets/clear_normal_2.png" class="mod" />
-    <img [class]="[getCompletionCss(todayUsersCompletions?.hardCompleted)]" src="/assets/clear_hard_2.png" class="mod" />
-    <img [class]="[getCompletionCss(todayUsersCompletions?.expertCompleted)]" src="/assets/clear_expert.png" class="mod" />
-    <img [class]="[getCompletionCss(todayUsersCompletions?.reverseCompleted)]" src="/assets/clear_reverse.png" class="mod" />
   </div>
 
-  @if (seasonPlacement > 0) {
-    <div class="challengeCompletions stripes centerText flexColumn">
-      <span><span class="headerText" style="font-size: 1.5rem">{{NumberUtils.toOrdinal(seasonPlacement)}}</span> place in</span>
-      <span class="headerText">{{seasonName}}</span>
-    </div>
-  }
-}
+  <!-- Menu Items -->
+  <nav class="menu-navigation">
+    <div class="nav-section-title">Navigation</div>
 
-<div class="flexRow alignCenter justifyCenter" style="margin-top: 5px">
-  <input class="inputField stripes" maxlength="16" type="text" placeholder="Search for user" (keyup)="search($event)" />
-</div>
+    <a class="menu-item" [routerLink]="['']">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+      <mat-icon class="chevron">chevron_right</mat-icon>
+    </a>
 
-<div class="menuItems">
-  <div class="menuItem" [routerLink]="['/daily-archive']">
-    <mat-icon>chevron_right</mat-icon>
-    <span>Daily Archive</span>
-  </div>
+    <a class="menu-item" [routerLink]="['/daily-archive']">
+      <mat-icon>calendar_today</mat-icon>
+      <span>Daily Archive</span>
+      <mat-icon class="chevron">chevron_right</mat-icon>
+    </a>
 
-  <div class="menuItem" [routerLink]="['/cc-archive']">
-    <mat-icon>chevron_right</mat-icon>
-    <span>Community Challenge Archive</span>
-  </div>
+    <a class="menu-item" [routerLink]="['/cc']">
+      <mat-icon>groups</mat-icon>
+      <span>Community Challenge</span>
+      <mat-icon class="chevron">chevron_right</mat-icon>
+    </a>
 
-  <div class="menuItem" [routerLink]="['/leaderboard']">
-    <mat-icon>chevron_right</mat-icon>
-    <span>Leaderboard</span>
-  </div>
-</div>
+    <a class="menu-item" [routerLink]="['/cc-archive']">
+      <mat-icon>groups</mat-icon>
+      <span>Community Challenge Archive</span>
+      <mat-icon class="chevron">chevron_right</mat-icon>
+    </a>
 
-<div class="footer stripes" (click)="drawer.close()">
-  <span class="link">CLOSE</span>
+    <a class="menu-item" [routerLink]="['/leaderboard']">
+      <mat-icon>leaderboard</mat-icon>
+      <span>Leaderboard</span>
+      <mat-icon class="chevron">chevron_right</mat-icon>
+    </a>
+  </nav>
+
+<!--  &lt;!&ndash; Footer &ndash;&gt;-->
+<!--  <div class="menu-footer">-->
+<!--    <button class="close-button" (click)="drawer.close()">-->
+<!--      <mat-icon>close</mat-icon>-->
+<!--      <span>Close Menu</span>-->
+<!--    </button>-->
+<!--  </div>-->
 </div>

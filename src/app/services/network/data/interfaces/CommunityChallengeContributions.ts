@@ -5,6 +5,7 @@ export interface CommunityChallengeContributions {
   totalAmountContributed: number;
   conditionType: ConditionType,
   totalContributions: number;
+  contributionPercentage: number;
   placement: number;
   participantCount: number;
 }

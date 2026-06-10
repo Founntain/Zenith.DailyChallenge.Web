@@ -1,0 +1,170 @@
+<div>
+  <div class="challenges-carousel-wrapper">
+    <!-- Carousel Container -->
+    <div class="challenges-carousel">
+      <!-- Slides Container -->
+      <div class="carousel-track" #carouselTrack>
+        <div
+          class="carousel-slides"
+          [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+
+          @for (challenge of challenges; track challenge.id; let i = $index) {
+            <div class="challenge-slide">
+              <div class="challenge-hero-container">
+                <!-- Background Image -->
+                <div class="hero-background">
+                  <img [src]="challenge.imageUrl" alt="Challenge Background" class="background-image" />
+                  <div class="gradient-overlay"></div>
+                </div>
+
+                <!-- Content -->
+                <div class="hero-content">
+                  <!-- Badge -->
+                  <div class="challenge-badge" [attr.data-difficulty]="challenge.difficultyText">
+                    <mat-icon>emoji_events</mat-icon>
+                    <span class="uppercase">{{challenge.difficultyText}} CHALLENGE</span>
+                  </div>
+
+                  <!-- Title -->
+                  @if (challenge.difficultyText === 'reverse') {
+                    <h2 class="challenge-title">{{ChallengeHelper.getDifficultyText(challenge.difficulty, challenge.modString, false)}}</h2>
+
+                  } @else {
+                    <h2 class="challenge-title">{{challenge.number|date:'longDate'}}</h2>
+                  }
+
+                  <!-- Subtitle -->
+                  @if (challenge.difficultyText === 'reverse') {
+                    <h4 class="challenge-subtitle">{{ChallengeHelper.getReverseFlavorText(challenge.modString)}}</h4>
+                  }
+
+                  <!-- Stats Grid -->
+                  <div class="challenge-stats">
+                    @for (stat of challenge.stats; track $index) {
+                      <div class="stat-item">
+                        <mat-icon class="stat-icon">{{stat.icon}}</mat-icon>
+                        <span class="stat-value">{{stat.value}}</span>
+                      </div>
+                    }
+                    @if (challenge.mods.length > 0) {
+                      @for (mod of challenge.mods; track $index) {
+                        <img class="stat-item mod" [src]="mod"/>
+                      }
+                    }
+                  </div>
+
+                  <!-- Timer -->
+                  <div class="challenge-timer">
+                    <mat-icon>groups</mat-icon>
+                    <span>{{challenge.remainingTime}} cleared this challenge</span>
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div class="hero-actions">
+                    @if(user$ | async; as user) {
+                      <button class="primary-btn" (click)="submitRuns()">
+                        <span>SUBMIT RUNS</span>
+                        <mat-icon>arrow_forward</mat-icon>
+                      </button>
+                    } @else {
+                      <button class="primary-btn" (click)="signIn()">
+                        <span>Sign In To Play</span>
+                        <mat-icon>arrow_forward</mat-icon>
+                      </button>
+                    }
+  <!--                  <button class="secondary-btn" [routerLink]="['/daily-archive']">-->
+  <!--                    <span>LEADERBOARD</span>-->
+  <!--                  </button>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Integrated Navigation (moved outside slides) -->
+      <div class="integrated-navigation">
+        <div class="nav-dots">
+          @for (navChallenge of challenges; track navChallenge.id; let navI = $index) {
+            <button
+              class="nav-dot"
+              [class.active]="navI === currentIndex"
+              [class.completed]="navChallenge.isCompleted"
+              [attr.data-difficulty]="navChallenge.difficultyText"
+              (click)="goToSlide(navI)"
+              [attr.aria-label]="'Go to ' + navChallenge.difficultyText + ' challenge'">
+              <mat-icon>{{ navChallenge.isCompleted ? 'check_circle' : 'circle' }}</mat-icon>
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mastery-container">
+    @for (challenge of masteryChallenges ; track $index) {
+      <div class="mastery-card" [class]="challenge.isReverse ? 'reverse' : 'normal'">
+        @if(!challenge.isReverse) {
+          <span class="mastery-title">Whispers of Mastery</span>
+          <span class="mastery-description">Each whisper strengthens your grasp.</span>
+        } @else {
+          <span class="mastery-title">Zenith’s Backward Stair</span>
+          <span class="mastery-description">Mistakes don’t vanish here. They deepen!</span>
+        }
+        @if(!challenge.isReverse) {
+          <div class="mastery-mods">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png">
+          </div>
+        }@else{
+          <div class="mastery-mods">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.expertReversedCompleted)]" src="assets/tetrio-img/mods/expert_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.noHoldReversedCompleted)]" src="assets/tetrio-img/mods/nohold_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.messyReversedCompleted)]" src="assets/tetrio-img/mods/messy_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.gravityReversedCompleted)]" src="assets/tetrio-img/mods/gravity_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.volatileReversedCompleted)]" src="assets/tetrio-img/mods/volatile_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.doubleHoleReversedCompleted)]" src="assets/tetrio-img/mods/doublehole_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.invisibleReversedCompleted)]" src="assets/tetrio-img/mods/invisible_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.allSpinReversedCompleted)]" src="assets/tetrio-img/mods/allspin_reversed.png">
+          </div>
+        }
+        <div class="mastery-conditions">
+          @for (condition of challenge.stats; track $index){
+            <div class="mastery-value-container">
+              <span class="mastery-prefix">{{condition.prefix}}</span>
+              <span class="mastery-value" [class]="challenge.isReverse ? 'reverse' : 'normal'">{{condition.value}}</span>
+            </div>
+          }
+        </div>
+
+        @if(this.user$|async;){
+          <div class="mastery-progress-container">
+            <span>Progress</span>
+            <div class="mastery-progress-bar">
+              <div class="mastery-progress-bar-fill" [class]="challenge.isReverse ? 'reverse' : 'normal'" [style.width]="getCompletionPercentage(challenge) + '%'"></div>
+            </div>
+          </div>
+        }
+
+        <div class="mastery-reward">
+          <div>
+            <img src="assets/score.png" class="mod mastery-img">
+          </div>
+          <div class="reward-container">
+            <span class="reward-title">REWARD</span>
+
+            <span class="reward-text">+{{challenge.isReverse ? '4' : '2'}} each</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+

@@ -4,7 +4,7 @@ import {DailyChallenge} from './data/interfaces/DailyChallenge';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {UserProfileData} from './data/interfaces/UserProfileData';
-import {DailyData} from './data/interfaces/DailyData';
+import {DailyData, DailyDataNew, DailyDataNewExtra} from './data/interfaces/DailyData';
 import {Run, RunResponse} from './data/interfaces/Run';
 import {ChallengeCompletion} from './data/interfaces/ChallengeCompletion';
 import {CommunityChallengeContributions} from './data/interfaces/CommunityChallengeContributions';
@@ -23,6 +23,18 @@ export class ZenithUserService {
 
   getProfile(username: string): Observable<UserProfileData>{
     return this.http.get<UserProfileData>(`${this.baseUrl}${username}/profile`);
+  }
+
+  get(username: string): Observable<DailyDataNew>{
+    return this.http.get<DailyDataNew>(`${this.baseUrl}${username}`);
+  }
+
+  getExtra(username: string): Observable<DailyDataNewExtra>{
+    return this.http.get<DailyDataNewExtra>(`${this.baseUrl}${username}/extra`);
+  }
+
+  getProgression(username: string, progressionLimit: number = 100): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}${username}/progression?progressionLimit=${progressionLimit}`);
   }
 
   getDaily(username: string): Observable<DailyData>{

@@ -1,7 +1,11 @@
 <div class="app-container">
   @if(isLocal){
-    <div class="local-warning-banner">
-      ⚠️ development build  ️⚠️
+    <div class="dev-banner">
+      <div class="dev-banner-container">
+        <mat-icon class="warning-icon">construction</mat-icon>
+        <span class="banner-text">Development Build</span>
+        <mat-icon class="warning-icon">construction</mat-icon>
+      </div>
     </div>
   }
 
@@ -9,7 +13,7 @@
     <app-header [drawer]="drawer" />
 
     <mat-drawer #drawer class="sidenav" mode="over" (openedChange)="onDrawerToggle($event)">
-      <app-side-menu [drawer]="drawer"/>
+      <app-side-menu [drawer]="drawer" />
     </mat-drawer>
     <div class="main-content">
       <router-outlet />

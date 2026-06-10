@@ -1,6 +1,7 @@
 @use '../../../styles' as *;
 @use '../../../styling/splits' as *;
 @use '../../../styling/colors' as *;
+@use '../../../styling/base' as base;
 
 .userContainer{
   @extend .baseContainer;
@@ -9,7 +10,7 @@
 
   border: 1px solid $accent-color;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     border-right: none;
     border-left: none;
   }
@@ -18,7 +19,7 @@
 .title{
   @extend .headerText;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     text-align: center;
   }
 }
@@ -29,7 +30,7 @@
   align-content: center;
   justify-content: center;
 
-  @media screen and (max-width: 600px) {
+  @include base.mobile {
     flex-direction: column;
   }
 
@@ -56,7 +57,7 @@
     justify-content: center;
     text-align: center;
 
-    @media screen and (max-width: 600px) {
+    @include base.mobile {
       font-size: 2rem;
       text-align: center;
       width: initial;

@@ -1,28 +1,49 @@
-<header class="stripes">
-  <div class="flexHeader">
-    <div class="marginLeft flexRow verticalCenter centerText">
-      <mat-icon class="verticalCenter menuBtn" (click)="drawer.toggle()">menu</mat-icon>
-      <span class="headerText verticalCenter centerText title marginLeft"><a [routerLink]="['']">ZENITH DAILY CHALLENGE</a></span>
+<header class="modern-header">
+  <div class="header-container">
+    <!-- Logo/Icon Section -->
+    <div class="logo-section clickable" [routerLink]="['']">
+      <div class="logo-icon">
+        <mat-icon>dark_mode</mat-icon>
+      </div>
+      <span class="logo-text">
+        <a>Zenith<br/>Daily<br/>Challenge</a>
+      </span>
     </div>
 
-    <nav class="headerText">
+    <nav class="nav-items">
+      <a [routerLink]="['/']" class="nav-link">Home</a>
+      <a [routerLink]="['/daily-archive']" class="nav-link">Challenges</a>
+      <a [routerLink]="['/cc']" [class]="['nav-link', this.communityCss]">Community</a>
+      <a [routerLink]="['/leaderboard']" class="nav-link">Leaderboards</a>
+<!--      <a [routerLink]="['/seasonal']" class="nav-link">Seasons</a>-->
+<!--      <a [routerLink]="['/create']" class="nav-link">Create</a>-->
+    </nav>
+
+    <div class="header-actions">
+<!--      <button class="icon-btn search-btn" aria-label="Search">-->
+<!--        <mat-icon>search</mat-icon>-->
+<!--      </button>-->
+
       @if (user$ | async; as user) {
-        <div class="userInfo headerText">
+        <div class="user-profile clickable">
           @if (user.avatarRevision !== undefined && user.avatarRevision !== null) {
             <img
-              class="profilePicture"
+              [routerLink]="['/u', user.username]"
+              class="profile-avatar"
               [src]="'https://tetr.io/user-content/avatars/' + user.userId + '.jpg?rv=' + user.avatarRevision"
+              [alt]="user.username"
             />
           }
-
-          <a [routerLink]="['/user', user.username]">{{ user.username }}</a>
-          <mat-icon class="icon" (click)="logout()">logout</mat-icon>
+          <span class="username" [routerLink]="['/u', user.username]">{{ user.username }}</span>
+          <mat-icon class="logout-icon" (click)="logout()">logout</mat-icon>
         </div>
       } @else {
-        <div>
-          <a (click)="loginClick()">LOGIN</a>
-        </div>
+        <button class="login-btn" (click)="loginClick()">Sign In</button>
       }
-    </nav>
+
+      <button class="icon-btn mobile-menu-btn" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
   </div>
 </header>

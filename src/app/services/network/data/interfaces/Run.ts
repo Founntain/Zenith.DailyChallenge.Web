@@ -1,24 +1,24 @@
 ﻿import {Splits} from './Splits';
 
 export interface Run {
+  playedAt: string;
   tetrioId: string;
   mods: string;
   altitude: number;
   quads: number;
   spins: number;
   allclears: number;
-  kos: number;
+  ko: number;
   apm: number;
   pps: number;
   vs: number;
   finesse: number;
-  back2back: number;
+  back2Back: number;
   speedrunSeen: boolean;
   speedrunCompleted: boolean;
 }
 
 export interface DetailedRun extends Run {
-  playedAt: string
   kOs: number
   allClears: number
   back2Back: number

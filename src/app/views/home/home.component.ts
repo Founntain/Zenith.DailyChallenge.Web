@@ -28,7 +28,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {LeaderboardService} from '../../services/network/leaderboard.service';
 import {NumberUtils} from '../../util/NumberUtils';
-import {UserSessionService} from '../../services/user-session.service';
+import {ZdcSessionService} from '../../services/zdc-session.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {MatIcon} from '@angular/material/icon';
 import {ChallengesComponent} from '../../components/challenges/challenges.component';
@@ -36,6 +36,8 @@ import {TimeHelper} from '../../util/TimeHelper';
 import {CommunityChallengeComponent} from '../../components/community-challenge/community-challenge.component';
 import {ZdcStatsComponent} from '../../components/zdc-stats/zdc-stats.component';
 import {DailyHelper} from '../../util/DailyHelper';
+import {ChallengesNewComponent} from '../../components/challenges-new/challenges-new.component';
+import {ChallengeHelper} from '../../util/ChallengeHelper';
 
 @Component({
   selector: 'app-home',
@@ -55,11 +57,13 @@ import {DailyHelper} from '../../util/DailyHelper';
     MatTooltip,
     MatTabGroup,
     MatTab,
-    AsyncPipe,
     ChallengesComponent,
     CommunityChallengeComponent,
     ZdcStatsComponent,
-    NgClass
+    ChallengesNewComponent,
+    ChallengesNewComponent,
+    AsyncPipe,
+    MatIcon
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -69,6 +73,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   protected readonly DailyHelper = DailyHelper;
 
   public user$: Observable<UserProfileData | null>;
+  public communityChallenge$: Observable<CommunityChallenge | null>;
 
   @ViewChild(ChallengesComponent)
   private challengesComponent?: ChallengesComponent;
@@ -92,23 +97,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   leaderboardTimeLeft: string = "";
 
+  protected readonly ChallengeHelper = ChallengeHelper;
 
   constructor(
     private zenithService: ZenithService,
     private leaderboardService: LeaderboardService,
-    private authService: AuthService,
-    private userService: ZenithUserService,
-    private cookieHelper: CookieHelper,
     private ngZone: NgZone,
-    private settingsService: SettingsService,
-    private readonly session: UserSessionService)
+    private readonly session: ZdcSessionService)
   {
       this.user$ = this.session.user$;
+      this.communityChallenge$ = this.session.communityChallenge$;
   }
 
   ngOnInit(): void {
-
-
     this.leaderboardService.getLeaderboard().subscribe(result => {
       this.seasonalLeaderboardData = result;
       this.leaderboardChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
@@ -162,26 +163,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.timerId) {
       this.timerId.unsubscribe();
     }
-  }
-
-  submitRuns() {
-    this.zenithService.submitRuns().subscribe({
-      next: (r) => {
-        // Do nothing
-        this.lastUpdateSeconds = new Date().getTime() / 1000;
-
-        // after successfull submission, we update the users data
-        if(this.challengesComponent) this.challengesComponent.loadUsersTodaysCompletions();
-      },
-      error: (e) => {
-        if(e.status == 400){
-          alert(e.error);
-        }
-        if(e.status == 401){
-          alert(e.error + '\n\nPlease login again.');
-          // window.location.reload();
-        }
-      }
-    })
   }
 }

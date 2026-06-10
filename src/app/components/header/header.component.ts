@@ -8,8 +8,10 @@ import {RouterLink} from '@angular/router';
 import {AuthService} from '../../services/network/auth.service';
 import {MatIcon} from '@angular/material/icon';
 import {MatDrawer} from '@angular/material/sidenav';
-import {UserSessionService} from '../../services/user-session.service';
+import {ZdcSessionService} from '../../services/zdc-session.service';
 import {Observable} from 'rxjs';
+import {DailyHelper} from '../../util/DailyHelper';
+import {CommunityChallenge} from '../../services/network/data/interfaces/CommunityChallenge';
 
 @Component({
   selector: 'app-header',
@@ -25,27 +27,33 @@ export class HeaderComponent implements OnInit{
   @Input() drawer!: MatDrawer;
 
   user$: Observable<UserProfileData | null>;
+  communityChallenge$: Observable<CommunityChallenge | null>;
+
+  communityCss: string = '';
 
   constructor(
-    private readonly session: UserSessionService,
+    private readonly session: ZdcSessionService,
     private userApi: ZenithUserService,
     private authApi: AuthService,
     private cookieHelper: CookieHelper)
   {
       this.user$ = this.session.user$;
+      this.communityChallenge$ = this.session.communityChallenge$;
   }
 
   loginClick(){
-    const { protocol, hostname, port } = window.location;
-    const baseUrl = `${protocol}//${hostname}${port ? `:${port}` : ''}`;
-
-    let url = `https://discord.com/oauth2/authorize?client_id=1332751405374505154&response_type=code&redirect_uri=${encodeURIComponent(environment.apiUrl+"/auth/discord")}&scope=identify&state=${encodeURIComponent(baseUrl)}`;
-
-    window.location.assign(url)
+    DailyHelper.signIn();
   }
 
   ngOnInit() {
+    this.communityChallenge$.subscribe(result => {
+      if(!result?.communityChallenge) {
+        this.communityCss = '';
+        return;
+      }
 
+      this.communityCss = 'event-running';
+    });
   }
 
   logout() {

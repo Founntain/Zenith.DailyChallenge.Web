@@ -13,7 +13,7 @@ import {firstValueFrom, interval, max, Observable, take} from 'rxjs';
 import {TimeHelper} from '../../util/TimeHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
-import {UserSessionService} from '../../services/user-session.service';
+import {ZdcSessionService} from '../../services/zdc-session.service';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {WeeklyChallenge, WeeklyChallengeProgress} from '../../services/network/data/interfaces/WeeklyChallenge';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
@@ -34,6 +34,10 @@ import {DailyHelper} from '../../util/DailyHelper';
 })
 export class ChallengesComponent implements OnInit, OnDestroy {
   public user$: Observable<UserProfileData | null>;
+  public dailyChallenges$: Observable<DailyChallenge[] | null>;
+  public challengeCompletions$: Observable<TodayCompletions | null>;
+  public weekly$: Observable<WeeklyChallenge | null>;
+  public weeklyProgress$: Observable<WeeklyChallengeProgress | null>;
   protected readonly Difficulty = Difficulty;
   protected readonly ChallengeHelperObj = ChallengeHelper;
 
@@ -53,14 +57,38 @@ export class ChallengesComponent implements OnInit, OnDestroy {
     private readonly zenithService: ZenithService,
     private readonly userService: ZenithUserService,
     private readonly ngZone: NgZone,
-    private readonly session: UserSessionService
+    private readonly session: ZdcSessionService
   ) {
     this.user$ = this.session.user$;
+    this.dailyChallenges$ = this.session.dailies$;
+    this.challengeCompletions$ = this.session.challengeCompletions$;
+    this.weekly$ = this.session.weekly$;
+    this.weeklyProgress$ = this.session.weeklyProgress$;
   }
 
   ngOnInit(): void {
-    this.zenithService.getDailyChallenges().subscribe(result => {
+    this.dailyChallenges$.subscribe(result => {
+      if(!result) return;
+
       this.dailyChallenges = result;
+    })
+
+    this.challengeCompletions$.subscribe(result => {
+      if(!result) return;
+
+      this.todayUsersCompletions = result;
+    })
+
+    this.weekly$.subscribe(result => {
+      if(!result) return;
+
+      this.weeklyChallenge = result;
+    })
+
+    this.weeklyProgress$.subscribe(result => {
+      if(!result) return;
+
+      this.weeklyChallengeProgress = result;
     })
 
     this.zenithService.getDates().subscribe(result => {
@@ -76,11 +104,7 @@ export class ChallengesComponent implements OnInit, OnDestroy {
       });
     })
 
-    this.zenithService.getWeekly().subscribe(result => {
-      this.weeklyChallenge = result;
-    })
 
-    this.loadUsersTodaysCompletions();
   }
 
   ngOnDestroy(): void {
@@ -176,10 +200,6 @@ export class ChallengesComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  getModMasteryCompletionCssClass(modStatus: boolean | undefined) {
-    return modStatus ? '' : 'grayScale'
-  }
-
   getMasteryPrefix(type: ConditionType) {
     switch(type){
       case ConditionType.KOs:
@@ -191,7 +211,7 @@ export class ChallengesComponent implements OnInit, OnDestroy {
       case ConditionType.Spins:
         return `Clear `;
       case ConditionType.AllClears:
-        return `Get `;
+        return `Perform `;
       case ConditionType.Apm:
         return `Get `;
       case ConditionType.Pps:
@@ -253,11 +273,23 @@ export class ChallengesComponent implements OnInit, OnDestroy {
       case WeeklyConditionType.Height:
         return "assets/weekly/altitude.png"
       case WeeklyConditionType.AllClears:
-        return "assets/weekly/all-clears.png";
+        return "assets/weekly/all_clears.png";
       case WeeklyConditionType.LinesCleared:
-        return "assets/weekly/clear-lines.png";
+        return "assets/weekly/clear_lines.png";
       case WeeklyConditionType.Spins:
         return "assets/weekly/spins.png";
+      case WeeklyConditionType.KOs:
+        return "assets/weekly/kos.png";
+      case WeeklyConditionType.Quads:
+        return "assets/weekly/quads.png";
+      case WeeklyConditionType.BackToBack:
+        return "assets/weekly/btb.png";
+      case WeeklyConditionType.GarbageSent:
+        return "assets/weekly/garbage_sent.png";
+      case WeeklyConditionType.GarbageCleared:
+        return "assets/weekly/garbage_clear.png";
+      case WeeklyConditionType.TotalBonus:
+        return "assets/weekly/bonus.png";
       default:
         return "assets/weekly/done.png";
     }
