@@ -1,87 +1,31 @@
-<div class="baseContainer">
-  <!--  <div class="flexColumn stripes padding" style="margin: -10px -10px 10px -10px; border-bottom: 2px dotted white">-->
-  <!--    <div class="centerText">-->
-  <!--      <span class="date highlight">{{date}}</span>-->
-  <!--    </div>-->
-  <!--    <div>-->
-  <!--      <div class="flexContainer verticalCenter justifyCenter clock highlight gap">-->
-  <!--        <mat-icon class="">alarm</mat-icon>-->
-  <!--        <span class="">{{timeLeft}}</span>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
+<!--<div class="baseContainer">-->
+<!--  &lt;!&ndash;  <div class="flexColumn stripes padding" style="margin: -10px -10px 10px -10px; border-bottom: 2px dotted white">&ndash;&gt;-->
+<!--  &lt;!&ndash;    <div class="centerText">&ndash;&gt;-->
+<!--  &lt;!&ndash;      <span class="date highlight">{{date}}</span>&ndash;&gt;-->
+<!--  &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--  &lt;!&ndash;    <div>&ndash;&gt;-->
+<!--  &lt;!&ndash;      <div class="flexContainer verticalCenter justifyCenter clock highlight gap">&ndash;&gt;-->
+<!--  &lt;!&ndash;        <mat-icon class="">alarm</mat-icon>&ndash;&gt;-->
+<!--  &lt;!&ndash;        <span class="">{{timeLeft}}</span>&ndash;&gt;-->
+<!--  &lt;!&ndash;      </div>&ndash;&gt;-->
+<!--  &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--  &lt;!&ndash;  </div>&ndash;&gt;-->
 
-  <div class="flexContainer flexColumn flexStretch stripes challengeBorder" style="height: 100px">
-    <span class="date verticalCenter flexStretch centerText numeric">{{date}}</span>
-    <div class="verticalCenter flexStretch">
-      <div class="timerContainer verticalCenter justifyCenter gap headerText" style="gap: 20px">
-        <mat-icon class="timerIcon">alarm</mat-icon>
-        <span class="numeric timer">{{timeLeft}}</span>
-      </div>
-    </div>
-  </div>
+<!--&lt;!&ndash;  <div class="flexContainer flexColumn flexStretch stripes challengeBorder" style="height: 100px">&ndash;&gt;-->
+<!--&lt;!&ndash;    <span class="date verticalCenter flexStretch centerText numeric">{{date}}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="verticalCenter flexStretch">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="timerContainer verticalCenter justifyCenter gap headerText" style="gap: 20px">&ndash;&gt;-->
+<!--&lt;!&ndash;        <mat-icon class="timerIcon">alarm</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;        <span class="numeric timer">{{timeLeft}}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
 
-  <div style="margin: 10px">
-    <div class="challengeContainer gap">
-      <div class="weeklyBackground gap">
-        <div class="challenge baseMastery weekly gap">
-          @if(weeklyChallenge !== undefined)
-          {
-            <h1 class="highlight" style="margin: 2px;">Week {{weeklyChallenge.week}}</h1>
-
-            <hr>
-
-            <div class="flexColumn alignCenter" style="margin-top: 10px; margin-bottom: 10px">
-              <img src="assets/score.png" class="hugeMod" />
-              <div class="score-comparison">
-                <span class="headerText bigText score-left">{{getScores()[0]}}</span>
-                <span class="headerText bigText score-slash">/</span>
-                <span class="headerText bigText score-right">{{getScores()[1]}}</span>
-              </div>
-            </div>
-
-            <hr style="margin: 0 100px 0 100px;">
-
-            <div class="flexContainer flexStretch justifyCenter">
-              @for (condition of weeklyChallenge.condtions; track $index) {
-                <div class="flexColumn flexStretch alignCenter">
-                  <h2>{{ChallengeHelperObj.getWeeklyPrefix(condition.type)}}</h2>
-                  <div class="score-comparison">
-                    <span class="headerText bigText score-left">{{getWeeklyChallengeProgress($index)}}</span>
-                    <span class="headerText bigText score-slash">/</span>
-                    <span class="headerText bigText score-right">{{condition.value.toLocaleString()}} </span>
-                    <span class="headerText score-unit">{{ChallengeHelperObj.getWeeklySuffix(condition.type)}}</span>
-                  </div>
-                  <div class="flexContainer justifyCenter" style="margin-top: 10px">
-                    <img src="{{getWeeklyCompletionImage($index, condition.value, condition.type)}}" class="weeklyProgressIcon">
-                  </div>
-                </div>
-              }
-            </div>
-
-            <div style="padding: 20px 50px">
-              <div class="progress progress--animated" [style.--progress]="getWeeklyObjectiveCompletedCountPercentage() + '%'">
-                <div class="progress__fill"></div>
-              </div>
-            </div>
-
-            <div class="headerText bigText" style="margin: 20px">
-              <span style="font-size: 2rem">{{getWeeklyObjectiveCompletedCount()}}</span>
-              <span> / </span>
-              <span>{{weeklyChallenge.condtions.length}} Objectives completed</span>
-            </div>
-          }
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Cancelled probably -->
-  <!--  <div class="challengeContainer" style="margin-top: 10px">-->
-  <!--    <div class="challenge brick">-->
-  <!--      <h1 class="highlight">? ? ?</h1>-->
-  <!--      <p>Hope left a while ago. You're just catching up</p>-->
-  <!--    </div>-->
-  <!--  </div>-->
-</div>
+<!--  &lt;!&ndash; Cancelled probably &ndash;&gt;-->
+<!--  &lt;!&ndash;  <div class="challengeContainer" style="margin-top: 10px">&ndash;&gt;-->
+<!--  &lt;!&ndash;    <div class="challenge brick">&ndash;&gt;-->
+<!--  &lt;!&ndash;      <h1 class="highlight">? ? ?</h1>&ndash;&gt;-->
+<!--  &lt;!&ndash;      <p>Hope left a while ago. You're just catching up</p>&ndash;&gt;-->
+<!--  &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--  &lt;!&ndash;  </div>&ndash;&gt;-->
+<!--</div>-->

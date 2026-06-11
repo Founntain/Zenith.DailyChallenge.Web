@@ -1,44 +1,37 @@
 <div>
+
+  <!-- Daily Challenges -->
   <div class="challenges-carousel-wrapper">
-    <!-- Carousel Container -->
     <div class="challenges-carousel">
-      <!-- Slides Container -->
       <div class="carousel-track" #carouselTrack>
         <div
           class="carousel-slides"
           [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
-
           @for (challenge of challenges; track challenge.id; let i = $index) {
             <div class="challenge-slide">
               <div class="challenge-hero-container">
-                <!-- Background Image -->
                 <div class="hero-background">
                   <img [src]="challenge.imageUrl" alt="Challenge Background" class="background-image" />
                   <div class="gradient-overlay"></div>
                 </div>
 
-                <!-- Content -->
                 <div class="hero-content">
-                  <!-- Badge -->
+
                   <div class="challenge-badge" [attr.data-difficulty]="challenge.difficultyText">
                     <mat-icon>emoji_events</mat-icon>
                     <span class="uppercase">{{challenge.difficultyText}} CHALLENGE</span>
                   </div>
 
-                  <!-- Title -->
                   @if (challenge.difficultyText === 'reverse') {
                     <h2 class="challenge-title">{{ChallengeHelper.getDifficultyText(challenge.difficulty, challenge.modString, false)}}</h2>
-
                   } @else {
                     <h2 class="challenge-title">{{challenge.number|date:'longDate'}}</h2>
                   }
 
-                  <!-- Subtitle -->
                   @if (challenge.difficultyText === 'reverse') {
                     <h4 class="challenge-subtitle">{{ChallengeHelper.getReverseFlavorText(challenge.modString)}}</h4>
                   }
 
-                  <!-- Stats Grid -->
                   <div class="challenge-stats">
                     @for (stat of challenge.stats; track $index) {
                       <div class="stat-item">
@@ -83,7 +76,7 @@
         </div>
       </div>
 
-      <!-- Integrated Navigation (moved outside slides) -->
+      <!-- Integrated Navigation -->
       <div class="integrated-navigation">
         <div class="nav-dots">
           @for (navChallenge of challenges; track navChallenge.id; let navI = $index) {
@@ -102,8 +95,9 @@
     </div>
   </div>
 
+  <!-- Mastery Challenges -->
   <div class="mastery-container">
-    @for (challenge of masteryChallenges ; track $index) {
+    @for (challenge of masteryChallenges; track $index) {
       <div class="mastery-card" [class]="challenge.isReverse ? 'reverse' : 'normal'">
         @if(!challenge.isReverse) {
           <span class="mastery-title">Whispers of Mastery</span>
@@ -166,5 +160,62 @@
       </div>
     }
   </div>
+
+  <!-- Weekly Challenge -->
+  @if(this.weekly){
+    <div class="weekly-challenge-container">
+      <div class="weekly-header">
+        <div class="weekly-title">
+          <span class="title">Weekly Challenge</span>
+          <span class="sub-title">Complete objectives to earn a big amount of score!</span>
+        </div>
+        <div class="weekly-score">
+          <img src="assets/score.png" class="score-img">
+          <div class="score">
+            <span class="score-left">{{getScores()[0]}}</span>
+            <span class="divider">/</span>
+            <span class="score-right">{{getScores()[1]}}</span>
+          </div>
+        </div>
+        <div class="weekly-count-chip">
+          <mat-icon class="weekly-icon">calendar_today</mat-icon>
+          <span class="weekly-title">Week {{ weekly.week }}</span>
+        </div>
+      </div>
+
+      <div class="weekly-conditions-container">
+        @for (condition of weekly?.condtions; track $index){
+          <div class="weekly-condition-card">
+            <span class="title" [class]="'condition'+($index + 1)">Objective {{$index + 1}}</span>
+            <span class="task"> {{ ChallengeHelper.getWeeklyPrefix(condition.type) }}</span>
+            <img src="{{getWeeklyCompletionImage($index, condition.value, condition.type)}}" class="weekly-img">
+            <div class="values-card">
+              @let progress = this.weeklyProgress?.progress?.[$index];
+
+              @if(progress){
+                <span class="condition-value" [class]="'condition'+($index + 1)">{{ progress.currentProgress.toLocaleString('en-US') }}</span>
+                <span class="condition-divider">/</span>
+              }
+
+                <span class="condition-target">{{ condition.value?.toLocaleString('en-US') }}</span>
+                <span class="condition-target">{{ ChallengeHelper.getWeeklySuffix(condition.type) }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="weekly-footer">
+        <span class="progress-container">
+          <span class="progress">{{getWeeklyObjectiveCompletedCount()}}</span>
+          <span class="divider">/</span>
+          <span class="total">{{weekly?.condtions?.length ?? 0}} Objectives Completed</span>
+        </span>
+        <div class="bar">
+          <div class="bar-fill" [style.width]="ChallengeHelper.getWeeklyObjectiveCompletedCountPercentage(weekly, weeklyProgress) + '%'"></div>
+        </div>
+      </div>
+    </div>
+  }
+
 </div>
 

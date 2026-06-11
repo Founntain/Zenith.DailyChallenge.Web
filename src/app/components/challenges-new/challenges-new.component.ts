@@ -12,6 +12,8 @@ import {ZdcSessionService} from '../../services/zdc-session.service';
 import {RouterLink} from '@angular/router';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
 import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
+import {WeeklyChallenge, WeeklyChallengeProgress} from '../../services/network/data/interfaces/WeeklyChallenge';
+import {WeeklyConditionType} from '../../services/network/data/enums/ConditionType';
 
 @Component({
   selector: 'app-challenges-new',
@@ -26,9 +28,13 @@ import {TodayCompletions} from '../../services/network/data/interfaces/TodayComp
 export class ChallengesNewComponent implements OnInit, OnDestroy {
   public user$: Observable<UserProfileData | null>;
   public dailyChallenges$: Observable<DailyChallenge[] | null>;
+  public weekly$: Observable<WeeklyChallenge | null>;
+  public weeklyProgress$: Observable<WeeklyChallengeProgress | null>;
   public challengeCompletions$: Observable<TodayCompletions | null>;
   challenges: Challenge[] = [];
   masteryChallenges: Challenge[] = [];
+  weekly: WeeklyChallenge | null = null;
+  weeklyProgress: WeeklyChallengeProgress | null = null;
   currentIndex = 0;
   autoPlayInterval?: any;
 
@@ -41,6 +47,8 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
   ) {
     this.user$ = this.session.user$;
     this.dailyChallenges$ = this.session.dailies$;
+    this.weekly$ = this.session.weekly$;
+    this.weeklyProgress$ = this.session.weeklyProgress$;
     this.challengeCompletions$ = this.session.challengeCompletions$;
   }
 
@@ -99,6 +107,17 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
 
       await this.loadTodaysCompletions();
     });
+
+    this.weekly$.subscribe(result => {
+      if(result === undefined) return;
+      this.weekly = result;
+    })
+
+    this.weeklyProgress$.subscribe(result => {
+      if(result === undefined) return;
+
+      this.weeklyProgress = result;
+    })
 
     // Optional: Auto-play
     // this.startAutoPlay();
@@ -202,6 +221,67 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
     if(countCompleted == 0) return 0;
 
     return countCompleted / 8 * 100
+  }
+
+  protected getWeeklyObjectiveCompletedCount(): number{
+    let amount = 0;
+
+    if(!this.weeklyProgress?.progress) return amount;
+
+    return this.weeklyProgress.progress.filter(progress => progress.isCompleted).length;
+  }
+
+  protected getScores(){
+    let scoreAchieved = 0;
+    let maxScore = 0;
+
+    if(! this.weekly?.condtions) return  [scoreAchieved, maxScore];
+
+    maxScore = (this.weekly.condtions.length * 10) * 2;
+
+    if( ! this.weeklyProgress?.progress) return  [scoreAchieved, maxScore];
+
+    scoreAchieved = this.getWeeklyObjectiveCompletedCount();
+
+    if(scoreAchieved > 0) scoreAchieved *= 10;
+
+    if(this.weeklyProgress.isCompleted) scoreAchieved = maxScore;
+
+
+    return [scoreAchieved, maxScore]
+  }
+
+  protected getWeeklyCompletionImage($index: number, value: number, type: number): string {
+    if(!this.weeklyProgress?.progress) return "assets/weekly/not-done.png";
+
+    const isCompleted = this.weeklyProgress.progress[$index]?.isCompleted ?? false;
+
+    if(!isCompleted) return "assets/weekly/not-done.png"
+
+    switch (type) {
+      case WeeklyConditionType.Height:
+        return "assets/weekly/altitude.png"
+      case WeeklyConditionType.AllClears:
+        return "assets/weekly/all_clears.png";
+      case WeeklyConditionType.LinesCleared:
+        return "assets/weekly/clear_lines.png";
+      case WeeklyConditionType.Spins:
+        return "assets/weekly/spins.png";
+      case WeeklyConditionType.KOs:
+        return "assets/weekly/kos.png";
+      case WeeklyConditionType.Quads:
+        return "assets/weekly/quads.png";
+      case WeeklyConditionType.BackToBack:
+        return "assets/weekly/btb.png";
+      case WeeklyConditionType.GarbageSent:
+        return "assets/weekly/garbage_sent.png";
+      case WeeklyConditionType.GarbageCleared:
+        return "assets/weekly/garbage_clear.png";
+      case WeeklyConditionType.TotalBonus:
+        return "assets/weekly/bonus.png";
+      default:
+        return "assets/weekly/done.png";
+    }
   }
 }
 

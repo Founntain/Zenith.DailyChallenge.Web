@@ -1,5 +1,6 @@
 import {ConditionType, WeeklyConditionType} from '../services/network/data/enums/ConditionType';
 import {Difficulty} from '../services/network/data/enums/Difficulty';
+import {WeeklyChallenge, WeeklyChallengeProgress} from '../services/network/data/interfaces/WeeklyChallenge';
 
 export class ChallengeHelper {
   public static getConditionText(type: number, value: number): string{
@@ -338,5 +339,29 @@ export class ChallengeHelper {
 
   public static getModMasteryCompletionCssClass(modStatus: boolean | undefined) {
     return modStatus ? '' : 'grayScale'
+  }
+
+  public static getWeeklyObjectiveCompletedCountPercentage(weeklyChallenge: WeeklyChallenge | null, weeklyChallengeProgress: WeeklyChallengeProgress | null): number{
+    if( ! weeklyChallengeProgress?.progress || ! weeklyChallenge?.condtions ) return  0;
+
+    let values:number[] = [];
+
+    for (let i = 0; i < weeklyChallenge?.condtions.length; i++) {
+      let targetValue = weeklyChallenge?.condtions[i].value ?? 0;
+      let progress = weeklyChallengeProgress.progress[i].currentProgress;
+
+      if(progress === 0 || targetValue === 0){
+        values.push(0)
+        continue;
+      }
+
+      let val = progress / targetValue * 100;
+
+      if(val > 100) val = 100;
+
+      values.push(val);
+    }
+
+    return values.reduce((acc, val) => acc + val, 0) / values.length;
   }
 }
