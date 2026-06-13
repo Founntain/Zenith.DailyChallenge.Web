@@ -190,3 +190,16 @@ table.mat-mdc-table .clickable:hover {
   background-color: $background-shade;
   color: $text-color;
 }
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 4px currentColor;
+    opacity: 1;
+    scale: .8;
+  }
+  50% {
+    box-shadow: 0 0 10px currentColor, 0 0 12px currentColor;
+    opacity: 0.9;
+    scale: 1.1;
+  }
+}

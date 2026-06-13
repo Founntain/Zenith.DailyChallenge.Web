@@ -1,9 +1,12 @@
 $text-color: #e7e7ea;
 $subtle-text-color: rgba($text-color, 0.4);
-$background-color: #211b27;
-$background-shade-solid: #2c2334;
+$background-color: #0b081f;
+$background-shade-solid: #161128;
 $background-shade: rgba(255, 255, 255, 0.10);
 $background-dark-shade: #0e0f13;
+
+$background-color-new: #0b081f;
+$background-border-color: 1px solid rgb(35, 24, 73);
 
 $primary-color: #e7e5e4;
 $accent-color: #e7e5e4;
@@ -34,6 +37,7 @@ $weekly-color: #00a2de;
 // Gradients
 $colorful-accent-gradient: linear-gradient(135deg, $colorful-accent-gradientColor1, $colorful-accent-gradientColor2);
 $colorful-accent-90gradient: linear-gradient(90deg, $colorful-accent-gradientColor1, $colorful-accent-gradientColor2);
+$text-90gradient: linear-gradient(to bottom, $text-color, $colorful-accent-gradientColor2);
 $gold-gradient: linear-gradient(135deg, rgb(255 148 45 / 0.95), rgb(255 221 61 / 0.95) 100%);
 $reverse-gradient: linear-gradient(135deg, $reverse-dark-accent-color, $reverse-accent-color);
 $weekly-gradient: linear-gradient(135deg, rgba(#003749, 0%), rgba($weekly-color, 0.95));

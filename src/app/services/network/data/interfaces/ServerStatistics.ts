@@ -4,7 +4,10 @@ export interface ServerStatistics {
   totalUsers: number;
   rankedUsers: number;
   totalScore: number;
-  masteryScore: number;
+  masteriesCompleted: number;
   reverseCount: number;
-  altitudes: Altitudes;
+  altitudes: any;
+  runStats: any;
+  playTime: number;
+  runsPlayed: number;
 }

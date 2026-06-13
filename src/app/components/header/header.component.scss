@@ -145,6 +145,18 @@ header.modern-header {
 
       animation: pulseGlow 2s ease-in-out infinite;
     }
+
+    .announcement {
+      color: $expert-text-color;
+      text-shadow: 0 0 10px $expert-text-color;
+
+      &:hover {
+        color: $expert-text-color;
+        background: $background-shade;
+      }
+
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
   }
 
   // Header Actions (Right Side)

@@ -1,140 +1,138 @@
 @if (serverStatistics !== undefined) {
-  <div class="baseContainer">
-    @if(serverStatistics.altitudes && serverStatistics.totalScore && serverStatistics.rankedUsers && serverStatistics.totalUsers)
-    {
-      <h1 class="headerText centerText" style="margin: 0px">ZDC Server Statistics</h1>
-
-      <div class="flexColumn scoreContainer centerText stripes gap">
-        <div class="flexColumn">
-          <img src="assets/score.png" class="hugeMod" style="margin: auto"/>
-          <span class="scoreDisplay bigScoreText"> {{serverStatistics.totalScore.toLocaleString()}}</span>
+  <div class="stat-container">
+<!--    <div class="title">ZDC - Statistics</div>-->
+<!--    <div class="sub-title">All time statistics achieved by all the epic gamers here</div>-->
+    <div class="header-container">
+      <div class="altitude-stats">
+        <span class="altitude-title">Total Climbed</span>
+        <span class="altitude">{{serverStatistics.altitudes.total.toLocaleString('en-US')}} M</span>
+        <span class="text">by <span class="highlight">{{serverStatistics.totalUsers}}</span> users</span>
+        <span class="text">of which <span class="highlight" matTooltip="Players that have at least 1 score.">{{serverStatistics.rankedUsers}}</span> are ranked</span>
+      </div>
+      <div class="score-container">
+        <img src="assets/score.png" class="score-img">
+        <span class="score">{{serverStatistics.totalScore.toLocaleString('en-US')}}</span>
+        <span class="sub-title">ZDC Score</span>
+      </div>
+      <div class="sub-stats">
+        <div class="stat-item">
+          <mat-icon class="stat-icon">group</mat-icon>
+          <div class="stat-values">
+            <span class="stat-title">Users</span>
+            <span class="stat-value">{{serverStatistics.totalUsers.toLocaleString('en-US')}}</span>
+          </div>
         </div>
-
-        <div class="flexColumn">
-          <span class="headerText" style="font-size: 1.3rem; letter-spacing: 3px">Climbed a total of</span>
-          <span class="scoreDisplay bigScoreText"> {{serverStatistics.altitudes.total.toLocaleString()}} M</span>
+        <div class="stat-item">
+          <mat-icon class="stat-icon">emoji_events</mat-icon>
+          <div class="stat-values" matTooltip="Players that have at least 1 score.">
+            <span class="stat-title">Ranked Players</span>
+            <span class="stat-value">{{serverStatistics.rankedUsers}}</span>
+          </div>
         </div>
-
-        <div class="">
-          <div class="headerText" style="font-size: 1.3rem">
-            <span style="letter-spacing: 5px">by </span>
-            <span style="" class="highlight">{{serverStatistics.totalUsers}}</span>
-            <span style="letter-spacing: 5px"> Users of which </span>
-            <span style="" class="highlight">{{serverStatistics.rankedUsers}}</span>
-            <span style="letter-spacing: 5px"> are ranked</span>
+        <div class="stat-item">
+          <mat-icon class="stat-icon">timer</mat-icon>
+          <div class="stat-values">
+            <span class="stat-title">Total Playtime</span>
+            <span class="stat-value">{{serverStatistics.playTime.toLocaleString('en-US')}} h</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <mat-icon class="stat-icon">sports_esports</mat-icon>
+          <div class="stat-values">
+            <span class="stat-title">Runs played</span>
+            <span class="stat-value">{{serverStatistics.runsPlayed.toLocaleString('en-US')}}</span>
           </div>
         </div>
       </div>
-    }
-    @if (serverStatistics.altitudes) {
-      <div class="flexColumn">
-        <div class="flexContainer">
-          <div class="modContainer nomod">
-            <div class="stripes"></div>
+    </div>
 
-            <div class="details">
-              <p>No Mod</p>
-              <p class="altitude highlight">{{serverStatistics.altitudes.noMod.toLocaleString()}} M</p>
+    <div class="mod-stats-container">
+      <span>Total climbed by mod</span>
+      <div class="mods-container">
+        @for (mod of mods; track $index) {
+          <div class="mod-container">
+            @if ($index > 0) {
+              <img class="mod-icon" src="assets/tetrio-img/mods/{{mod.toLowerCase()}}.png"/>
+            }
+            <div class="mod-stats">
+              <span class="mod-stat-value" [class]="mod.toLowerCase()">{{serverStatistics.altitudes[mod].toLocaleString('en-US')}} M</span>
             </div>
           </div>
-          <div class="modContainer expert">
-            <div class="stripes"></div>
-
-            <div class="details">
-              <img src="assets/tetrio-img/mods/expert.png" class="bigMod" />
-              <p class="altitude highlight">{{serverStatistics.altitudes.expert.toLocaleString()}} M</p>
-            </div>
-          </div>
-          <div class="modContainer nohold">
-            <div class="stripes"></div>
-
-            <div class="details">
-              <img src="assets/tetrio-img/mods/nohold.png" class="bigMod" />
-              <p class="altitude highlight">{{serverStatistics.altitudes.noHold.toLocaleString()}} M</p>
-            </div>
-          </div>
-        </div>
-
+        }
       </div>
 
-      <div class="flexContainer">
-        <div class="modContainer messy">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/messy.png" class="bigMod" />
-            <p class="altitude highlight">{{serverStatistics.altitudes.messy.toLocaleString()}} M</p>
+      <div class="sub-mod-container">
+        <div class="mod-container">
+          <img class="mod-icon" src="assets/clear_reverse.png"/>
+          <div class="mod-stats">
+            <span class="mod-stat-value reverse">{{serverStatistics.altitudes.reverse.toLocaleString('en-US')}} M</span>
           </div>
         </div>
-
-        <div class="modContainer gravity">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/gravity.png" class="bigMod" />
-            <p class="altitude highlight">{{serverStatistics.altitudes.gravity.toLocaleString()}} M</p>
-          </div>
-        </div>
-
-        <div class="modContainer volatile">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/volatile.png" class="bigMod" />
-            <p class="altitude highlight">{{serverStatistics.altitudes.volatile.toLocaleString()}} M</p>
+        <div class="mod-container">
+          <img class="mod-icon" src="assets/mastery_2.png"/>
+          <div class="mod-stats">
+            <span class="mod-stat-value mastery">{{(serverStatistics.masteriesCompleted).toLocaleString('en-US')}} MASTERIES</span>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="flexContainer">
-        <div class="modContainer doublehole">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/doublehole.png" class="bigMod" />
-            <p class="altitude highlight">{{serverStatistics.altitudes.doubleHole.toLocaleString()}} M</p>
-          </div>
-        </div>
-
-        <div class="modContainer invisible">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/invisible.png" class="bigMod" />
-            <p class="altitude highlight">{{serverStatistics.altitudes.invisible.toLocaleString()}} M</p>
-          </div>
-        </div>
-
-        <div class="modContainer allspin">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/tetrio-img/mods/allspin.png" class="bigMod" />
-            <p class="altitude highlight">{{serverStatistics.altitudes.allSpin.toLocaleString()}} M</p>
-          </div>
+    <div class="run-container">
+      <div class="run-stat">
+        <mat-icon>speed</mat-icon>
+        <div class="run-values">
+          <span class="run-title">AVERAGE APM</span>
+          <span class="run-value">{{serverStatistics.runStats.apm.toLocaleString('en-US')}}</span>
         </div>
       </div>
 
-      <div class="flexContainer">
-        <div class="modContainer reverseMod">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/clear_reverse.png" class="bigMod" />
-            <p class="altitude highlight">{{serverStatistics.altitudes.reverse.toLocaleString()}} M</p>
-          </div>
-        </div>
-
-        <div class="modContainer masteryMod masteryBackground">
-          <div class="stripes"></div>
-
-          <div class="details">
-            <img src="assets/mastery_2.png" class="bigMod" />
-            <p class="altitude highlight uppercase">{{(serverStatistics.masteryScore / 2).toLocaleString()}} masteries</p>
-          </div>
+      <div class="run-stat">
+        <mat-icon>sports_esports</mat-icon>
+        <div class="run-values">
+          <span class="run-title">AVERAGE VS</span>
+          <span class="run-value">{{serverStatistics.runStats.vs.toLocaleString('en-US')}}</span>
         </div>
       </div>
-    }
 
+      <div class="run-stat">
+        <mat-icon>flash_on</mat-icon>
+        <div class="run-values">
+          <span class="run-title">AVERAGE PPS</span>
+          <span class="run-value">{{serverStatistics.runStats.pps.toLocaleString('en-US')}}</span>
+        </div>
+      </div>
+
+      <div class="run-stat">
+        <mat-icon>elevator</mat-icon>
+        <div class="run-values">
+          <span class="run-title">AVERAGE ALTITUDE</span>
+          <span class="run-value">{{serverStatistics.runStats.altitude.toLocaleString('en-US')}}</span>
+        </div>
+      </div>
+
+      <div class="run-stat">
+        <mat-icon>close</mat-icon>
+        <div class="run-values">
+          <span class="run-title">KO's</span>
+          <span class="run-value">{{serverStatistics.runStats.kos.toLocaleString('en-US')}}</span>
+        </div>
+      </div>
+
+      <div class="run-stat">
+        <mat-icon>send</mat-icon>
+        <div class="run-values">
+          <span class="run-title">GARBAGE SENT</span>
+          <span class="run-value">{{serverStatistics.runStats.send.toLocaleString('en-US')}}</span>
+        </div>
+      </div>
+
+      <div class="run-stat">
+        <mat-icon>shield</mat-icon>
+        <div class="run-values">
+          <span class="run-title">GARBAGE CLEARED</span>
+          <span class="run-value">{{serverStatistics.runStats.cleared.toLocaleString('en-US')}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 }

@@ -1,0 +1,160 @@
+@use '../../../styles' as *;
+@use '../../../styling/colors' as *;
+@use '../../../styling/base' as base;
+
+
+.create-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  padding: 16px 32px;
+  height: 100vh;
+
+  background: rgba(black, 0.2);
+
+  .pre-title{
+    @extend .headerTextFancy;
+
+    font-size: 2.5rem;
+
+    @include base.mobile{
+      font-size: 1.5rem;
+    }
+  }
+
+  .title{
+    @extend .headerTextFancy;
+
+    font-size: 4rem;
+
+    background: $gold-gradient;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba($expert-text-color, 0.5);
+
+    @include base.mobile{
+      font-size: 2.5rem;
+    }
+  }
+
+  .description{
+    font-size: 1rem;
+
+    color: rgba($text-color, .3);
+  }
+
+  .cards-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: stretch;
+    gap: 12px;
+
+    @include base.mobile{
+      flex-direction: column;
+    }
+
+    .card{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-wrap: wrap;
+
+      padding: 16px 32px;
+
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba($background-shade-solid, 1);
+      background: $background-shade-solid;
+
+      max-width: 400px;
+
+      @include base.mobile{
+        max-width: unset;
+      }
+
+      .card-title{
+        @extend .headerTextFancy;
+
+        font-size: 2rem;
+      }
+
+      span{
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .featured{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    justify-self: stretch;
+    align-self: stretch;
+    gap: 6px;
+
+    padding: 16px 32px;
+
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba($background-shade-solid, 1);
+    background: $wom-container-gradient;
+
+    .title{
+      @extend .headerTextFancy;
+
+      font-size: 2rem;
+
+      background: $gold-gradient;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba($expert-text-color, 0.5);
+    }
+
+    span{
+      font-size: 1.2rem;
+    }
+  }
+
+  .release{
+    @extend .headerTextFancy;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .sub{
+      font-size: 2rem;
+      color: rgba($text-color, .3);
+
+      &.small{
+        font-size: 1.4rem;
+
+        color: rgba($text-color, .1);
+      }
+
+      &.smaller{
+        font-size: 1.2rem;
+
+        color: rgba($text-color, .05);
+      }
+    }
+
+    .title{
+      font-size: 10rem;
+
+      transition: all 0.2s ease-in-out;
+
+      cursor: default;
+
+      &:hover{
+        letter-spacing: 10px;
+        transform: skewY(-5deg);
+      }
+    }
+  }
+}

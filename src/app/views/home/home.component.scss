@@ -434,19 +434,6 @@ tr{
 
     background: linear-gradient(320deg, rgba($community-text-color, 0.2), transparent, transparent);
 
-    @keyframes pulseGlow {
-      0%, 100% {
-        box-shadow: 0 0 4px currentColor;
-        opacity: 1;
-        scale: .8;
-      }
-      50% {
-        box-shadow: 0 0 10px currentColor, 0 0 12px currentColor;
-        opacity: 0.9;
-        scale: 1.1;
-      }
-    }
-
     .community-live-dot{
       width: 8px;
       height: 8px;
