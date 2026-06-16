@@ -241,7 +241,7 @@
 }
 
 .challenge-title {
-  @extend .headerTextFancy;
+  @extend .header-text;
 
   font-size: 3rem;
   font-weight: 900;
@@ -257,7 +257,7 @@
 }
 
 .challenge-subtitle {
-  @extend .headerTextFancy;
+  @extend .header-text;
 
   font-size: 1rem;
   font-weight: 900;

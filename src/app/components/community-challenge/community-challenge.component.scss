@@ -46,7 +46,7 @@
 }
 
 .button {
-  @extend .headerTextFancy;
+  @extend .header-text;
 
   padding: 10px 24px;
   background: $colorful-accent-gradient;
@@ -108,7 +108,7 @@
 }
 
 .page-title {
-  @extend .headerTextFancy;
+  @extend .header-text;
   @extend .gradient-text;
 
   font-size: 2.5rem;
@@ -532,7 +532,7 @@
 }
 
 .contributor-name {
-  @extend .headerTextFancy;
+  @extend .header-text;
 
   color: $text-color;
   text-decoration: none;

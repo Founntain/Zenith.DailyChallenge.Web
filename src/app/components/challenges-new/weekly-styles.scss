@@ -45,7 +45,7 @@ $conditionColors-colors: (
       gap: 0.5rem;
 
       .title{
-        @extend .headerTextFancy;
+        @extend .header-text;
 
         font-size: 2.5rem;
 
@@ -99,7 +99,7 @@ $conditionColors-colors: (
         gap: 0.5rem;
 
         .score-left{
-          @extend .headerTextFancy;
+          @extend .numeric;
           @extend .gradient-text;
 
           font-size: 2rem;
@@ -113,6 +113,8 @@ $conditionColors-colors: (
         }
 
         .divider{
+          @extend .numeric;
+
           align-self: center;
 
           font-size: 1.5rem;
@@ -124,6 +126,8 @@ $conditionColors-colors: (
         }
 
         .score-right{
+          @extend .numeric;
+
           align-self: center;
 
           font-size: 1.5rem;
@@ -175,7 +179,7 @@ $conditionColors-colors: (
       }
 
       .weekly-title{
-        @extend .headerTextFancy;
+        @extend .header-text;
 
         @include base.mobile{
           font-size: .8rem;
@@ -216,7 +220,7 @@ $conditionColors-colors: (
       }
 
       .title{
-        @extend .headerTextFancy;
+        @extend .header-text;
 
         font-size: 2rem;
 
@@ -262,6 +266,8 @@ $conditionColors-colors: (
         gap: 0.5rem;
 
         .condition-value{
+          @extend .numeric;
+
           font-size: 1.5rem;
           font-weight: 700;
         }
@@ -274,6 +280,8 @@ $conditionColors-colors: (
         }
 
         .condition-target{
+          @extend .numeric;
+
           font-size: 1.2rem;
 
           color: rgba($text-color, 0.4);
@@ -298,7 +306,7 @@ $conditionColors-colors: (
       gap: 4px;
 
       .progress{
-        @extend .headerTextFancy;
+        @extend .numeric;
         @extend .gradient-text;
 
         font-size: 2rem;
@@ -313,7 +321,7 @@ $conditionColors-colors: (
       }
 
       .divider{
-        @extend .headerTextFancy;
+        @extend .numeric;
 
         font-size: 1.5rem;
         color: rgba($text-color, 0.4);
@@ -324,7 +332,7 @@ $conditionColors-colors: (
       }
 
       .total{
-        @extend .headerTextFancy;
+        @extend .numeric;
 
         font-size: 1.5rem;
         color: rgba($text-color, 0.4);

@@ -44,7 +44,7 @@
 }
 
 .menu-title {
-  @extend .headerTextFancy;
+  @extend .header-text;
 
   display: flex;
   align-items: center;
@@ -113,7 +113,7 @@
     }
 
     .username {
-      @extend .headerTextFancy;
+      @extend .header-text;
 
       color: $text-color;
       font-size: 1.25rem;
@@ -182,7 +182,7 @@
     margin-bottom: 4px;
 
     .rank-number {
-      @extend .headerTextFancy;
+      @extend .header-text;
 
       font-size: 1.5rem;
       font-weight: 700;
@@ -197,7 +197,7 @@
   }
 
   .season-name {
-    @extend .headerTextFancy;
+    @extend .header-text;
 
     font-size: 1.2rem;
     font-weight: 600;

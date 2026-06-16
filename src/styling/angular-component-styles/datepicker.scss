@@ -43,13 +43,13 @@
 
   // The month label inside the body (e.g. "JAN")
   .mat-calendar-body-label {
-    @extend .boldText;
+    @extend .bold-text;
     color: $text-color !important;
   }
 
   // The dates
   .mat-calendar-body-cell-content {
-    @extend .boldText;
+    @extend .bold-text;
     color: $text-color !important;
     border-radius: 4px; // Slight rounding for better look
 

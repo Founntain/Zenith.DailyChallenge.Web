@@ -15,7 +15,7 @@
   background: rgba(black, 0.2);
 
   .pre-title{
-    @extend .headerTextFancy;
+    @extend .header-text;
 
     font-size: 2.5rem;
 
@@ -25,7 +25,7 @@
   }
 
   .title{
-    @extend .headerTextFancy;
+    @extend .header-text;
     @extend .gradient-text;
 
     font-size: 4rem;
@@ -75,7 +75,7 @@
       }
 
       .card-title{
-        @extend .headerTextFancy;
+        @extend .header-text;
 
         font-size: 2rem;
       }
@@ -102,7 +102,7 @@
     background: $wom-container-gradient;
 
     .title{
-      @extend .headerTextFancy;
+      @extend .header-text;
       @extend .gradient-text;
 
       font-size: 2rem;
@@ -117,7 +117,7 @@
   }
 
   .release{
-    @extend .headerTextFancy;
+    @extend .header-text;
 
     display: flex;
     flex-direction: column;

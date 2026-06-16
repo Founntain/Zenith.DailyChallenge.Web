@@ -86,7 +86,7 @@ hr{
 }
 
 .submitButton{
-  @extend .boldText;
+  @extend .bold-text;
 
   padding-top: 15px;
 
@@ -176,7 +176,7 @@ hr{
 }
 
 .mat-mdc-select-min-line{
-  @extend .boldText;
+  @extend .bold-text;
 }
 
 select {
@@ -186,7 +186,7 @@ select {
 }
 
 .link {
-  @extend .headerTextFancy;
+  @extend .header-text;
   font-weight: bold;
 
   color: $text-color !important;

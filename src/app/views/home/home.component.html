@@ -37,35 +37,59 @@
 
 <app-challenges-new />
 
-@if((this.communityChallenge$ | async)?.communityChallenge; as challenge){
-  <div class="community-card clickable" [routerLink]="['/cc']">
-    <div class="community-header">
-      <span class="community-title"> {{challenge.name}} </span>
-      <div class="community-live-container">
-        <div class="community-live-dot"></div>
-        <span class="community-live"> NOW LIVE </span>
+<div class="events-container">
+  @if((this.communityChallenge$ | async)?.communityChallenge; as challenge){
+    <div class="community-card clickable" [routerLink]="['/cc']">
+      <div class="community-header">
+        <span class="community-title"> {{challenge.name}} </span>
+        <div class="community-live-container">
+          <div class="community-live-dot"></div>
+          <span class="community-live"> NOW LIVE </span>
+        </div>
+      </div>
+      <div class="community-participants">
+        <mat-icon class="community-participants-icon">group</mat-icon>
+        <span class="">{{challenge.participants}} participants</span>
+      </div>
+      <div class="community-progress">
+        <div class="community-progress-values">
+          <span class="community-value">{{challenge.value.toLocaleString()}}</span>
+          <span class="community-divider">/</span>
+          <span class="community-suffix">{{ChallengeHelper.getCommunityPromptValue(challenge.targetValue, challenge.conditionType)}}</span>
+        </div>
+        <span class="community-percentage">{{ ChallengeHelper.getCommunityGoalPercentage(challenge.value, challenge.targetValue) }}</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" [style.width]="ChallengeHelper.getCommunityGoalPercentage(challenge.value, challenge.targetValue)"></div>
       </div>
     </div>
-    <div class="community-participants">
-      <mat-icon class="community-participants-icon">group</mat-icon>
-      <span class="">{{challenge.participants}} participants</span>
-    </div>
-    <div class="community-progress">
-      <div class="community-progress-values">
-        <span class="community-value">{{challenge.value.toLocaleString()}}</span>
-        <span class="community-divider">/</span>
-        <span class="community-suffix">{{ChallengeHelper.getCommunityPromptValue(challenge.targetValue, challenge.conditionType)}}</span>
+  }
+  @if(this.seasonalInfo){
+    <div class="seasonal-card">
+      <div class="seasonal-header">
+        <span class="seasonal-title"> {{seasonalInfo.name}} </span>
       </div>
-      <span class="community-percentage">{{ ChallengeHelper.getCommunityGoalPercentage(challenge.value, challenge.targetValue) }}</span>
-    </div>
-    <div class="progress-bar-track">
-      <div class="progress-bar-fill" [style.width]="ChallengeHelper.getCommunityGoalPercentage(challenge.value, challenge.targetValue)"></div>
-    </div>
-  </div>
-}
+      <div class="seasonal-players">
+        <mat-icon class="seasonal-players-icon">group</mat-icon>
+        <span>{{seasonalInfo.participants}} players ranked</span>
+      </div>
 
-<!-- Daily Challenges -->
-<app-challenges />
+      <div class="seasonal-leaderboard">
+        @for (user of seasonalInfo.leaderboard; track $index){
+          <div class="seasonal-user">
+            <span class="placement">#{{$index + 1}}</span>
+            <span class="name">{{ user.username }}</span>
+          </div>
+        }
+      </div>
+
+      <button class="secondary-button" [routerLink]="['/seasonal']">
+        <span>Full Leaderboard</span>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+  }
+</div>
 
 <!-- Server Statistics-->
 <app-zdc-stats />

@@ -96,7 +96,7 @@
   //background: rgb(10, 8, 28);
 
   .title{
-    @extend .headerTextFancy;
+    @extend .header-text;
 
     font-size: 2rem;
     font-weight: bold;

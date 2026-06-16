@@ -21,6 +21,12 @@ export class LeaderboardService {
     return this.http.get<SeasonalLeaderboard>(`${this.baseUrl}?date=${date}`);
   }
 
+  getLeaderboardInfo(date: any = null): Observable<SeasonalLeaderboard>{
+    if (date == null) return this.http.get<SeasonalLeaderboard>(`${this.baseUrl}/info`);
+
+    return this.http.get<SeasonalLeaderboard>(`${this.baseUrl}/info?date=${date}`);
+  }
+
   getLeaderboardPosition(username: string): Observable<SeasonalPlacement>{
     return this.http.get<SeasonalPlacement>(`${this.baseUrl}/${username}`);
   }

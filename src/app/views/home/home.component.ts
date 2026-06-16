@@ -75,12 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public user$: Observable<UserProfileData | null>;
   public communityChallenge$: Observable<CommunityChallenge | null>;
 
-  @ViewChild(ChallengesComponent)
-  private challengesComponent?: ChallengesComponent;
-
   private timerId: any;
-
-  protected readonly Difficulty = Difficulty;
 
   leaderboardChallengeEndDateUnixSeconds: number = 0;
 
@@ -93,9 +88,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   legacyLeaderboardData : any | undefined;
   legacyLeaderboardColumns: string[] = ['Username', 'Score'];
 
-  nextSubmissionPossibleUnixSeconds: number = 0;
-
   leaderboardTimeLeft: string = "";
+
+  seasonalInfo: any | undefined;
 
   protected readonly ChallengeHelper = ChallengeHelper;
 
@@ -113,6 +108,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.leaderboardService.getLeaderboard().subscribe(result => {
       this.seasonalLeaderboardData = result;
       this.leaderboardChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
+    })
+
+    this.leaderboardService.getLeaderboardInfo().subscribe(result => {
+      this.seasonalInfo = result;
     })
 
     this.leaderboardService.getGlobalLeaderboard().subscribe(result => {

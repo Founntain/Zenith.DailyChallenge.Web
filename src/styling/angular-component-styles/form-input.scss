@@ -2,13 +2,13 @@
 @use '../base' as *;
 
 mat-form-field{
-  @extend .boldText;
+  @extend .bold-text;
 }
 
 .mat-mdc-form-field {
   // Label color (floating and resting)
   .mat-mdc-floating-label {
-    @extend .boldText;
+    @extend .bold-text;
     color: rgba($text-color, 0.7) !important;
   }
 

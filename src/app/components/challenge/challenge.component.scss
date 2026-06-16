@@ -3,7 +3,7 @@
 @use '../../../styling/mixins' as mix;
 
 .difTitle{
-  @extend .boldText;
+  @extend .bold-text;
 
   margin: 0;
 }
@@ -78,7 +78,7 @@
     }
 
     .baseCompleted{
-      @extend .boldText;
+      @extend .bold-text;
       font-weight: 700;
       letter-spacing: 0.01em;
 

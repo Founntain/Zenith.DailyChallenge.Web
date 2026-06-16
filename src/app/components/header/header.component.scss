@@ -65,7 +65,7 @@ header.modern-header {
     }
 
     .logo-text {
-      @extend .headerTextFancy;
+      @extend .header-text;
 
       font-weight: 700;
       font-size: 14px;
@@ -112,7 +112,7 @@ header.modern-header {
     }
 
     .nav-link {
-      @extend .headerTextFancy;
+      @extend .header-text;
 
       color: $secondary-color;
       text-decoration: none;
@@ -206,7 +206,7 @@ header.modern-header {
     }
 
     .login-btn {
-      @extend .headerTextFancy;
+      @extend .header-text;
 
       padding: 10px 24px;
       background: $colorful-accent-gradient;
@@ -257,7 +257,7 @@ header.modern-header {
       }
 
       .username {
-        @extend .headerTextFancy;
+        @extend .header-text;
 
         color: $text-color;
         font-size: 14px;

@@ -23,7 +23,7 @@
   font-weight: 400;
 }
 
-.boldText{
+.bold-text{
   font-family: "Cabin", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-weight: bold;
   letter-spacing: 0.01em;
@@ -34,7 +34,7 @@
   font-weight: 700;
 }
 
-.headerTextFancy{
+.header-text{
   font-family: "Faculty Glyphic", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-weight: 800;
 }
@@ -188,7 +188,7 @@ table.mat-mdc-table .clickable:hover {
 }
 
 .inputField{
-  @extend .headerTextFancy;
+  @extend .header-text;
 
   font-size: 1.3em;
   padding: 10px;
@@ -210,11 +210,7 @@ table.mat-mdc-table .clickable:hover {
   }
 }
 
-// LEGACY CODE ABOVE
-// BASE NEW HERE
-.primary-button{
-  @extend .headerTextFancy;
-
+.button-base{
   display: flex;
   align-items: center;
   gap: 8px;
@@ -241,6 +237,13 @@ table.mat-mdc-table .clickable:hover {
     padding: 12px 20px;
     font-size: 14px;
   }
+}
+
+// LEGACY CODE ABOVE
+// BASE NEW HERE
+.primary-button{
+  @extend .header-text;
+  @extend .button-base;
 
   background: $colorful-accent-gradient;
   color: $text-color;
@@ -258,7 +261,8 @@ table.mat-mdc-table .clickable:hover {
 }
 
 .secondary-button {
-  @extend .headerTextFancy;
+  @extend .header-text;
+  @extend .button-base;
 
   background: transparent;
   color: $text-color;
