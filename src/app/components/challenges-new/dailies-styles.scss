@@ -15,11 +15,11 @@
 }
 
 .challenges-carousel {
-  position: relative;
-  width: 100%;
   display: flex;
   align-items: center;
   gap: 16px;
+  width: 100%;
+  position: relative;
 
   overflow: hidden;
 
@@ -29,22 +29,27 @@
 }
 
 .carousel-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 48px;
-  height: 48px;
-  background: rgba($background-color, 0.9);
-  backdrop-filter: blur(10px);
-  border: 1px solid $background-shade;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  top: 50%;
+  width: 48px;
+  height: 48px;
+  z-index: 10;
+
+  background: rgba($background-color, 0.9);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid $background-shade;
+  border-radius: 50%;
+
   cursor: pointer;
-  transition: all 0.2s ease;
   color: $text-color;
+
+  transform: translateY(-50%);
+
+  transition: all 0.2s ease;
 
   mat-icon {
     font-size: 28px;
@@ -97,8 +102,6 @@
   overflow: hidden;
   border-radius: 16px;
 
-  overflow: hidden;
-
   @include base.mobile {
     border-radius: 12px;
   }
@@ -108,21 +111,26 @@
   display: flex;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
+
   width: 100%;
 }
 
 .challenge-slide {
+  flex-shrink: 0;
+
   min-width: 100%;
   max-width: 100%;
-  flex-shrink: 0;
+
   box-sizing: border-box;
 }
 
 .challenge-hero-container {
   position: relative;
+  overflow: hidden;
+
   width: 100%;
   min-height: 400px;
-  overflow: hidden;
+
   box-shadow: 0 8px 32px $shadow-color;
   box-sizing: border-box;
 
@@ -165,17 +173,18 @@
 }
 
 .hero-content {
-  position: relative;
-  z-index: 1;
-  padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  position: relative;
+  padding: 40px;
+  z-index: 1;
   box-sizing: border-box;
 
   @include base.mobile {
-    padding: 20px 16px;
     gap: 16px;
+    padding: 20px 16px;
     max-width: 100%;
   }
 }
@@ -326,67 +335,6 @@
   gap: 12px;
   flex-wrap: wrap;
   margin-top: 8px;
-
-  button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 28px;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-
-    mat-icon {
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
-    }
-
-    @include base.mobile {
-      padding: 12px 20px;
-      font-size: 14px;
-    }
-  }
-
-  .primary-btn {
-    @extend .headerTextFancy;
-
-    background: $colorful-accent-gradient;
-    color: $text-color;
-    box-shadow: 0 4px 12px rgba($colorful-accent-gradientColor1, 0.4);
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba($colorful-accent-gradientColor1, 0.6);
-      filter: brightness(1.1);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-  }
-
-  .secondary-btn {
-    @extend .headerTextFancy;
-
-    background: transparent;
-    color: $text-color;
-    border: 2px solid $background-shade;
-
-    &:hover {
-      background: $background-shade;
-      border-color: $colorful-accent-color;
-    }
-
-    &:active {
-      transform: scale(0.98);
-    }
-  }
 }
 
 .integrated-navigation {

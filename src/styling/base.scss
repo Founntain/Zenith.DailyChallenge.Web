@@ -6,6 +6,12 @@
   }
 }
 
+@mixin mini-mobile {
+  @media screen and (max-width: 600px) {
+    @content;
+  }
+}
+
 @mixin desktop-large {
   @media screen and (min-width: 1500px) {
     @content;
@@ -202,4 +208,74 @@ table.mat-mdc-table .clickable:hover {
     opacity: 0.9;
     scale: 1.1;
   }
+}
+
+// LEGACY CODE ABOVE
+// BASE NEW HERE
+.primary-button{
+  @extend .headerTextFancy;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  @include mobile {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  background: $colorful-accent-gradient;
+  color: $text-color;
+  box-shadow: 0 4px 12px rgba($colorful-accent-gradientColor1, 0.4);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($colorful-accent-gradientColor1, 0.6);
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.secondary-button {
+  @extend .headerTextFancy;
+
+  background: transparent;
+  color: $text-color;
+  border: 2px solid $background-shade;
+
+  &:hover {
+    background: $background-shade;
+    border-color: $colorful-accent-color;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.gradient-text{
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
 }

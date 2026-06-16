@@ -359,33 +359,9 @@
   display: flex;
 }
 
-.submit-btn {
-  @extend .headerTextFancy;
+.submit-button {
+  @extend .primary-button;
 
   width: 100%;
-  padding: 10px 24px;
-  background: $colorful-accent-gradient;
-  color: $text-color;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba($colorful-accent-gradientColor1, 0.3);
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba($colorful-accent-gradientColor1, 0.5);
-    filter: brightness(1.1);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  @include base.mobile {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
+  justify-content: center;
 }

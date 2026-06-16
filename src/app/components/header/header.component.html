@@ -38,7 +38,10 @@
           <mat-icon class="logout-icon" (click)="logout()">logout</mat-icon>
         </div>
       } @else {
-        <button class="login-btn" (click)="loginClick()">Sign In</button>
+        <button class="primary-button" (click)="loginClick()">
+          <span>Sign In</span>
+          <mat-icon>login</mat-icon>
+        </button>
       }
 
       <button class="icon-btn mobile-menu-btn" (click)="drawer.toggle()">

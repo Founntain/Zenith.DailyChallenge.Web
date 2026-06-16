@@ -180,9 +180,9 @@ hr{
 }
 
 select {
-  border: none !important;         /* Removes the border */
-  outline: none !important;        /* Prevents focus outline */
-  background: none !important;     /* Removes background if needed */
+  border: none !important;
+  outline: none !important;
+  background: none !important;
 }
 
 .link {
@@ -199,9 +199,7 @@ select {
   transition: all .3s ease-in-out;
 
   &:hover{
-    //background-image: $colorful-accent-gradient;
-    //-webkit-background-clip: text;
-    //-webkit-text-fill-color: transparent;
+    //@extend .gradient-text;
 
     letter-spacing: 3px;
     transform: skewY(-2deg);

@@ -13,6 +13,11 @@
     height: 48px;
   }
 
+  @include base.mini-mobile{
+    width: 32px;
+    height: 32px;
+  }
+
   transition: transform 0.2s ease-in-out;
 
   &:hover{
@@ -30,81 +35,54 @@
     font-size: 1.5rem;
   }
 
+  @include base.mini-mobile{
+    font-size: 1.3rem;
+  }
+
+  @extend .gradient-text;
+
   &.nomod{
     background: linear-gradient(to bottom, $text-color, #949494);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.expert{
     background: linear-gradient(to bottom, $text-color, #ffd142);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.nohold{
     background: linear-gradient(to bottom, $text-color, #f786ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.messy{
     background: linear-gradient(to bottom, $text-color, #ffaa86);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.gravity{
     background: linear-gradient(to bottom, $text-color, #ffb17b);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.volatile{
     background: linear-gradient(to bottom, $text-color, #ff8686);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.doublehole{
     background: linear-gradient(to bottom, $text-color, #86b0ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.invisible{
     background: linear-gradient(to bottom, $text-color, #bc86ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.allspin{
     background: linear-gradient(to bottom, $text-color, #86ffc9);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.reverse{
     background: linear-gradient(to bottom, $text-color, $reverse-accent-color);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   &.mastery{
     background: linear-gradient(to bottom, $text-color, $colorful-accent-gradientColor2);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 }
 
@@ -145,6 +123,17 @@
     border: 1px solid rgb(35, 24, 73);
     border-radius: 6px;
 
+    @include base.mini-mobile{
+      flex-direction: column;
+      align-items: center;
+      justify-content: unset;
+      flex-wrap: wrap;
+
+      position: unset;
+
+      gap: 8px;
+    }
+
     .altitude-stats{
       display: flex;
       flex-direction: column;
@@ -152,24 +141,26 @@
       gap: 5px;
       flex: 1;
 
+      @include base.mini-mobile{
+        align-items: center;
+      }
+
       .altitude-title{
         font-size: 1.25rem;
         font-weight: normal;
 
         color: $colorful-accent-gradientColor2;
-        text-shadow: 0px 0px 4px rgba($colorful-accent-gradientColor2, .5);
+        text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
       }
 
       .altitude{
         @extend .numeric;
+        @extend .gradient-text;
 
         font-size: 3rem;
 
         background: $text-90gradient;
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0px 0px 4px rgba($colorful-accent-gradientColor2, .5);
+        text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
 
         @include base.mobile{
           font-size: 2.25rem;
@@ -189,6 +180,10 @@
         @include base.mobile{
           font-size: 1.2rem;
         }
+
+        @include base.mini-mobile{
+          display: none;
+        }
       }
     }
 
@@ -200,11 +195,18 @@
       left: 50%;
       transform: translateX(-50%);
 
+      @include base.mini-mobile{
+        position: unset;
+        left: unset;
+        transform: unset;
+        align-items: center;
+      }
+
       .score-img{
         width: 128px;
         height: 128px;
 
-        filter: drop-shadow(0px 0px 4px rgba($expert-text-color, .5));
+        filter: drop-shadow(0 0 4px rgba($expert-text-color, .5));
 
         @include base.mobile{
           width: 96px;
@@ -214,14 +216,12 @@
 
       .score{
         @extend .numeric;
+        @extend .gradient-text;
 
         font-size: 4rem;
 
         background: $text-90gradient;
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0px 0px 4px rgba($colorful-accent-gradientColor2, .5);
+        text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
 
         @include base.mobile{
           font-size: 3rem;
@@ -235,6 +235,10 @@
         @include base.mobile{
           font-size: 1.2rem;
         }
+
+        @include base.mini-mobile{
+          display: none;
+        }
       }
     }
 
@@ -245,6 +249,13 @@
       padding: 0 32px;
       gap: 16px;
 
+      @include base.mini-mobile{
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
       .stat-item{
         display: flex;
         flex-direction: row;
@@ -252,6 +263,8 @@
         gap: 16px;
 
         .stat-icon{
+          @extend .gradient-text;
+
           font-size: 32px;
           min-width: 32px;
           min-height: 32px;
@@ -259,10 +272,7 @@
           //color: $colorful-accent-gradientColor2;
 
           background: $text-90gradient;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          text-shadow: 0px 0px 4px rgba($colorful-accent-gradientColor2, .5);
+          text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
 
           @include base.mobile{
             font-size: 24px;
@@ -318,16 +328,24 @@
     border: 1px solid rgba(rgb(35, 24, 73), .5);
     border-radius: 6px;
 
+    @include base.mini-mobile{
+      align-items: center;
+    }
+
     .mods-container{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       width: 100%;
-      //flex-direction: row;
       align-items: start;
       gap: 16px;
 
       @include base.mobile{
         grid-template-columns: 1fr 1fr;
+      }
+
+      @include base.mini-mobile{
+        display: flex;
+        flex-direction: column;
       }
 
       .mod-container{
@@ -347,6 +365,13 @@
           &:last-child:nth-child(odd){
             grid-column: 1 / -1;
           }
+        }
+
+        @include base.mini-mobile{
+          align-items: center;
+          align-self: center;
+          justify-content: center;
+          width: 100%;
         }
 
         .mod-stats{
@@ -372,12 +397,24 @@
       align-items: start;
       gap: 16px;
 
+      @include base.mini-mobile{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
       .mod-container{
         display: flex;
         flex-direction: row;
         align-items: start;
         vertical-align: center;
         gap: 8px;
+
+        @include base.mini-mobile{
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
 
         padding: 16px;
 
@@ -417,6 +454,10 @@
     border: 1px solid rgba(rgb(35, 24, 73), .5);
     border-radius: 6px;
 
+    @include base.mini-mobile{
+      justify-content: space-evenly;
+    }
+
     .run-stat{
       display: flex;
       flex-direction: row;
@@ -424,6 +465,8 @@
       gap: 16px;
 
       mat-icon{
+        @extend .gradient-text;
+
         font-size: 24px;
         min-width: 24px;
         min-height: 24px;
@@ -434,11 +477,20 @@
           min-height: 24px;
         }
 
+        @include base.mini-mobile{
+          font-size: 20;
+          min-width: 20;
+          min-height: 20;
+
+          //display: none;
+        }
+
         background: $text-90gradient;
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
         text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
+      }
+
+      @include base.mini-mobile{
+        gap: 8px;
       }
 
       .run-values{
@@ -456,10 +508,15 @@
           @include base.mobile{
             font-size: 0.8rem;
           }
+
+          @include base.mini-mobile{
+            font-size: 0.6rem;
+          }
         }
 
         .run-value{
           @extend .numeric;
+          @extend .gradient-text;
 
           font-size: 2rem;
 
@@ -467,13 +524,14 @@
             font-size: 1.5rem;
           }
 
+          @include base.mini-mobile{
+            font-size: 1.25rem;
+          }
+
           transition: all 0.3s ease-in-out;
 
           background: $text-90gradient;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          text-shadow: 0px 0px 4px rgba($colorful-accent-gradientColor2, .5);
+          text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
         }
       }
     }

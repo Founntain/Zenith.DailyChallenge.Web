@@ -26,13 +26,11 @@
 
   .title{
     @extend .headerTextFancy;
+    @extend .gradient-text;
 
     font-size: 4rem;
 
     background: $gold-gradient;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
     text-shadow: 0 0 30px rgba($expert-text-color, 0.5);
 
     @include base.mobile{
@@ -105,13 +103,11 @@
 
     .title{
       @extend .headerTextFancy;
+      @extend .gradient-text;
 
       font-size: 2rem;
 
       background: $gold-gradient;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
       text-shadow: 0 0 30px rgba($expert-text-color, 0.5);
     }
 

@@ -321,32 +321,6 @@ tr{
   flex-wrap: wrap;
   margin-top: 8px;
 
-  button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 28px;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-
-    mat-icon {
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
-    }
-
-    @include base.mobile {
-      padding: 12px 20px;
-      font-size: 14px;
-    }
-  }
-
   .primary-btn {
     background: $colorful-accent-gradient;
     color: $text-color;
@@ -404,14 +378,14 @@ tr{
   }
 
   .community-title{
+    @extend .gradient-text;
+
     align-self: start;
     flex-grow: 1;
 
     font-size: 2rem;
+
     background: $colorful-accent-gradient;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
     text-shadow: 0 0 30px rgba($community-text-color, 0.5);
 
     @include base.mobile{

@@ -55,17 +55,17 @@
                   <!-- Action Buttons -->
                   <div class="hero-actions">
                     @if(user$ | async; as user) {
-                      <button class="primary-btn" (click)="submitRuns()">
+                      <button class="primary-button" (click)="submitRuns()">
                         <span>SUBMIT RUNS</span>
                         <mat-icon>arrow_forward</mat-icon>
                       </button>
                     } @else {
-                      <button class="primary-btn" (click)="signIn()">
+                      <button class="primary-button" (click)="signIn()">
                         <span>Sign In To Play</span>
                         <mat-icon>arrow_forward</mat-icon>
                       </button>
                     }
-  <!--                  <button class="secondary-btn" [routerLink]="['/daily-archive']">-->
+  <!--                  <button class="secondary-button" [routerLink]="['/daily-archive']">-->
   <!--                    <span>LEADERBOARD</span>-->
   <!--                  </button>-->
                   </div>
