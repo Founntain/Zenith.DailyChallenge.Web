@@ -1,85 +1,123 @@
-@if (leaderboardData?.leaderboard?.length ?? 0 > 0) {
-  <div class="baseContainer">
-    <div class="stripes border centerText" style="padding: 20px">
-      <div class="stripes"></div>
-      <span class="bigText boldText">Challenge Leaderboard</span>
-    </div>
-
-    @if (leaderboardData?.leaderboard?.length ?? 0 > 10) {
-      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100, 250]"
-                     [pageSize]="pageSize"
-                     [length]="leaderboardData?.totalUsers ?? 0"
-                     (page)="onPageChange($event)"
-                     aria-label="Select page of runs">
-      </mat-paginator>
-    }
-
-    <div style="overflow-x: auto;">
-      <table mat-table [dataSource]="leaderboardData?.leaderboard ?? []">
-        <ng-container matColumnDef="Username">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let element" >
-            <div class="flexRow" style="align-items: center; gap: 5px">
-              <div class="leveltag" [class]="[DailyHelper.getLevelTagShape(element.level), DailyHelper.getLevelTagBadgeColor(element.level), DailyHelper.getLevelTagShapeColor(element.level)]" style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>
-              <span class="uppercase" style="vertical-align: center">{{element.username}}</span>
-            </div>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="Score">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" matTooltip="Score/Rating"/>
-          </th>
-          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.score.toLocaleString()}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="EasyChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/clear_easy_2.png" height="36" width="36" matTooltip="Easy Challenges Completed"/>
-          </th>
-          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.easyChallengesCompleted.toLocaleString()}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="NormalChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/clear_normal_2.png" height="36" width="36" matTooltip="Normal Challenges Completed"/>
-          </th>
-          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.normalChallengesCompleted.toLocaleString()}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="HardChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center; padding: 5px">
-            <img class="headerImage" ngSrc="assets/clear_hard_2.png" height="36" width="36" matTooltip="Hard Challenges Completed"/>
-          </th>
-          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.hardChallengesCompleted.toLocaleString()}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="ExpertChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_expert.png" height="36" width="36" matTooltip="Expert Challenges Completed"/> </th>
-          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.expertChallengesCompleted.toLocaleString()}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="ReverseChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/clear_reverse.png" height="36" width="36" matTooltip="Reverse Challenges Completed"/> </th>
-          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.reverseChallengesCompleted.toLocaleString()}}</td>
-        </ng-container>
-        <ng-container matColumnDef="MasteryChallengesCompleted">
-          <th mat-header-cell *matHeaderCellDef style="text-align: center"> <img class="headerImage" ngSrc="assets/mastery_2.png" height="36" width="36" matTooltip="Mastery Challenges Completed"/> </th>
-          <td mat-cell *matCellDef="let element" style="text-align: center" > {{element.masteryChallengesCompleted.toLocaleString()}}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="leaderboardColumns" ></tr>
-        <tr mat-row class="clickable" *matRowDef="let row; columns: leaderboardColumns;" [routerLink]="['/u', row.username]"></tr>
-      </table>
-    </div>
-
-    @if (leaderboardData?.leaderboard?.length ?? 0 > 10) {
-      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100, 250]"
-                     [pageSize]="pageSize"
-                     [length]="leaderboardData?.totalUsers ?? 0"
-                     (page)="onPageChange($event)"
-                     aria-label="Select page of runs">
-      </mat-paginator>
-    }
+<div class="container">
+  <div class="nav-items">
+    <span class="active">Seasonal</span>
+    <span class="">All Time</span>
+    <span class="">Legacy</span>
   </div>
-}
+  @if(seasonalLeaderboard && seasonalLeaderboard.leaderboard && seasonalLeaderboard.leaderboard.length > 0){
+    <div class="leaderboard">
+      <div class="leaderboard-top">
+        <div class="top-card" [routerLink]="['/u', seasonalLeaderboard?.leaderboard?.[1]?.username]">
+            <span class="username">{{seasonalLeaderboard?.leaderboard?.[1]?.username}}</span>
+            <span class="score">{{seasonalLeaderboard?.leaderboard?.[1]?.score?.toLocaleString('en-US')}}</span>
+            <div class="user-stats">
+              <div class="stat">
+                <span class="value">2349.32M</span>
+                <span class="title">Top Run</span>
+              </div>
+              <div class="stat">
+                <span class="value">123</span>
+                <span class="title">APM</span>
+              </div>
+              <div class="stat">
+                <span class="value">123</span>
+                <span class="title">VS</span>
+              </div>
+              <div class="stat">
+                <span class="value">123</span>
+                <span class="title">KOs</span>
+              </div>
+            </div>
+        </div>
+
+        <div class="champion-card" [routerLink]="['/u', seasonalLeaderboard?.leaderboard?.[0]?.username]">
+          <span class="username">{{seasonalLeaderboard?.leaderboard?.[0]?.username}}</span>
+          <span class="score">{{seasonalLeaderboard?.leaderboard?.[0]?.score?.toLocaleString('en-US')}}</span>
+        </div>
+
+        <div class="third-card" [routerLink]="['/u', seasonalLeaderboard?.leaderboard?.[2]?.username]">
+          <span class="username">{{seasonalLeaderboard?.leaderboard?.[2]?.username}}</span>
+          <span class="score">{{seasonalLeaderboard?.leaderboard?.[2]?.score?.toLocaleString('en-US')}}</span>
+        </div>
+
+      </div>
+      <div class="leaderboard-entries">
+<!--        @for (user of seasonalLeaderboard?.leaderboard; track $index){-->
+<!--          @if ($index > 2){-->
+<!--            <div class="user-card" [routerLink]="['/u', user.username]">-->
+<!--              <span class="placement">#{{$index + 1}}</span>-->
+<!--              <span class="username">{{user.username}}</span>-->
+<!--              <div class="score">-->
+<!--                <img src="assets/score.png" />-->
+<!--                <span>{{user.score.toLocaleString('en-US')}}</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          }-->
+<!--        }-->
+
+        <table mat-table [dataSource]="seasonalLeaderboard?.leaderboard ?? []" class="leaderboard-table">
+          <ng-container matColumnDef="Username">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element" >
+              <div>
+<!--                <div class="leveltag" [class]="[DailyHelper.getLevelTagShape(element.level), DailyHelper.getLevelTagBadgeColor(element.level), DailyHelper.getLevelTagShapeColor(element.level)]" style="align-self: flex-start; width: fit-content">{{ element.level.toLocaleString() }}</div>-->
+                <div class="headerText uppercase">{{element.username}}</div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Score">
+            <th mat-header-cell *matHeaderCellDef>
+<!--              <img class="headerImage" ngSrc="assets/score.png" height="36" width="36" matTooltip="Score/Rating"/>-->
+              <span>Score</span>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.score.toLocaleString()}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="TopRun">
+            <th mat-header-cell *matHeaderCellDef>
+              <!--              <img class="headerImage" ngSrc="assets/clear_easy_2.png" height="36" width="36" matTooltip="Easy Challenges Completed"/>-->
+              <span>Top Run</span>
+            </th>
+            <td mat-cell *matCellDef="let element">3536.23 M</td>
+          </ng-container>
+
+          <ng-container matColumnDef="APM">
+            <th mat-header-cell *matHeaderCellDef>
+<!--              <img class="headerImage" ngSrc="assets/clear_easy_2.png" height="36" width="36" matTooltip="Easy Challenges Completed"/>-->
+              <span>APM</span>
+            </th>
+            <td mat-cell *matCellDef="let element">123</td>
+          </ng-container>
+
+          <ng-container matColumnDef="VS">
+            <th mat-header-cell *matHeaderCellDef>
+<!--              <img class="headerImage" ngSrc="assets/clear_normal_2.png" height="36" width="36" matTooltip="Normal Challenges Completed"/>-->
+              <span>VS</span>
+            </th>
+            <td mat-cell *matCellDef="let element">234</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Kos">
+            <th mat-header-cell *matHeaderCellDef>
+              <!--              <img class="headerImage" ngSrc="assets/clear_normal_2.png" height="36" width="36" matTooltip="Normal Challenges Completed"/>-->
+              <span>KO's</span>
+            </th>
+            <td mat-cell *matCellDef="let element">2324</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Runs">
+            <th mat-header-cell *matHeaderCellDef>
+              <!--              <img class="headerImage" ngSrc="assets/clear_normal_2.png" height="36" width="36" matTooltip="Normal Challenges Completed"/>-->
+              <span>Runs</span>
+            </th>
+            <td mat-cell *matCellDef="let element"> 10234</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="globalLeaderboardColumns" ></tr>
+          <tr mat-row class="clickable" *matRowDef="let row; columns: globalLeaderboardColumns;" [routerLink]="['/u', row.username]"></tr>
+        </table>
+      </div>
+    </div>
+  }
+</div>

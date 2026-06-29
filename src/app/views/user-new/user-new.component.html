@@ -10,7 +10,7 @@
             <img src="https://tetr.io/user-content/avatars/{{this.dailyData.tetrioId}}.jpg?rv={{this.dailyData.avatar}}" class="profileImage" />
           }
           <div class="flexColumn uppercase gap" style=" width: 100%">
-            <span class="headerTextFancy" style="font-size: 2rem">{{username}}</span>
+            <span class="header-text" style="font-size: 2rem">{{username}}</span>
             <span class="subtleText">{{ this.dailyData?.title }}</span>
             <app-segmentbar class="playstyleSegments" [segments]="playStyleSegments"/>
           </div>
@@ -123,7 +123,7 @@
       </div>
     }
 
-    <div class="flexRowDynamic flexStretch bigGap headerTextFancy">
+    <div class="flexRowDynamic flexStretch bigGap header-text">
       <span (click)="setViewActive('overall')" [class]="isActiveView('overall')" class="profileButton">Overall</span>
       <span (click)="setViewActive('progression')" [class]="isActiveView('progression')" class="profileButton">Altitude Progression</span>
       <span (click)="setViewActive('splits')" [class]="isActiveView('splits')" class="profileButton">Zenith Splits</span>
@@ -135,7 +135,7 @@
         <!--  Dailies  -->
         <div class="flexColumn flexStretch gap">
           <div class="flexRow verticalCenter sectionHeader">
-            <span class="headerTextFancy justifyLeft sectionHeaderTitle">Dailies</span>
+            <span class="header-text justifyLeft sectionHeaderTitle">Dailies</span>
             <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/u', username, 'dailies']">
               <span class="subtleText justifyRight">Show History</span>
               <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
@@ -164,7 +164,7 @@
 
                   <div class="normalTextColor flexRowDynamic justifyCenter">
                     <div class="flexColumn gap" style="margin: 1rem;">
-                      <span class="headerTextFancy" style="font-size: 1.5rem">Challenges</span>
+                      <span class="header-text" style="font-size: 1.5rem">Challenges</span>
                       <div>
                         <img class="mod" [class]="[isChallengeBeaten(day.easyCompleted)]" src="assets/clear_easy_2.png" />
                         <img class="mod" [class]="[isChallengeBeaten(day.normalCompleted)]" src="assets/clear_normal_2.png" />
@@ -174,7 +174,7 @@
                       </div>
                     </div>
                     <div class="flexColumn gap">
-                      <span class="headerTextFancy" style="font-size: 1.5rem">Mastery</span>
+                      <span class="header-text" style="font-size: 1.5rem">Mastery</span>
                       <div>
                         <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png" />
                         <img class="mod" [class]="[isChallengeBeaten(day.mastery?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png" />
@@ -203,7 +203,7 @@
             }
           }
           @else{
-            <span class="headerTextFancy subtleText"> Not played so far</span>
+            <span class="header-text subtleText"> Not played so far</span>
           }
 
         </div>
@@ -211,7 +211,7 @@
         <!--  Recent Runs  -->
         <div class="flexColumn flexStretch gap">
           <div class="flexRow verticalCenter sectionHeader">
-            <span class="headerTextFancy justifyLeft sectionHeaderTitle">Recent Runs</span>
+            <span class="header-text justifyLeft sectionHeaderTitle">Recent Runs</span>
             <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/u', username, 'runs']">
               <span class="subtleText justifyRight">Show History</span>
               <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
@@ -247,7 +247,7 @@
             }
           }
           @else{
-            <span class="headerTextFancy subtleText"> Not played so far</span>
+            <span class="header-text subtleText"> Not played so far</span>
           }
         </div>
       </div>
@@ -256,7 +256,7 @@
         <!--  Seasonal  -->
         <div class="flexColumn flexStretch gap">
           <div class="flexRow verticalCenter sectionHeader">
-            <span class="headerTextFancy justifyLeft sectionHeaderTitle">Seasonal</span>
+            <span class="header-text justifyLeft sectionHeaderTitle">Seasonal</span>
             <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/seasonal']">
               <span class="subtleText justifyRight">Show History</span>
               <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
@@ -285,7 +285,7 @@
             }
           }
           @else{
-            <span class="headerTextFancy subtleText"> Not participated in any season yet</span>
+            <span class="header-text subtleText"> Not participated in any season yet</span>
           }
 
         </div>
@@ -293,7 +293,7 @@
         <!--  Community Contributions  -->
         <div class="flexColumn flexStretch gap">
           <div class="flexRow verticalCenter sectionHeader">
-            <span class="headerTextFancy justifyLeft sectionHeaderTitle">Community Contributions</span>
+            <span class="header-text justifyLeft sectionHeaderTitle">Community Contributions</span>
             <div class="flexRow verticalCenter sectionHeaderAction movableLink">
               <span class="subtleText justifyRight" [routerLink]="['/cc-archive']">Show Archive</span>
               <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
@@ -326,7 +326,7 @@
             }
           }
           @else{
-            <span class="headerTextFancy subtleText"> Not participated in any community challenge</span>
+            <span class="header-text subtleText"> Not participated in any community challenge</span>
           }
         </div>
       </div>
@@ -356,7 +356,7 @@
   </div>
 } @else {
   <div class="simpleContainer bigGap" style="margin: 1rem">
-    <h1 class="headerTextFancy" style="text-align: center">User <span class="uppercase link" style="cursor: default">{{username}}</span> not found</h1>
+    <h1 class="header-text" style="text-align: center">User <span class="uppercase link" style="cursor: default">{{username}}</span> not found</h1>
     <span class="boldText subtleText" style="text-align: center; ">Maybe encourage <span class="uppercase">{{username}}</span> to start their ZDC Career today!</span>
   </div>
 }

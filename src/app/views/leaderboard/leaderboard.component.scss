@@ -1,25 +1,233 @@
 @use '../../../styles' as *;
 @use '../../../styling/colors' as *;
-@use '../../../styling/xp' as *;
+@use '../../../styling/base' as base;
 
-.border{
-  border-top: 1px solid rgba($primary-color, 0.5);
-  border-bottom: 1px solid rgba($primary-color, 0.5);
-  border-left: 1px solid rgba($primary-color, 0.5);
-  border-right: 1px solid rgba($primary-color, 0.5);
-}
-
-.bigText{
-  font-size: 2rem;
-}
-
-.link {
-  color: $text-color !important;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.flexRow{
+.base-card{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  transition: all 0.3s ease-in-out;
+
+  cursor: pointer;
+
+  &:hover{
+    transform: translateY(-5px);
+    filter: brightness(2);
+  }
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+
+  padding: 16px;
+
+  gap: 16px;
+
+  .nav-items{
+    display: flex;
+    flex-direction: row;
+
+    gap: 16px;
+
+
+    span{
+      @extend .header-text;
+
+      display: block;
+      padding: 6px;
+
+      font-size: 1.5rem;
+
+      border-bottom: 3px solid transparent;
+
+      &.active{
+        color: $colorful-accent-gradientColor2;
+        text-shadow: 0 0 5px rgba($colorful-accent-gradientColor2, 0.2);
+
+        border-bottom: 3px solid $colorful-accent-gradientColor2;
+      }
+    }
+  }
+
+  .leaderboard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 16px;
+
+    .leaderboard-top{
+      display: flex;
+      flex-direction: row;
+
+      .top-card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 16px 32px;
+
+        border: 1px solid rgba($text-color, 0.2);
+
+        .username{
+          @extend .header-text;
+
+          font-size: 2rem;
+          text-transform: uppercase;
+          color: $text-color;
+        }
+
+        .score{
+          @extend .numeric;
+
+          font-size: 1.75rem;
+          color: $text-color;
+        }
+
+        .user-stats{
+          display: flex;
+          flex-direction: row;
+          gap: 16px;
+
+          .stat{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: center;
+            gap: 4px;
+
+            .title{
+              font-size: 1rem;
+              color: rgba($text-color, 0.5);
+            }
+
+            .value{
+              @extend .numeric;
+
+              font-size: 1.25rem;
+              color: $text-color;
+            }
+          }
+        }
+      }
+    }
+
+    .champion-card{
+      @extend .base-card;
+
+      align-items: center;
+      vertical-align: center;
+
+      padding: 8px 16px;
+      min-width: 50%;
+
+      gap: 8px;
+
+      background: $wom-container-gradient;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+      border: 1px solid gold;
+      border-radius: 3px;
+
+      .title-container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        vertical-align: center;
+
+        mat-icon{
+          font-size: 3rem;
+          min-width: 3rem;
+          min-height: 3rem;
+        }
+
+        .title{
+          @extend .header-text;
+
+          font-size: 1.5rem;
+        }
+      }
+
+      .username{
+        @extend .header-text;
+        @extend .gradient-text;
+
+        font-size: 3rem;
+        text-transform: uppercase;
+
+        letter-spacing: 10px;
+        background: $gold-gradient;
+        text-shadow: 0 0 10px rgba(gold, 0.5);
+      }
+
+      .score{
+        @extend .numeric;
+
+        font-size: 2rem;
+      }
+    }
+
+    .leaderboard-entries{
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 16px;
+
+      width: 100%;
+
+      .user-card{
+        @extend .base-card;
+
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+
+        padding: 16px 8px;
+
+        background: linear-gradient(130deg, rgb(45 45 68), rgb(38 33 54 / 0.5));
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+
+        .placement{
+          @extend .numeric;
+
+          font-size: 1.5rem;
+        }
+
+        .username{
+          @extend .header-text;
+
+          font-size: 1.5rem;
+
+          text-transform: uppercase;
+        }
+
+        .score{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          vertical-align: center;
+          gap: 8px;
+
+          img{
+            max-height: 36px;
+            max-width: 36px;
+          }
+
+          span{
+            @extend .numeric;
+
+            font-size: 1.5rem;
+          }
+        }
+      }
+
+      .leaderboard-table{
+        width: 100%;
+      }
+    }
+
+  }
 }
