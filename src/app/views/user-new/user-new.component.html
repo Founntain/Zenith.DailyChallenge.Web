@@ -6,9 +6,7 @@
       <div class="profile-container">
         <!--  Profile Card  -->
         <div class="profile-card">
-          @if (dailyData.avatar !== undefined && dailyData.avatar !== null && dailyData.avatar !== 0) {
-            <img src="https://tetr.io/user-content/avatars/{{this.dailyData.tetrioId}}.jpg?rv={{this.dailyData.avatar}}" class="profileImage" />
-          }
+          <img src="https://tetr.io/user-content/avatars/{{this.dailyData.tetrioId}}.jpg" class="profileImage" (error)="onImageError($event)"/>
           <div class="flexColumn uppercase gap" style=" width: 100%">
             <span class="header-text" style="font-size: 2rem">{{username}}</span>
             <span class="subtleText">{{ this.dailyData?.title }}</span>

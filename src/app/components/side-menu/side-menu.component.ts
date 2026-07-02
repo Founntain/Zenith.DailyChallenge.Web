@@ -102,4 +102,9 @@ export class SideMenuComponent implements OnInit{
   protected submit() {
     this.session.submitAndUpdate();
   }
+
+  protected onImageError(event: ErrorEvent) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.style.display = 'none';
+  }
 }

@@ -3,21 +3,13 @@
   <div class="profile-section">
     @if (user$ | async; as user) {
       <div class="user-profile-card">
-        @if(user.bannerRevision !== undefined && user.bannerRevision !== null) {
-          <div class="profile-banner">
-            <img src="https://tetr.io/user-content/banners/{{user.userId}}.jpg?rv={{user.bannerRevision}}" alt="Banner" />
-          </div>
-        }
+        <div class="profile-banner">
+          <img src="https://tetr.io/user-content/banners/{{user.userId}}.jpg" alt="Banner" (error)="onImageError($event)"/>
+        </div>
 
         <div class="profile-content">
-          @if (user.avatarRevision !== undefined && user.avatarRevision !== null) {
-            <img
-              class="profile-avatar"
-              src="https://tetr.io/user-content/avatars/{{user.userId}}.jpg?rv={{user.avatarRevision}}"
-              alt="{{user.username}}"
-            />
-          }
-          <a [routerLink]="['/u', user.username]" class="username">{{user.username}}</a>
+          <img class="profile-avatar" src="https://tetr.io/user-content/avatars/{{user.userId}}.jpg" alt="{{user.username}}" (error)="onImageError($event)"/>
+          <a [routerLink]="['/u', user.username]" class="username uppercase">{{user.username}}</a>
         </div>
       </div>
 

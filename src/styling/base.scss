@@ -83,9 +83,9 @@
 }
 
 .baseContainer{
-  border: solid $accent-color;
-  border-width: 0 1px 0 1px;
-  border-image: $colorful-accent-90gradient 1;
+  //border: solid $accent-color;
+  //border-width: 0 1px 0 1px;
+  //border-image: $colorful-accent-90gradient 1;
 }
 
 .flexRow{
@@ -156,35 +156,6 @@
 
 .clickable {
   cursor: pointer;
-
-  // Smooth transitions (works for table cells too)
-  td,
-  th {
-    transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
-  }
-
-  // Stronger hover effect: change the cell background + text color
-  &:hover {
-    td,
-    th {
-      background: $stripes-light-background;
-      color: $colorful-accent-gradientColor2; // lighter text (good for dark-ish UIs)
-    }
-
-    // Optional accent stripe on the first column
-    td:first-child,
-    th:first-child {
-      box-shadow: inset 4px 0 0 0 $colorful-accent-gradientColor2;
-    }
-  }
-}
-
-// If Angular Material specificity wins, this usually forces it:
-table.mat-mdc-table .clickable:hover {
-  td,
-  th {
-    background-color: rgba(33, 150, 243, 0.12);
-  }
 }
 
 .inputField{

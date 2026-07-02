@@ -28,8 +28,14 @@ export interface SeasonalLeaderboard {
 
 export interface SeasonalLeaderboardEntry {
   rank: string;
+  tetrioId: string;
   username: string;
   score: number;
+  topRun: number;
+  apm: number;
+  vs: number;
+  kos: number;
+  runs: number;
   level: number;
 }
 

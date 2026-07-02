@@ -28,22 +28,31 @@
 }
 
 .mat-mdc-cell {
-  @extend .header-text;
-
-  font-size: 14pt;
+  font-size: 1.2rem;
 
   background-color: transparent !important;
-  //border-top: 1px solid    rgb($colorful-accent-gradientColor2, 0.5) !important;
-  //border-left: 1px solid   rgb($colorful-accent-gradientColor2, 0.5) !important;
-  //border-bottom: 1px solid rgb($colorful-accent-gradientColor2, 0.5) !important;
-  //border-right: 1px solid  rgb($colorful-accent-gradientColor2, 0.5) !important;
 }
 
 .mat-mdc-row {
   color: $text-color !important;
-  background-color: transparent !important;
-  border-top: 3px solid $colorful-accent-gradientColor2 !important;
-  border-left: 3px solid $colorful-accent-gradientColor2 !important;
-  border-bottom: 3px solid $colorful-accent-gradientColor2 !important;
-  border-right: 3px solid $colorful-accent-gradientColor2 !important;
+  background-color: $background-color !important;
+
+  transition: all 0.3s ease-in-out;
+
+  &:hover{
+    transform: translateX(5px);
+
+    color: $colorful-accent-gradientColor2 !important;
+    background-color: rgba($colorful-accent-gradientColor2, 0.05) !important;
+  }
 }
+
+//tr, td{
+//  transition: all 0.3s ease-in-out;
+//
+//  &:hover{
+//    color: $colorful-accent-gradientColor2;
+//    filter: brightness(1.1);
+//  }
+//}
+

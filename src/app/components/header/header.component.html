@@ -26,15 +26,14 @@
 
       @if (user$ | async; as user) {
         <div class="user-profile clickable">
-          @if (user.avatarRevision !== undefined && user.avatarRevision !== null) {
             <img
               [routerLink]="['/u', user.username]"
               class="profile-avatar"
-              [src]="'https://tetr.io/user-content/avatars/' + user.userId + '.jpg?rv=' + user.avatarRevision"
+              [src]="'https://tetr.io/user-content/avatars/' + user.userId + '.jpg'"
               [alt]="user.username"
+              (error)="onImageError($event)"
             />
-          }
-          <span class="username" [routerLink]="['/u', user.username]">{{ user.username }}</span>
+          <span class="username uppercase" [routerLink]="['/u', user.username]">{{ user.username }}</span>
           <mat-icon class="logout-icon" (click)="logout()">logout</mat-icon>
         </div>
       } @else {

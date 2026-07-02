@@ -6,7 +6,7 @@
       <div class="altitude-stats">
         <span class="altitude-title">Total Climbed</span>
         <span class="altitude">{{serverStatistics.altitudes.total.toLocaleString('en-US')}} M</span>
-        <span class="text">by <span class="highlight">{{serverStatistics.totalUsers}}</span> users</span>
+        <span class="text">by <span class="highlight">{{serverStatistics.totalUsers}}</span> players</span>
         <span class="text">of which <span class="highlight" matTooltip="Players that have at least 1 score.">{{serverStatistics.rankedUsers}}</span> are ranked</span>
       </div>
       <div class="score-container">
@@ -18,7 +18,7 @@
         <div class="stat-item">
           <mat-icon class="stat-icon">group</mat-icon>
           <div class="stat-values">
-            <span class="stat-title">Users</span>
+            <span class="stat-title">Players</span>
             <span class="stat-value">{{serverStatistics.totalUsers.toLocaleString('en-US')}}</span>
           </div>
         </div>

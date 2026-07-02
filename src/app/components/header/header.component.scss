@@ -256,7 +256,7 @@ header.modern-header {
         object-fit: cover;
       }
 
-      .username {
+      .user-cell {
         @extend .header-text;
 
         color: $text-color;

@@ -345,4 +345,9 @@ export class UserNewComponent implements OnInit{
 
     return ''
   }
+
+  protected onImageError(event: ErrorEvent) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.style.display = 'none';
+  }
 }

@@ -22,8 +22,6 @@ export interface DailyDataNew {
   username: string;
   score: number;
   seasonalScore: number;
-  avatar: number
-  banner: number
   title: string;
   runs: number;
   topAltitude: number;
