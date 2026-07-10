@@ -25,6 +25,7 @@ export interface DailyDataNew {
   title: string;
   runs: number;
   topAltitude: number;
+  topAltitudeWeekly: number;
   garbageSend: number;
   garbageCleared: number;
   kos: number;

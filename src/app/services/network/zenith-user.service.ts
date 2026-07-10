@@ -29,8 +29,8 @@ export class ZenithUserService {
     return this.http.get<DailyDataNew>(`${this.baseUrl}${username}`);
   }
 
-  getExtra(username: string): Observable<DailyDataNewExtra>{
-    return this.http.get<DailyDataNewExtra>(`${this.baseUrl}${username}/extra`);
+  getExtra(username: string, days: number = 5): Observable<DailyDataNewExtra>{
+    return this.http.get<DailyDataNewExtra>(`${this.baseUrl}${username}/extra?days=${days}`);
   }
 
   getProgression(username: string, progressionLimit: number = 100): Observable<any>{

@@ -80,7 +80,7 @@
   }
 }
 
-.iconAccent{
+.icon-accent{
   color: $colorful-accent-gradientColor2;
 
   @each $floor, $color in $floor-colors {

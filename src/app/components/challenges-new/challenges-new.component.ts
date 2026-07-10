@@ -252,11 +252,11 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
   }
 
   protected getWeeklyCompletionImage($index: number, value: number, type: number): string {
-    if(!this.weeklyProgress?.progress) return "assets/weekly/not-done.png";
+    if(!this.weeklyProgress?.progress) return "assets/weekly/not_done.png";
 
     const isCompleted = this.weeklyProgress.progress[$index]?.isCompleted ?? false;
 
-    if(!isCompleted) return "assets/weekly/not-done.png"
+    if(!isCompleted) return "assets/weekly/not_done.png"
 
     switch (type) {
       case WeeklyConditionType.Height:
@@ -266,7 +266,7 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
       case WeeklyConditionType.LinesCleared:
         return "assets/weekly/clear_lines.png";
       case WeeklyConditionType.Spins:
-        return "assets/weekly/spins.png";
+        return "assets/weekly/clear_spins.png";
       case WeeklyConditionType.KOs:
         return "assets/weekly/kos.png";
       case WeeklyConditionType.Quads:

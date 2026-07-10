@@ -4,11 +4,11 @@
   display: flex;
   height: 15px;
   width: 100%;
-  //border-radius: 999px;
+  border-radius: 4px;
   overflow: hidden;
   background-color: $text-color;
   border: 2px solid $text-color;
-  transform: skewX(-15deg);
+  //transform: skewX(-15deg);
 }
 
 .segment {

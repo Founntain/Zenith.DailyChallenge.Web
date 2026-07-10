@@ -1,10 +1,10 @@
 <div class="simpleContainer gap" style="margin: 1rem;">
   <div class="flexRow" style="width: 100%;">
     <div class="alignLeft justifyLeft flexStretch" style="text-align: start; font-size: 2rem">
-      <span class="headerTextFancy uppercase">{{username}}</span><span>'s past runs</span>
+      <span class="header-text uppercase">{{username}}</span><span>'s past runs</span>
     </div>
-    <div class="flexRow verticalCenter sectionHeaderAction movableLink justifyRight animateLeft" style="cursor:pointer;" [routerLink]="['/u', username]">
-      <span class="subtleText">Back to <span class="uppercase headerTextFancy">{{username}}</span>'s profile</span>
+    <div class="flexRow verticalCenter section-header-action movable-link justifyRight animateLeft" style="cursor:pointer;" [routerLink]="['/u', username]">
+      <span class="subtleText">Back to <span class="uppercase header-text">{{username}}</span>'s profile</span>
       <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
     </div>
   </div>
@@ -12,7 +12,7 @@
     <div class="flexRow flexStretch gap card animateLeft clickable" [class]="isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen)" style="width: 95%;" [routerLink]="['/u', username, 'run', run.tetrioId]">
       <div class="flexColumn flexStretch gap floorBorder justifyCenter" [class]="[getFloorKeyFromAltitude(run.altitude)]">
         <span class="subtleText">{{getFloorNameFromAltitude(run.altitude)}}</span>
-        <span class="numeric-stats headerTextFancy">{{roundNumber(run.altitude, 3)}} M</span>
+        <span class="numeric-stats header-text">{{roundNumber(run.altitude, 3)}} M</span>
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText ">APM</span>
@@ -56,7 +56,7 @@
       </div>
       <div class="flexColumn flexStretch gap justifyCenter">
         <span class="subtleText">{{ run.playedAt|date:'short' }}</span>
-        <div class="flexRow verticalCenter justifyCenter alignCenter movableLink clickable">
+        <div class="flexRow verticalCenter justifyCenter alignCenter movable-link clickable">
           <span class="boldText">View Details</span>
           <mat-icon class="iconAccent"  [routerLink]="['/u', username, 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
         </div>

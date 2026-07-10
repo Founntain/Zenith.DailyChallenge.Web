@@ -1,166 +1,122 @@
 @if(dailyData){
-  <div class="simpleContainer bigGap" style="margin: 1rem">
+  <div class="bigGap">
 
     @if (this.dailyData) {
       <!-- Profile Image, username and stats -->
-      <div class="profile-container">
-        <!--  Profile Card  -->
-        <div class="profile-card">
-          <img src="https://tetr.io/user-content/avatars/{{this.dailyData.tetrioId}}.jpg" class="profileImage" (error)="onImageError($event)"/>
-          <div class="flexColumn uppercase gap" style=" width: 100%">
-            <span class="header-text" style="font-size: 2rem">{{username}}</span>
-            <span class="subtleText">{{ this.dailyData?.title }}</span>
-            <app-segmentbar class="playstyleSegments" [segments]="playStyleSegments"/>
-          </div>
+
+      <div class="profile-card">
+        <div class="profile-card-background">
+          <img src="https://tetr.io/res/bg/zenith/{{DailyHelper.getFloorByAltitude(this.dailyData.topAltitudeWeekly)}}fa.jpg" alt="Challenge Background" class="background-image" />
+          <div class="gradient-overlay"></div>
         </div>
 
-        <!--  User lifetime stats  -->
-        <div class="lifetime-stats-grid">
-          <div class="stat-item">
-            <span class="subtleText">Score</span>
-            <div class="flexRow justifyCenter verticalCenter gap">
-              @if (this.dailyData.seasonalScore > 0) {
-                <span class="boldText subtleText" matTooltip="Score current Season">{{ this.dailyData?.seasonalScore }}</span>
-                <span class="numeric"> / </span>
+        <img src="https://tetr.io/user-content/avatars/{{this.dailyData.tetrioId}}.jpg" class="profile-image" (error)="onImageError($event)"/>
+        <div class="user-info">
+          <span class="username" >{{username}}</span>
+          <span class="user-title">{{ this.dailyData?.title }}</span>
+          <app-segmentbar class="playstyleSegments" [segments]="playStyleSegments"/>
+        </div>
+
+        <div class="profile-stats">
+          <div class="profile-stat-section">
+            <div class="stat-item">
+              <span class="subtle-text">Score</span>
+              <span class="numeric-stats big"> {{this.dailyData?.score?.toLocaleString()}}</span>
+<!--                <div class="flexRow justifyCenter verticalCenter gap">-->
+<!--                  @if (this.dailyData.seasonalScore > 0) {-->
+<!--                    <span class="boldText subtleText" matTooltip="Score current Season">{{ this.dailyData?.seasonalScore }}</span>-->
+<!--                    <span class="numeric"> / </span>-->
+<!--                  }-->
+<!--                  <span class="numeric-stats"> {{this.dailyData?.score?.toLocaleString()}}</span>-->
+<!--                </div>-->
+            </div>
+
+            <div class="stat-item border">
+              <span class="subtle-text">Runs</span>
+              <span class="numeric-stats big">{{this.dailyData?.runs?.toLocaleString()}}</span>
+            </div>
+
+            <div class="stat-item border">
+              <span class="subtle-text">Top Run</span>
+              <span class="numeric-stats big">{{roundNumber(this.dailyData?.topAltitude, 2).toLocaleString()}} M</span>
+            </div>
+
+            <div class="stat-item border">
+              <span class="subtle-text">Top Run This Week</span>
+              @if (this.dailyData.topAltitudeWeekly > 0) {
+                <span class="numeric-stats big">{{roundNumber(this.dailyData?.topAltitudeWeekly, 2).toLocaleString()}} M</span>
+              }@else{
+                <span class="numeric-stats big">-</span>
               }
-              <span class="numeric-stats"> {{this.dailyData?.score?.toLocaleString()}}</span>
             </div>
           </div>
+          <div class="profile-stat-section">
+            <div class="stat-item">
+              <span class="numeric-stats">{{this.dailyData?.garbageSend?.toLocaleString()}}</span>
+              <span class="subtle-text">Send</span>
+            </div>
 
-          <div class="stat-item">
-            <span class="subtleText">Runs</span>
-            <span class="numeric-stats">{{this.dailyData?.runs?.toLocaleString()}}</span>
-          </div>
+            <div class="stat-item border">
+              <span class="numeric-stats">{{this.dailyData?.garbageCleared?.toLocaleString()}}</span>
+              <span class="subtle-text">Cleared</span>
+            </div>
 
-          <div class="stat-item">
-            <span class="subtleText">Top Run</span>
-            <span class="numeric-stats">{{roundNumber(this.dailyData?.topAltitude, 2).toLocaleString()}} M</span>
-          </div>
+            <div class="stat-item border">
+              <span class="numeric-stats">{{this.dailyData?.kos?.toLocaleString()}}</span>
+              <span class="subtle-text">KO's</span>
+            </div>
 
-          <div class="stat-item">
-            <span class="subtleText">Send</span>
-            <span class="numeric-stats">{{this.dailyData?.garbageSend?.toLocaleString()}}</span>
-          </div>
-
-          <div class="stat-item">
-            <span class="subtleText">Cleared</span>
-            <span class="numeric-stats">{{this.dailyData?.garbageCleared?.toLocaleString()}}</span>
-          </div>
-
-          <div class="stat-item">
-            <span class="subtleText">KO's</span>
-            <span class="numeric-stats">{{this.dailyData?.kos?.toLocaleString()}}</span>
-          </div>
-
-          <div class="stat-item">
-            <span class="subtleText">Hours played</span>
-            <span class="numeric-stats">{{this.dailyData?.timePlayed?.toLocaleString()}} h</span>
+            <div class="stat-item border">
+              <span class="numeric-stats">{{roundNumber(this.dailyData?.timePlayed, 0).toLocaleString()}} h</span>
+              <span class="subtle-text">Hours played</span>
+            </div>
           </div>
         </div>
       </div>
     }
 
-    <!-- Stat Cards -->
-    @if (this.dailyDataExtra) {
-      <div class="stat-cards-grid">
-        <div class="stat-card-item">
-          <div class="flexColumn">
-            <span class="subtleText">Average Floor</span>
-            <span class="numeric">{{roundNumber(this.dailyDataExtra.floors?.average, 2)}}</span>
-          </div>
-          <div style="height: 100px; width: 100px">
-            <canvas baseChart type="doughnut" [data]="this.floorChartData" [options]="this.floorChartOptions"></canvas>
-          </div>
-        </div>
-
-        <div class="stat-card-item">
-          <div class="flexRow verticalCenter gap">
-            <div class="flexColumn">
-              <span class="subtleText">APM</span>
-              <span class="numeric">{{ roundNumber(this.dailyDataExtra.apm?.average, 2) }}</span>
-            </div>
-          </div>
-          <mat-icon class="verticalCenter" style="font-size: 2rem; height: 2rem; width: 2rem">{{ getTrendingIcon(this.dailyDataExtra.apm?.recent) }}</mat-icon>
-          <div class="flexRow verticalCenter" style="height: 100px; width: 100px">
-            <canvas baseChart type="line" [data]="this.apmChartData" [options]="this.apmChartOptions"></canvas>
-          </div>
-        </div>
-
-        <div class="stat-card-item">
-          <div class="flexColumn">
-            <span class="subtleText">VS</span>
-            <span class="numeric">{{ roundNumber(this.dailyDataExtra.vs?.average, 2) }}</span>
-          </div>
-          <mat-icon class="verticalCenter" style="font-size: 2rem; height: 2rem; width: 2rem">{{ getTrendingIcon(this.dailyDataExtra.vs?.recent) }}</mat-icon>
-          <div class="flexRow verticalCenter" style="height: 100px; width: 100px">
-            <canvas baseChart type="line" [data]="this.vsChartData" [options]="this.vsChartOptions"></canvas>
-          </div>
-        </div>
-
-        <div class="stat-card-item">
-          <div class="flexColumn">
-            <span class="subtleText">PPS</span>
-            <span class="numeric">{{ roundNumber(this.dailyDataExtra.pps?.average, 2) }}</span>
-          </div>
-          <mat-icon class="verticalCenter" style="font-size: 2rem; height: 2rem; width: 2rem">{{ getTrendingIcon(this.dailyDataExtra.pps?.recent) }}</mat-icon>
-          <div class="flexRow verticalCenter" style="height: 100px; width: 100px">
-            <canvas baseChart type="line" [data]="this.ppsChartData" [options]="this.ppsChartOptions"></canvas>
-          </div>
-        </div>
-
-        <div class="stat-card-item">
-          <div class="flexColumn">
-            <span class="subtleText">Average Altitude</span>
-            <span class="numeric">{{ roundNumber(this.dailyDataExtra.altitude?.average, 2) }}</span>
-          </div>
-          <mat-icon class="verticalCenter" style="font-size: 2rem; height: 2rem; width: 2rem">{{ getTrendingIcon(this.dailyDataExtra.altitude?.recent) }}</mat-icon>
-          <div class="flexRow verticalCenter" style="height: 100px; width: 100px">
-            <canvas baseChart type="line" [data]="this.altitudeChartData" [options]="this.altitudeChartOptions"></canvas>
-          </div>
-        </div>
-      </div>
-    }
-
-    <div class="flexRowDynamic flexStretch bigGap header-text">
-      <span (click)="setViewActive('overall')" [class]="isActiveView('overall')" class="profileButton">Overall</span>
-      <span (click)="setViewActive('progression')" [class]="isActiveView('progression')" class="profileButton">Altitude Progression</span>
-      <span (click)="setViewActive('splits')" [class]="isActiveView('splits')" class="profileButton">Zenith Splits</span>
+    <div class="nav-header">
+      <span (click)="setViewActive('overall')" [class]="isActiveView('overall')" class="profile-btn">Overall</span>
+      <span (click)="setViewActive('seasonal')" [class]="isActiveView('seasonal')" class="profile-btn">Seasonal</span>
+      <span (click)="setViewActive('cc')" [class]="isActiveView('cc')" class="profile-btn">Community Contributions</span>
+      <span (click)="setViewActive('progression')" [class]="isActiveView('progression')" class="profile-btn">Altitude Progression</span>
+      <span (click)="setViewActive('splits')" [class]="isActiveView('splits')" class="profile-btn">Zenith Splits</span>
     </div>
 
     <!-- Dailies and Recent Runs -->
     @if(activeView === 'overall'){
       <div class="overall-grid">
         <!--  Dailies  -->
-        <div class="flexColumn flexStretch gap">
-          <div class="flexRow verticalCenter sectionHeader">
-            <span class="header-text justifyLeft sectionHeaderTitle">Dailies</span>
-            <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/u', username, 'dailies']">
+        <div class="dailies-container">
+          <div class="section-header">
+            <span class="section-header-title">Dailies</span>
+            <div class="section-header-action movable-link" [routerLink]="['/u', username, 'dailies']">
               <span class="subtleText justifyRight">Show History</span>
               <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
             </div>
           </div>
           @if (this.challengeCompletions.length > 0) {
+            <div class="daily-items">
             @for (day of this.challengeCompletions; track $index){
-              <div class="flexRow bigGap">
-                <mat-expansion-panel style="width: 100%">
+              <mat-expansion-panel style="width: 100%">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       {{ day.date }}
                     </mat-panel-title>
                     <mat-panel-description>
-                      <div class="flexRow bigGap verticalCenter" style="padding: 1rem">
-                        <span class="dailyDot easy" [class]="[isChallengeBeaten(day.easyCompleted)]"></span>
-                        <span class="dailyDot normal" [class]="[isChallengeBeaten(day.normalCompleted)]"></span>
-                        <span class="dailyDot hard" [class]="[isChallengeBeaten(day.hardCompleted)]"></span>
-                        <span class="dailyDot expert" [class]="[isChallengeBeaten(day.expertCompleted)]"></span>
-                        <span class="dailyDot reverse" [class]="[isChallengeBeaten(day.reverseCompleted)]"></span>
-                        <span class="dailyDot mastery" [class]="[isMasteryChallengeBeaten(day.mastery, false)]"></span>
-                        <span class="dailyDot masteryReverse" [class]="[isMasteryChallengeBeaten(day.mastery, true)]"></span>
+                      <div class="challenge-dots">
+                        <span class="daily-dot easy" [class]="[isChallengeBeaten(day.easyCompleted)]"></span>
+                        <span class="daily-dot normal" [class]="[isChallengeBeaten(day.normalCompleted)]"></span>
+                        <span class="daily-dot hard" [class]="[isChallengeBeaten(day.hardCompleted)]"></span>
+                        <span class="daily-dot expert" [class]="[isChallengeBeaten(day.expertCompleted)]"></span>
+                        <span class="daily-dot reverse" [class]="[isChallengeBeaten(day.reverseCompleted)]"></span>
+                        <span class="daily-dot mastery" [class]="[isMasteryChallengeBeaten(day.mastery, false)]"></span>
+                        <span class="daily-dot masteryReverse" [class]="[isMasteryChallengeBeaten(day.mastery, true)]"></span>
                       </div>
                     </mat-panel-description>
                   </mat-expansion-panel-header>
 
-                  <div class="normalTextColor flexRowDynamic justifyCenter">
+                  <div class="completed-challenges">
                     <div class="flexColumn gap" style="margin: 1rem;">
                       <span class="header-text" style="font-size: 1.5rem">Challenges</span>
                       <div>
@@ -196,9 +152,8 @@
                     </div>
                   </div>
                 </mat-expansion-panel>
-
-              </div>
             }
+            </div>
           }
           @else{
             <span class="header-text subtleText"> Not played so far</span>
@@ -207,38 +162,43 @@
         </div>
 
         <!--  Recent Runs  -->
-        <div class="flexColumn flexStretch gap">
-          <div class="flexRow verticalCenter sectionHeader">
-            <span class="header-text justifyLeft sectionHeaderTitle">Recent Runs</span>
-            <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/u', username, 'runs']">
+        <div class="runs-container">
+          <div class="section-header">
+            <span class="section-header-title">Recent Runs</span>
+            <div class="section-header-action movable-link" [routerLink]="['/u', username, 'runs']">
               <span class="subtleText justifyRight">Show History</span>
               <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
             </div>
           </div>
           @if (this.recentRuns.length > 0) {
             @for (run of this.recentRuns; track $index) {
-              <div class="flexRow flexStretch gap card animateLeft" [class]="isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen)" [routerLink]="['/u', username, 'run', run.tetrioId]">
-                <div class="flexColumn flexStretch gap floorBorder justifyCenter" [class]="[getFloorKeyFromAltitude(run.altitude)]">
-                  <span class="subtleText">{{getFloorNameFromAltitude(run.altitude)}}</span>
-                  <span class="numeric-dynamic">{{roundNumber(run.altitude, 3)}} M</span>
+              <div class="run-card floor-border animateLeft" [class]="[isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen), getFloorKeyFromAltitude(run.altitude)]" [routerLink]="['/u', username, 'run', run.tetrioId]">
+                <div class="run-card-background">
+                  <img src="https://tetr.io/res/bg/zenith/{{DailyHelper.getFloorByAltitude(run.altitude)}}fa.jpg" alt="Challenge Background" class="background-image" />
+                  <div class="gradient-overlay"></div>
                 </div>
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText ">APM</span>
-                  <span class="numeric-dynamic">{{ roundNumber(run.apm, 3) }}</span>
+
+                <div class="run-item">
+                  <span class="subtle-text">{{getFloorNameFromAltitude(run.altitude)}}</span>
+                  <span class="run-value altitude">{{roundNumber(run.altitude, 3)}} M</span>
                 </div>
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText">VS</span>
-                  <span class="numeric-dynamic">{{ roundNumber(run.vs, 3) }}</span>
+                <div class="run-item">
+                  <span class="subtle-text ">APM</span>
+                  <span class="run-value">{{ roundNumber(run.apm, 3) }}</span>
                 </div>
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText">PPS</span>
-                  <span class="numeric-dynamic">{{roundNumber(run.pps, 3)}}</span>
+                <div class="run-item">
+                  <span class="subtle-text">VS</span>
+                  <span class="run-value">{{ roundNumber(run.vs, 3) }}</span>
                 </div>
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText">{{ run.playedAt|date:'short' }}</span>
-                  <div class="flexRow verticalCenter justifyCenter alignCenter movableLink clickable">
+                <div class="run-item">
+                  <span class="subtle-text">PPS</span>
+                  <span class="run-value">{{roundNumber(run.pps, 3)}}</span>
+                </div>
+                <div class="run-item">
+                  <span class="subtle-text solid end">{{ run.playedAt|date:'short' }}</span>
+                  <div class="view-details-label">
                     <span class="boldText">View Details</span>
-                    <mat-icon class="iconAccent"  [routerLink]="['/u', username, 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+                    <mat-icon class="icon icon-accent" [routerLink]="['/u', username, 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
                   </div>
                 </div>
               </div>
@@ -250,89 +210,182 @@
         </div>
       </div>
 
-      <div class="overall-grid">
-        <!--  Seasonal  -->
-        <div class="flexColumn flexStretch gap">
-          <div class="flexRow verticalCenter sectionHeader">
-            <span class="header-text justifyLeft sectionHeaderTitle">Seasonal</span>
-            <div class="flexRow verticalCenter sectionHeaderAction movableLink" [routerLink]="['/seasonal']">
-              <span class="subtleText justifyRight">Show History</span>
-              <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+      <!-- Stat Cards -->
+      @if (this.dailyDataExtra) {
+        <div class="stats-container">
+          <div class="stat-cards-grid">
+
+            <div class="stat-card floor-card">
+              <div class="stats">
+                <span class="subtle-text">Average Floor</span>
+                <span class="numeric">{{roundNumber(this.dailyDataExtra.floors?.average, 2)}}</span>
+              </div>
+              <div class="graph pie-chart">
+                <canvas baseChart type="doughnut" [data]="this.floorChartData" [options]="this.floorChartOptions"></canvas>
+              </div>
             </div>
-          </div>
-          @if (this.seasonalData.length > 0) {
-            @for ( season of this.seasonalData ; track $index) {
-              <div class="flexRow flexStretch gap card animateRight">
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText">Season</span>
-                  <span class="numeric-dynamic">{{ season.seasonName }}</span>
-                </div>
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText ">Score</span>
-                  <span class="numeric-dynamic">{{ season.seasonScore }}</span>
-                </div>
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText">Placement</span>
-                  <div>
-                    <span class="numeric-dynamic">{{ season.seasonPlacement }}</span>
-                    <span class="numeric-dynamic"> / </span>
-                    <span class="numeric-dynamic">{{ season.seasonParticipants }}</span>
-                  </div>
+
+            <div class="stat-card">
+              <div class="stats">
+                <span class="subtle-text">APM</span>
+                <div class="stats-trend">
+                  @let apmTrend = getTrendingIcon(this.dailyDataExtra.apm?.recent);
+
+                  <span class="numeric">{{ roundNumber(this.dailyDataExtra.apm?.average, 2) }}</span>
+                  <mat-icon class="trend-icon" [class]="apmTrend[1]">{{ apmTrend[0] }}</mat-icon>
                 </div>
               </div>
-            }
-          }
-          @else{
-            <span class="header-text subtleText"> Not participated in any season yet</span>
-          }
-
-        </div>
-
-        <!--  Community Contributions  -->
-        <div class="flexColumn flexStretch gap">
-          <div class="flexRow verticalCenter sectionHeader">
-            <span class="header-text justifyLeft sectionHeaderTitle">Community Contributions</span>
-            <div class="flexRow verticalCenter sectionHeaderAction movableLink">
-              <span class="subtleText justifyRight" [routerLink]="['/cc-archive']">Show Archive</span>
-              <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+              <div class="graph">
+                <canvas baseChart type="line" [data]="this.apmChartData" [options]="this.apmChartOptions"></canvas>
+              </div>
             </div>
-          </div>
-          @if (this.communityContribution.length > 0) {
-            @for ( cc of this.communityContribution ; track $index) {
-              <div class="flexRow flexStretch gap card animateLeft">
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText">Date / Name</span>
-                  <span class="numeric-dynamic">{{ cc.challenge }}</span>
-                </div>
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText ">Contribution</span>
-                  <span class="numeric-dynamic">{{ getCommunityContributionvalue(cc.totalAmountContributed, cc.conditionType) }}</span>
-                </div>
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText ">% Contributed</span>
-                  <span class="numeric-dynamic">{{ cc.contributionPercentage.toLocaleString() }} %</span>
-                </div>
-                <div class="flexColumn flexStretch gap justifyCenter">
-                  <span class="subtleText">Placement</span>
-                  <div>
-                    <span class="numeric-dynamic">{{ cc.placement }}</span>
-                    <span class="numeric-dynamic"> / </span>
-                    <span class="numeric-dynamic">{{ cc.participantCount }}</span>
-                  </div>
+
+            <div class="stat-card">
+              <div class="stats">
+                <span class="subtle-text">VS</span>
+                <div class="stats-trend">
+                  @let vsTrend = getTrendingIcon(this.dailyDataExtra.vs?.recent);
+
+                  <span class="numeric">{{ roundNumber(this.dailyDataExtra.vs?.average, 2) }}</span>
+                  <mat-icon class="trend-icon" [class]="vsTrend[1]">{{ vsTrend[0] }}</mat-icon>
                 </div>
               </div>
-            }
-          }
-          @else{
-            <span class="header-text subtleText"> Not participated in any community challenge</span>
-          }
+              <div class="graph">
+                <canvas baseChart type="line" [data]="this.vsChartData" [options]="this.vsChartOptions"></canvas>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stats">
+                <span class="subtle-text">PPS</span>
+                <div class="stats-trend">
+                  @let ppsTrend = getTrendingIcon(this.dailyDataExtra.pps?.recent);
+
+                  <span class="numeric">{{ roundNumber(this.dailyDataExtra.pps?.average, 2) }}</span>
+                  <mat-icon class="trend-icon" [class]="ppsTrend[1]">{{ ppsTrend[0] }}</mat-icon>
+                </div>
+              </div>
+              <div class="graph">
+                <canvas baseChart type="line" [data]="this.ppsChartData" [options]="this.ppsChartOptions"></canvas>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stats">
+                <span class="subtle-text">Avg. Altitude</span>
+                <div class="stats-trend">
+                  @let altitudeTrend = getTrendingIcon(this.dailyDataExtra.altitude?.recent);
+
+                  <span class="numeric">{{ roundNumber(this.dailyDataExtra.altitude?.average, 2) }}</span>
+                  <mat-icon class="trend-icon" [class]="altitudeTrend[1]">{{ altitudeTrend[0] }}</mat-icon>
+                </div>
+              </div>
+              <div class="graph">
+                <canvas baseChart type="line" [data]="this.altitudeChartData" [options]="this.altitudeChartOptions"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-history">
+            <div class="header">
+              <span class="title">Recent 30 Days</span>
+              <div class="table-chips">
+                <span class="chip apm">APM</span>
+                <span class="chip vs">VS</span>
+                <span class="chip pps">PPS</span>
+                <span class="chip altitude">Altitude</span>
+              </div>
+            </div>
+            <div class="graph">
+              <canvas baseChart type="line" [data]="this.recentChartData" [options]="this.recentChartOptions"></canvas>
+            </div>
+          </div>
         </div>
+      }
+    }
+
+    @if (this.activeView === 'seasonal') {
+      <div class="flexColumn flexStretch gap" style="padding: 1rem">
+        <div class="flexRow verticalCenter sectionHeader">
+          <span class="header-text justifyLeft section-header-title"></span>
+          <div class="flexRow verticalCenter section-header-action movable-link" [routerLink]="['/seasonal']">
+            <span class="subtleText justifyRight">Show History</span>
+            <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+          </div>
+        </div>
+        @if (this.seasonalData.length > 0) {
+          @for ( season of this.seasonalData ; track $index) {
+            <div class="flexRow flexStretch gap stat-card animateRight">
+              <div class="flexColumn flexStretch gap justifyCenter">
+                <span class="subtleText">Season</span>
+                <span class="numeric-dynamic">{{ season.seasonName }}</span>
+              </div>
+              <div class="flexColumn flexStretch gap justifyCenter">
+                <span class="subtleText ">Score</span>
+                <span class="numeric-dynamic">{{ season.seasonScore }}</span>
+              </div>
+              <div class="flexColumn flexStretch gap justifyCenter">
+                <span class="subtleText">Placement</span>
+                <div>
+                  <span class="numeric-dynamic">{{ season.seasonPlacement }}</span>
+                  <span class="numeric-dynamic"> / </span>
+                  <span class="numeric-dynamic">{{ season.seasonParticipants }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        }
+        @else{
+          <span class="header-text subtleText"> Not participated in any season yet</span>
+        }
+
+      </div>
+    }
+
+    @if (this.activeView === 'cc') {
+      <div class="flexColumn flexStretch gap" style="padding: 1rem">
+        <div class="flexRow verticalCenter sectionHeader">
+          <span class="header-text justifyLeft section-header-title"></span>
+          <div class="flexRow verticalCenter section-header-action movable-link">
+            <span class="subtleText justifyRight" [routerLink]="['/cc-archive']">Show Archive</span>
+            <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+          </div>
+        </div>
+        @if (this.communityContribution.length > 0) {
+          @for ( cc of this.communityContribution ; track $index) {
+            <div class="flexRow flexStretch gap stat-card animateLeft">
+              <div class="flexColumn flexStretch gap justifyCenter">
+                <span class="subtleText">Date / Name</span>
+                <span class="numeric-dynamic">{{ cc.challenge }}</span>
+              </div>
+              <div class="flexColumn flexStretch gap justifyCenter">
+                <span class="subtleText ">Contribution</span>
+                <span class="numeric-dynamic">{{ getCommunityContributionvalue(cc.totalAmountContributed, cc.conditionType) }}</span>
+              </div>
+              <div class="flexColumn flexStretch gap justifyCenter">
+                <span class="subtleText ">% Contributed</span>
+                <span class="numeric-dynamic">{{ cc.contributionPercentage.toLocaleString() }} %</span>
+              </div>
+              <div class="flexColumn flexStretch gap justifyCenter">
+                <span class="subtleText">Placement</span>
+                <div>
+                  <span class="numeric-dynamic">{{ cc.placement }}</span>
+                  <span class="numeric-dynamic"> / </span>
+                  <span class="numeric-dynamic">{{ cc.participantCount }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        }
+        @else{
+          <span class="header-text subtleText"> Not participated in any community challenge</span>
+        }
       </div>
     }
 
     @if (this.activeView === 'progression') {
       @if (modBasedChartData !== undefined ) {
-        <div class="flexColumn" style="padding: 5px; width: 100%">
+        <div class="flexColumn" style="padding: 1rem; width: 100%">
           <mat-chip-listbox (change)="onProgressionDensityChanged($event)">
             <mat-chip-option [value]="25">25 Runs</mat-chip-option>
             <mat-chip-option [value]="50">50 Runs</mat-chip-option>

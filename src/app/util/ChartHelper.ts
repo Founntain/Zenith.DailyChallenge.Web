@@ -32,11 +32,11 @@ export class ChartHelper{
     }
   }
 
-  static getCleanLineChartOptions(): ChartConfiguration<'line'>['options'] {
+  static getCleanLineChartOptions(fontSize: number = 12): ChartConfiguration<'line'>['options'] {
     return {
       elements: {
         line: {
-          tension: .5,
+          tension: .2,
         },
         point: {
           radius: 3,
@@ -58,12 +58,12 @@ export class ChartHelper{
           titleFont: {
             family: 'Cabin',
             weight: 'bold',
-            size: 14,
+            size: fontSize + 2,
           },
           bodyFont: {
             family: 'Cabin',
             weight: 'bold',
-            size: 12,
+            size: fontSize,
           },
         },
       },
@@ -87,6 +87,8 @@ export class ChartHelper{
           },
         },
       },
+      maintainAspectRatio: false,
+      responsive: true,
     }
   }
 
@@ -610,13 +612,28 @@ export class ChartHelper{
     ]
   }
 
-  public static getLineChartData(data: any[], label: string, pointColor: string){
+  public static getLineChartData(data: any[], label: string, pointColor: string, lineColor: string){
     return [
       {
         data: data.map(x => {return x}),
-        borderColor: 'rgb(255,255,255)',
-        backgroundColor: 'rgba(0,0,0,0)',
+        borderWidth: 2,
+        borderColor: lineColor,
+        backgroundColor: (context: any) => {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+
+          if (!chartArea) {
+            return null;
+          }
+
+          const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+          gradient.addColorStop(0, lineColor.replace('rgb', 'rgba').replace(')', ', 0)'));
+          gradient.addColorStop(1, lineColor.replace('rgb', 'rgba').replace(')', ', 0.5)'));
+
+          return gradient;
+        },
         pointBackgroundColor: pointColor,
+        lineColor: lineColor,
         label: label,
         pointHitRadius: 2,
         fill: 'origin',

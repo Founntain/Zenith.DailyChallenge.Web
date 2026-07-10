@@ -40,7 +40,6 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
     DatePipe,
     ZenithSplitsComponent,
     RouterLink,
-    MatTooltip,
     MatChipListbox,
     MatChipOption
   ],
@@ -77,6 +76,9 @@ export class UserNewComponent implements OnInit{
 
   altitudeChartData: ChartConfiguration['data'] | undefined;
   altitudeChartOptions: ChartConfiguration['options'] = ChartHelper.getCleanLineChartOptions();
+
+  recentChartData: ChartConfiguration['data'] | undefined;
+  recentChartOptions: ChartConfiguration['options'] = ChartHelper.getCleanLineChartOptions();
 
   modBasedChartData: ChartConfiguration['data'] | undefined;
   modBasedChartOptions: ChartConfiguration['options'] = ChartHelper.getProgressionChartOptions();
@@ -116,7 +118,7 @@ export class UserNewComponent implements OnInit{
         }
       })
 
-      this.userService.getExtra(this.username).subscribe({
+      this.userService.getExtra(this.username, 30).subscribe({
         next: result =>{
           this.dailyDataExtra = result;
 
@@ -126,33 +128,62 @@ export class UserNewComponent implements OnInit{
             labels: DailyHelper.allFloorFullNames
           }
 
-          const apmValues = this.dailyDataExtra.apm.recent.map(x => x.average);
-          const vsValues = this.dailyDataExtra.vs.recent.map(x => x.average);
-          const ppsValues = this.dailyDataExtra.pps.recent.map(x => x.average);
-          const altitudeValues = this.dailyDataExtra.altitude.recent.map(x => x.average);
+          const datasetConfigs = [
+            { label: 'APM', borderColor: 'rgb(255, 43, 156)', backgroundColor: 'rgb(255, 43, 156)' },
+            { label: 'VS', borderColor: 'rgb(102, 0, 255)', backgroundColor: 'rgb(102, 0, 255)' },
+            { label: 'PPS', borderColor: 'rgb(40, 158, 255)', backgroundColor: 'rgb(40, 158, 255)' },
+            { label: 'Altitude', borderColor: 'rgb(255, 149, 43)', backgroundColor: 'rgb(255, 149, 43)' }
+          ];
+
+          const apmValues = this.dailyDataExtra.apm.recent.map(x => x.average).slice(-5);
+          const vsValues = this.dailyDataExtra.vs.recent.map(x => x.average).slice(-5);
+          const ppsValues = this.dailyDataExtra.pps.recent.map(x => x.average).slice(-5);
+          const altitudeValues = this.dailyDataExtra.altitude.recent.map(x => x.average).slice(-5);
+          const recentValues = [
+            this.dailyDataExtra.apm.recent.map(x => x.average),
+            this.dailyDataExtra.vs.recent.map(x => x.average),
+            this.dailyDataExtra.pps.recent.map(x => x.average),
+            this.dailyDataExtra.altitude.recent.map(x => x.average),
+          ]
 
           this.apmChartData = this.buildCleanLineChart(
             apmValues,
             this.apmChartOptions,
-            ChartHelper.getLineChartData(apmValues, 'APM', 'rgb(255 43 156)')
+            ChartHelper.getLineChartData(apmValues, 'APM', 'rgb(255, 43, 156)', 'rgb(255, 43, 156)')
           );
 
           this.vsChartData = this.buildCleanLineChart(
             vsValues,
             this.vsChartOptions,
-            ChartHelper.getLineChartData(vsValues, 'VS', 'rgb(102 0 255)')
+            ChartHelper.getLineChartData(vsValues, 'VS', 'rgb(102, 0, 255)', 'rgb(102, 0, 255)')
           );
 
           this.ppsChartData = this.buildCleanLineChart(
             ppsValues,
             this.ppsChartOptions,
-            ChartHelper.getLineChartData(ppsValues, 'PPS', 'rgb(40 158 255)')
+            ChartHelper.getLineChartData(ppsValues, 'PPS', 'rgb(40, 158, 255)', 'rgb(40, 158, 255)')
           );
 
           this.altitudeChartData = this.buildCleanLineChart(
             altitudeValues,
             this.altitudeChartOptions,
-            ChartHelper.getLineChartData(altitudeValues, 'Altitude', 'rgb(255 149 43)')
+            ChartHelper.getLineChartData(altitudeValues, 'Altitude', 'rgb(255, 149, 43)', 'rgb(255, 149, 43)')
+          );
+
+          const multiLineDatasets = recentValues.map((values, index) =>
+            ChartHelper.getLineChartData(
+              values,
+              datasetConfigs[index].label,
+              datasetConfigs[index].borderColor,
+              datasetConfigs[index].backgroundColor
+            )
+          ).flat();
+
+          this.recentChartData = this.buildMultiLineChart(
+            recentValues,
+            this.recentChartOptions,
+            multiLineDatasets,
+            true
           );
         }
       })
@@ -208,6 +239,65 @@ export class UserNewComponent implements OnInit{
     return {
       datasets,
       labels: values.map(() => '')
+    };
+  }
+
+  private buildMultiLineChart(
+    valuesArray: number[][],
+    options: ChartConfiguration['options'],
+    datasets: ChartConfiguration['data']['datasets'],
+    useMultipleAxes: boolean = false
+  ): ChartConfiguration['data'] {
+    if (valuesArray.length === 0 || valuesArray.every(arr => arr.length === 0)) {
+      return {
+        datasets,
+        labels: []
+      };
+    }
+
+    options ??= {};
+    options.scales ??= {};
+
+    if (useMultipleAxes) {
+      // Configure multiple y-axes for different scales
+      datasets.forEach((dataset: any, index: number) => {
+        const values = valuesArray[index];
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const padding = (max - min) * 0.1 || 1;
+
+        const axisId = `y${index}`;
+        dataset.yAxisID = axisId;
+
+        options.scales![axisId] = {
+          type: 'linear',
+          position: index % 2 === 0 ? 'left' : 'right',
+          min: min - padding,
+          max: max + padding,
+          display: false, // Hide the axis
+          grid: {
+            display: false, // Hide grid lines
+          }
+        };
+      });
+    } else {
+      // Original single axis logic
+      const allValues = valuesArray.flat();
+      const min = Math.min(...allValues);
+      const max = Math.max(...allValues);
+      const padding = (max - min) * 0.1 || 1;
+
+      options.scales['y'] = {
+        min: min - padding,
+        max: max + padding
+      };
+    }
+
+    const maxLength = Math.max(...valuesArray.map(arr => arr.length));
+
+    return {
+      datasets,
+      labels: Array(maxLength).fill('')
     };
   }
 
@@ -268,17 +358,17 @@ export class UserNewComponent implements OnInit{
     return this.activeView === view ? 'active' : '';
   }
 
-  protected getTrendingIcon(average: RecentAverage[] | undefined): string {
+  protected getTrendingIcon(average: RecentAverage[] | undefined): string[] {
 
-    if ( average === undefined || !average || average.length < 2) return '';
+    if ( average === undefined || !average || average.length < 2) return ['', ''];
 
     const last = average[average.length - 1];
     const secondLast = average[average.length - 2];
 
-    if (last.average > secondLast.average) return 'trending_up';
-    if (last.average < secondLast.average) return 'trending_down';
+    if (last.average > secondLast.average) return ['keyboard_double_arrow_up', 'positive'];
+    if (last.average < secondLast.average) return ['keyboard_double_arrow_down', 'negative'];
 
-    return 'trending_flat';
+    return ['keyboard_double_arrow_right', 'neutral'];
   }
 
   protected checkModProgression(obj: any){
@@ -350,4 +440,6 @@ export class UserNewComponent implements OnInit{
     const imgElement = event.target as HTMLImageElement;
     imgElement.style.display = 'none';
   }
+
+  protected readonly DailyHelper = DailyHelper;
 }

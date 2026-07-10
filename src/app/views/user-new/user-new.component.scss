@@ -6,7 +6,24 @@
 @use '../../../styling/splits' as *;
 @use '../../../styling/base' as base;
 
-.statCard{
+.subtle-text{
+  @extend .bold-text;
+
+  color: $subtle-text-color;
+  text-transform: uppercase;
+}
+
+.nav-header{
+  display:flex;
+  flex-direction: row;
+
+  @include base.mobile {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+}
+
+.stat-card{
   background: $background-shade-solid;
   padding: 1rem;
   border-radius: 0.25rem;
@@ -39,18 +56,133 @@
     }
   }
 
-  &.fullWidth{
+  &.full-width{
     width: 100%;
   }
 }
 
-.card{
-  @extend .statCard;
+.run-card{
+  @extend .stat-card;
+  position: relative;
+
+  //display: flex;
+  //flex-direction: row;
+  //justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
   max-height: 100px !important;
   cursor: pointer;
+  gap: 12px;
+  padding-left: 32px !important;
 
   transition: transform 0.2s ease-in-out;
+
+  .run-item{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 1;
+
+    .subtle-text{
+      @extend .bold-text;
+
+      color: $subtle-text-color;
+    }
+
+    .end{
+      align-self: end;
+    }
+
+    .solid{
+      color: slategray !important;
+      text-shadow: 0px 0px 10px rgba(black, 1);
+    }
+
+    .run-value{
+      @extend .numeric;
+
+      &.altitude{
+        @extend .gradient-text;
+
+        background: $text-90gradient;
+        text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
+
+        //font-size: 2rem;
+
+        @include base.mobile {
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    .view-details-label{
+      @extend .clickable;
+      @extend .movable-link;
+
+      align-items: end;
+      align-self: end;
+      vertical-align: center;
+    }
+
+    .icon{
+      justify-self: center;
+      vertical-align: center;
+      align-self: center;
+      text-align: center;
+    }
+  }
+
+  &.floor-border{
+    border-left: 3px solid $colorful-accent-gradientColor2;
+    padding-left: 5px;
+
+    @each $floor, $color in $floor-colors {
+      &.#{$floor} {
+        border-color: rgba($color, 1);
+      }
+    }
+  }
+
+  .run-card-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    .background-image {
+      position: absolute;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: .35;
+
+      @include base.mobile {
+        width: 100%;
+      }
+    }
+
+    .gradient-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        $background-shade-solid 0%,
+        $background-shade-solid 35%,
+        rgba($background-shade-solid, 0.7) 55%,
+        transparent 80%
+      );
+
+      @include base.mobile {
+        background: linear-gradient(
+          to bottom,
+          rgba($background-shade-solid, 0) 0%,
+          rgba($background-shade-solid, 0.90) 90%
+        );
+      }
+    }
+  }
 }
 
 .profile-container {
@@ -67,13 +199,19 @@
 }
 
 .profile-card {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  position: relative;
+  display: flex;
+  flex-direction: row;
   gap: 1.5rem;
   align-items: center;
+  padding: 32px 16px;
+
+  background: $background-shade-solid;
+  border-bottom: 1px solid rgba($subtle-text-color, 0.2);
+  box-shadow: 0 0 10px rgba($background-shade-solid, 0.5);
 
   @include base.mobile {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     justify-items: center;
     text-align: center;
 
@@ -84,60 +222,361 @@
       align-self: center;
     }
   }
-}
 
-.lifetime-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
+  .profile-card-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
 
-  @include base.mobile {
-    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-    gap: 1rem;
+    .background-image {
+      position: absolute;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: .5;
+
+      @include base.mobile {
+       width: 100%;
+      }
+    }
+
+    .gradient-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        $background-shade-solid 0%,
+        $background-shade-solid 35%,
+        rgba($background-shade-solid, 0.7) 55%,
+        transparent 80%
+      );
+
+      @include base.mobile {
+        background: linear-gradient(
+          to bottom,
+          rgba($background-shade-solid, 0) 0%,
+          rgba($background-shade-solid, 0.90) 90%
+        );
+      }
+    }
+  }
+
+  .user-info{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 12px;
+    z-index: 1;
+
+    padding-right: 12px;
+
+    @include base.mobile{
+      text-align: center;
+      width: 50%;
+    }
+
+    .username{
+      @extend .header-text;
+
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+
+    .user-title{
+      @extend .bold-text;
+      @extend .gradient-text;
+      background: $text-90gradient;
+      text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
+
+      color: $subtle-text-color;
+    }
+  }
+
+  .profile-stats{
+    z-index: 1;
+    flex: 1;
+
+    border-left: 1px solid rgba($subtle-text-color, 0.2);
+    padding-left: 12px;
+
+    @include base.mobile{
+      border: none;
+      width: 100%;
+    }
+
+    gap: 16px;
+  }
+
+  .profile-stat-section{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+
+    @include base.mobile{
+      justify-content: space-around;
+    }
+
+    .stat-item{
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      align-items: start;
+      justify-content: start;
+
+      min-width: 205px;
+
+      @include base.mobile{
+        min-width: unset;
+
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+      }
+
+      gap: 0;
+
+      padding: 12px;
+      padding-right: 16px;
+
+      .numeric-stats{
+        @extend .gradient-text;
+        background: $text-90gradient;
+        text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
+
+        @include base.mobile {
+          font-size: 1rem;
+        }
+
+        &.big{
+          font-size: 2.5rem;
+
+          @include base.mobile {
+            font-size: 2rem;
+          }
+        }
+      }
+
+      &.border{
+        border-left: 1px solid rgba($subtle-text-color, 0.2);
+
+        @include base.mobile{
+          border: none;
+        }
+      }
+    }
+  }
+
+  .profile-bottom-stats{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
   }
 }
 
-.stat-item {
+
+.stats-container{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.stat-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  margin-top: 2rem;
-
-  @include base.mobile {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-}
-
-.stat-card-item {
-  display: flex;
+  //grid-template-columns: 1fr 1fr;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 1rem;
 
-  @extend .statCard;
-  @extend .animateTop;
+  @include base.mobile {
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .stat-cards-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+
+    @include base.mobile {
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+
+    .stat-card {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+
+      width: 100%;
+
+      @include base.mobile {
+        width: 90%;
+      }
+
+      @extend .stat-card;
+      @extend .animateTop;
+
+      &.floor-card{
+        flex-direction: row !important;
+        align-items: start;
+        justify-content: start;
+
+        gap: 1.5rem;
+      }
+
+      .stats{
+        display: flex;
+        flex-direction: column;
+
+        .stats-trend{
+          display: flex;
+          flex-direction: row;
+        }
+      }
+
+      .trend-icon{
+        font-size: 2rem;
+        height: 2rem;
+        width: 2rem;
+        align-content: center;
+        align-items: center;
+
+        &.positive{
+          color: limegreen;
+          text-shadow: 0 0 5px limegreen;
+        }
+
+        &.negative{
+          color: $reverse-accent-color;
+          text-shadow: 0 0 5px $reverse-accent-color;
+        }
+      }
+
+      .graph{
+        height: 60px;
+        width: auto;
+
+        @include base.mobile {
+          width: 100%;
+        }
+
+        &.pie-chart{
+          height: 100%;
+          width: 100px;
+        }
+      }
+    }
+  }
+
+  .stats-history{
+    @extend .stat-card;
+
+    justify-content: stretch;
+    justify-items: stretch;
+
+    width: 100%;
+
+    @include base.mobile {
+      width: 90%;
+    }
+
+    .graph{
+      width: 100%;
+      height: 80px;
+    }
+
+    .header{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .title{
+      @extend .header-text;
+
+      font-size: 1.5rem;
+
+      justify-self: start;
+      align-self: start;
+      text-wrap: nowrap;
+    }
+
+    .table-chips{
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      width: 100%;
+      justify-content: end;
+
+      .chip{
+        @extend .bold-text;
+
+        display: block;
+        color: $text-color;
+        border: 2px solid $reverse-accent-color;
+        border-radius: 999px;
+        padding: 4px 8px;
+
+        vertical-align: center;
+        align-self: center;
+
+        &.apm{
+          border-color: rgb(255, 43, 156);
+        }
+
+        &.vs{
+          border-color: rgb(102, 0, 255);
+        }
+
+        &.pps{
+          border-color: rgb(40, 158, 255);
+        }
+
+        &.altitude{
+          border-color: rgb(255, 149, 43);
+        }
+
+      }
+    }
+  }
 }
 
 .overall-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-items: stretch;
+  align-items: stretch;
+
+  gap: 12px;
   width: 100%;
 
+  padding: 12px;
+  box-sizing: border-box;
+
   @include base.mobile {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .dailies-container{
+    width: 35%;
+    min-width: 0;
+
+    @include base.mobile {
+      width: 100%;
+    }
+  }
+
+  .runs-container{
+    width: 65%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    @include base.mobile {
+      width: 100%;
+    }
   }
 }
 
@@ -145,11 +584,12 @@
   color: $colorful-accent-gradientColor2;
 }
 
-.profileImage{
+.profile-image{
   width: auto;
   height: auto;
-  max-width: 96px;
+  max-width: 128px;
   border-radius: 50%;
+  z-index: 1;
 
   border: 2px solid $colorful-accent-gradientColor2;
 }
@@ -184,8 +624,7 @@
   font-size: 1.5rem;
 }
 
-
-.movableLink{
+.movable-link{
   transition: 0.2s ease-in-out;
 
   &:hover{
@@ -204,7 +643,7 @@
   }
 }
 
-.iconAccent{
+.icon-accent{
   color: $colorful-accent-gradientColor2;
 
   @each $floor, $color in $floor-colors {
@@ -215,22 +654,65 @@
 }
 
 .sectionHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
-  flex: 0 0 auto;
 }
 
-.sectionHeaderTitle {
-  flex: 1 1 auto;
-  text-align: start;
+.section-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+}
+
+.section-header-title {
+  @extend .header-text;
   font-size: 2rem;
 }
 
-.sectionHeaderAction {
-  flex: 0 0 auto;
+.section-header-action {
   cursor: pointer;
 }
 
-.dailyDot {
+.daily-items{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.challenge-dots{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 12px;
+
+  padding: 1rem;
+}
+
+.completed-challenges{
+  @extend .header-text;
+
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  color: $text-color;
+
+  @include base.mobile{
+    flex-direction: column;
+  }
+}
+
+.daily-dot {
   display: block;
 
   width: 0.7rem;
@@ -308,26 +790,25 @@
   }
 }
 
-.profileButton{
+.profile-btn{
+  @extend .bold-text;
+
   display: block;
   font-size: 1.25rem;
-  padding: 0.5rem 1rem;
+  padding: 16px 32px;
   cursor: pointer;
 
-  border: 1px solid transparent;
-  border-radius: 0.2rem;
+  border-bottom: 3px solid transparent;
 
-  transition: color 0.3s ease;
+  text-align: center;
+
+  transition: all 0.3s ease;
 
   &.active{
-    border: 1px solid $colorful-accent-gradientColor2;
+    border-bottom: 3px solid $colorful-accent-gradientColor2;
 
     color: $colorful-accent-gradientColor2;
     text-shadow:
-      0 0 6px rgba($colorful-accent-gradientColor2, 0.9);
-      //0 0 14px rgba($colorful-accent-gradientColor2, 0.65);
-      //0 0 24px rgba($colorful-accent-gradientColor2, 0.35);
-    box-shadow:
       0 0 6px rgba($colorful-accent-gradientColor2, 0.9);
       //0 0 14px rgba($colorful-accent-gradientColor2, 0.65);
       //0 0 24px rgba($colorful-accent-gradientColor2, 0.35);
@@ -335,6 +816,8 @@
 
   &:hover{
     color: $colorful-accent-gradientColor2;
+
+    transform: translateY(-5px);
   }
 }
 
