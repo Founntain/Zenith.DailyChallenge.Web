@@ -8,9 +8,9 @@
 
     return (
       this.normalize(apm, 20, 80) * 0.3 +
-      this.normalize(vs, 30, 120) * 0.25 +
+      this.normalize(vs, 30, 120) * 0.3 +
       this.normalize(app, 0.8, 2.0) * 0.2 +
-      this.normalize(maxSpike, 4, 20) * 0.15 +
+      this.normalize(maxSpike, 4, 20) * 0.10 +
       this.normalize(garbagePerSecond, 0.3, 1.0) * 0.1
     ) * 100;
   }
@@ -33,8 +33,8 @@
 
     return (
       this.normalize(finesse, 40, 100) * 0.5 +
-      (1 - this.normalize(inputsPerPiece, 3, 7)) * 0.3 +
-      (1 - this.normalize(holdsPerPiece, 0.1, 0.8)) * 0.2
+      (1 - this.normalize(inputsPerPiece, 3, 7)) * 0.4 +
+      (1 - this.normalize(holdsPerPiece, 0.2, 1)) * 0.1
     ) * 100;
   }
 
@@ -45,6 +45,15 @@
       this.normalize(vs / apm, 0.8, 2.5) * 0.4 +
       this.normalize(cancelRate, 0.05, 0.4) * 0.3 +
       this.normalize(app, 0.8, 2.0) * 0.3
+    ) * 100;
+  }
+
+  calculatePlaystyleScore(quads: number, spins: number, b2b: number, maxCombo: number){
+    return (
+      this.normalize(quads, 0, 20) * 0.25 +
+      this.normalize(spins, 0, 70) * 0.25 +
+      this.normalize(b2b, 0, 50) * 0.4 +
+      this.normalize(maxCombo, 0, 10) * 0.1
     ) * 100;
   }
 }

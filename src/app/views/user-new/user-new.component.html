@@ -72,6 +72,11 @@
             </div>
           </div>
         </div>
+
+        <div class="icon-toolbar">
+          <mat-icon class="icon-btn" (click)="openTetrioProfile()" matTooltip="View TETR.IO profile">arrow_outward</mat-icon>
+          <mat-icon class="icon-btn" (click)="shareRun()" matTooltip="Share profile">share</mat-icon>
+        </div>
       </div>
     }
 
@@ -92,7 +97,7 @@
             <span class="section-header-title">Dailies</span>
             <div class="section-header-action movable-link" [routerLink]="['/u', username, 'dailies']">
               <span class="subtleText justifyRight">Show History</span>
-              <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+              <mat-icon class="subtleText vertical-icon" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
             </div>
           </div>
           @if (this.challengeCompletions.length > 0) {
@@ -167,7 +172,7 @@
             <span class="section-header-title">Recent Runs</span>
             <div class="section-header-action movable-link" [routerLink]="['/u', username, 'runs']">
               <span class="subtleText justifyRight">Show History</span>
-              <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+              <mat-icon class="subtleText vertical-icon" style="font-size: 0.9rem; height: 0.9rem;">arrow_forward</mat-icon>
             </div>
           </div>
           @if (this.recentRuns.length > 0) {
@@ -178,21 +183,35 @@
                   <div class="gradient-overlay"></div>
                 </div>
 
-                <div class="run-item">
+                <div class="run-item altitude">
                   <span class="subtle-text">{{getFloorNameFromAltitude(run.altitude)}}</span>
                   <span class="run-value altitude">{{roundNumber(run.altitude, 3)}} M</span>
                 </div>
-                <div class="run-item">
-                  <span class="subtle-text ">APM</span>
-                  <span class="run-value">{{ roundNumber(run.apm, 3) }}</span>
+                <div class="run-group">
+                  <div class="run-item">
+                    <span class="subtle-text ">APM</span>
+                    <span class="run-value">{{ roundNumber(run.apm, 3) }}</span>
+                  </div>
+                  <div class="run-item">
+                    <span class="subtle-text">VS</span>
+                    <span class="run-value">{{ roundNumber(run.vs, 3) }}</span>
+                  </div>
+                  <div class="run-item">
+                    <span class="subtle-text">PPS</span>
+                    <span class="run-value">{{roundNumber(run.pps, 3)}}</span>
+                  </div>
                 </div>
                 <div class="run-item">
-                  <span class="subtle-text">VS</span>
-                  <span class="run-value">{{ roundNumber(run.vs, 3) }}</span>
-                </div>
-                <div class="run-item">
-                  <span class="subtle-text">PPS</span>
-                  <span class="run-value">{{roundNumber(run.pps, 3)}}</span>
+                  <span class="subtle-text">MODS</span>
+                  <div class="mod-container">
+                    @if (run.mods.length > 0) {
+                      @for (mod of DailyHelper.getModArray(run.mods); track $index) {
+                        <img src="{{DailyHelper.getModImageUrl(mod)}}" class="mod-icon">
+                      }
+                    } @else {
+                      <span class="subtle-text">-</span>
+                    }
+                  </div>
                 </div>
                 <div class="run-item">
                   <span class="subtle-text solid end">{{ run.playedAt|date:'short' }}</span>

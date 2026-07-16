@@ -41,7 +41,8 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
     ZenithSplitsComponent,
     RouterLink,
     MatChipListbox,
-    MatChipOption
+    MatChipOption,
+    MatTooltip
   ],
   templateUrl: './user-new.component.html',
   styleUrl: './user-new.component.scss'
@@ -442,4 +443,14 @@ export class UserNewComponent implements OnInit{
   }
 
   protected readonly DailyHelper = DailyHelper;
+
+  protected openTetrioProfile() {
+    if(!this.dailyData) return;
+
+    window.location.href = `https://ch.tetr.io/u/${this.dailyData.tetrioId}`;
+  }
+
+  protected shareRun() {
+    navigator.clipboard.writeText(`https://tetrio.founntain.dev/share/${this.username}`);
+  }
 }

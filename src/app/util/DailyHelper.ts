@@ -56,8 +56,8 @@ export class DailyHelper {
     if(altitude < 1100 && altitude >= 850) return 7;
     if(altitude < 850 && altitude >= 650) return 6;
     if(altitude < 650 && altitude >= 450) return 5;
-    if(altitude < 450 && altitude >= 350) return 4;
-    if(altitude < 350 && altitude >= 150) return 3;
+    if(altitude < 450 && altitude >= 300) return 4;
+    if(altitude < 300 && altitude >= 150) return 3;
     if(altitude < 150 && altitude >= 50) return 2;
     if(altitude < 50) return 1;
 

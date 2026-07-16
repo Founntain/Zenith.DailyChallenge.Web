@@ -7,12 +7,14 @@ import {Splits} from '../../services/network/data/interfaces/Splits';
 import {RunAnalyzer} from '../../util/RunAnalyzer';
 import {MatTooltip} from '@angular/material/tooltip';
 import {DatePipe} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-run',
   imports: [
     MatTooltip,
-    DatePipe
+    DatePipe,
+    MatIcon
   ],
   templateUrl: './run.component.html',
   styleUrl: './run.component.scss'
@@ -54,7 +56,7 @@ export class RunComponent implements OnInit{
         this.agressionScore = ra.calculateAggressionScore(this.run!.apm, this.run!.vs, this.run!.app, this.run!.garbageMaxSpike, this.run!.garbageSent, this.run!.totalTime);
         this.defenseScore = ra.calculateDefenseScore(this.run!.topCombo, this.run!.garbageCleared, this.run!.garbageReceived, this.run!.totalTime, this.run!.gameOverReason)
         this.stabilityScore = ra.calculateExecutionScore(this.run!.finesse, this.run!.inputs, this.run!.holds, this.run!.piecesPlaced)
-        this.pressureScore = ra.calculatePressureScore(this.run!.apm, this.run!.vs, this.run!.app, this.run!.garbageCleared, this.run!.garbageReceived)
+        this.pressureScore = ra.calculatePlaystyleScore(this.run!.quads, this.run!.spins, this.run!.back2Back, this.run!.topCombo)
 
         // Calculate total score
         this.totalScore = (this.agressionScore + this.defenseScore + this.stabilityScore + this.pressureScore) / 4;
@@ -108,5 +110,9 @@ export class RunComponent implements OnInit{
         }
       default: return gameOverReason
     }
+  }
+
+  protected shareRun() {
+    navigator.clipboard.writeText(`https://tetrio.founntain.dev/share/${this.username}/run/${this.runId}`);
   }
 }

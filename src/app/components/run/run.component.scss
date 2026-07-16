@@ -1,14 +1,190 @@
 @use '../../../styling/colors' as *;
-@use '../../../styling/base' as *;
+@use '../../../styles' as *;
+@use '../../../styling/base' as base;
 
-.runHeader{
-  border: solid $accent-color;
-  border-width: 0 0 3px 0;
-  border-image: $colorful-accent-gradient 1;
+.run-container{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 
-  text-shadow: 0 0 10px black;
+  .run-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: solid $accent-color;
+    border-width: 0 0 3px 0;
+    border-image: $colorful-accent-gradient 1;
+
+    text-shadow: 0 0 10px black;
+
+    .altitude{
+      @extend .header-text;
+
+      font-size: 4rem;
+      text-shadow: 0 0 10px black, 0 0 20px white;
+
+      @include base.mobile{
+        font-size: 2.5rem;
+      }
+    }
+
+    .floor-name{
+      @extend .header-text;
+
+      font-size: 2rem;
+
+      @include base.mobile{
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .stats-container{
+    @extend .header-text;
+    @extend .stripes;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+
+    font-size: 2.5rem;
+    padding: 10px;
+
+    border: solid $accent-color;
+    border-width: 0 0 3px 0;
+    border-image: $colorful-accent-gradient 1;
+
+    @include base.mobile{
+      font-size: 1.5rem;
+    }
+  }
+
+  .run-stats-container{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+
+    .run-stats-row{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+
+      @include base.mobile{
+        flex-direction: column;
+      }
+
+      .stat-box{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        border: 3px solid $accent-color;
+        border-radius: 2px;
+        background: rgba($background-dark-shade, .2);
+        padding: 16px;
+
+        .title{
+          @extend .header-text;
+
+          font-size: 1.5rem;
+          text-align: center;
+
+          @include base.mobile{
+            font-size: 1.25rem;
+          }
+        }
+
+        .stat-rows{
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+
+          .row{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0;
+
+            .stat{
+              @extend .header-text;
+
+              font-size: 1.25rem;
+
+              @include base.mobile{
+                font-size: 1rem;
+              }
+            }
+
+            .value{
+              @extend .header-text;
+
+              font-size: 2rem;
+
+              @include base.mobile{
+                font-size: 1.5rem;
+              }
+
+              .alt-value{
+                font-size: 1.5rem;
+
+                @include base.mobile{
+                  font-size: 1rem;
+                }
+              }
+            }
+          }
+        }
+
+
+        &.attack{
+          border-image: linear-gradient(145deg, orangered, #ffb347) 1;
+        }
+
+        &.defense{
+          border-image: linear-gradient(145deg, mediumpurple, #c7a6ff) 1;
+        }
+
+        &.efficiency{
+          border-image: linear-gradient(145deg, cornflowerblue, #a37fff) 1;
+        }
+
+        &.playstyle{
+          border-image: linear-gradient(145deg, palegreen, #dfff7f) 1;
+        }
+
+        &.rank{
+          border-image: linear-gradient(145deg, gold, #fff3a3) 1;
+        }
+      }
+    }
+  }
 }
 
+
+.share-btn{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+  font-size: 32px;
+  height: 32px;
+  width: 32px;
+
+  cursor: pointer;
+  color: rgba($text-color, 0.5);
+
+  transition: all 0.1s ease-in-out;
+
+  &:hover{
+    color: $colorful-accent-gradientColor2;
+    transform: rotate(360deg);
+  }
+}
 
 .splitBackground{
   position: absolute;
@@ -41,13 +217,6 @@
   }
 }
 
-.statRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0;
-}
-
 .mod-stat-value {
   font-variant-numeric: tabular-nums;
 }
@@ -57,28 +226,7 @@
   margin-bottom: 5px;
 
   border: 3px solid $accent-color;
-  background: rgba($background-dark-shade, .2);
   border-radius: 2px;
+  background: rgba($background-dark-shade, .2);
   padding: 16px;
-
-
-  &.attack{
-    border-image: linear-gradient(145deg, orangered, #ffb347) 1;
-  }
-
-  &.defense{
-    border-image: linear-gradient(145deg, mediumpurple, #c7a6ff) 1;
-  }
-
-  &.efficiency{
-    border-image: linear-gradient(145deg, cornflowerblue, #a37fff) 1;
-  }
-
-  &.playstyle{
-    border-image: linear-gradient(145deg, palegreen, #dfff7f) 1;
-  }
-
-  &.rank{
-    border-image: linear-gradient(145deg, gold, #fff3a3) 1;
-  }
 }

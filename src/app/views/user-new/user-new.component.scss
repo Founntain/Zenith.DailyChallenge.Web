@@ -13,12 +13,17 @@
   text-transform: uppercase;
 }
 
+.vertical-icon{
+  vertical-align: center;
+}
+
 .nav-header{
   display:flex;
   flex-direction: row;
 
   @include base.mobile {
-    flex-wrap: wrap;
+    flex-direction: column;
+    //flex-wrap: wrap;
     justify-content: space-evenly;
   }
 }
@@ -69,7 +74,7 @@
   //flex-direction: row;
   //justify-content: space-between;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
 
   max-height: 100px !important;
   cursor: pointer;
@@ -78,16 +83,64 @@
 
   transition: transform 0.2s ease-in-out;
 
+  @include base.mobile {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    max-height: unset !important;
+  }
+
+  .run-group{
+    z-index: 1;
+
+    display: flex;
+    flex-direction: row;
+
+    gap: 24px;
+    justify-content: space-evenly;
+
+    @include base.mobile(){
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      justify-content: start;
+      text-align: left;
+
+      gap: 12px
+    }
+  }
+
   .run-item{
     display: flex;
     flex-direction: column;
     gap: 6px;
     z-index: 1;
 
+    &.altitude{
+      @include base.mobile(){
+        vertical-align: center;
+        justify-content: center;
+      }
+    }
+
     .subtle-text{
       @extend .bold-text;
 
       color: $subtle-text-color;
+    }
+
+    .mod-container{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .mod-icon{
+        width: 32px;
+        height: 32px;
+
+        @include base.mobile {
+          width: 24px;
+          height: 24px;
+        }
+      }
     }
 
     .end{
@@ -102,6 +155,10 @@
     .run-value{
       @extend .numeric;
 
+      @include base.mobile {
+        font-size: unset !important;
+      }
+
       &.altitude{
         @extend .gradient-text;
 
@@ -111,7 +168,7 @@
         //font-size: 2rem;
 
         @include base.mobile {
-          font-size: 1.2rem;
+          font-size: 1.3rem !important;
         }
       }
     }
@@ -275,6 +332,7 @@
     @include base.mobile{
       text-align: center;
       width: 50%;
+      padding: 0 !important;
     }
 
     .username{
@@ -312,6 +370,7 @@
   .profile-stat-section{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 16px;
 
     @include base.mobile{
@@ -326,6 +385,15 @@
       justify-content: start;
 
       min-width: 205px;
+
+
+      @media screen and (max-width: 1440px) {
+        min-width: 150px;
+      }
+
+      @media screen and (max-width: 1200px) {
+        min-width: 100px;
+      }
 
       @include base.mobile{
         min-width: unset;
@@ -345,6 +413,15 @@
         background: $text-90gradient;
         text-shadow: 0 0 4px rgba($colorful-accent-gradientColor2, .5);
 
+
+        @media screen and (max-width: 1440px) {
+          font-size: 1.5rem;
+        }
+
+        @media screen and (max-width: 1200px) {
+          font-size: 1.1rem;
+        }
+
         @include base.mobile {
           font-size: 1rem;
         }
@@ -352,8 +429,17 @@
         &.big{
           font-size: 2.5rem;
 
-          @include base.mobile {
+
+          @media screen and (max-width: 1440px) {
             font-size: 2rem;
+          }
+
+          @media screen and (max-width: 1200px) {
+            font-size: 1.75rem;
+          }
+
+          @include base.mobile {
+            font-size: 1.75rem;
           }
         }
       }
@@ -373,6 +459,30 @@
     flex-direction: row;
     gap: 16px;
   }
+
+  .icon-toolbar{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+
+    .icon-btn{
+      font-size: 32px;
+      height: 32px;
+      width: 32px;
+
+      cursor: pointer;
+
+      color: rgba($text-color, 0.5);
+
+      transition: all 0.1s ease-in-out;
+
+      &:hover{
+        color: $colorful-accent-gradientColor2;
+        transform: rotate(360deg);
+      }
+    }
+  }
+
 }
 
 
@@ -500,6 +610,10 @@
       justify-self: start;
       align-self: start;
       text-wrap: nowrap;
+
+      @include base.mobile {
+        font-size: 1.25rem;
+      }
     }
 
     .table-chips{
@@ -520,6 +634,14 @@
 
         vertical-align: center;
         align-self: center;
+
+        @include base.mobile {
+          font-size: 14px !important;
+          font-weight: normal !important;
+          border-width: 1px;
+
+          padding: 2px 4px;
+        }
 
         &.apm{
           border-color: rgb(255, 43, 156);
@@ -559,6 +681,10 @@
   }
 
   .dailies-container{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
     width: 35%;
     min-width: 0;
 
@@ -568,11 +694,12 @@
   }
 
   .runs-container{
-    width: 65%;
-    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 6px;
+
+    width: 65%;
+    min-width: 0;
 
     @include base.mobile {
       width: 100%;
@@ -658,6 +785,10 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+
+  padding-bottom: 6px;
+
+  border-bottom: 1px solid rgba($subtle-text-color, 0.2);
 }
 
 .section-header{
@@ -667,6 +798,8 @@
   justify-items: center;
   align-items: center;
   width: 100%;
+
+  border-bottom: 1px solid rgba($subtle-text-color, 0.2);
 }
 
 .section-header-title {
@@ -682,7 +815,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 6px;
+
+  height: 100%;
 }
 
 .challenge-dots{
