@@ -3,6 +3,7 @@
 **[Zenith Daily Challenge](https://zenith.founntain.dev)** is a lightweight Angular web app that generates a new seeded challenge every day for the TETR.IO **QP2**. 
 Players can test their skills across multiple difficulties, track progress, and verify results through the TETR.IO API.
 
+> *this readme is AI generated, because I'm to lazy and not care enough to write a proper one, when I haver better stuff to-do in this project. however I will write one eventually*
 ---
 
 ## ✨ Features
