@@ -84,6 +84,9 @@ export class UserNewComponent implements OnInit{
   modBasedChartData: ChartConfiguration['data'] | undefined;
   modBasedChartOptions: ChartConfiguration['options'] = ChartHelper.getProgressionChartOptions();
 
+  zenithSplitChartData: ChartConfiguration['data'] | undefined;
+  zenithSplitChartOptions: ChartConfiguration['options'] = ChartHelper.getSplitsProgressionChartOptions();
+
   constructor( private route: ActivatedRoute, private cookieHelper: CookieHelper, private userService: ZenithUserService) {
   }
 
@@ -191,7 +194,11 @@ export class UserNewComponent implements OnInit{
 
       this.userService.getProgression(this.username, 100).subscribe(result => {
         this.modBasedChartData = {
-          datasets: ChartHelper.getModBasedChartData(result),
+          datasets: ChartHelper.getModBasedChartData(result.modProgression),
+        }
+
+        this.zenithSplitChartData = {
+          datasets: ChartHelper.getZenithSplitChartData(result.splitsProgression),
         }
       })
 

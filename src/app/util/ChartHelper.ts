@@ -166,6 +166,89 @@ export class ChartHelper{
     }
   }
 
+  static getSplitsProgressionChartOptions(): ChartConfiguration<'line'>['options'] {
+    return {
+      elements: {
+        line: {
+          borderWidth: 2,
+          tension: 0,
+          stepped: 'after'
+        },
+        point: {
+          radius: 0,
+          hitRadius: 10
+        }
+      },
+      scales: {
+        x: {
+          beginAtZero: false,
+          min: 1,
+          type: 'linear',
+          ticks: {
+            color: '#e2e8f0',
+            autoSkip: true,
+            font: {
+              family: 'Faculty Glyphic',
+              weight: 'bold',
+              size: 14,
+            }
+          }
+        },
+        y: {
+          position: 'left',
+          grid: {
+            color: 'rgb(255, 255, 255, 0.25)',
+          },
+          ticks: {
+            color: '#e2e8f0',
+            font: {
+              family: 'Faculty Glyphic',
+              weight: 'bold',
+              size: 18,
+            },
+            callback: function(value: any) {
+              return ChartHelper.formatMillisecondsToTime(value);
+            }
+          },
+        },
+      },
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      plugins: {
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          titleFont: {
+            size: 0
+          },
+          bodyFont: {
+            family: 'Cabin',
+            weight: 'bold',
+            size: 18,
+          },
+          callbacks: {
+            label: (context: any) => {
+              const value = context.parsed.y || context.parsed;
+              return `${context.dataset.label}: ${ChartHelper.formatMillisecondsToTime(value)}`;
+            }
+          }
+        },
+        legend: {
+          labels: {
+            font: {
+              family: 'Faculty Glyphic',
+              weight: 'bold',
+              size: 16,
+            }
+          }
+        },
+        // annotation: ChartHelper.getModChartAnnotations()
+      }
+    }
+  }
+
   public getChartData(
     datasets: any[],
     labels: any[],
@@ -461,6 +544,104 @@ export class ChartHelper{
     ]
   }
 
+  public static getZenithSplitChartData(data: any){
+    let hitradius = 10;
+
+    return [
+      {
+        data: data.hotel.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Hotel',
+        borderColor: 'rgb(186, 171, 113)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(186, 171, 113)',
+        pointBorderColor: 'rgb(150,150,150)',
+        pointHitRadius: hitradius,
+        fill: 'origin',
+      },
+      {
+        data: data.casino.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Casino',
+        borderColor: 'rgb(189, 150, 107)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(189, 150, 107)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.arena.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Arena',
+        borderColor: 'rgb(192, 140, 151)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(192, 140, 151)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.museum.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Museum',
+        borderColor: 'rgb(188, 140, 56)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(188, 140, 56)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.offices.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Offices',
+        borderColor: 'rgb(191, 112, 98)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(191, 112, 98)',
+        pointBorderColor: 'rgb(255,255,255)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.laboratory.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Laboratory',
+        borderColor: 'rgb(3, 166, 194)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(3, 166, 194)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.core.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Core',
+        borderColor: 'rgb(192, 5, 90)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(192, 5, 90)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.corruption.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Corruption',
+        borderColor: 'rgb(117, 196, 141)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(117, 196, 141)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      },
+      {
+        data: data.platformOfTheGods.map((y: number, i: number) => ({ x: i + 1, y })),
+        label: 'Platform of The Gods',
+        borderColor: 'rgb(131, 78, 166)',
+        backgroundColor: 'rgba(0,0,0,0)',
+        pointBackgroundColor: 'rgb(131, 78, 166)',
+        pointBorderColor: 'rgba(255,255,255,1)',
+        pointHitRadius: 20,
+        fill: 'origin',
+      }
+    ]
+  }
+
+
   public static getModChartAnnotations(): any{
     let annotationFont = {
       family: 'Space Grotesk',
@@ -639,5 +820,21 @@ export class ChartHelper{
         fill: 'origin',
       },
     ]
+  }
+
+  static formatMillisecondsToTime(ms: number): string {
+    const totalSeconds = Math.floor(ms / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const milliseconds = ms % 1000;
+
+    if (hours > 0) {
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    } else if (minutes > 0) {
+      return `${minutes}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0').slice(0, 2)}`;
+    } else {
+      return `${seconds}.${milliseconds.toString().padStart(3, '0')}s`;
+    }
   }
 }

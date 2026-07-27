@@ -86,6 +86,7 @@
       <span (click)="setViewActive('cc')" [class]="isActiveView('cc')" class="profile-btn">Community Contributions</span>
       <span (click)="setViewActive('progression')" [class]="isActiveView('progression')" class="profile-btn">Altitude Progression</span>
       <span (click)="setViewActive('splits')" [class]="isActiveView('splits')" class="profile-btn">Zenith Splits</span>
+      <span (click)="setViewActive('splits-progression')" [class]="isActiveView('splits-progression')" class="profile-btn">Zenith Splits Progression</span>
     </div>
 
     <!-- Dailies and Recent Runs -->
@@ -405,14 +406,14 @@
     @if (this.activeView === 'progression') {
       @if (modBasedChartData !== undefined ) {
         <div class="flexColumn" style="padding: 1rem; width: 100%">
-          <mat-chip-listbox (change)="onProgressionDensityChanged($event)">
-            <mat-chip-option [value]="25">25 Runs</mat-chip-option>
-            <mat-chip-option [value]="50">50 Runs</mat-chip-option>
-            <mat-chip-option [value]="100" selected>100 Runs</mat-chip-option>
-            <mat-chip-option [value]="250">250 Runs</mat-chip-option>
-            <mat-chip-option [value]="500">500 Runs</mat-chip-option>
-            <mat-chip-option [value]="1000">1000 Runs</mat-chip-option>
-          </mat-chip-listbox>
+<!--          <mat-chip-listbox (change)="onProgressionDensityChanged($event)">-->
+<!--            <mat-chip-option [value]="25">25 Runs</mat-chip-option>-->
+<!--            <mat-chip-option [value]="50">50 Runs</mat-chip-option>-->
+<!--            <mat-chip-option [value]="100" selected>100 Runs</mat-chip-option>-->
+<!--            <mat-chip-option [value]="250">250 Runs</mat-chip-option>-->
+<!--            <mat-chip-option [value]="500">500 Runs</mat-chip-option>-->
+<!--            <mat-chip-option [value]="1000">1000 Runs</mat-chip-option>-->
+<!--          </mat-chip-listbox>-->
 
           <canvas baseChart [type]="'line'" [data]="modBasedChartData" [options]="modBasedChartOptions"></canvas>
 
@@ -422,6 +423,17 @@
 
     @if(this.activeView === 'splits'){
       <app-zenith-splits [username]="username"></app-zenith-splits>
+    }
+
+    @if (this.activeView === 'splits-progression') {
+      @if (modBasedChartData !== undefined ) {
+        <div class="flexColumn" style="padding: 1rem; width: 100%">
+
+
+          <canvas baseChart [type]="'line'" [data]="zenithSplitChartData" [options]="zenithSplitChartOptions"></canvas>
+
+        </div>
+      }
     }
   </div>
 } @else {
