@@ -18,7 +18,7 @@
   }
 }
 
-.normalText{
+.normal-text{
   font-family: "Cabin", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-weight: 400;
 }
@@ -253,4 +253,59 @@
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
+}
+
+.table-header{
+  @extend .header-text;
+  @extend .gradient-text;
+
+  background: $text-90gradient;
+  text-shadow: 0 0 30px rgba($colorful-accent-gradientColor2, 0.5);
+
+  font-size: 2rem;
+  text-align: center;
+
+  th{
+    border-bottom: 2px solid rgba($colorful-accent-gradientColor2, 0.3);
+    padding: 16px 8px;
+
+    @include mobile{
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.table-row{
+  font-size: 1.5rem;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+
+  &:hover{
+    //transform: translateX(5px);
+    transform: scale(1.01);
+    filter: brightness(1.25);
+  }
+
+  td{
+    border-bottom: 1px solid rgba($text-color, 0.1);
+    padding: 16px 8px;
+  }
+
+  &.first-place {
+    background: $wom-container-gradient;
+    border-color: gold !important;
+  }
+
+  &.second-place {
+    background: linear-gradient(130deg, rgb(56 56 79), rgb(38 33 54 / 0.5));
+    border-color: lightslategray !important;
+  }
+
+  &.third-place {
+    background: linear-gradient(135deg, rgba(#3f0013, 0.95), rgba(#88002d, 0%) 100%);;
+    border-color: darkred !important;
+
+  }
+
+  background: linear-gradient(130deg, rgb(45 45 68 / 0.5), rgb(38 33 54 / 0.25));
 }

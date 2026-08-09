@@ -14,13 +14,15 @@ import {DailyChallenge} from '../../services/network/data/interfaces/DailyChalle
 import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
 import {WeeklyChallenge, WeeklyChallengeProgress} from '../../services/network/data/interfaces/WeeklyChallenge';
 import {WeeklyConditionType} from '../../services/network/data/enums/ConditionType';
+import {MatRipple} from '@angular/material/core';
 
 @Component({
   selector: 'app-challenges-new',
   imports: [
     MatIcon,
     DatePipe,
-    AsyncPipe
+    AsyncPipe,
+    MatRipple
   ],
   templateUrl: './challenges-new.component.html',
   styleUrl: './challenges-new.component.scss'

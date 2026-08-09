@@ -1,7 +1,7 @@
 <header class="modern-header">
   <div class="header-container">
     <!-- Logo/Icon Section -->
-    <div class="logo-section clickable" [routerLink]="['']">
+    <div class="logo-section clickable" matRipple [routerLink]="['']">
       <div class="logo-icon">
         <mat-icon>dark_mode</mat-icon>
       </div>
@@ -25,7 +25,7 @@
 <!--      </button>-->
 
       @if (user$ | async; as user) {
-        <div class="user-profile clickable">
+        <div class="user-profile clickable" matRipple>
             <img
               [routerLink]="['/u', user.username]"
               class="profile-avatar"
@@ -37,7 +37,7 @@
           <mat-icon class="logout-icon" (click)="logout()">logout</mat-icon>
         </div>
       } @else {
-        <button class="primary-button" (click)="loginClick()">
+        <button class="primary-button" matRipple (click)="loginClick()">
           <span>Sign In</span>
           <mat-icon>login</mat-icon>
         </button>

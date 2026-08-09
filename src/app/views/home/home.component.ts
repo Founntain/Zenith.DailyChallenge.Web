@@ -38,6 +38,7 @@ import {ZdcStatsComponent} from '../../components/zdc-stats/zdc-stats.component'
 import {DailyHelper} from '../../util/DailyHelper';
 import {ChallengesNewComponent} from '../../components/challenges-new/challenges-new.component';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
+import {MatRipple} from '@angular/material/core';
 
 @Component({
   selector: 'app-home',
@@ -63,7 +64,8 @@ import {ChallengeHelper} from '../../util/ChallengeHelper';
     ChallengesNewComponent,
     ChallengesNewComponent,
     AsyncPipe,
-    MatIcon
+    MatIcon,
+    MatRipple
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

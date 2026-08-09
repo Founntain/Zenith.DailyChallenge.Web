@@ -1,69 +1,280 @@
 @use '../../../styles' as *;
 @use '../../../styling/colors' as *;
+@use '../../../styling/base' as base;
 
-.title{
-  font-size: 2rem;
+.baseContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-a{
-  text-decoration: none;
-  color: $text-color;
-}
+.challenge-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-.mat-mdc-row:nth-of-type(n) td {
-  font-size: 1.2rem;
+  gap: 5px;
 
-  //background: rgba($community-text-color, 0.2) !important;
-}
+  padding: 0px 24px;
 
-.mat-mdc-row:nth-of-type(1) td {
-  font-size: 2rem;
+  background: $base-container-gradient;
+  border: 1px solid rgba($text-color, 0.1);
 
-  background-color: rgba(#fc2, 0.5) !important;
-}
+  .page-controls{
+    display: flex;
+    flex-direction: row;
 
+    gap: 12px;
 
-.mat-mdc-row:nth-of-type(2) td {
-  font-size: 1.75rem;
+    .page{
+      cursor: pointer;
 
-  background-color: rgba(#AAA, 0.5) !important;
-}
-
-
-.mat-mdc-row:nth-of-type(3) td {
-  font-size: 1.5rem;
-
-  background-color: rgba(#933, 0.5) !important;
-}
-
-.pageText{
-  cursor: pointer;
-  user-select: none;
-}
-
-.th{
-  position: sticky;
-}
-
-.borderBottom{
-  border-bottom: 1px solid $accent-color;
-}
-
-.navButton{
-  @extend .headerText;
-
-  font-size: 2rem;
-
-  background-color: $background-shade;
-
-  &:hover{
-    background-color: $background-color !important;
-    color: $accent-color;
-    transform: skewX(-10deg);
-    flex: 2;
-
-    //transition: 1s ease-in;
+      mat-icon{
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+      }
+    }
   }
 
-  transition: 0.3s ease-in-out;
+
+  .challenge-details{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    padding: 12px 0px;
+
+    .header{
+      display: flex;
+      flex-direction: row;
+      padding: 12px 0px;
+
+      @include base.mobile{
+        flex-direction: column;
+      }
+
+      .title{
+        @extend .header-text;
+        @extend .gradient-text;
+
+        font-size: 2rem;
+
+        @include base.mobile{
+          font-size: 1.5rem;
+        }
+
+        background: $text-90gradient;
+        text-shadow: 0 0 30px rgba($colorful-accent-gradientColor2, 0.5);
+      }
+
+      .date{
+        @extend .numeric;
+
+        display: flex;
+        flex-direction: row;
+
+        align-self: center;
+        align-items: center;
+        margin-left: auto;
+
+        @include base.mobile{
+          align-self: start;
+          align-items: center;
+          margin-left: unset;
+
+          font-size: 1rem;
+
+          mat-icon{
+            font-size: 16px;
+            height: 16px;
+            width: 16px;
+          }
+        }
+
+        gap: 6px;
+      }
+    }
+
+    .sub-header{
+      display: flex;
+      flex-direction: row;
+      padding: 12px 0px;
+
+      border-bottom: 2px solid rgba($colorful-accent-gradientColor2, 0.2);
+
+      .participants{
+        @extend .numeric;
+
+        display: flex;
+        flex-direction: row;
+
+        align-self: center;
+        align-items: center;
+        margin-left: auto;
+
+        gap: 6px;
+
+        .count{
+          @extend .gradient-text;
+
+          background: $text-90gradient;
+          text-shadow: 0 0 30px rgba($colorful-accent-gradientColor2, 0.5);
+        }
+      }
+    }
+
+    mat-expansion-panel{
+      background: $base-container-gradient;
+      border: 1px solid rgba($text-color, 0.1);
+
+      margin: 12px 0px;
+    }
+
+    mat-expansion-panel-header{
+      @extend .header-text;
+
+      height: fit-content;
+      padding: 12px;
+
+      font-size: 2rem;
+      line-height: 1.5rem;
+
+      @include base.mobile{
+        font-size: 1.5rem;
+        line-height: 1.0rem;
+      }
+
+      mat-panel-title{
+        line-height: 50px !important;
+      }
+    }
+
+
+    .description{
+      @extend .normal-text;
+
+      color: $text-color;
+      white-space: pre-line;
+
+      font-size: 1.2rem;
+
+      @include base.mobile{
+        font-size: 1rem
+      }
+    }
+
+    .mod-container{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      gap: 8px;
+
+      margin-bottom: 12px;
+
+      background: $base-container-gradient;
+      border: 1px solid rgba($text-color, 0.1);
+      padding: 12px;
+    }
+
+    .progress{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      gap: 8px;
+      padding: 16px 8px;
+
+      font-size: 1.5rem;
+
+      background: linear-gradient(130deg, rgb(45 45 68 / 0.5), rgb(38 33 54 / 0.25));
+      border: 1px solid rgba($text-color, 0.1);
+
+      .current-value{
+        @extend .numeric;
+        @extend .gradient-text;
+
+        font-size: 1.5rem;
+
+        @include base.mobile{
+          font-size: 1.25rem;
+        }
+
+        background: $text-90gradient;
+        text-shadow: 0 0 30px rgba($colorful-accent-gradientColor2, 0.5);
+      }
+
+      .devider{
+        font-size: 2rem;
+
+        @include base.mobile{
+          font-size: 1.5rem;
+        }
+      }
+
+      .goal-value{
+        @extend .numeric;
+
+        font-size: 2rem;
+
+        @include base.mobile{
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
 }
+
+.contributors{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
+
+  .contributor-table{
+    width: 100%;
+  }
+
+  .contributor-header{
+    @extend .table-header;
+  }
+
+  .contributor-row{
+    @extend .table-row;
+
+    .username{
+      @extend .header-text;
+
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      text-transform: uppercase;
+
+      @include base.mobile{
+        font-size: 1rem;
+      }
+    }
+
+    .contribution{
+      @extend .numeric;
+      @extend .gradient-text;
+
+      font-size: 1.75rem;
+      font-weight: 800;
+
+      background: $text-90gradient;
+      text-shadow: 0 0 30px rgba($colorful-accent-gradientColor2, 0.5);
+
+      @include base.mobile{
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+

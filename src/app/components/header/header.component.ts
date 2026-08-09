@@ -12,13 +12,15 @@ import {ZdcSessionService} from '../../services/zdc-session.service';
 import {Observable} from 'rxjs';
 import {DailyHelper} from '../../util/DailyHelper';
 import {CommunityChallenge} from '../../services/network/data/interfaces/CommunityChallenge';
+import {MatRipple} from '@angular/material/core';
 
 @Component({
   selector: 'app-header',
   imports: [
     RouterLink,
     MatIcon,
-    AsyncPipe
+    AsyncPipe,
+    MatRipple
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

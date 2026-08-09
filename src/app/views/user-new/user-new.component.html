@@ -105,59 +105,59 @@
             <div class="daily-items">
             @for (day of this.challengeCompletions; track $index){
               <mat-expansion-panel style="width: 100%">
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      {{ day.date }}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                      <div class="challenge-dots">
-                        <span class="daily-dot easy" [class]="[isChallengeBeaten(day.easyCompleted)]"></span>
-                        <span class="daily-dot normal" [class]="[isChallengeBeaten(day.normalCompleted)]"></span>
-                        <span class="daily-dot hard" [class]="[isChallengeBeaten(day.hardCompleted)]"></span>
-                        <span class="daily-dot expert" [class]="[isChallengeBeaten(day.expertCompleted)]"></span>
-                        <span class="daily-dot reverse" [class]="[isChallengeBeaten(day.reverseCompleted)]"></span>
-                        <span class="daily-dot mastery" [class]="[isMasteryChallengeBeaten(day.mastery, false)]"></span>
-                        <span class="daily-dot masteryReverse" [class]="[isMasteryChallengeBeaten(day.mastery, true)]"></span>
-                      </div>
-                    </mat-panel-description>
-                  </mat-expansion-panel-header>
-
-                  <div class="completed-challenges">
-                    <div class="flexColumn gap" style="margin: 1rem;">
-                      <span class="header-text" style="font-size: 1.5rem">Challenges</span>
-                      <div>
-                        <img class="mod" [class]="[isChallengeBeaten(day.easyCompleted)]" src="assets/clear_easy_2.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.normalCompleted)]" src="assets/clear_normal_2.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.hardCompleted)]" src="assets/clear_hard_2.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.expertCompleted)]" src="assets/clear_expert.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.reverseCompleted)]" src="assets/clear_reverse.png" />
-                      </div>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{ day.date }}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <div class="challenge-dots">
+                      <span class="daily-dot easy" [class]="[isChallengeBeaten(day.easyCompleted)]"></span>
+                      <span class="daily-dot normal" [class]="[isChallengeBeaten(day.normalCompleted)]"></span>
+                      <span class="daily-dot hard" [class]="[isChallengeBeaten(day.hardCompleted)]"></span>
+                      <span class="daily-dot expert" [class]="[isChallengeBeaten(day.expertCompleted)]"></span>
+                      <span class="daily-dot reverse" [class]="[isChallengeBeaten(day.reverseCompleted)]"></span>
+                      <span class="daily-dot mastery" [class]="[isMasteryChallengeBeaten(day.mastery, false)]"></span>
+                      <span class="daily-dot masteryReverse" [class]="[isMasteryChallengeBeaten(day.mastery, true)]"></span>
                     </div>
-                    <div class="flexColumn gap">
-                      <span class="header-text" style="font-size: 1.5rem">Mastery</span>
-                      <div>
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png" />
-                      </div>
-                      <div>
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertReversedCompleted)]" src="assets/tetrio-img/mods/expert_reversed.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.noHoldReversedCompleted)]" src="assets/tetrio-img/mods/nohold_reversed.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.messyReversedCompleted)]" src="assets/tetrio-img/mods/messy_reversed.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.gravityReversedCompleted)]" src="assets/tetrio-img/mods/gravity_reversed.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.volatileReversedCompleted)]" src="assets/tetrio-img/mods/volatile_reversed.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.doubleHoleReversedCompleted)]" src="assets/tetrio-img/mods/doublehole_reversed.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.invisibleReversedCompleted)]" src="assets/tetrio-img/mods/invisible_reversed.png" />
-                        <img class="mod" [class]="[isChallengeBeaten(day.mastery?.allSpinReversedCompleted)]" src="assets/tetrio-img/mods/allspin_reversed.png" />
-                      </div>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div class="completed-challenges">
+                  <div class="flexColumn gap" style="margin: 1rem;">
+                    <span class="header-text" style="font-size: 1.5rem">Challenges</span>
+                    <div>
+                      <img class="mod" [class]="[isChallengeBeaten(day.easyCompleted)]" src="assets/clear_easy_2.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.normalCompleted)]" src="assets/clear_normal_2.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.hardCompleted)]" src="assets/clear_hard_2.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.expertCompleted)]" src="assets/clear_expert.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.reverseCompleted)]" src="assets/clear_reverse.png" />
                     </div>
                   </div>
-                </mat-expansion-panel>
+                  <div class="flexColumn gap">
+                    <span class="header-text" style="font-size: 1.5rem">Mastery</span>
+                    <div>
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png" />
+                    </div>
+                    <div>
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertReversedCompleted)]" src="assets/tetrio-img/mods/expert_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.noHoldReversedCompleted)]" src="assets/tetrio-img/mods/nohold_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.messyReversedCompleted)]" src="assets/tetrio-img/mods/messy_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.gravityReversedCompleted)]" src="assets/tetrio-img/mods/gravity_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.volatileReversedCompleted)]" src="assets/tetrio-img/mods/volatile_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.doubleHoleReversedCompleted)]" src="assets/tetrio-img/mods/doublehole_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.invisibleReversedCompleted)]" src="assets/tetrio-img/mods/invisible_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.allSpinReversedCompleted)]" src="assets/tetrio-img/mods/allspin_reversed.png" />
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
             }
             </div>
           }

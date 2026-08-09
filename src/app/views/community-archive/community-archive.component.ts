@@ -14,20 +14,24 @@ import {
 } from '@angular/material/table';
 import {RouterLink} from '@angular/router';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
+import {MatIcon} from '@angular/material/icon';
+import {MatRipple} from '@angular/material/core';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelDescription,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-community-archive',
   imports: [
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    MatHeaderCellDef,
+    MatIcon,
+    MatRipple,
+    MatExpansionPanel,
+    MatExpansionPanelDescription,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
     RouterLink
   ],
   templateUrl: './community-archive.component.html',

@@ -2,14 +2,14 @@
   <!-- User Profile Section -->
   <div class="profile-section">
     @if (user$ | async; as user) {
-      <div class="user-profile-card">
+      <div class="user-profile-card" matRipple [routerLink]="['/u', user.username]" >
         <div class="profile-banner">
           <img src="https://tetr.io/user-content/banners/{{user.userId}}.jpg" alt="Banner" (error)="onImageError($event)"/>
         </div>
 
         <div class="profile-content">
           <img class="profile-avatar" src="https://tetr.io/user-content/avatars/{{user.userId}}.jpg" alt="{{user.username}}" (error)="onImageError($event)"/>
-          <a [routerLink]="['/u', user.username]" class="username uppercase">{{user.username}}</a>
+          <a class="username uppercase">{{user.username}}</a>
         </div>
       </div>
 
@@ -36,7 +36,7 @@
       }
 
       <div class="section">
-        <button class="submit-button" (click)="submit()">Submit new runs</button>
+        <button class="submit-button" matRipple (click)="submit()">Submit new runs</button>
       </div>
     } @else {
       <div class="menu-title">
@@ -55,6 +55,7 @@
         maxlength="16"
         type="text"
         placeholder="Search for user..."
+        matRipple
         (keyup)="search($event)"
       />
     </div>
@@ -64,31 +65,31 @@
   <nav class="menu-navigation">
     <div class="nav-section-title">Navigation</div>
 
-    <a class="menu-item" [routerLink]="['']">
+    <a class="menu-item" [routerLink]="['']" matRipple>
       <mat-icon>home</mat-icon>
       <span>Home</span>
       <mat-icon class="chevron">chevron_right</mat-icon>
     </a>
 
-    <a class="menu-item" [routerLink]="['/daily-archive']">
+    <a class="menu-item" [routerLink]="['/daily-archive']" matRipple>
       <mat-icon>calendar_today</mat-icon>
       <span>Daily Archive</span>
       <mat-icon class="chevron">chevron_right</mat-icon>
     </a>
 
-    <a class="menu-item" [routerLink]="['/cc']">
+    <a class="menu-item" [routerLink]="['/cc']" matRipple>
       <mat-icon>groups</mat-icon>
       <span>Community Challenge</span>
       <mat-icon class="chevron">chevron_right</mat-icon>
     </a>
 
-    <a class="menu-item" [routerLink]="['/cc-archive']">
+    <a class="menu-item" [routerLink]="['/cc-archive']" matRipple>
       <mat-icon>groups</mat-icon>
       <span>Community Challenge Archive</span>
       <mat-icon class="chevron">chevron_right</mat-icon>
     </a>
 
-    <a class="menu-item" [routerLink]="['/leaderboard']">
+    <a class="menu-item" [routerLink]="['/leaderboard']" matRipple>
       <mat-icon>leaderboard</mat-icon>
       <span>Leaderboard</span>
       <mat-icon class="chevron">chevron_right</mat-icon>

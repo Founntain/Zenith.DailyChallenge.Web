@@ -12,13 +12,15 @@ import {Observable} from 'rxjs';
 import {ZdcSessionService} from '../../services/zdc-session.service';
 import {AsyncPipe} from '@angular/common';
 import {ZenithService} from '../../services/network/zenith.service';
+import {MatRipple} from '@angular/material/core';
 
 @Component({
   selector: 'app-side-menu',
   imports: [
     MatIcon,
     RouterLink,
-    AsyncPipe
+    AsyncPipe,
+    MatRipple
   ],
   templateUrl: './side-menu.component.html',
   styleUrl: './side-menu.component.scss'

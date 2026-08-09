@@ -64,8 +64,18 @@
 }
 
 .user-profile-card {
+  @extend .header-text;
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease-in-out;
+
+  &:hover{
+    transform: translateY(-5px);
+  }
+
   position: relative;
-  border-radius: 12px;
+  border-radius: 6px;
   overflow: hidden;
   background: $background-shade-solid;
   margin-bottom: 16px;

@@ -18,11 +18,11 @@
           <th style="text-align: left;">Name</th>
           <th>Score</th>
           @if (isActiveView('seasonal')) {
-            <th>Top Run</th>
-            <th>APM</th>
-            <th>VS</th>
-            <th>KO's</th>
-            <th>Runs</th>
+            <th class="seasonal-row">Top Run</th>
+            <th class="seasonal-row">APM</th>
+            <th class="seasonal-row">VS</th>
+            <th class="seasonal-row">KO's</th>
+            <th class="seasonal-row">Runs</th>
           }
         </tr>
         @for (user of activeLeaderboard?.leaderboard; track $index){
@@ -45,11 +45,11 @@
               </td>
               <td><span class="score-text">{{user.score.toLocaleString('en-US')}}</span></td>
               @if (isActiveView('seasonal')) {
-                <td class="top-run">{{user.topRun.toLocaleString('en-US')}}</td>
-                <td class="apm">{{user.apm.toLocaleString('en-US')}}</td>
-                <td class="vs">{{user.vs.toLocaleString('en-US')}}</td>
-                <td class="kos">{{user.kos.toLocaleString('en-US')}}</td>
-                <td class="runs">{{user.runs.toLocaleString('en-US')}}</td>
+                <td class="seasonal-row top-run">{{user.topRun.toLocaleString('en-US')}}</td>
+                <td class="seasonal-row apm">{{user.apm.toLocaleString('en-US')}}</td>
+                <td class="seasonal-row vs">{{user.vs.toLocaleString('en-US')}}</td>
+                <td class="seasonal-row kos">{{user.kos.toLocaleString('en-US')}}</td>
+                <td class="seasonal-row runs">{{user.runs.toLocaleString('en-US')}}</td>
               }
             </tr>
           }
