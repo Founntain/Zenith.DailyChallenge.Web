@@ -52,6 +52,31 @@
         border-bottom: 3px solid $colorful-accent-gradientColor2;
       }
     }
+
+    .seasonal-time-left{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+
+      mat-icon{
+        @extend .gradient-text;
+
+        background: $text-90gradient;
+        text-shadow: 0 0 30px rgba($colorful-accent-gradientColor2, 0.5);
+      }
+
+      span{
+        @extend .gradient-text;
+
+        vertical-align: center;
+        align-self: center;
+
+        background: $text-90gradient;
+        text-shadow: 0 0 30px rgba($colorful-accent-gradientColor2, 0.5);
+      }
+    }
   }
 
   .leaderboard{

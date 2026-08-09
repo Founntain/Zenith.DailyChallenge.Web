@@ -97,7 +97,7 @@ export class ChartHelper{
       elements: {
         line: {
           borderWidth: 2,
-          tension: 1,
+          tension: .3,
           stepped: 'after'
         },
         point: {

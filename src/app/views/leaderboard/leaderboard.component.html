@@ -3,6 +3,12 @@
     <span (click)="setViewActive('seasonal')" [class]="isActiveView('seasonal')" matTooltip="Active Season leaderboard">Seasonal</span>
     <span (click)="setViewActive('all-time')" [class]="isActiveView('all-time')" matTooltip="All time score leaderboard">All Time</span>
     <span (click)="setViewActive('legacy')" [class]="isActiveView('legacy')" matTooltip="Legacy leaderboard with old scoring and before seasons where introduced">Legacy</span>
+    @if (isActiveView('seasonal')) {
+      <div class="seasonal-time-left">
+        <mat-icon>timer</mat-icon>
+        <span>{{seasonalTimeLeft}}</span>
+      </div>
+    }
   </div>
   @if(activeLeaderboard && activeLeaderboard.leaderboard && activeLeaderboard.leaderboard.length > 0){
     <div class="leaderboard">
