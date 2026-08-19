@@ -11,6 +11,7 @@ import {MatIcon} from '@angular/material/icon';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {ZdcSessionService} from '../../services/zdc-session.service';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
+import {MatRipple} from '@angular/material/core';
 
 @Component({
   selector: 'app-community-challenge',
@@ -18,6 +19,7 @@ import {ChallengeHelper} from '../../util/ChallengeHelper';
     NgClass,
     RouterLink,
     MatIcon,
+    MatRipple,
   ],
   templateUrl: './community-challenge.component.html',
   styleUrl: './community-challenge.component.scss'

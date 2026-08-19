@@ -123,7 +123,7 @@
                 </mat-expansion-panel-header>
 
                 <div class="completed-challenges">
-                  <div class="flexColumn gap" style="margin: 1rem;">
+                  <div class="challenge-group">
                     <span class="header-text" style="font-size: 1.5rem">Challenges</span>
                     <div>
                       <img class="mod" [class]="[isChallengeBeaten(day.easyCompleted)]" src="assets/clear_easy_2.png" />
@@ -133,7 +133,7 @@
                       <img class="mod" [class]="[isChallengeBeaten(day.reverseCompleted)]" src="assets/clear_reverse.png" />
                     </div>
                   </div>
-                  <div class="flexColumn gap">
+                  <div class="challenge-group">
                     <span class="header-text" style="font-size: 1.5rem">Mastery</span>
                     <div>
                       <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png" />
@@ -164,7 +164,6 @@
           @else{
             <span class="header-text subtleText"> Not played so far</span>
           }
-
         </div>
 
         <!--  Recent Runs  -->
@@ -234,7 +233,6 @@
       @if (this.dailyDataExtra) {
         <div class="stats-container">
           <div class="stat-cards-grid">
-
             <div class="stat-card floor-card">
               <div class="stats">
                 <span class="subtle-text">Average Floor</span>

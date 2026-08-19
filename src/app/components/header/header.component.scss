@@ -240,12 +240,13 @@ header.modern-header {
       align-items: center;
       gap: 10px;
       padding: 6px 12px 6px 6px;
-      background: $background-shade;
+      //background: $background-shade;
+      background: $base-bright-container-gradient;
       border-radius: 24px;
-      transition: background 0.2s ease;
+      transition: background 0.2s ease-in-out;
 
       &:hover {
-        background: $background-shade-solid;
+        background: $base-container-gradient;
       }
 
       .profile-avatar {

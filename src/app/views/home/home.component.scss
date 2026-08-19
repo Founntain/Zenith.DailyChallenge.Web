@@ -352,7 +352,8 @@ tr{
   gap: 8px;
   padding: 16px;
   border-radius: 6px;
-  background:linear-gradient(135deg, rgb(87 86 96 / 0.95) 0%, rgb(43 41 45 / 0.95) 100%);
+  //background:linear-gradient(135deg, rgb(87 86 96 / 0.95) 0%, rgb(43 41 45 / 0.95) 100%);
+  background: $base-bright-container-gradient;
 
   transition: transform 0.3s ease-in-out;
 
@@ -401,7 +402,7 @@ tr{
       align-items: center;
 
       .placement{
-        @extend .numeric;
+        @extend .header-text;
 
         font-size: 1.25rem;
       }

@@ -26,6 +26,9 @@
     display: flex;
     flex-direction: row;
 
+    background: $base-container-gradient;
+    border-bottom: 1px solid rgba($text-color, 0.1);
+
     @include base.mobile(){
       flex-direction: column;
 
@@ -33,19 +36,27 @@
     }
 
     gap: 16px;
-    padding: 16px;
+    padding: 0 16px;
 
-    span{
+    .nav-item{
       @extend .header-text;
 
       display: block;
-      padding: 6px;
+      padding: 16px 6px;
 
       font-size: 1.5rem;
 
       border-bottom: 3px solid transparent;
 
       color: $text-color;
+
+      cursor: pointer;
+
+      transition: border 0.2s ease-in-out;
+
+      &:hover{
+        border-bottom: 3px solid $text-color;
+      }
 
       &.active{
         @extend .gradient-text;
@@ -58,11 +69,18 @@
     }
 
     .seasonal-time-left{
+      @extend .header-text;
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 8px;
       margin-left: auto;
+
+      padding: 16px 6px;
+
+      font-size: 1.5rem;
+
+      border-bottom: 3px solid transparent;
 
       @include base.mobile(){
         margin-left: unset;

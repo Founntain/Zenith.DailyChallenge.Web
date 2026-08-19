@@ -9,8 +9,8 @@
     </div>
   </div>
   @for (run of this.runs; track $index) {
-    <div class="flexRow flexStretch gap card animateLeft clickable" [class]="isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen)" style="width: 95%;" [routerLink]="['/u', username, 'run', run.tetrioId]">
-      <div class="flexColumn flexStretch gap floorBorder justifyCenter" [class]="[getFloorKeyFromAltitude(run.altitude)]">
+    <div class="flexRow flexStretch gap card animateLeft clickable floorBorder" [class]="[isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen), getFloorKeyFromAltitude(run.altitude)]" style="width: 95%;" [routerLink]="['/u', username, 'run', run.tetrioId]">
+      <div class="flexColumn flexStretch gap justifyCenter" [class]="[]">
         <span class="subtleText">{{getFloorNameFromAltitude(run.altitude)}}</span>
         <span class="numeric-stats header-text">{{roundNumber(run.altitude, 3)}} M</span>
       </div>

@@ -45,6 +45,7 @@ $weekly-gradient-reverse: linear-gradient(135deg, rgba($weekly-color, 0.95), rgb
 
 //Container Gradients
 $base-container-gradient: linear-gradient(130deg, rgb(45 45 68 / 0.5), rgb(38 33 54 / 0.25));
+$base-bright-container-gradient: linear-gradient(130deg, rgb(71 71 96 / 0.5), rgb(38 33 54 / 0.25));
 $wom-container-gradient: linear-gradient(135deg, rgb(85 72 20 / 0.95) 0%, rgb(60 35 10 / 0.95) 100%);
 $reverse-container-gradient: linear-gradient(135deg, rgba(#88002d, 0%), rgba(#3f0013, 0.95) 100%);
 $weekly-container-gradient: linear-gradient(135deg, rgba(#006488, 0%), rgba(#003749, 0.95) 100%);

@@ -21,6 +21,9 @@
   display:flex;
   flex-direction: row;
 
+  background: $base-container-gradient;
+  border-bottom: 1px solid rgba($text-color, 0.1);
+
   @include base.mobile {
     flex-direction: column;
     //flex-wrap: wrap;
@@ -29,7 +32,7 @@
 }
 
 .stat-card{
-  background: $background-shade-solid;
+  background: $base-container-gradient;
   padding: 1rem;
   border-radius: 0.25rem;
 
@@ -206,6 +209,8 @@
     inset: 0;
     z-index: 0;
 
+    background: $base-container-gradient;
+
     .background-image {
       position: absolute;
       right: 0;
@@ -225,7 +230,7 @@
       inset: 0;
       background: linear-gradient(
         to right,
-        $background-shade-solid 0%,
+        transparent 0%,
         $background-shade-solid 35%,
         rgba($background-shade-solid, 0.7) 55%,
         transparent 80%
@@ -819,6 +824,15 @@
   gap: 6px;
 
   height: 100%;
+
+  mat-expansion-panel{
+    background: $base-container-gradient;
+    border: 1px solid rgba($text-color, 0.1);
+  }
+
+  mat-expansion-panel-header{
+    height: fit-content;
+  }
 }
 
 .challenge-dots{
@@ -841,10 +855,20 @@
   justify-content: center;
   text-align: center;
 
+  padding: 12px;
+
   color: $text-color;
 
   @include base.mobile{
     flex-direction: column;
+  }
+
+  .challenge-group{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    align-self: start;
   }
 }
 
