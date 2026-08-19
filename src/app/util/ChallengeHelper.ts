@@ -135,7 +135,7 @@ export class ChallengeHelper {
       case ConditionType.Finesse:
         return [value, '% FINESSE'];
       case ConditionType.Back2Back:
-        return [value, ' Back 2 Back'];
+        return [value, ' B2B'];
       case ConditionType.App:
         return [value, ' APP'];
       case ConditionType.Lines:

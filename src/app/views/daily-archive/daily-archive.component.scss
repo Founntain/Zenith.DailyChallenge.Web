@@ -1,94 +1,284 @@
 @use '../../../styles' as *;
 @use '../../../styling/colors' as *;
+@use '../../../styling/base' as base;
 
-.baseContainer{
-  @extend .baseContainer;
-
-  border: 1px solid;
-  //border-width: 0 0 0 1px;
-  border-image: $colorful-accent-gradient 1;
-}
-
-.borderSides{
-  border-left: 1px solid rgb($colorful-accent-gradientColor2, 0.5);
-  border-right: 1px solid rgb($colorful-accent-gradientColor2, 0.5);
-}
-
-.valueWrapper {
+.container{
   display: flex;
   flex-direction: column;
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+
+  background: $base-container-gradient;
+  border: 1px solid rgba($text-color, 0.1);
+  padding: 12px 24px;
+
   align-items: center;
-  justify-content: center;
 
-  text-align: center;
+  .heading{
+    display: flex;
+    flex-direction: column;
 
-  gap: 5px;
+    gap: 5px;
+
+    .title{
+      @extend .header-text;
+
+      font-size: 2rem;
+    }
+
+    .sub-title{
+      @extend .bold-text;
+
+      font-size: 1rem;
+
+      color: rgba($text-color, .5);
+    }
+  }
+
+  .date-selector{
+    display: flex;
+    flex-direction: column;
+
+    margin-left: auto;
+    align-self: center;
+    align-items: center;
+
+    mat-form-field {
+      margin-bottom: -1.25em; // Removes default Material bottom spacing
+    }
+  }
 }
 
-.conditionValue {
-  font-size: 1.5rem;
+.challenge-wrapper{
+  display: flex;
+  flex-direction: column;
+
+  padding: 24px;
+
+  justify-content: space-between;
+
+  height: 100%;
+
+  gap: 12px;
 }
 
-.Easy {
-  color: white;
-  text-shadow: 0 3px $easy-text-color, 0 6px 8px $easy-text-color;
+.challenge-container{
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+
+  @include base.mobile(){
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
+  padding: 24px;
+
+  &.easy{
+    background: $easy-container-gradient;
+    border: 1px solid rgba($easy-text-color, .5);
+  }
+
+  &.normal{
+    background: $normal-container-gradient;
+    border: 1px solid rgba($normal-text-color, .5);
+  }
+
+  &.hard{
+    background: $hard-container-gradient;
+    border: 1px solid rgba($hard-text-color, .5);
+  }
+
+  &.expert{
+    background: $wom-container-gradient;
+    border: 1px solid rgba($expert-text-color, .5);
+  }
+
+  &.reverse{
+    background: $reverse-container-gradient;
+    border: 1px solid rgba($reverse-accent-color, .5);
+  }
+
+  .difficulty{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 225px;
+
+    img{
+      width: 48px;
+      height: 48px;
+    }
+
+    .text{
+      display: flex;
+      flex-direction: column;
+
+      gap: 12px;
+
+      .title{
+        @extend .header-text;
+
+        font-size: 2rem;
+      }
+
+      .sub-title{
+        @extend .bold-text;
+      }
+    }
+  }
+
+  .challenge-details{
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    @include base.mobile(){
+      display: flex;
+      flex-direction: column;
+
+      gap: 24px;
+    }
+
+    align-items: center;
+
+    .conditions{
+      display: flex;
+      flex-direction: row;
+
+      gap: 4rem;
+
+      .value-wrapper{
+        display: flex;
+        flex-direction: column;
+        min-width: 100px;
+
+        &.border{
+          border-left: 1px solid rgba($text-color, 0.1);
+          padding-left: 1rem;
+        }
+
+        &.end{
+          min-width: 0;
+        }
+
+        .value{
+          @extend .numeric;
+
+          font-size: 2rem;
+
+          &.easy{
+            @extend .gradient-text;
+
+            background: $easy-text-gradient;
+            text-shadow: 0 0 30px rgba($easy-text-color, 0.5);
+          }
+
+          &.normal{
+            @extend .gradient-text;
+
+            background: $normal-text-gradient;
+            text-shadow: 0 0 30px rgba($normal-text-color, 0.5);
+          }
+
+          &.hard{
+            @extend .gradient-text;
+
+            background: $hard-text-gradient;
+            text-shadow: 0 0 30px rgba($hard-text-color, 0.5);
+          }
+
+          &.expert{
+            @extend .gradient-text;
+
+            background: $gold-gradient;
+            text-shadow: 0 0 30px rgba($expert-text-color, 0.5);
+          }
+
+          &.reverse{
+            @extend .gradient-text;
+
+            background: $reverse-gradient;
+            text-shadow: 0 0 30px rgba($reverse-accent-color, 0.5);
+          }
+        }
+
+        .condition{
+          @extend .bold-text;
+
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    .mods{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      justify-self: end;
+      padding-right: 2rem;
+
+      gap: 6px;
+
+      img{
+        width: 48px;
+        height: 48px;
+      }
+
+      @include base.mobile(){
+        justify-self: center;
+        padding: 0;
+      }
+    }
+  }
+
+  .completions{
+    display: flex;
+    flex-direction: column;
+
+    align-self: center;
+
+    @include base.mobile(){
+      align-self: start;
+    }
+
+    gap: 12px;
+
+    .title{
+      @extend .header-text;
+
+      font-size: 1.7rem;
+    }
+
+    .users{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      span{
+        @extend .bold-text;
+
+        font-size: 1rem;
+
+        text-transform: uppercase;
+
+        cursor: pointer;
+
+        transition: color 0.2s ease-in-out;
+
+        &:hover{
+          color: $colorful-accent-gradientColor2;
+        }
+      }
+    }
+  }
 }
-
-.Normal{
-  color: #fff;
-  text-shadow: 0 3px $normal-accent-color, 0 6px 8px $normal-accent-color;
-}
-
-.Hard{
-  color: #fff;
-  text-shadow: 0 3px $hard-accent-color, 0 6px 8px $hard-accent-color;
-}
-
-.Expert{
-  color: #fff;
-  text-shadow: 0 3px $expert-accent-color, 0 6px 8px $expert-accent-color;
-}
-
-.Reverse{
-  color: #fff;
-  text-shadow: 0 3px #ff0059,0 6px 8px #ff0059;
-}
-
-.easy {
-  background-color: rgba(20, 48, 85, 0.3);
-
-  border: 3px solid rgba(26, 91, 184, 0.5);
-
-  color: $easy-text-color;
-}
-
-.normal {
-  background-color: rgba(68, 31, 15, 0.3);
-
-  border: 3px solid rgba(156, 52, 21, 0.5);
-
-  color: $normal-text-color;
-}
-
-.hard {
-  background-color: rgba(61, 16, 20, 0.3);
-  border: 3px solid rgba(200, 88, 88, 0.5);
-
-  color: $hard-text-color;
-}
-
-.expert {
-  background-color: rgba(63, 37, 22, 0.3);
-  border: 3px solid rgba(143, 107, 25, 0.5);
-
-
-  color: $expert-text-color;
-}
-
-.reverse {
-  background-color: rgba(42, 7, 14, 0.3);
-  border: 3px solid rgba(143, 13, 25, 0.5);
-
-  color: $reverse-text-color;
-}
-

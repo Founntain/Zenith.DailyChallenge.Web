@@ -15,7 +15,6 @@ import {RouterLink} from '@angular/router';
 @Component({
   selector: 'app-daily-archive',
   imports: [
-    NgClass,
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
