@@ -100,11 +100,6 @@
 .carousel-track {
   width: 100%;
   overflow: hidden;
-  border-radius: 16px;
-
-  @include base.mobile {
-    border-radius: 12px;
-  }
 }
 
 .carousel-slides {
