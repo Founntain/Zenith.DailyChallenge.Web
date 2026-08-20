@@ -1,0 +1,13 @@
+﻿@use '@angular/material' as mat;
+@use "../colors" as *;
+
+@include mat.snack-bar-overrides((
+  container-color: $base-container-gradient,
+  button-color: $colorful-accent-gradientColor2,
+
+  supporting-text-color: $text-color,
+  supporting-text-font: 'Cabin',
+  supporting-text-weight: '400',
+
+  supporting-text-size: 1rem,
+));

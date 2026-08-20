@@ -235,3 +235,13 @@ select {
 .subtleText{
   color: $subtle-text-color;
 }
+
+.success-snackbar {
+  background: $wom-container-gradient;
+  color: $text-color;
+}
+
+.error-snackbar {
+  background: #3f0013;
+  color: $text-color;
+}

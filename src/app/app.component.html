@@ -12,7 +12,7 @@
   <mat-drawer-container class="drawer-container">
     <app-header [drawer]="drawer" />
 
-    <mat-drawer #drawer class="sidenav" mode="over" (openedChange)="onDrawerToggle($event)">
+    <mat-drawer #drawer class="sidenav" mode="over" position="end"  (openedChange)="onDrawerToggle($event)">
       <app-side-menu [drawer]="drawer" />
     </mat-drawer>
     <div class="main-content">

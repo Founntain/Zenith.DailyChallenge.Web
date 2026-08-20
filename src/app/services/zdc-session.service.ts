@@ -1,5 +1,5 @@
 ﻿// user-session.service.ts
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {UserProfileData} from './network/data/interfaces/UserProfileData';
 import {DailyChallenge} from './network/data/interfaces/DailyChallenge';
@@ -8,11 +8,14 @@ import {CommunityChallenge} from './network/data/interfaces/CommunityChallenge';
 import {ZenithService} from './network/zenith.service';
 import {ZenithUserService} from './network/zenith-user.service';
 import {WeeklyChallenge, WeeklyChallengeProgress} from './network/data/interfaces/WeeklyChallenge';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class ZdcSessionService {
   constructor(private zenithService: ZenithService, private userService: ZenithUserService) {
   }
+
+  private _snackbar = inject(MatSnackBar);
 
   private readonly _user$ = new BehaviorSubject<UserProfileData | null>(null);
   private readonly _dailies$ = new BehaviorSubject<DailyChallenge[] | null>(null);
@@ -81,16 +84,27 @@ export class ZdcSessionService {
       next: (r) => {
         // Do nothing
 
+        this._snackbar.open('Runs submitted successfully', "Close", {
+          duration: 5000,
+          panelClass: ['success-snackbar']
+        });
+
         this.fetchDailyChallenges();
         this.fetchChallengeCompletions();
         this.fetchWeeklyProgress();
       },
       error: (e) => {
         if(e.status == 400){
-          alert(e.error);
+          this._snackbar.open('Runs could not be submitted: \n\n' + e.error, "Close", {
+            duration: 5000,
+            panelClass: ['error-snackbar']
+          });
         }
         if(e.status == 401){
-          alert(e.error + '\n\nPlease login again.');
+          this._snackbar.open('Runs could not be submitted, please login in again. \n\n' + e.error, "Close", {
+            duration: 5000,
+            panelClass: ['error-snackbar']
+          });
         }
       }
     })

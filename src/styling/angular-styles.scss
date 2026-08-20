@@ -8,6 +8,7 @@
 @use 'angular-component-styles/paginator' as *;
 @use 'angular-component-styles/tab' as *;
 @use 'angular-component-styles/expansion' as *;
+@use 'angular-component-styles/snackbar' as *;
 
 :root {
   @include mat.chips-overrides((
