@@ -10,7 +10,7 @@
       </div>
     }
   </div>
-  @if(activeLeaderboard && activeLeaderboard.leaderboard && activeLeaderboard.leaderboard.length > 0){
+  @if(activeLeaderboard.hasValue() && activeLeaderboard.value().leaderboard && activeLeaderboard.value().leaderboard.length > 0){
     <div class="leaderboard">
       <table class="leaderboard-table">
         <tr class="leaderboard-header">
@@ -25,7 +25,7 @@
             <th class="seasonal-row">Runs</th>
           }
         </tr>
-        @for (user of activeLeaderboard?.leaderboard; track $index){
+        @for (user of activeLeaderboard.value().leaderboard; track $index){
           @if ($index > -1){
             <tr class="leaderboard-row"
                 [class.first-place]="$index === 0"
