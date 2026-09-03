@@ -1,35 +1,22 @@
 import {provideRouter, Routes} from '@angular/router';
-import {HomeComponent} from './views/home/home.component';
 import {UserComponent} from './views/user/user.component';
 import {ApplicationConfig} from '@angular/core';
-import {ChallengeComponent} from './components/challenge/challenge.component';
-import {SplitsComponent} from './views/splits/splits.component';
-import {LeaderboardComponent} from './views/leaderboard/leaderboard.component';
-import {CommunityArchiveComponent} from './views/community-archive/community-archive.component';
-import {DailyArchiveComponent} from './views/daily-archive/daily-archive.component';
-import {RunComponent} from './components/run/run.component';
-import {UserNewComponent} from './views/user-new/user-new.component';
-import {RunsComponent} from './views/runs/runs.component';
-import {SeasonalComponent} from './views/seasonal/seasonal.component';
-import {UserDailiesComponent} from './views/user-dailies/user-dailies.component';
-import {CommunityChallengeComponent} from './components/community-challenge/community-challenge.component';
 import {CreateComponent} from './views/create/create.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'challenge', component: ChallengeComponent },
-    { path: 'leaderboard', component: LeaderboardComponent },
-    { path: 'cc', component: CommunityChallengeComponent },
-    { path: 'cc-archive', component: CommunityArchiveComponent },
-    { path: 'daily-archive', component: DailyArchiveComponent },
-    { path: 'seasonal', component: SeasonalComponent },
+    { path: '', loadComponent: () => import('./views/home/home.component').then(m => m.HomeComponent) },
+    { path: 'leaderboard', loadComponent: () => import('./views/leaderboard/leaderboard.component').then(m => m.LeaderboardComponent) },
+    { path: 'cc', loadComponent: () => import('./components/community-challenge/community-challenge.component').then(m => m.CommunityChallengeComponent) },
+    { path: 'cc-archive', loadComponent: () => import('./views/community-archive/community-archive.component').then(m => m.CommunityArchiveComponent) },
+    { path: 'daily-archive', loadComponent: () => import('./views/daily-archive/daily-archive.component').then(m => m.DailyArchiveComponent) },
+    { path: 'seasonal', loadComponent: () => import('./views/seasonal/seasonal.component').then(m => m.SeasonalComponent) },
 
     // User routes
-    { path: 'u/:username', component: UserNewComponent },
-    { path: 'u/:username/run/:runId', component: RunComponent },
-    { path: 'u/:username/runs', component: RunsComponent },
-    { path: 'u/:username/dailies', component: UserDailiesComponent },
-    { path: 'u/:username/splits', component: SplitsComponent },
+    { path: 'u/:username', loadComponent: () => import('./views/user-new/user-new.component').then(m => m.UserNewComponent) },
+    { path: 'u/:username/run/:runId', loadComponent: () => import('./views/run/run.component').then(m => m.RunComponent) },
+    { path: 'u/:username/runs', loadComponent: () => import('./views/runs/runs.component').then(m => m.RunsComponent) },
+    { path: 'u/:username/dailies', loadComponent: () => import('./views/user-dailies/user-dailies.component').then(m => m.UserDailiesComponent) },
+    { path: 'u/:username/splits', loadComponent: () => import('./views/splits/splits.component').then(m => m.SplitsComponent) },
 
     //WIP
     { path: 'create', component: CreateComponent },
