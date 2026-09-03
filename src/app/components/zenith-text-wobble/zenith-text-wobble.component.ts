@@ -1,11 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgForOf} from '@angular/common';
+
 
 @Component({
   selector: 'app-zenith-text-wobble',
-  imports: [
-    NgForOf
-  ],
+  imports: [],
   templateUrl: './zenith-text-wobble.component.html',
   styleUrl: './zenith-text-wobble.component.scss'
 })

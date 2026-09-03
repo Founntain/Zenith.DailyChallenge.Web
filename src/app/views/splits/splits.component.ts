@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ZenithUserService } from '../../services/network/zenith-user.service';
-import {NgIf} from '@angular/common';
+
 import {DailyData} from '../../services/network/data/interfaces/DailyData';
 import {
   MatCell,
@@ -18,7 +18,6 @@ import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits'
 @Component({
   selector: 'app-splits',
   imports: [
-    NgIf,
     MatHeaderRow,
     MatHeaderRowDef,
     MatRow,
@@ -29,7 +28,7 @@ import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits'
     MatColumnDef,
     MatHeaderCell,
     MatHeaderCellDef
-  ],
+],
   templateUrl: './splits.component.html',
   styleUrl: './splits.component.scss'
 })

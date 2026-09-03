@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ArchiveService} from '../../services/network/archive.service';
 import {CommunityChallengeArchive} from '../../services/network/data/interfaces/CommunityChallengeArchive';
-import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   MatCell,
   MatCellDef,

@@ -3,7 +3,7 @@ import {environment} from '../../../environments/environment';
 import {CookieHelper} from '../../util/CookieHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
-import {AsyncPipe, NgIf} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {AuthService} from '../../services/network/auth.service';
 import {MatIcon} from '@angular/material/icon';

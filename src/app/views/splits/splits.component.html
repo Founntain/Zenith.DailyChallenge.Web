@@ -2,132 +2,137 @@
   <h2 class="headerText"><span class="uppercase">{{username}}'s</span> zenith splits</h2>
 </div>
 
-<div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.hotel.bestTime)" class="userContainer">
-  <h2 class="title">Zenith Splits</h2>
-  <div class="splitContainer">
-    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.hotel.bestTime)" class="split hotel">
-      <div class="splitWrapper headerText">
-        <a>HOTEL</a>
-        <a class="bigNumber" title="Fastest time">{{ splitTimes.hotel.bestTime }}</a>
-        <a class="smallNumber" title="Average time">{{ splitTimes.hotel.averageTime}}</a>
-      </div>
-    </div>
-
-    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.casino.bestTime)" class="split casino">
-      <div class="splitWrapper headerText">
-        <a>CASINO</a>
-        <a class="bigNumber" title="Fastest time">{{splitTimes.casino.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{splitTimes.casino.averageTime}}</a>
-      </div>
-    </div>
-
-    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.arena.bestTime)" class="split arena">
-      <div class="splitWrapper headerText">
-        <a>ARENA</a>
-        <a class="bigNumber" title="Fastest time">{{splitTimes.arena.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{splitTimes.arena.averageTime}}</a>
-      </div>
-    </div>
-
-    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.museum.bestTime)" class="split museum">
-      <div class="splitWrapper headerText">
-        <a>MUSEUM</a>
-        <a class="bigNumber" title="Fastest time">{{splitTimes.museum.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{splitTimes.museum.averageTime}}</a>
-      </div>
-    </div>
-
-    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.offices.bestTime)" class="split offices">
-      <div class="splitWrapper headerText">
-        <a>OFFICES</a>
-        <a class="bigNumber" title="Fastest time">{{splitTimes.offices.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{splitTimes.offices.averageTime}}</a>
-      </div>
-    </div>
-
-    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.laboratory.bestTime)" class="split laboratory">
-      <div class="splitWrapper headerText">
-        <a>LABORATORY</a>
-        <a class="bigNumber" title="Fastest time">{{splitTimes.laboratory.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{splitTimes.laboratory.averageTime}}</a>
-      </div>
-    </div>
-
-    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.core.bestTime)" class="split core">
-      <div class="splitWrapper headerText">
-        <a>CORE</a>
-        <a class="bigNumber" title="Fastest time">{{splitTimes.core.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{splitTimes.core.averageTime}}</a>
-      </div>
-    </div>
-
-    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.corruption.bestTime)" class="split corruption">
-      <div class="splitWrapper headerText">
-        <a>CORRUPTION</a>
-        <a class="bigNumber" title="Fastest time">{{splitTimes.corruption.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{splitTimes.corruption.averageTime}}</a>
-      </div>
-    </div>
-
-    <div *ngIf="splitTimes !== undefined && isNotEmptyTime(splitTimes.potg.bestTime)" class="split potg">
-      <div class="splitWrapper headerText">
-        <a>POTG</a>
-        <a class="bigNumber" title="Fastest time">{{splitTimes.potg.bestTime}}</a>
-        <a class="smallNumber" title="Average time">{{splitTimes.potg.averageTime}}</a>
-      </div>
+@if (splitTimes !== undefined && isNotEmptyTime(splitTimes.hotel.bestTime)) {
+  <div class="userContainer">
+    <h2 class="title">Zenith Splits</h2>
+    <div class="splitContainer">
+      @if (splitTimes !== undefined && isNotEmptyTime(splitTimes.hotel.bestTime)) {
+        <div class="split hotel">
+          <div class="splitWrapper headerText">
+            <a>HOTEL</a>
+            <a class="bigNumber" title="Fastest time">{{ splitTimes.hotel.bestTime }}</a>
+            <a class="smallNumber" title="Average time">{{ splitTimes.hotel.averageTime}}</a>
+          </div>
+        </div>
+      }
+      @if (splitTimes !== undefined && isNotEmptyTime(splitTimes.casino.bestTime)) {
+        <div class="split casino">
+          <div class="splitWrapper headerText">
+            <a>CASINO</a>
+            <a class="bigNumber" title="Fastest time">{{splitTimes.casino.bestTime}}</a>
+            <a class="smallNumber" title="Average time">{{splitTimes.casino.averageTime}}</a>
+          </div>
+        </div>
+      }
+      @if (splitTimes !== undefined && isNotEmptyTime(splitTimes.arena.bestTime)) {
+        <div class="split arena">
+          <div class="splitWrapper headerText">
+            <a>ARENA</a>
+            <a class="bigNumber" title="Fastest time">{{splitTimes.arena.bestTime}}</a>
+            <a class="smallNumber" title="Average time">{{splitTimes.arena.averageTime}}</a>
+          </div>
+        </div>
+      }
+      @if (splitTimes !== undefined && isNotEmptyTime(splitTimes.museum.bestTime)) {
+        <div class="split museum">
+          <div class="splitWrapper headerText">
+            <a>MUSEUM</a>
+            <a class="bigNumber" title="Fastest time">{{splitTimes.museum.bestTime}}</a>
+            <a class="smallNumber" title="Average time">{{splitTimes.museum.averageTime}}</a>
+          </div>
+        </div>
+      }
+      @if (splitTimes !== undefined && isNotEmptyTime(splitTimes.offices.bestTime)) {
+        <div class="split offices">
+          <div class="splitWrapper headerText">
+            <a>OFFICES</a>
+            <a class="bigNumber" title="Fastest time">{{splitTimes.offices.bestTime}}</a>
+            <a class="smallNumber" title="Average time">{{splitTimes.offices.averageTime}}</a>
+          </div>
+        </div>
+      }
+      @if (splitTimes !== undefined && isNotEmptyTime(splitTimes.laboratory.bestTime)) {
+        <div class="split laboratory">
+          <div class="splitWrapper headerText">
+            <a>LABORATORY</a>
+            <a class="bigNumber" title="Fastest time">{{splitTimes.laboratory.bestTime}}</a>
+            <a class="smallNumber" title="Average time">{{splitTimes.laboratory.averageTime}}</a>
+          </div>
+        </div>
+      }
+      @if (splitTimes !== undefined && isNotEmptyTime(splitTimes.core.bestTime)) {
+        <div class="split core">
+          <div class="splitWrapper headerText">
+            <a>CORE</a>
+            <a class="bigNumber" title="Fastest time">{{splitTimes.core.bestTime}}</a>
+            <a class="smallNumber" title="Average time">{{splitTimes.core.averageTime}}</a>
+          </div>
+        </div>
+      }
+      @if (splitTimes !== undefined && isNotEmptyTime(splitTimes.corruption.bestTime)) {
+        <div class="split corruption">
+          <div class="splitWrapper headerText">
+            <a>CORRUPTION</a>
+            <a class="bigNumber" title="Fastest time">{{splitTimes.corruption.bestTime}}</a>
+            <a class="smallNumber" title="Average time">{{splitTimes.corruption.averageTime}}</a>
+          </div>
+        </div>
+      }
+      @if (splitTimes !== undefined && isNotEmptyTime(splitTimes.potg.bestTime)) {
+        <div class="split potg">
+          <div class="splitWrapper headerText">
+            <a>POTG</a>
+            <a class="bigNumber" title="Fastest time">{{splitTimes.potg.bestTime}}</a>
+            <a class="smallNumber" title="Average time">{{splitTimes.potg.averageTime}}</a>
+          </div>
+        </div>
+      }
     </div>
   </div>
-</div>
+}
 
-<div *ngIf="splitData.length > 0" class="userContainer" style="overflow-x: auto">
-  <table mat-table [dataSource]="splitData">
-    <h2 class="title">Splits in detail</h2>
-    <ng-container matColumnDef="Hotel">
-      <th mat-header-cell *matHeaderCellDef> Hotel </th>
-      <td mat-cell *matCellDef="let element"> {{element.hotel}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Casino">
-      <th mat-header-cell *matHeaderCellDef> Casino </th>
-      <td mat-cell *matCellDef="let element"> {{element.casino}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Arena">
-      <th mat-header-cell *matHeaderCellDef> Arena </th>
-      <td mat-cell *matCellDef="let element"> {{element.arena}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Museum">
-      <th mat-header-cell *matHeaderCellDef> Museum </th>
-      <td mat-cell *matCellDef="let element"> {{element.museum}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Offices">
-      <th mat-header-cell *matHeaderCellDef> Offices </th>
-      <td mat-cell *matCellDef="let element"> {{element.offices}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Laboratory">
-      <th mat-header-cell *matHeaderCellDef> Laboratory </th>
-      <td mat-cell *matCellDef="let element"> {{element.laboratory}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Core">
-      <th mat-header-cell *matHeaderCellDef> Core </th>
-      <td mat-cell *matCellDef="let element"> {{element.core}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Corruption">
-      <th mat-header-cell *matHeaderCellDef> Corruption </th>
-      <td mat-cell *matCellDef="let element"> {{element.corruption}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Potg">
-      <th mat-header-cell *matHeaderCellDef> POTG </th>
-      <td mat-cell *matCellDef="let element"> {{element.potg}} </td>
-    </ng-container>
-
-    <tr mat-header-row sticky *matHeaderRowDef="splitColumns" ></tr>
-    <tr mat-row *matRowDef="let row; columns: splitColumns;"></tr>
-  </table>
-</div>
+@if (splitData.length > 0) {
+  <div class="userContainer" style="overflow-x: auto">
+    <table mat-table [dataSource]="splitData">
+      <h2 class="title">Splits in detail</h2>
+      <ng-container matColumnDef="Hotel">
+        <th mat-header-cell *matHeaderCellDef> Hotel </th>
+        <td mat-cell *matCellDef="let element"> {{element.hotel}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Casino">
+        <th mat-header-cell *matHeaderCellDef> Casino </th>
+        <td mat-cell *matCellDef="let element"> {{element.casino}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Arena">
+        <th mat-header-cell *matHeaderCellDef> Arena </th>
+        <td mat-cell *matCellDef="let element"> {{element.arena}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Museum">
+        <th mat-header-cell *matHeaderCellDef> Museum </th>
+        <td mat-cell *matCellDef="let element"> {{element.museum}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Offices">
+        <th mat-header-cell *matHeaderCellDef> Offices </th>
+        <td mat-cell *matCellDef="let element"> {{element.offices}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Laboratory">
+        <th mat-header-cell *matHeaderCellDef> Laboratory </th>
+        <td mat-cell *matCellDef="let element"> {{element.laboratory}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Core">
+        <th mat-header-cell *matHeaderCellDef> Core </th>
+        <td mat-cell *matCellDef="let element"> {{element.core}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Corruption">
+        <th mat-header-cell *matHeaderCellDef> Corruption </th>
+        <td mat-cell *matCellDef="let element"> {{element.corruption}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Potg">
+        <th mat-header-cell *matHeaderCellDef> POTG </th>
+        <td mat-cell *matCellDef="let element"> {{element.potg}} </td>
+      </ng-container>
+      <tr mat-header-row sticky *matHeaderRowDef="splitColumns" ></tr>
+      <tr mat-row *matRowDef="let row; columns: splitColumns;"></tr>
+    </table>
+  </div>
+}

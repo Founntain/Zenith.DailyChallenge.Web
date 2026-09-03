@@ -1,10 +1,11 @@
 <div class="reverseTitle boldText">
-  <span
-    *ngFor="let item of stableSplitTitle"
-    class="zsrnc headerText"
-    [style.--i]="item.index"
-    [style.--sa]="item.sa"
-    [style.--sb]="item.sb">
-    <span>{{ item.char }}</span>
-  </span>
+  @for (item of stableSplitTitle; track item) {
+    <span
+      class="zsrnc headerText"
+      [style.--i]="item.index"
+      [style.--sa]="item.sa"
+      [style.--sb]="item.sb">
+      <span>{{ item.char }}</span>
+    </span>
+  }
 </div>
