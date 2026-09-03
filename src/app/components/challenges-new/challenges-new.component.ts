@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {MatIcon} from '@angular/material/icon';
 import {ZenithService} from '../../services/network/zenith.service';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
@@ -25,6 +25,7 @@ import {MatRipple} from '@angular/material/core';
     MatRipple
   ],
   templateUrl: './challenges-new.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './challenges-new.component.scss'
 })
 export class ChallengesNewComponent implements OnInit, OnDestroy {

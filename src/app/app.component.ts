@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Router, NavigationEnd, RouterOutlet} from '@angular/router';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
@@ -22,6 +22,7 @@ import {WeeklyChallenge} from './services/network/data/interfaces/WeeklyChalleng
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent, FooterComponent, MatDrawerContainer, MatDrawer, SideMenuComponent, MatIcon],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit{

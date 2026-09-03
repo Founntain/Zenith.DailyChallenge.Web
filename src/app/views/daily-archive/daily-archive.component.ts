@@ -7,7 +7,7 @@ import {DailyChallengeArchive} from '../../services/network/data/interfaces/Dail
 import {ChallengeHelper} from '../../util/ChallengeHelper';
 import {ArchiveService} from '../../services/network/archive.service';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {min} from 'rxjs';
 import {MatTooltip} from '@angular/material/tooltip';
 import {RouterLink} from '@angular/router';
@@ -25,6 +25,7 @@ import {RouterLink} from '@angular/router';
     provideNativeDateAdapter(),
   ],
   templateUrl: './daily-archive.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './daily-archive.component.scss'
 })
 

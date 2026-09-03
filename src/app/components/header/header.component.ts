@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {CookieHelper} from '../../util/CookieHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
@@ -23,6 +23,7 @@ import {MatRipple} from '@angular/material/core';
     MatRipple
   ],
   templateUrl: './header.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit{

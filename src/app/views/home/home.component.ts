@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {ZenithService} from '../../services/network/zenith.service';
 import {ChallengeComponent} from '../../components/challenge/challenge.component';
 import {AsyncPipe, NgClass, NgOptimizedImage} from '@angular/common';
@@ -68,6 +68,7 @@ import {MatRipple} from '@angular/material/core';
     MatRipple
   ],
   templateUrl: './home.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './home.component.scss'
 })
 

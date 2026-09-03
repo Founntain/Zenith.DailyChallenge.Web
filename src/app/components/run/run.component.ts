@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {DetailedRun} from '../../services/network/data/interfaces/Run';
@@ -17,6 +17,7 @@ import {MatIcon} from '@angular/material/icon';
     MatIcon
   ],
   templateUrl: './run.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './run.component.scss'
 })
 export class RunComponent implements OnInit{

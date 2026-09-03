@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ZenithService} from '../../services/network/zenith.service';
 import {ServerStatistics} from '../../services/network/data/interfaces/ServerStatistics';
 import {MatIcon} from '@angular/material/icon';
@@ -12,6 +12,7 @@ import {DailyHelper} from '../../util/DailyHelper';
     MatTooltip
   ],
   templateUrl: './zdc-stats.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './zdc-stats.component.scss'
 })
 export class ZdcStatsComponent implements OnInit{

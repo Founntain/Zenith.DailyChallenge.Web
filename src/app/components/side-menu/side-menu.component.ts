@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {MatIcon} from '@angular/material/icon';
 import {Router, RouterLink} from '@angular/router';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
@@ -23,6 +23,7 @@ import {MatRipple} from '@angular/material/core';
     MatRipple
   ],
   templateUrl: './side-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './side-menu.component.scss'
 })
 export class SideMenuComponent implements OnInit{

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {Run} from '../../services/network/data/interfaces/Run';
 import {ActivatedRoute, RouterLink} from '@angular/router';
@@ -14,6 +14,7 @@ import {DailyHelper} from '../../util/DailyHelper';
     RouterLink
   ],
   templateUrl: './runs.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './runs.component.scss'
 })
 export class RunsComponent implements OnInit{

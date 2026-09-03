@@ -1,6 +1,6 @@
 <div [ngClass]="['container', 'challenge', 'community', 'gap', isCommunityChallengeFinished]">
   <div class="header-section">
-    @if (communityChallengeData?.communityChallenge?.name !== null) {
+    @if ($safeNavigationMigration(communityChallengeData?.communityChallenge?.name) !== null) {
       <h1 class="page-title">{{ communityChallengeData?.communityChallenge.name.toUpperCase() }}</h1>
     }@else{
       <h1 class="page-title">COMMUNITY CHALLENGE</h1>
@@ -29,7 +29,7 @@
     <!-- CC Active -->
     <div class="challenge-content">
       <div class="hero-section">
-        @if (communityChallengeData?.communityChallenge?.description !== undefined) {
+        @if ($safeNavigationMigration(communityChallengeData?.communityChallenge?.description) !== undefined) {
           <div class="hero-middle">
               <div class="hero-background">
                 <img src="https://tetr.io/res/bg/zenith/10fa.jpg" alt="Challenge Background" class="background-image" />
@@ -51,7 +51,7 @@
               </div>
             </div>
 
-            @if(communityChallengeData?.communityChallenge?.mods !== null && communityChallengeData?.communityChallenge?.mods.length > 0){
+            @if($safeNavigationMigration(communityChallengeData?.communityChallenge?.mods) !== null && communityChallengeData?.communityChallenge?.mods.length > 0){
               <div class="mods-container">
                 @for (mod of communityChallengeData?.communityChallenge?.mods; track $index) {
                   <img class="mod-badge" src="assets/tetrio-img/mods/{{mod}}.png" [alt]="mod">

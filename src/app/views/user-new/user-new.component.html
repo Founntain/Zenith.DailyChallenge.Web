@@ -38,13 +38,13 @@
 
             <div class="stat-item border">
               <span class="subtle-text">Top Run</span>
-              <span class="numeric-stats big">{{roundNumber(this.dailyData?.topAltitude, 2).toLocaleString()}} M</span>
+              <span class="numeric-stats big">{{roundNumber($safeNavigationMigration(this.dailyData?.topAltitude), 2).toLocaleString()}} M</span>
             </div>
 
             <div class="stat-item border">
               <span class="subtle-text">Top Run This Week</span>
               @if (this.dailyData.topAltitudeWeekly > 0) {
-                <span class="numeric-stats big">{{roundNumber(this.dailyData?.topAltitudeWeekly, 2).toLocaleString()}} M</span>
+                <span class="numeric-stats big">{{roundNumber($safeNavigationMigration(this.dailyData?.topAltitudeWeekly), 2).toLocaleString()}} M</span>
               }@else{
                 <span class="numeric-stats big">-</span>
               }
@@ -67,7 +67,7 @@
             </div>
 
             <div class="stat-item border">
-              <span class="numeric-stats">{{roundNumber(this.dailyData?.timePlayed, 0).toLocaleString()}} h</span>
+              <span class="numeric-stats">{{roundNumber($safeNavigationMigration(this.dailyData?.timePlayed), 0).toLocaleString()}} h</span>
               <span class="subtle-text">Hours played</span>
             </div>
           </div>
@@ -136,24 +136,24 @@
                   <div class="challenge-group">
                     <span class="header-text" style="font-size: 1.5rem">Mastery</span>
                     <div>
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.expertCompleted))]" src="assets/tetrio-img/mods/expert.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.noHoldCompleted))]" src="assets/tetrio-img/mods/nohold.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.messyCompleted))]" src="assets/tetrio-img/mods/messy.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.gravityCompleted))]" src="assets/tetrio-img/mods/gravity.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.volatileCompleted))]" src="assets/tetrio-img/mods/volatile.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.doubleHoleCompleted))]" src="assets/tetrio-img/mods/doublehole.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.invisibleCompleted))]" src="assets/tetrio-img/mods/invisible.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.allSpinCompleted))]" src="assets/tetrio-img/mods/allspin.png" />
                     </div>
                     <div>
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.expertReversedCompleted)]" src="assets/tetrio-img/mods/expert_reversed.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.noHoldReversedCompleted)]" src="assets/tetrio-img/mods/nohold_reversed.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.messyReversedCompleted)]" src="assets/tetrio-img/mods/messy_reversed.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.gravityReversedCompleted)]" src="assets/tetrio-img/mods/gravity_reversed.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.volatileReversedCompleted)]" src="assets/tetrio-img/mods/volatile_reversed.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.doubleHoleReversedCompleted)]" src="assets/tetrio-img/mods/doublehole_reversed.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.invisibleReversedCompleted)]" src="assets/tetrio-img/mods/invisible_reversed.png" />
-                      <img class="mod" [class]="[isChallengeBeaten(day.mastery?.allSpinReversedCompleted)]" src="assets/tetrio-img/mods/allspin_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.expertReversedCompleted))]" src="assets/tetrio-img/mods/expert_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.noHoldReversedCompleted))]" src="assets/tetrio-img/mods/nohold_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.messyReversedCompleted))]" src="assets/tetrio-img/mods/messy_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.gravityReversedCompleted))]" src="assets/tetrio-img/mods/gravity_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.volatileReversedCompleted))]" src="assets/tetrio-img/mods/volatile_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.doubleHoleReversedCompleted))]" src="assets/tetrio-img/mods/doublehole_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.invisibleReversedCompleted))]" src="assets/tetrio-img/mods/invisible_reversed.png" />
+                      <img class="mod" [class]="[isChallengeBeaten($safeNavigationMigration(day.mastery?.allSpinReversedCompleted))]" src="assets/tetrio-img/mods/allspin_reversed.png" />
                     </div>
                   </div>
                 </div>
@@ -236,7 +236,7 @@
             <div class="stat-card floor-card">
               <div class="stats">
                 <span class="subtle-text">Average Floor</span>
-                <span class="numeric">{{roundNumber(this.dailyDataExtra.floors?.average, 2)}}</span>
+                <span class="numeric">{{roundNumber($safeNavigationMigration(this.dailyDataExtra.floors?.average), 2)}}</span>
               </div>
               <div class="graph pie-chart">
                 <canvas baseChart type="doughnut" [data]="this.floorChartData" [options]="this.floorChartOptions"></canvas>
@@ -247,9 +247,9 @@
               <div class="stats">
                 <span class="subtle-text">APM</span>
                 <div class="stats-trend">
-                  @let apmTrend = getTrendingIcon(this.dailyDataExtra.apm?.recent);
+                  @let apmTrend = getTrendingIcon($safeNavigationMigration(this.dailyDataExtra.apm?.recent));
 
-                  <span class="numeric">{{ roundNumber(this.dailyDataExtra.apm?.average, 2) }}</span>
+                  <span class="numeric">{{ roundNumber($safeNavigationMigration(this.dailyDataExtra.apm?.average), 2) }}</span>
                   <mat-icon class="trend-icon" [class]="apmTrend[1]">{{ apmTrend[0] }}</mat-icon>
                 </div>
               </div>
@@ -262,9 +262,9 @@
               <div class="stats">
                 <span class="subtle-text">VS</span>
                 <div class="stats-trend">
-                  @let vsTrend = getTrendingIcon(this.dailyDataExtra.vs?.recent);
+                  @let vsTrend = getTrendingIcon($safeNavigationMigration(this.dailyDataExtra.vs?.recent));
 
-                  <span class="numeric">{{ roundNumber(this.dailyDataExtra.vs?.average, 2) }}</span>
+                  <span class="numeric">{{ roundNumber($safeNavigationMigration(this.dailyDataExtra.vs?.average), 2) }}</span>
                   <mat-icon class="trend-icon" [class]="vsTrend[1]">{{ vsTrend[0] }}</mat-icon>
                 </div>
               </div>
@@ -277,9 +277,9 @@
               <div class="stats">
                 <span class="subtle-text">PPS</span>
                 <div class="stats-trend">
-                  @let ppsTrend = getTrendingIcon(this.dailyDataExtra.pps?.recent);
+                  @let ppsTrend = getTrendingIcon($safeNavigationMigration(this.dailyDataExtra.pps?.recent));
 
-                  <span class="numeric">{{ roundNumber(this.dailyDataExtra.pps?.average, 2) }}</span>
+                  <span class="numeric">{{ roundNumber($safeNavigationMigration(this.dailyDataExtra.pps?.average), 2) }}</span>
                   <mat-icon class="trend-icon" [class]="ppsTrend[1]">{{ ppsTrend[0] }}</mat-icon>
                 </div>
               </div>
@@ -292,9 +292,9 @@
               <div class="stats">
                 <span class="subtle-text">Avg. Altitude</span>
                 <div class="stats-trend">
-                  @let altitudeTrend = getTrendingIcon(this.dailyDataExtra.altitude?.recent);
+                  @let altitudeTrend = getTrendingIcon($safeNavigationMigration(this.dailyDataExtra.altitude?.recent));
 
-                  <span class="numeric">{{ roundNumber(this.dailyDataExtra.altitude?.average, 2) }}</span>
+                  <span class="numeric">{{ roundNumber($safeNavigationMigration(this.dailyDataExtra.altitude?.average), 2) }}</span>
                   <mat-icon class="trend-icon" [class]="altitudeTrend[1]">{{ altitudeTrend[0] }}</mat-icon>
                 </div>
               </div>

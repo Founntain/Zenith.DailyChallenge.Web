@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ModHelper} from '../../util/ModHelper';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {CookieHelper} from '../../util/CookieHelper';
@@ -45,6 +45,7 @@ import {ConditionType} from '../../services/network/data/enums/ConditionType';
     MatTooltip
   ],
   templateUrl: './user-new.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './user-new.component.scss'
 })
 export class UserNewComponent implements OnInit{

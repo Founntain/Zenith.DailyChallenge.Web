@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 
 
 @Component({
   selector: 'app-zenith-text-wobble',
   imports: [],
   templateUrl: './zenith-text-wobble.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './zenith-text-wobble.component.scss'
 })
 export class ZenithTextWobbleComponent implements OnInit {

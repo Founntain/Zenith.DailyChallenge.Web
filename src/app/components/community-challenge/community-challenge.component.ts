@@ -1,4 +1,4 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {CommunityChallenge} from '../../services/network/data/interfaces/CommunityChallenge';
 import {RecentCommunityContribution} from '../../services/network/data/interfaces/RecentCommunityContribution';
 import {interval, Observable} from 'rxjs';
@@ -22,6 +22,7 @@ import {MatRipple} from '@angular/material/core';
     MatRipple,
   ],
   templateUrl: './community-challenge.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './community-challenge.component.scss'
 })
 export class CommunityChallengeComponent implements OnInit, OnDestroy{

@@ -1,4 +1,4 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ChallengeComponent} from "../challenge/challenge.component";
 import {ZenithTextWobbleComponent} from "../zenith-text-wobble/zenith-text-wobble.component";
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
@@ -30,6 +30,7 @@ import {DailyHelper} from '../../util/DailyHelper';
     MatTab
   ],
   templateUrl: './challenges.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './challenges.component.scss'
 })
 export class ChallengesComponent implements OnInit, OnDestroy {

@@ -108,25 +108,25 @@
         }
         @if(!challenge.isReverse) {
           <div class="mastery-mods">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.expertCompleted)]" src="assets/tetrio-img/mods/expert.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.noHoldCompleted)]" src="assets/tetrio-img/mods/nohold.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.messyCompleted)]" src="assets/tetrio-img/mods/messy.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.gravityCompleted)]" src="assets/tetrio-img/mods/gravity.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.volatileCompleted)]" src="assets/tetrio-img/mods/volatile.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.doubleHoleCompleted)]" src="assets/tetrio-img/mods/doublehole.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.invisibleCompleted)]" src="assets/tetrio-img/mods/invisible.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.allSpinCompleted)]" src="assets/tetrio-img/mods/allspin.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.expertCompleted))]" src="assets/tetrio-img/mods/expert.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.noHoldCompleted))]" src="assets/tetrio-img/mods/nohold.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.messyCompleted))]" src="assets/tetrio-img/mods/messy.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.gravityCompleted))]" src="assets/tetrio-img/mods/gravity.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.volatileCompleted))]" src="assets/tetrio-img/mods/volatile.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.doubleHoleCompleted))]" src="assets/tetrio-img/mods/doublehole.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.invisibleCompleted))]" src="assets/tetrio-img/mods/invisible.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.allSpinCompleted))]" src="assets/tetrio-img/mods/allspin.png">
           </div>
         }@else{
           <div class="mastery-mods">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.expertReversedCompleted)]" src="assets/tetrio-img/mods/expert_reversed.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.noHoldReversedCompleted)]" src="assets/tetrio-img/mods/nohold_reversed.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.messyReversedCompleted)]" src="assets/tetrio-img/mods/messy_reversed.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.gravityReversedCompleted)]" src="assets/tetrio-img/mods/gravity_reversed.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.volatileReversedCompleted)]" src="assets/tetrio-img/mods/volatile_reversed.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.doubleHoleReversedCompleted)]" src="assets/tetrio-img/mods/doublehole_reversed.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.invisibleReversedCompleted)]" src="assets/tetrio-img/mods/invisible_reversed.png">
-            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass((this.challengeCompletions$|async)?.masteryChallenge?.allSpinReversedCompleted)]" src="assets/tetrio-img/mods/allspin_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.expertReversedCompleted))]" src="assets/tetrio-img/mods/expert_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.noHoldReversedCompleted))]" src="assets/tetrio-img/mods/nohold_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.messyReversedCompleted))]" src="assets/tetrio-img/mods/messy_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.gravityReversedCompleted))]" src="assets/tetrio-img/mods/gravity_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.volatileReversedCompleted))]" src="assets/tetrio-img/mods/volatile_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.doubleHoleReversedCompleted))]" src="assets/tetrio-img/mods/doublehole_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.invisibleReversedCompleted))]" src="assets/tetrio-img/mods/invisible_reversed.png">
+            <img [class]="['bigMod','flexStretch', ChallengeHelper.getModMasteryCompletionCssClass($safeNavigationMigration((this.challengeCompletions$|async)?.masteryChallenge?.allSpinReversedCompleted))]" src="assets/tetrio-img/mods/allspin_reversed.png">
           </div>
         }
         <div class="mastery-conditions">
@@ -190,7 +190,7 @@
             <span class="task"> {{ ChallengeHelper.getWeeklyPrefix(condition.type) }}</span>
             <img src="{{getWeeklyCompletionImage($index, condition.value, condition.type)}}" class="weekly-img">
             <div class="values-card">
-              @let progress = this.weeklyProgress?.progress?.[$index];
+              @let progress = $safeNavigationMigration(this.weeklyProgress?.progress?.[$index]);
 
               @if(progress){
                 <span class="condition-value" [class]="'condition'+($index + 1)">{{ progress.currentProgress.toLocaleString('en-US') }}</span>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ZenithUserService } from '../../services/network/zenith-user.service';
 
@@ -30,6 +30,7 @@ import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits'
     MatHeaderCellDef
 ],
   templateUrl: './splits.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './splits.component.scss'
 })
 export class SplitsComponent implements OnInit {

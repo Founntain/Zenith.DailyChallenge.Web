@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ArchiveService} from '../../services/network/archive.service';
 import {CommunityChallengeArchive} from '../../services/network/data/interfaces/CommunityChallengeArchive';
 import { NgOptimizedImage } from '@angular/common';
@@ -35,6 +35,7 @@ import {
     RouterLink
   ],
   templateUrl: './community-archive.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './community-archive.component.scss'
 })
 

@@ -10,7 +10,7 @@
     <div class="userBanner" [style.backgroundImage]="'url(https://tetr.io/user-content/banners/' + (dailyData.userInfo?.userId) + '.jpg?rv='+ (dailyData.userInfo?.banner) + ')'"></div>
 
     <div class="flexRow gap userInfoContainer">
-      @if (dailyData.userInfo?.avatar !== undefined && dailyData.userInfo?.avatar !== null) {
+      @if ($safeNavigationMigration(dailyData.userInfo?.avatar) !== undefined && $safeNavigationMigration(dailyData.userInfo?.avatar) !== null) {
         <img src="https://tetr.io/user-content/avatars/{{dailyData.userInfo?.userId}}.jpg?rv={{dailyData.userInfo?.avatar}}" class="profileImage">
       }
       <div class="flexColumn">
@@ -258,33 +258,33 @@
                     <td mat-cell *matCellDef="let element">
                       <div class="flexStretch completionTable">
                         <div>
-                          <img [class]="getCompletedImage(element?.easyCompleted)"    src="assets/clear_easy_2.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.normalCompleted)"  src="assets/clear_normal_2.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.hardCompleted)"    src="assets/clear_hard_2.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.expertCompleted)"  src="assets/clear_expert.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.reverseCompleted)" src="assets/clear_reverse.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.easyCompleted))"    src="assets/clear_easy_2.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.normalCompleted))"  src="assets/clear_normal_2.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.hardCompleted))"    src="assets/clear_hard_2.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.expertCompleted))"  src="assets/clear_expert.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.reverseCompleted))" src="assets/clear_reverse.png" class="mod" />
                         </div>
 
                         <div>
-                          <img [class]="getCompletedImage(element?.mastery?.expertCompleted)" src="assets/tetrio-img/mods/expert.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.noHoldCompleted)" src="assets/tetrio-img/mods/nohold.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.messyCompleted)" src="assets/tetrio-img/mods/messy.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.gravityCompleted)" src="assets/tetrio-img/mods/gravity.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.volatileCompleted)" src="assets/tetrio-img/mods/volatile.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.doubleHoleCompleted)" src="assets/tetrio-img/mods/doublehole.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.invisibleCompleted)" src="assets/tetrio-img/mods/invisible.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.allSpinCompleted)" src="assets/tetrio-img/mods/allspin.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.expertCompleted))" src="assets/tetrio-img/mods/expert.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.noHoldCompleted))" src="assets/tetrio-img/mods/nohold.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.messyCompleted))" src="assets/tetrio-img/mods/messy.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.gravityCompleted))" src="assets/tetrio-img/mods/gravity.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.volatileCompleted))" src="assets/tetrio-img/mods/volatile.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.doubleHoleCompleted))" src="assets/tetrio-img/mods/doublehole.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.invisibleCompleted))" src="assets/tetrio-img/mods/invisible.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.allSpinCompleted))" src="assets/tetrio-img/mods/allspin.png" class="mod" />
                         </div>
 
                         <div>
-                          <img [class]="getCompletedImage(element?.mastery?.expertReversedCompleted)" src="assets/tetrio-img/mods/expert_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.noHoldReversedCompleted)" src="assets/tetrio-img/mods/nohold_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.messyReversedCompleted)" src="assets/tetrio-img/mods/messy_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.gravityReversedCompleted)" src="assets/tetrio-img/mods/gravity_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.volatileReversedCompleted)" src="assets/tetrio-img/mods/volatile_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.doubleHoleReversedCompleted)" src="assets/tetrio-img/mods/doublehole_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.invisibleReversedCompleted)" src="assets/tetrio-img/mods/invisible_reversed.png" class="mod" />
-                          <img [class]="getCompletedImage(element?.mastery?.allSpinReversedCompleted)" src="assets/tetrio-img/mods/allspin_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.expertReversedCompleted))" src="assets/tetrio-img/mods/expert_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.noHoldReversedCompleted))" src="assets/tetrio-img/mods/nohold_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.messyReversedCompleted))" src="assets/tetrio-img/mods/messy_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.gravityReversedCompleted))" src="assets/tetrio-img/mods/gravity_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.volatileReversedCompleted))" src="assets/tetrio-img/mods/volatile_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.doubleHoleReversedCompleted))" src="assets/tetrio-img/mods/doublehole_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.invisibleReversedCompleted))" src="assets/tetrio-img/mods/invisible_reversed.png" class="mod" />
+                          <img [class]="getCompletedImage($safeNavigationMigration(element?.mastery?.allSpinReversedCompleted))" src="assets/tetrio-img/mods/allspin_reversed.png" class="mod" />
                         </div>
                       </div>
                     </td>

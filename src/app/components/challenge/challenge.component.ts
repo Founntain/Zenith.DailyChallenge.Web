@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, ChangeDetectionStrategy} from '@angular/core';
 import {NgClass} from '@angular/common';
 import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
@@ -12,6 +12,7 @@ import {ZenithTextWobbleComponent} from '../zenith-text-wobble/zenith-text-wobbl
     ZenithTextWobbleComponent,
   ],
   templateUrl: './challenge.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './challenge.component.scss'
 })
 export class ChallengeComponent implements OnChanges{

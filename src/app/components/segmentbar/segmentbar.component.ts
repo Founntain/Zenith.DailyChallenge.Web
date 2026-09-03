@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatTooltip} from '@angular/material/tooltip';
 
@@ -14,6 +14,7 @@ export interface BarSegmet{
     MatTooltip
 ],
   templateUrl: './segmentbar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './segmentbar.component.scss'
 })
 export class SegmentbarComponent {

@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {GlobalLeaderboard, SeasonalLeaderboard} from '../../services/network/data/interfaces/GlobalLeaderboard';
 import {LeaderboardService} from '../../services/network/leaderboard.service';
 import {DailyHelper} from '../../util/DailyHelper';
@@ -16,6 +16,7 @@ import {interval} from 'rxjs';
     MatIcon,
   ],
   templateUrl: './leaderboard.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './leaderboard.component.scss'
 })
 export class LeaderboardComponent implements OnInit {

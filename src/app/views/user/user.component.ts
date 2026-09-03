@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {ZenithService} from '../../services/network/zenith.service';
@@ -82,6 +82,7 @@ import {ZenithSplitsComponent} from '../../components/zenith-splits/zenith-split
     ZenithSplitsComponent
   ],
   templateUrl: './user.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnInit, AfterViewInit {
