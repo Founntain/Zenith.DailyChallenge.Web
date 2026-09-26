@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit, ChangeDetectionStrategy, inject, signal, ResourceRef} from '@angular/core';
+import {Component, NgZone, OnInit, ChangeDetectionStrategy, inject, signal, ResourceRef, effect} from '@angular/core';
 import {GlobalLeaderboard, SeasonalLeaderboard} from '../../services/network/data/interfaces/GlobalLeaderboard';
 import {LeaderboardService} from '../../services/network/leaderboard.service';
 import {DailyHelper} from '../../util/DailyHelper';
@@ -8,6 +8,7 @@ import {MatIcon} from '@angular/material/icon';
 import {TimeHelper} from '../../util/TimeHelper';
 import {interval, map, Observable} from 'rxjs';
 import {rxResource} from '@angular/core/rxjs-interop';
+import {ChartHelper} from '../../util/ChartHelper';
 
 @Component({
   selector: 'app-leaderboard',
@@ -29,7 +30,6 @@ export class LeaderboardComponent implements OnInit {
   protected seasonalTimeLeft: string = 'fetching time left...';
 
   private timerId: any;
-
 
   activeLeaderboard = rxResource({
     params: () => ({ view: this.activeView() }),

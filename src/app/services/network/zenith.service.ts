@@ -1,22 +1,21 @@
-import { Injectable } from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {DailyChallenge} from './data/interfaces/DailyChallenge';
-import {GlobalLeaderboard} from './data/interfaces/GlobalLeaderboard';
 import {CommunityChallenge} from './data/interfaces/CommunityChallenge';
 import {RecentCommunityContribution} from './data/interfaces/RecentCommunityContribution';
 import {ServerStatistics} from './data/interfaces/ServerStatistics';
 import {WeeklyChallenge, WeeklyChallengeProgress} from './data/interfaces/WeeklyChallenge';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class ZenithService {
 
   baseUrl = environment.apiUrl + '/zenith';
 
-  constructor(private http: HttpClient) { }
+  private readonly http = inject(HttpClient);
+
+  constructor() { }
 
   getDates(): Observable<any>{
     return this.http.get<any>(this.baseUrl + '/daily/date');

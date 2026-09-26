@@ -12,7 +12,7 @@ export const routes: Routes = [
     { path: 'seasonal', loadComponent: () => import('./views/seasonal/seasonal.component').then(m => m.SeasonalComponent) },
 
     // User routes
-    { path: 'u/:username', loadComponent: () => import('./views/user-new/user-new.component').then(m => m.UserNewComponent) },
+    { path: 'u/:username', loadComponent: () => import('./views/user/user.component').then(m => m.UserComponent) },
     { path: 'u/:username/run/:runId', loadComponent: () => import('./views/run/run.component').then(m => m.RunComponent) },
     { path: 'u/:username/runs', loadComponent: () => import('./views/runs/runs.component').then(m => m.RunsComponent) },
     { path: 'u/:username/dailies', loadComponent: () => import('./views/user-dailies/user-dailies.component').then(m => m.UserDailiesComponent) },
