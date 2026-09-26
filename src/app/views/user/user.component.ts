@@ -519,6 +519,6 @@ export class UserComponent implements OnInit{
   }
 
   protected shareRun() {
-    navigator.clipboard.writeText(`https://tetrio.founntain.dev/share/${this.username}`);
+    navigator.clipboard.writeText(`https://tetrio.founntain.dev/share/${this.username()}`);
   }
 }

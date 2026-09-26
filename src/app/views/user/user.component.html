@@ -97,7 +97,7 @@
         <div class="dailies-container">
           <div class="section-header">
             <span class="section-header-title">Dailies</span>
-            <div class="section-header-action movable-link" [routerLink]="['/u', username, 'dailies']">
+            <div class="section-header-action movable-link" [routerLink]="['/u', username(), 'dailies']">
               <span class="subtleText justifyRight">Show History</span>
               <mat-icon class="subtleText vertical-icon" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
             </div>
@@ -173,7 +173,7 @@
         <div class="runs-container">
           <div class="section-header">
             <span class="section-header-title">Recent Runs</span>
-            <div class="section-header-action movable-link" [routerLink]="['/u', username, 'runs']">
+            <div class="section-header-action movable-link" [routerLink]="['/u', username(), 'runs']">
               <span class="subtleText justifyRight">Show History</span>
               <mat-icon class="subtleText vertical-icon" style="font-size: 0.9rem; height: 0.9rem;">arrow_forward</mat-icon>
             </div>
@@ -182,7 +182,7 @@
             @let runs = this.recentRuns.value();
 
             @for (run of runs; track $index) {
-              <div class="run-card floor-border animateLeft" [class]="[isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen), getFloorKeyFromAltitude(run.altitude)]" [routerLink]="['/u', username, 'run', run.tetrioId]">
+              <div class="run-card floor-border animateLeft" [class]="[isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen), getFloorKeyFromAltitude(run.altitude)]" [routerLink]="['/u', username(), 'run', run.tetrioId]">
                 <div class="run-card-background">
                   <img src="https://tetr.io/res/bg/zenith/{{DailyHelper.getFloorByAltitude(run.altitude)}}fa.jpg" alt="Challenge Background" class="background-image" />
                   <div class="gradient-overlay"></div>
@@ -222,7 +222,7 @@
                   <span class="subtle-text solid end">{{ run.playedAt|date:'short' }}</span>
                   <div class="view-details-label">
                     <span class="boldText">View Details</span>
-                    <mat-icon class="icon icon-accent" [routerLink]="['/u', username, 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
+                    <mat-icon class="icon icon-accent" [routerLink]="['/u', username(), 'run', run.tetrioId]" [class]="[getFloorKeyFromAltitude(run.altitude)]" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
                   </div>
                 </div>
               </div>
@@ -430,7 +430,7 @@
       }
     }
 
-    @if(this.activeView === 'splits' && username() !== undefined && username !== null){
+    @if(this.activeView === 'splits' && username() !== undefined && username() !== null){
       <app-zenith-splits [username]="username()!"></app-zenith-splits>
     }
 

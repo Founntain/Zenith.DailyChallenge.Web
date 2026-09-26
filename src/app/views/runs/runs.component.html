@@ -1,14 +1,14 @@
 <div class="simpleContainer gap" style="margin: 1rem;">
   <div class="flexRow" style="width: 100%;">
     <div class="alignLeft justifyLeft flexStretch" style="text-align: start; font-size: 2rem">
-      <span class="header-text uppercase">{{username}}</span><span>'s past runs</span>
+      <span class="header-text uppercase">{{username()}}</span><span>'s past runs</span>
     </div>
-    <div class="flexRow verticalCenter section-header-action movable-link justifyRight animateLeft" style="cursor:pointer;" [routerLink]="['/u', username]">
-      <span class="subtleText">Back to <span class="uppercase header-text">{{username}}</span>'s profile</span>
+    <div class="flexRow verticalCenter section-header-action movable-link justifyRight animateLeft" style="cursor:pointer;" [routerLink]="['/u', username()]">
+      <span class="subtleText">Back to <span class="uppercase header-text">{{username()}}</span>'s profile</span>
       <mat-icon class="subtleText" style="font-size: 0.9rem; height: 0.9rem">arrow_forward</mat-icon>
     </div>
   </div>
-  @for (run of this.runs; track $index) {
+  @for (run of this.runs(); track $index) {
     <div class="flexRow flexStretch gap card animateLeft clickable floorBorder" [class]="[isSpeedrun(run.altitude, run.speedrunCompleted, run.speedrunSeen), getFloorKeyFromAltitude(run.altitude)]" style="width: 95%;" [routerLink]="['/u', username, 'run', run.tetrioId]">
       <div class="flexColumn flexStretch gap justifyCenter" [class]="[]">
         <span class="subtleText">{{getFloorNameFromAltitude(run.altitude)}}</span>
