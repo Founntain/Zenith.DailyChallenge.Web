@@ -7,10 +7,13 @@ import {DailyChallengeArchive} from '../../services/network/data/interfaces/Dail
 import {ChallengeHelper} from '../../util/ChallengeHelper';
 import {ArchiveService} from '../../services/network/archive.service';
 import {Difficulty} from '../../services/network/data/enums/Difficulty';
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {min} from 'rxjs';
+import {Component, ChangeDetectionStrategy, inject, signal, computed} from '@angular/core';
+import {map, min} from 'rxjs';
 import {MatTooltip} from '@angular/material/tooltip';
 import {RouterLink} from '@angular/router';
+import {rxResource} from '@angular/core/rxjs-interop';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatProgressBar} from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-daily-archive',
@@ -20,6 +23,8 @@ import {RouterLink} from '@angular/router';
     MatInputModule,
     MatTooltip,
     RouterLink,
+    MatProgressSpinner,
+    MatProgressBar,
   ],
   providers: [
     provideNativeDateAdapter(),
@@ -30,25 +35,34 @@ import {RouterLink} from '@angular/router';
 })
 
 export class DailyArchiveComponent {
-  archiveData: DailyChallengeArchive[] = [];
-  currentDate: any;
-  minDate: any;
-  maxDate: any;
+  private readonly archiveService = inject(ArchiveService);
 
-  constructor(private archiveService: ArchiveService) {
-    this.loadDailyChallengeFromServer(null)
-  }
+  selectedDate = signal<string | null>(null);
 
-  protected loadDailyChallengeFromServer(date: any | null){
+  archiveData = rxResource({
+    params: () => ({date: this.selectedDate()}),
+    stream: ({ params }: { params: { date: string | null } }) => {
+      return this.archiveService.getPastDailyChallenges(params.date).pipe(map(res => res as DailyChallengeArchive[]))
+    }
+  })
 
-    this.archiveService.getPastDailyChallenges(date).subscribe(result => {
-      this.archiveData = result;
+  currentDate = computed(() => {
+    if(!this.archiveData.hasValue()) return null;
 
-      this.currentDate = this.archiveData[0].date;
-      this.minDate = this.archiveData[0].minDate;
-      this.maxDate = this.archiveData[0].maxDate;
-    });
-  }
+    return this.archiveData.value()[0].date;
+  })
+
+  minDate = computed(() => {
+    if(!this.archiveData.hasValue()) return null;
+
+    return this.archiveData.value()[0].minDate;
+  })
+
+  maxDate = computed(() => {
+    if(!this.archiveData.hasValue()) return null;
+
+    return this.archiveData.value()[0].maxDate;
+  })
 
   protected getDifficultyName(difficulty: Difficulty) {
     switch (difficulty) {
@@ -71,25 +85,12 @@ export class DailyArchiveComponent {
       default: return '';
     }
   }
-
-  getConditionText(type: number, value: number): string{
-    return ChallengeHelper.getConditionText(type, value);
-  }
-
-  getPrefix(type: number): string{
-    return ChallengeHelper.getPrefix(type);
-  }
-
   getValue(type: number, value: number):any []{
     return ChallengeHelper.getValue(type, value);
   }
 
   getDifficultyText(difficulty: number, mods: string, getCssClass = false): string{
     return ChallengeHelper.getDifficultyText(difficulty, mods, getCssClass);
-  }
-
-  getReverseFlavorText(mods: string): string{
-    return ChallengeHelper.getReverseFlavorText(mods);
   }
 
   getModImage(mod: string) {
@@ -107,6 +108,6 @@ export class DailyArchiveComponent {
 
     let dateString = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 
-    this.loadDailyChallengeFromServer(dateString);
+    this.selectedDate.set(dateString);
   }
 }

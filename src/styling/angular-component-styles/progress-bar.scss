@@ -1,0 +1,7 @@
+﻿@use '@angular/material' as mat;
+@use "../colors" as *;
+
+@include mat.progress-bar-overrides((
+  active-indicator-color: $colorful-accent-gradientColor2,
+  track-color: rgba($text-color, 0.2),
+));

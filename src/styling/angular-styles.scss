@@ -9,6 +9,7 @@
 @use 'angular-component-styles/tab' as *;
 @use 'angular-component-styles/expansion' as *;
 @use 'angular-component-styles/snackbar' as *;
+@use 'angular-component-styles/progress-bar' as *;
 
 :root {
   @include mat.chips-overrides((
