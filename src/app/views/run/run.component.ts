@@ -1,13 +1,14 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnInit, ChangeDetectionStrategy, inject, signal, computed} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
-import {DetailedRun} from '../../services/network/data/interfaces/Run';
+import {RunResponse} from '../../services/network/data/interfaces/Run';
 import {DailyHelper} from '../../util/DailyHelper';
-import {Splits} from '../../services/network/data/interfaces/Splits';
 import {RunAnalyzer} from '../../util/RunAnalyzer';
 import {MatTooltip} from '@angular/material/tooltip';
 import {DatePipe} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
+import {rxResource} from '@angular/core/rxjs-interop';
+import {map} from 'rxjs';
 
 @Component({
   selector: 'app-run',
@@ -21,59 +22,101 @@ import {MatIcon} from '@angular/material/icon';
   styleUrl: './run.component.scss'
 })
 export class RunComponent implements OnInit{
+  private readonly route = inject(ActivatedRoute);
+  private readonly userService = inject(ZenithUserService);
+
   dailyHelper: DailyHelper = new DailyHelper();
   flavourType = Math.floor(Math.random() * (6 - 1 + 1) + 1);
 
-  username!: string;
-  runId!: string;
+  username = signal<string>('');
+  runId = signal<string>('');
 
-  run: DetailedRun | undefined;
-  splits: Splits | undefined;
+  run = computed(() => {
+    if(this.runData.hasValue()) {
+      return this.runData.value().run;
+    }
 
-  agressionScore: number = 0;
-  defenseScore: number = 0;
-  stabilityScore: number = 0;
-  pressureScore: number = 0;
-  totalScore: number = 0;
+    return null;
+  })
 
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly userService: ZenithUserService,
-  ) {
+  splits = computed(() => {
+    if(this.runData.hasValue()) {
+      return this.runData.value().split;
+    }
 
-  }
+    return null;
+  })
+
+  runData = rxResource({
+    params: () => ({ username: this.username(), runId: this.runId() }),
+    stream: ({ params }: { params: { username: string | null; runId: string | null } }) => {
+      if (!params.username) {
+        throw new Error('Username is required');
+      }
+
+      if(!params.runId) {
+        throw new Error('Run ID is required');
+      }
+
+      return this.userService.getRun(params.username, params.runId).pipe(map(res => res as RunResponse));
+    },
+  });
+
+  agressionScore = computed(() => {
+    if (!this.runData.value) return 0;
+
+    const runData = this.runData.value()
+
+    if(!runData) return 0;
+
+    const ra = new RunAnalyzer();
+
+    return ra.calculateAggressionScore(runData?.run!.apm, runData.run!.vs, runData.run!.app, runData.run!.garbageMaxSpike, runData.run!.garbageSent, runData.run!.totalTime);
+  });
+
+  defenseScore = computed(() => {
+    if (!this.run()) return 0;
+
+    const ra = new RunAnalyzer();
+
+    return ra.calculateDefenseScore(this.run()!.topCombo, this.run()!.garbageCleared, this.run()!.garbageReceived, this.run()!.totalTime, this.run()!.gameOverReason)
+  });
+
+  stabilityScore = computed(() => {
+    if (!this.run()) return 0;
+
+    const ra = new RunAnalyzer();
+
+    return ra.calculateExecutionScore(this.run()!.finesse, this.run()!.inputs, this.run()!.holds, this.run()!.piecesPlaced)
+  });
+
+  pressureScore = computed(() => {
+    if (!this.run()) return 0;
+
+    const ra = new RunAnalyzer();
+
+    return ra.calculatePlaystyleScore(this.run()!.quads, this.run()!.spins, this.run()!.back2Back, this.run()!.topCombo)
+  });
+
+  totalScore = computed(() => {
+    return (this.agressionScore() + this.defenseScore() + this.stabilityScore() + this.pressureScore()) / 4;
+  })
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.username = params.get('username')!;
-      this.runId = params.get('runId')!;
-
-      this.userService.getRun(this.username, this.runId).subscribe(result => {
-        this.run = result.run;
-        this.splits = result.split;
-
-        const ra = new RunAnalyzer();
-
-        this.agressionScore = ra.calculateAggressionScore(this.run!.apm, this.run!.vs, this.run!.app, this.run!.garbageMaxSpike, this.run!.garbageSent, this.run!.totalTime);
-        this.defenseScore = ra.calculateDefenseScore(this.run!.topCombo, this.run!.garbageCleared, this.run!.garbageReceived, this.run!.totalTime, this.run!.gameOverReason)
-        this.stabilityScore = ra.calculateExecutionScore(this.run!.finesse, this.run!.inputs, this.run!.holds, this.run!.piecesPlaced)
-        this.pressureScore = ra.calculatePlaystyleScore(this.run!.quads, this.run!.spins, this.run!.back2Back, this.run!.topCombo)
-
-        // Calculate total score
-        this.totalScore = (this.agressionScore + this.defenseScore + this.stabilityScore + this.pressureScore) / 4;
-      })
+      this.username.set(params.get('username')!);
+      this.runId.set(params.get('runId')!);
     });
   }
 
-
   floorToName(floor: number) {
-    if(floor == 0 && this.run?.altitude) floor = DailyHelper.getFloorByAltitude(this.run.altitude)
+    if(floor == 0 && this.run()?.altitude) floor = DailyHelper.getFloorByAltitude(this.run()!.altitude)
 
     return DailyHelper.getFloorLongName(floor);
   }
 
   getFloorKey(floor: number) {
-    if(floor == 0 && this.run?.altitude) floor = DailyHelper.getFloorByAltitude(this.run.altitude)
+    if(floor == 0 && this.run()?.altitude) floor = DailyHelper.getFloorByAltitude(this.run()!.altitude)
 
     return DailyHelper.getFloorKey(floor);
   }
@@ -114,6 +157,6 @@ export class RunComponent implements OnInit{
   }
 
   protected shareRun() {
-    navigator.clipboard.writeText(`https://tetrio.founntain.dev/share/${this.username}/run/${this.runId}`);
+    navigator.clipboard.writeText(`https://tetrio.founntain.dev/share/${this.username()}/run/${this.runId()}`);
   }
 }
