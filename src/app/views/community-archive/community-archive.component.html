@@ -1,41 +1,43 @@
-@if (communityChallenge !== undefined) {
+@if (!communityChallenge.isLoading() && communityChallenge.hasValue()) {
+  @let cc = communityChallenge.value();
+
   <div class="baseContainer ">
 
     <div class="challenge-container">
       <div class="challenge-details">
         <div class="header">
-          @if (communityChallenge.name !== undefined && communityChallenge.name?.length > 0) {
-            <span class="title"> {{communityChallenge.name}} </span>
+          @if (cc.name !== undefined && cc.name?.length > 0) {
+            <span class="title"> {{cc.name}} </span>
           }@else{
             <span class="title"> Community Challenge </span>
           }
 
           <div class="date">
             <mat-icon>calendar_today</mat-icon>
-            <span>{{communityChallenge.startDate}}</span>
+            <span>{{cc.startDate}}</span>
             <mat-icon>chevron_right</mat-icon>
-            <span>{{communityChallenge.endDate}}</span>
+            <span>{{cc.endDate}}</span>
           </div>
         </div>
 
         <div class="sub-header">
           <div class="page-controls">
-            <div class="page previous" matRipple (click)="goToPage(communityChallenge.previousChallengeId)">
+            <div class="page previous" matRipple (click)="goToPage(cc.previousChallengeId)">
               <mat-icon>chevron_left</mat-icon>
             </div>
 
-            <div class="page next" matRipple (click)="goToPage(communityChallenge.nextChallengeId)">
+            <div class="page next" matRipple (click)="goToPage(cc.nextChallengeId)">
               <mat-icon>chevron_right</mat-icon>
             </div>
           </div>
 
           <div class="participants">
-            <span class="count">{{communityChallenge.participants.length}}</span>
+            <span class="count">{{cc.participants.length}}</span>
             <span> participants</span>
           </div>
         </div>
 
-        @if (communityChallenge.description !== undefined) {
+        @if (cc.description !== undefined) {
           <mat-expansion-panel matRipple>
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -43,22 +45,22 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <span class="description"> {{communityChallenge.description}}</span>
+            <span class="description"> {{cc.description}}</span>
           </mat-expansion-panel>
         }
 
-        @if(communityChallenge?.mods?.length > 0){
+        @if(cc?.mods?.length > 0){
           <div class="mod-container">
-            @for (mod of communityChallenge?.mods; track $index) {
+            @for (mod of cc?.mods; track $index) {
               <img class="bigMod" src="assets/tetrio-img/mods/{{mod}}.png">
             }
           </div>
         }
 
         <div class="progress">
-          <span class="current-value">{{communityChallenge.value.toLocaleString()}} {{getTypeSuffix(communityChallenge.conditionType)}}</span>
+          <span class="current-value">{{cc.value.toLocaleString()}} {{getTypeSuffix(cc.conditionType)}}</span>
           <span class="devider"> / </span>
-          <span class="goal-value">{{communityChallenge.targetValue.toLocaleString()}} {{getTypeSuffix(communityChallenge.conditionType)}}</span>
+          <span class="goal-value">{{cc.targetValue.toLocaleString()}} {{getTypeSuffix(cc.conditionType)}}</span>
         </div>
       </div>
     </div>
@@ -67,9 +69,9 @@
       <table class="contributor-table">
         <tr class="contributor-header">
           <th>Username</th>
-          <th>{{getTypeSuffix(communityChallenge.conditionType)}}</th>
+          <th>{{getTypeSuffix(cc.conditionType)}}</th>
         </tr>
-        @for (contributor of communityChallenge.participants; track $index) {
+        @for (contributor of cc.participants; track $index) {
           <tr class="contributor-row"
               [class.first-place]="$index === 0"
               [class.second-place]="$index === 1"

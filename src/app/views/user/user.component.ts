@@ -15,7 +15,7 @@ import {
   DailyDataNewExtra,
   RecentAverage
 } from '../../services/network/data/interfaces/DailyData';
-import {DatePipe, NgClass} from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {DailyHelper} from '../../util/DailyHelper';
 import {BaseChartDirective} from 'ng2-charts';
 import {Chart, ChartConfiguration} from 'chart.js';
@@ -30,7 +30,7 @@ import {CommunityChallengeContributions} from '../../services/network/data/inter
 import {SeasonalUserData} from '../../services/network/data/interfaces/SeasonalUserData';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {rxResource} from '@angular/core/rxjs-interop';
-import {map, Observable} from 'rxjs';
+import {map} from 'rxjs';
 
 @Component({
   selector: 'app-user',

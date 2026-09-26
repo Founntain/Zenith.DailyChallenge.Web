@@ -46,12 +46,6 @@ export class DailyArchiveComponent {
     }
   })
 
-  currentDate = computed(() => {
-    if(!this.archiveData.hasValue()) return null;
-
-    return this.archiveData.value()[0].date;
-  })
-
   minDate = computed(() => {
     if(!this.archiveData.hasValue()) return null;
 
@@ -63,17 +57,6 @@ export class DailyArchiveComponent {
 
     return this.archiveData.value()[0].maxDate;
   })
-
-  protected getDifficultyName(difficulty: Difficulty) {
-    switch (difficulty) {
-      case Difficulty.Easy: return 'Easy';
-      case Difficulty.Normal: return 'Normal';
-      case Difficulty.Hard: return 'Hard';
-      case Difficulty.Expert: return 'Expert';
-      case Difficulty.Reverse: return 'Reverse';
-      default: return 'ERROR: Tell Founntain';
-    }
-  }
 
   protected getDifficultyCssClass(difficulty: Difficulty  ) {
     switch (difficulty) {
