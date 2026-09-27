@@ -1,21 +1,21 @@
-<div [ngClass]="['container', 'challenge', 'community', 'gap', isCommunityChallengeFinished]">
+<div [ngClass]="['container', 'challenge', 'community', 'gap', isCommunityChallengeFinished()]">
   <div class="header-section">
-    @if ($safeNavigationMigration(communityChallengeData?.communityChallenge?.name) !== null) {
-      <h1 class="page-title">{{ communityChallengeData?.communityChallenge.name.toUpperCase() }}</h1>
+    @if (communityChallenge.hasValue() && communityChallenge.value()?.communityChallenge?.name !== undefined && communityChallenge.value()?.communityChallenge?.name !== null) {
+      <h1 class="page-title">{{ communityChallenge.value()?.communityChallenge.name.toUpperCase() }}</h1>
     }@else{
       <h1 class="page-title">COMMUNITY CHALLENGE</h1>
     }
 
-    @if(this.communityTimeLeft.length > 0){
+    @if(this.communityTimeLeft().length > 0){
       <div class="timer-card">
         <mat-icon class="timer-icon">schedule</mat-icon>
-        <span class="timer-text">{{communityTimeLeft}}</span>
+        <span class="timer-text">{{communityTimeLeft()}}</span>
       </div>
     }
   </div>
 
   <!-- No CC Active -->
-  @if (communityChallengeData == null || communityChallengeData.communityChallenge === undefined){
+  @if (!communityChallenge.hasValue() || communityChallenge.value() == null || communityChallenge.value()?.communityChallenge === undefined){
     <div class="empty-state">
       <mat-icon class="empty-icon">people_outline</mat-icon>
       <h2>No Active Challenge</h2>
@@ -26,17 +26,19 @@
       </div>
     </div>
   }@else{
+    @let cc = communityChallenge.value();
+
     <!-- CC Active -->
     <div class="challenge-content">
       <div class="hero-section">
-        @if ($safeNavigationMigration(communityChallengeData?.communityChallenge?.description) !== undefined) {
+        @if (cc?.communityChallenge?.description !== undefined) {
           <div class="hero-middle">
               <div class="hero-background">
                 <img src="https://tetr.io/res/bg/zenith/10fa.jpg" alt="Challenge Background" class="background-image" />
                 <div class="gradient-overlay"></div>
               </div>
 
-              <p class="challenge-description">{{ communityChallengeData.communityChallenge.description }}</p>
+              <p class="challenge-description">{{ cc.communityChallenge.description }}</p>
           </div>
         }
 
@@ -51,9 +53,9 @@
               </div>
             </div>
 
-            @if($safeNavigationMigration(communityChallengeData?.communityChallenge?.mods) !== null && communityChallengeData?.communityChallenge?.mods.length > 0){
+            @if(cc?.communityChallenge?.mods !== null && cc?.communityChallenge?.mods.length > 0){
               <div class="mods-container">
-                @for (mod of communityChallengeData?.communityChallenge?.mods; track $index) {
+                @for (mod of cc?.communityChallenge?.mods; track $index) {
                   <img class="mod-badge" src="assets/tetrio-img/mods/{{mod}}.png" [alt]="mod">
                 }
               </div>
@@ -64,22 +66,22 @@
             <div class="progress-card-compact">
               <div class="progress-header">
                 <div class="progress-numbers">
-                  <span class="current-value">{{communityChallengeData.communityChallenge.value.toLocaleString('en-US')}}</span>
+                  <span class="current-value">{{cc.communityChallenge.value.toLocaleString('en-US')}}</span>
                   <span class="progress-divider">/</span>
                   <span class="target-value">{{getCommunityPromptValue()}}</span>
                 </div>
                 <div class="progress-percentage">
-                  {{ChallengeHelper.getCommunityGoalPercentage(communityChallengeData.communityChallenge.value, communityChallengeData.communityChallenge.targetValue)}}
+                  {{ChallengeHelper.getCommunityGoalPercentage(cc.communityChallenge.value, cc.communityChallenge.targetValue)}}
                 </div>
               </div>
 
               <div class="progress-bar-track">
-                <div class="progress-bar-fill" [style.width]="ChallengeHelper.getCommunityGoalPercentage(communityChallengeData.communityChallenge.value, communityChallengeData.communityChallenge.targetValue)"></div>
+                <div class="progress-bar-fill" [style.width]="ChallengeHelper.getCommunityGoalPercentage(cc.communityChallenge.value, cc.communityChallenge.targetValue)"></div>
               </div>
 
               <div class="participants-info">
                 <mat-icon class="participants-icon">people</mat-icon>
-                <span class="participants-count">{{communityChallengeData.communityChallenge.participants}} participants</span>
+                <span class="participants-count">{{cc.communityChallenge.participants}} participants</span>
               </div>
             </div>
           </div>
@@ -94,7 +96,7 @@
             Top Contributors
           </h3>
           <div class="contributors-grid">
-            @for (contributor of communityChallengeData.topContributers ?? []; track contributor.username) {
+            @for (contributor of cc.topContributers ?? []; track contributor.username) {
               <div class="contributor-card">
                 <div class="contributor-rank">#{{$index + 1}}</div>
                 <div class="contributor-info">
@@ -103,7 +105,7 @@
                   </a>
                   <div class="contributor-stats">
                     <span class="contribution-amount">
-                      {{getContributionValue(contributor.amount, communityChallengeData.communityChallenge.conditionType)}}
+                      {{getContributionValue(contributor.amount, cc.communityChallenge.conditionType)}}
                     </span>
                     <span class="contribution-label">contributed</span>
                   </div>
@@ -119,7 +121,7 @@
             Recent Activity
           </h3>
           <div class="activity-feed">
-            @for (contribution of recentContributions; track contribution){
+            @for (contribution of recentContributions.value(); track contribution){
               <div class="activity-item" [class.late-contribution]="contribution.isLate">
                 @if (!contribution.isLate) {
                   <div class="activity-indicator success"></div>
