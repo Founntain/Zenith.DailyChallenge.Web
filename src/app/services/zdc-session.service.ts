@@ -13,13 +13,8 @@ import {HttpClient} from '@angular/common/http';
 
 @Service()
 export class ZdcSessionService {
-  constructor() {
-  }
-
   private readonly zenithService = inject(ZenithService);
   private readonly userService = inject(ZenithUserService);
-
-
   private _snackbar = inject(MatSnackBar);
 
   private readonly _user$ = new BehaviorSubject<UserProfileData | null>(null);

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy, inject, computed} from '@angular/core';
 import {MatIcon} from '@angular/material/icon';
 import {ZenithService} from '../../services/network/zenith.service';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
@@ -6,7 +6,7 @@ import {DailyHelper} from '../../util/DailyHelper';
 import {Condition} from '../../services/network/data/interfaces/Condition';
 import {AsyncPipe, DatePipe, NgOptimizedImage} from '@angular/common';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
-import {firstValueFrom, Observable, take} from 'rxjs';
+import {firstValueFrom, map, Observable, take} from 'rxjs';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {ZdcSessionService} from '../../services/zdc-session.service';
 import {RouterLink} from '@angular/router';
@@ -15,6 +15,7 @@ import {TodayCompletions} from '../../services/network/data/interfaces/TodayComp
 import {WeeklyChallenge, WeeklyChallengeProgress} from '../../services/network/data/interfaces/WeeklyChallenge';
 import {WeeklyConditionType} from '../../services/network/data/enums/ConditionType';
 import {MatRipple} from '@angular/material/core';
+import {rxResource} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-challenges-new',
@@ -28,102 +29,137 @@ import {MatRipple} from '@angular/material/core';
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './challenges-new.component.scss'
 })
-export class ChallengesNewComponent implements OnInit, OnDestroy {
+export class ChallengesNewComponent implements OnDestroy {
+  private readonly zenithService = inject(ZenithService);
+  private readonly userService = inject(ZenithUserService);
+  private readonly session = inject(ZdcSessionService);
+
   public user$: Observable<UserProfileData | null>;
   public dailyChallenges$: Observable<DailyChallenge[] | null>;
   public weekly$: Observable<WeeklyChallenge | null>;
   public weeklyProgress$: Observable<WeeklyChallengeProgress | null>;
   public challengeCompletions$: Observable<TodayCompletions | null>;
-  challenges: Challenge[] = [];
-  masteryChallenges: Challenge[] = [];
-  weekly: WeeklyChallenge | null = null;
-  weeklyProgress: WeeklyChallengeProgress | null = null;
   currentIndex = 0;
   autoPlayInterval?: any;
 
   protected readonly ChallengeHelper = ChallengeHelper;
 
-  constructor(
-    private zenithService: ZenithService,
-    private userService: ZenithUserService,
-    private readonly session: ZdcSessionService
-  ) {
+  dailies = rxResource({
+    stream: () => {
+      return this.dailyChallenges$.pipe(map(res => res as DailyChallenge[]));
+    }
+  })
+
+  challengeCompletions = rxResource({
+    stream: () => {
+      return this.challengeCompletions$.pipe(map(res => res as TodayCompletions));
+    }
+  })
+
+  weekly = rxResource({
+    stream: () => {
+      return this.weekly$.pipe(map(res => res as WeeklyChallenge));
+    }
+  })
+
+  weeklyProgress = rxResource({
+    stream: () => {
+      return this.weeklyProgress$.pipe(map(res => res as WeeklyChallengeProgress));
+    }
+  })
+
+  challenges = computed(() => {
+    if(this.dailies.isLoading() || !this.dailies.hasValue()) return [];
+
+    const dailies = this.dailies.value();
+    const completions = this.challengeCompletions.value();
+
+    if(!dailies) return [];
+    if(dailies!.length <= 0) return [];
+
+    let result = [];
+
+    for (let i = 0; i < dailies.length; i++) {
+      let challenge = dailies[i];
+
+      if(challenge === undefined || challenge === null) continue;
+      if (challenge.isMasteryChallenge) continue;
+
+      let c: Challenge = {
+        id: challenge.id,
+        number: challenge.date,
+        modString: challenge.mods,
+        mods: DailyHelper.getModArray(challenge.mods).map(mod => DailyHelper.getModImageUrl(mod)),
+        difficulty: challenge.points,
+        difficultyText: ChallengeHelper.getDifficultyText(challenge.points, '', true).toLowerCase(),
+        imageUrl: 'https://tetr.io/res/bg/zenith/' + DailyHelper.getFloorByAltitude(challenge.conditions[0].value) + 'fa.jpg',
+        remainingTime: (challenge.completions ?? 0).toLocaleString(),
+        stats: this.getStatsFromConditions(challenge.conditions),
+        isReverse: challenge.isReverse,
+        isCompleted: false,
+      }
+
+      const completion = completions?.completedChallengesIds?.find(id => id === challenge.id);
+
+      if(completion) {
+        c.isCompleted = true;
+      }
+
+      result.push(c);
+    }
+
+    return result;
+  })
+
+  masteryChallenges = computed(() => {
+    if(this.dailies.isLoading() || !this.dailies.hasValue()) return [];
+
+    const dailies = this.dailies.value();
+    const completions = this.challengeCompletions.value();
+
+    if(!dailies) return [];
+    if(dailies!.length <= 0) return [];
+
+    let result = [];
+
+    for(let i = 0; i< dailies.length; i++){
+      let challenge = dailies[i];
+
+      if(challenge === undefined || challenge === null) continue;
+      if (!challenge.isMasteryChallenge) continue;
+
+      let c: Challenge = {
+        id: challenge.id,
+        number: challenge.date,
+        modString: challenge.mods,
+        mods: DailyHelper.getModArray(challenge.mods).map(mod => DailyHelper.getModImageUrl(mod)),
+        difficulty: challenge.points,
+        difficultyText: ChallengeHelper.getDifficultyText(challenge.points, '', true).toLowerCase(),
+        imageUrl: 'https://tetr.io/res/bg/zenith/' + DailyHelper.getFloorByAltitude(challenge.conditions[0].value) + 'fa.jpg',
+        remainingTime: (challenge.completions ?? 0).toLocaleString(),
+        stats: this.getStatsFromConditions(challenge.conditions),
+        isReverse: challenge.isReverse,
+        isCompleted: false
+      }
+
+      const completion = completions?.completedChallengesIds?.find(id => id === challenge.id);
+
+      if(completion) {
+        c.isCompleted = true;
+      }
+
+      result.push(c);
+    }
+
+    return result;
+  })
+
+  constructor() {
     this.user$ = this.session.user$;
     this.dailyChallenges$ = this.session.dailies$;
     this.weekly$ = this.session.weekly$;
     this.weeklyProgress$ = this.session.weeklyProgress$;
     this.challengeCompletions$ = this.session.challengeCompletions$;
-  }
-
-  ngOnInit() {
-    this.dailyChallenges$.subscribe(async challenges => {
-      if(challenges === undefined || challenges === null) return;
-
-      this.challenges = [];
-      this.masteryChallenges = [];
-
-      for (let i = 0; i < challenges.length; i++) {
-        let challenge = challenges[i];
-
-        if(challenge === undefined || challenge === null) continue;
-        if (challenge.isMasteryChallenge) continue;
-
-        let c: Challenge = {
-          id: challenge.id,
-          number: challenge.date,
-          modString: challenge.mods,
-          mods: DailyHelper.getModArray(challenge.mods).map(mod => DailyHelper.getModImageUrl(mod)),
-          difficulty: challenge.points,
-          difficultyText: ChallengeHelper.getDifficultyText(challenge.points, '', true).toLowerCase(),
-          imageUrl: 'https://tetr.io/res/bg/zenith/' + DailyHelper.getFloorByAltitude(challenge.conditions[0].value) + 'fa.jpg',
-          remainingTime: (challenge.completions ?? 0).toLocaleString(),
-          stats: this.getStatsFromConditions(challenge.conditions),
-          isReverse: challenge.isReverse,
-          isCompleted: false
-        }
-
-        this.challenges.push(c);
-      }
-
-      for(let i = 0; i< challenges.length; i++){
-        let challenge = challenges[i];
-
-        if(challenge === undefined || challenge === null) continue;
-        if (!challenge.isMasteryChallenge) continue;
-
-        let c: Challenge = {
-          id: challenge.id,
-          number: challenge.date,
-          modString: challenge.mods,
-          mods: DailyHelper.getModArray(challenge.mods).map(mod => DailyHelper.getModImageUrl(mod)),
-          difficulty: challenge.points,
-          difficultyText: ChallengeHelper.getDifficultyText(challenge.points, '', true).toLowerCase(),
-          imageUrl: 'https://tetr.io/res/bg/zenith/' + DailyHelper.getFloorByAltitude(challenge.conditions[0].value) + 'fa.jpg',
-          remainingTime: (challenge.completions ?? 0).toLocaleString(),
-          stats: this.getStatsFromConditions(challenge.conditions),
-          isReverse: challenge.isReverse,
-          isCompleted: false
-        }
-
-        this.masteryChallenges.push(c);
-      }
-
-      await this.loadTodaysCompletions();
-    });
-
-    this.weekly$.subscribe(result => {
-      if(result === undefined) return;
-      this.weekly = result;
-    })
-
-    this.weeklyProgress$.subscribe(result => {
-      if(result === undefined) return;
-
-      this.weeklyProgress = result;
-    })
-
-    // Optional: Auto-play
-    // this.startAutoPlay();
   }
 
   private getStatsFromConditions(conditions: Condition[]): any {
@@ -174,21 +210,6 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
     this.session.submitAndUpdate();
   }
 
-  private async loadTodaysCompletions() {
-    const user = await firstValueFrom(this.user$.pipe(take(1)));
-
-    this.challengeCompletions$.subscribe(result => {
-      if(result === undefined || result === null) return;
-
-      for (const id of result.completedChallengesIds ?? []) {
-        const challenge = this.challenges.find(c => c.id === id);
-        if (challenge) {
-          challenge.isCompleted = true;
-        }
-      }
-    })
-  }
-
   protected signIn() {
     DailyHelper.signIn();
   }
@@ -229,35 +250,44 @@ export class ChallengesNewComponent implements OnInit, OnDestroy {
   protected getWeeklyObjectiveCompletedCount(): number{
     let amount = 0;
 
-    if(!this.weeklyProgress?.progress) return amount;
+    if(!this.weeklyProgress.hasValue() || !this.weeklyProgress.value()) return amount;
 
-    return this.weeklyProgress.progress.filter(progress => progress.isCompleted).length;
+    const progress = this.weeklyProgress.value().progress;
+
+    if(!progress) return amount;
+
+    return progress.filter(progress => progress.isCompleted).length;
   }
 
   protected getScores(){
     let scoreAchieved = 0;
     let maxScore = 0;
 
-    if(! this.weekly?.condtions) return  [scoreAchieved, maxScore];
+    const weekly = this.weekly.value();
+    const weeklyProgress = this.weeklyProgress.value();
 
-    maxScore = (this.weekly.condtions.length * 10) * 2;
+    if(! weekly?.condtions) return  [scoreAchieved, maxScore];
 
-    if( ! this.weeklyProgress?.progress) return  [scoreAchieved, maxScore];
+    maxScore = (weekly.condtions.length * 10) * 2;
+
+    if( ! weeklyProgress?.progress) return  [scoreAchieved, maxScore];
 
     scoreAchieved = this.getWeeklyObjectiveCompletedCount();
 
     if(scoreAchieved > 0) scoreAchieved *= 10;
 
-    if(this.weeklyProgress.isCompleted) scoreAchieved = maxScore;
+    if(weeklyProgress.isCompleted) scoreAchieved = maxScore;
 
 
     return [scoreAchieved, maxScore]
   }
 
   protected getWeeklyCompletionImage($index: number, value: number, type: number): string {
-    if(!this.weeklyProgress?.progress) return "assets/weekly/not_done.png";
+    const weeklyProgress = this.weeklyProgress.value();
 
-    const isCompleted = this.weeklyProgress.progress[$index]?.isCompleted ?? false;
+    if(!weeklyProgress?.progress) return "assets/weekly/not_done.png";
+
+    const isCompleted = weeklyProgress.progress[$index]?.isCompleted ?? false;
 
     if(!isCompleted) return "assets/weekly/not_done.png"
 

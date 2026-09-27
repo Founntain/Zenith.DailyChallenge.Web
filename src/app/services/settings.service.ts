@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Service} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class SettingsService {
   private autoUpdate;
   public autoUpdate$: Observable<boolean>;
