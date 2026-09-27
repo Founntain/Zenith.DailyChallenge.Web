@@ -20,9 +20,6 @@ export const routes: Routes = [
 
     //WIP
     { path: 'create', component: CreateComponent },
-
-    // Legacy
-    { path: 'user/:username', component: UserComponent },
 ];
 
 export const appConfig: ApplicationConfig = {  providers: [provideRouter(routes)]};
