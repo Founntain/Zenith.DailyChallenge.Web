@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy, inject, signal, computed, effect} from '@angular/core';
 import {MatIcon} from '@angular/material/icon';
 import {Router, RouterLink} from '@angular/router';
 import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
@@ -8,11 +8,13 @@ import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {MatDrawer} from '@angular/material/sidenav';
 import {TodayCompletions} from '../../services/network/data/interfaces/TodayCompletions';
 import {LeaderboardService} from '../../services/network/leaderboard.service';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {ZdcSessionService} from '../../services/zdc-session.service';
 import {AsyncPipe} from '@angular/common';
 import {ZenithService} from '../../services/network/zenith.service';
 import {MatRipple} from '@angular/material/core';
+import {rxResource} from '@angular/core/rxjs-interop';
+import {DailyChallenge} from '../../services/network/data/interfaces/DailyChallenge';
 
 @Component({
   selector: 'app-side-menu',
@@ -28,60 +30,61 @@ import {MatRipple} from '@angular/material/core';
 })
 export class SideMenuComponent implements OnInit{
   @Input() drawer!: MatDrawer;
-  @Input() completions: TodayCompletions | undefined;
+
+  private readonly session = inject(ZdcSessionService);
+  private readonly userService = inject(ZenithUserService);
+  private readonly zenithService = inject(ZenithService);
+  private readonly leaderboardService = inject(LeaderboardService);
+  private readonly cookieHelper = inject(CookieHelper);
+  private readonly router = inject(Router);
 
   user$: Observable<UserProfileData | null>;
   challengeCompletions$: Observable<TodayCompletions | null>;
 
-  // todayUsersCompletions: TodayCompletions | undefined;
-  seasonPlacement: number = -1;
-  seasonName: string = "";
+  username = signal<string | null>(null)
 
-  constructor(
-    private readonly session: ZdcSessionService,
-    private userService: ZenithUserService,
-    private zenithService: ZenithService,
-    private leaderboardService: LeaderboardService,
-    private cookieHelper: CookieHelper,
-    private readonly router: Router
-    )
+  // todayUsersCompletions: TodayCompletions | undefined;
+  challengeCompletions = rxResource({
+    stream: () => this.challengeCompletions$.pipe(map(res => res as TodayCompletions))
+  })
+
+  leaderboard = rxResource({
+    params: () => ({
+      username: this.username()
+    }),
+    stream: ({ params }: { params: { username: string | null } }) => {
+      if (!params.username) {
+        throw new Error('Username is required');
+      }
+      return this.leaderboardService.getLeaderboardPosition(params.username);
+    },
+  });
+
+  seasonPlacement = signal<number>(-1)
+  seasonName = signal<string>("")
+
+  constructor()
   {
     this.user$ = this.session.user$;
     this.challengeCompletions$ = this.session.challengeCompletions$;
+
+    effect(() => {
+      const leaderboard = this.leaderboard.value();
+
+      if(!leaderboard) return;
+      this.seasonPlacement.set(leaderboard.placement);
+      this.seasonName.set(leaderboard.seasonName);
+    });
   }
 
   ngOnInit() {
-    this.challengeCompletions$.subscribe(result => {
-      if(!result) return;
-
-      this.completions = result;
-    })
-
-    this.loadSeasonPlacement();
+    this.username.set(this.cookieHelper.getCookieByName('username'));
   }
-
-  private loadSeasonPlacement() {
-    let username = this.cookieHelper.getCookieByName('username');
-
-    this.leaderboardService.getLeaderboardPosition(username).subscribe(result => {
-      this.seasonPlacement = result.placement;
-      this.seasonName = result.seasonName;
-    })
-  }
-
-  // private loadUsersTodaysCompletions() {
-  //   let username = this.cookieHelper.getCookieByName('username');
-  //
-  //   this.userService.getTodaysChallengeCompletions(username).subscribe(result => {
-  //     this.todayUsersCompletions = result;
-  //   });
-  // }
 
   protected getCompletionCss(completed: boolean | undefined)
   {
     return completed ? '' : 'challengeUncompleted';
   }
-
 
   protected search(event: KeyboardEvent) {
     if (event.key !== 'Enter') {

@@ -1,17 +1,18 @@
-@if (serverStatistics !== undefined) {
+@if (!serverStatistics.isLoading() && serverStatistics.value()) {
+  @let stats = serverStatistics.value()!;
   <div class="stat-container">
 <!--    <div class="title">ZDC - Statistics</div>-->
 <!--    <div class="sub-title">All time statistics achieved by all the epic gamers here</div>-->
     <div class="header-container">
       <div class="altitude-stats">
         <span class="altitude-title">Total Climbed</span>
-        <span class="altitude">{{serverStatistics.altitudes.total.toLocaleString('en-US')}} M</span>
-        <span class="text">by <span class="highlight">{{serverStatistics.totalUsers}}</span> players</span>
-        <span class="text">of which <span class="highlight" matTooltip="Players that have at least 1 score.">{{serverStatistics.rankedUsers}}</span> are ranked</span>
+        <span class="altitude">{{stats.altitudes.total.toLocaleString('en-US')}} M</span>
+        <span class="text">by <span class="highlight">{{stats.totalUsers}}</span> players</span>
+        <span class="text">of which <span class="highlight" matTooltip="Players that have at least 1 score.">{{stats.rankedUsers}}</span> are ranked</span>
       </div>
       <div class="score-container">
         <img src="assets/score.png" class="score-img">
-        <span class="score">{{serverStatistics.totalScore.toLocaleString('en-US')}}</span>
+        <span class="score">{{stats.totalScore.toLocaleString('en-US')}}</span>
         <span class="sub-title">ZDC Score</span>
       </div>
       <div class="sub-stats">
@@ -19,28 +20,28 @@
           <mat-icon class="stat-icon">group</mat-icon>
           <div class="stat-values">
             <span class="stat-title">Players</span>
-            <span class="stat-value">{{serverStatistics.totalUsers.toLocaleString('en-US')}}</span>
+            <span class="stat-value">{{stats.totalUsers.toLocaleString('en-US')}}</span>
           </div>
         </div>
         <div class="stat-item">
           <mat-icon class="stat-icon">emoji_events</mat-icon>
           <div class="stat-values" matTooltip="Players that have at least 1 score.">
             <span class="stat-title">Ranked Players</span>
-            <span class="stat-value">{{serverStatistics.rankedUsers}}</span>
+            <span class="stat-value">{{stats.rankedUsers}}</span>
           </div>
         </div>
         <div class="stat-item">
           <mat-icon class="stat-icon">timer</mat-icon>
           <div class="stat-values">
             <span class="stat-title">Total Playtime</span>
-            <span class="stat-value">{{serverStatistics.playTime.toLocaleString('en-US')}} h</span>
+            <span class="stat-value">{{stats.playTime.toLocaleString('en-US')}} h</span>
           </div>
         </div>
         <div class="stat-item">
           <mat-icon class="stat-icon">sports_esports</mat-icon>
           <div class="stat-values">
             <span class="stat-title">Runs played</span>
-            <span class="stat-value">{{serverStatistics.runsPlayed.toLocaleString('en-US')}}</span>
+            <span class="stat-value">{{stats.runsPlayed.toLocaleString('en-US')}}</span>
           </div>
         </div>
       </div>
@@ -55,7 +56,7 @@
               <img class="mod-icon" src="assets/tetrio-img/mods/{{mod.toLowerCase()}}.png"/>
             }
             <div class="mod-stats">
-              <span class="mod-stat-value" [class]="mod.toLowerCase()">{{serverStatistics.altitudes[mod].toLocaleString('en-US')}} M</span>
+              <span class="mod-stat-value" [class]="mod.toLowerCase()">{{stats.altitudes[mod].toLocaleString('en-US')}} M</span>
             </div>
           </div>
         }
@@ -65,13 +66,13 @@
         <div class="mod-container">
           <img class="mod-icon" src="assets/clear_reverse.png"/>
           <div class="mod-stats">
-            <span class="mod-stat-value reverse">{{serverStatistics.altitudes.reverse.toLocaleString('en-US')}} M</span>
+            <span class="mod-stat-value reverse">{{stats.altitudes.reverse.toLocaleString('en-US')}} M</span>
           </div>
         </div>
         <div class="mod-container">
           <img class="mod-icon" src="assets/mastery_2.png"/>
           <div class="mod-stats">
-            <span class="mod-stat-value mastery">{{(serverStatistics.masteriesCompleted).toLocaleString('en-US')}} MASTERIES</span>
+            <span class="mod-stat-value mastery">{{(stats.masteriesCompleted).toLocaleString('en-US')}} MASTERIES</span>
           </div>
         </div>
       </div>
@@ -82,7 +83,7 @@
         <mat-icon>speed</mat-icon>
         <div class="run-values">
           <span class="run-title">AVERAGE APM</span>
-          <span class="run-value">{{serverStatistics.runStats.apm.toLocaleString('en-US')}}</span>
+          <span class="run-value">{{stats.runStats.apm.toLocaleString('en-US')}}</span>
         </div>
       </div>
 
@@ -90,7 +91,7 @@
         <mat-icon>sports_esports</mat-icon>
         <div class="run-values">
           <span class="run-title">AVERAGE VS</span>
-          <span class="run-value">{{serverStatistics.runStats.vs.toLocaleString('en-US')}}</span>
+          <span class="run-value">{{stats.runStats.vs.toLocaleString('en-US')}}</span>
         </div>
       </div>
 
@@ -98,7 +99,7 @@
         <mat-icon>flash_on</mat-icon>
         <div class="run-values">
           <span class="run-title">AVERAGE PPS</span>
-          <span class="run-value">{{serverStatistics.runStats.pps.toLocaleString('en-US')}}</span>
+          <span class="run-value">{{stats.runStats.pps.toLocaleString('en-US')}}</span>
         </div>
       </div>
 
@@ -106,7 +107,7 @@
         <mat-icon>elevator</mat-icon>
         <div class="run-values">
           <span class="run-title">AVERAGE ALTITUDE</span>
-          <span class="run-value">{{serverStatistics.runStats.altitude.toLocaleString('en-US')}}</span>
+          <span class="run-value">{{stats.runStats.altitude.toLocaleString('en-US')}}</span>
         </div>
       </div>
 
@@ -114,7 +115,7 @@
         <mat-icon>close</mat-icon>
         <div class="run-values">
           <span class="run-title">KO's</span>
-          <span class="run-value">{{serverStatistics.runStats.kos.toLocaleString('en-US')}}</span>
+          <span class="run-value">{{stats.runStats.kos.toLocaleString('en-US')}}</span>
         </div>
       </div>
 
@@ -122,7 +123,7 @@
         <mat-icon>send</mat-icon>
         <div class="run-values">
           <span class="run-title">GARBAGE SENT</span>
-          <span class="run-value">{{serverStatistics.runStats.send.toLocaleString('en-US')}}</span>
+          <span class="run-value">{{stats.runStats.send.toLocaleString('en-US')}}</span>
         </div>
       </div>
 
@@ -130,7 +131,7 @@
         <mat-icon>shield</mat-icon>
         <div class="run-values">
           <span class="run-title">GARBAGE CLEARED</span>
-          <span class="run-value">{{serverStatistics.runStats.cleared.toLocaleString('en-US')}}</span>
+          <span class="run-value">{{stats.runStats.cleared.toLocaleString('en-US')}}</span>
         </div>
       </div>
     </div>

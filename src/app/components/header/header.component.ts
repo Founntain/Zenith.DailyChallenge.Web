@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy, inject} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {CookieHelper} from '../../util/CookieHelper';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
@@ -29,16 +29,17 @@ import {MatRipple} from '@angular/material/core';
 export class HeaderComponent implements OnInit{
   @Input() drawer!: MatDrawer;
 
+  private readonly session = inject(ZdcSessionService);
+  private readonly userApi = inject(ZenithUserService);
+  private readonly authApi = inject(AuthService);
+  private readonly cookieHelper = inject(CookieHelper);
+
   user$: Observable<UserProfileData | null>;
   communityChallenge$: Observable<CommunityChallenge | null>;
 
   communityCss: string = '';
 
-  constructor(
-    private readonly session: ZdcSessionService,
-    private userApi: ZenithUserService,
-    private authApi: AuthService,
-    private cookieHelper: CookieHelper)
+  constructor()
   {
       this.user$ = this.session.user$;
       this.communityChallenge$ = this.session.communityChallenge$;
