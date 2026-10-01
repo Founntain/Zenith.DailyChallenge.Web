@@ -1,17 +1,17 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit, ChangeDetectionStrategy, inject, signal, effect} from '@angular/core';
 import {CommunityChallenge} from '../../services/network/data/interfaces/CommunityChallenge';
 import {RecentCommunityContribution} from '../../services/network/data/interfaces/RecentCommunityContribution';
-import {interval, Observable} from 'rxjs';
+import {interval, map, Observable} from 'rxjs';
 import {ZenithService} from '../../services/network/zenith.service';
 import {TimeHelper} from '../../util/TimeHelper';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
-import {UserProfileData} from '../../services/network/data/interfaces/UserProfileData';
 import {ZdcSessionService} from '../../services/zdc-session.service';
 import {ChallengeHelper} from '../../util/ChallengeHelper';
 import {MatRipple} from '@angular/material/core';
+import {rxResource} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-community-challenge',
@@ -22,48 +22,57 @@ import {MatRipple} from '@angular/material/core';
     MatRipple,
   ],
   templateUrl: './community-challenge.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './community-challenge.component.scss'
 })
 export class CommunityChallengeComponent implements OnInit, OnDestroy{
+  private readonly zenithService = inject(ZenithService);
+  private readonly ngZone = inject(NgZone);
+  private readonly session = inject(ZdcSessionService);
+
   public communityChallenge$: Observable<CommunityChallenge | null>;
 
   private timerId: any;
   private contributionTimerId: any;
 
-  communityChallengeEndDateUnixSeconds: number = 0;
-  communityChallengeData: CommunityChallenge | undefined;
+  communityChallengeEndDateUnixSeconds = signal<number>(0)
+  communityTimeLeft = signal<string>("")
+  isCommunityChallengeFinished = signal<string>("")
 
-  communityTimeLeft: string = "";
-  isCommunityChallengeFinished: string = "";
-
-  recentContributions: RecentCommunityContribution[] = [];
+  recentContributions = rxResource({
+    stream: () => this.zenithService.getRecentCommunityContributions().pipe(map(res => res as RecentCommunityContribution[]))
+  })
 
   protected readonly ChallengeHelper = ChallengeHelper;
 
+  communityChallenge = rxResource({
+    stream: () => this.zenithService.getCommunityChallenge().pipe(map(res => res as CommunityChallenge))
+  })
+
   constructor(
-    private readonly zenithService: ZenithService,
-    private readonly ngZone: NgZone,
-    private readonly session: ZdcSessionService
   ) {
     this.communityChallenge$ = this.session.communityChallenge$;
+
+    effect(() => {
+      if(this.communityChallenge.isLoading() || !this.communityChallenge.hasValue()) return;
+
+      const cc = this.communityChallenge.value();
+
+      if(!cc) return;
+
+      console.log('cc', cc)
+
+      this.communityChallengeEndDateUnixSeconds.set(cc.endsAtUnixSeconds);
+
+      if(cc.communityChallenge.finished === true){
+        this.isCommunityChallengeFinished.set("goalAchieved");
+      }else{
+        this.isCommunityChallengeFinished.set("");
+      }
+    });
   }
 
   ngOnInit(): void {
-    this.communityChallenge$.subscribe(result => {
-      if(!result) return;
-
-      this.communityChallengeData = result;
-      this.communityChallengeEndDateUnixSeconds = result.endsAtUnixSeconds;
-
-      if(this.communityChallengeData?.communityChallenge === undefined) return;
-
-      if(this.communityChallengeData.communityChallenge.finished === true){
-        this.isCommunityChallengeFinished = "goalAchieved"
-      }else{
-        this.isCommunityChallengeFinished = ""
-      }
-    })
-
     this.zenithService.getDates().subscribe(result => {
       this.ngZone.runOutsideAngular(() => {
         this.timerId = interval(1000).subscribe(() => {
@@ -92,35 +101,34 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
   }
 
   private updateCommunityTimeLeft(){
-    if(this.communityChallengeEndDateUnixSeconds === undefined || this.communityChallengeEndDateUnixSeconds == 0) return;
+    if(this.communityChallengeEndDateUnixSeconds() === undefined || this.communityChallengeEndDateUnixSeconds() == 0) return;
 
     const currentDate = new Date();
-    const targetDate = new Date(this.communityChallengeEndDateUnixSeconds * 1000);
+    const targetDate = new Date(this.communityChallengeEndDateUnixSeconds() * 1000);
 
     const timeDifference = targetDate.getTime() - currentDate.getTime();
 
     if (timeDifference <= 0) {
-      this.communityTimeLeft = "Time's up!";
+      this.communityTimeLeft.set("Time's up!");
       return;
     }
 
     let timeTuple = TimeHelper.unixSecondsToString(timeDifference);
 
-    this.communityTimeLeft = `${timeTuple[0]}d ${timeTuple[1]}h ${timeTuple[2]}m ${timeTuple[3]}s`;
+    this.communityTimeLeft.set(`${timeTuple[0]}d ${timeTuple[1]}h ${timeTuple[2]}m ${timeTuple[3]}s`);
   }
 
   private updateCommunityGoal() {
     this.session.fetchCommunityChallenge();
 
-    this.zenithService.getRecentCommunityContributions().subscribe(result => {
-      this.recentContributions = result;
-    })
+    this.communityChallenge.reload();
+    this.recentContributions.reload();
   }
 
   getCommunityPromptPrefix() {
     let prompt = "";
 
-    switch (this.communityChallengeData?.communityChallenge.conditionType){
+    switch (this.communityChallenge.value()?.communityChallenge.conditionType){
       case ConditionType.Height:
         prompt = "Climb a total of "
         break;
@@ -150,9 +158,9 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
 
   getCommunityPromptValue() {
     let prompt = "";
-    let value = this.communityChallengeData?.communityChallenge.targetValue.toLocaleString('en-US');
+    let value = this.communityChallenge.value()?.communityChallenge.targetValue.toLocaleString('en-US');
 
-    switch (this.communityChallengeData?.communityChallenge.conditionType) {
+    switch (this.communityChallenge.value()?.communityChallenge.conditionType) {
       case ConditionType.Height:
         prompt = `${value} M`
         break;
@@ -191,7 +199,7 @@ export class CommunityChallengeComponent implements OnInit, OnDestroy{
   getCommunityPromptSuffix() {
     let prompt = "";
 
-    switch (this.communityChallengeData?.communityChallenge.conditionType){
+    switch (this.communityChallenge.value()?.communityChallenge.conditionType){
       case ConditionType.Height:
         prompt = " while in search for salvation"
         break;

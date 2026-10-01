@@ -1,12 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NgForOf} from '@angular/common';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
+
 
 @Component({
   selector: 'app-zenith-text-wobble',
-  imports: [
-    NgForOf
-  ],
+  imports: [],
   templateUrl: './zenith-text-wobble.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './zenith-text-wobble.component.scss'
 })
 export class ZenithTextWobbleComponent implements OnInit {

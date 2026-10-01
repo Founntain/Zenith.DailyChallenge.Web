@@ -7,7 +7,7 @@
         <div
           class="carousel-slides"
           [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
-          @for (challenge of challenges; track challenge.id; let i = $index) {
+          @for (challenge of challenges(); track challenge.id; let i = $index) {
             <div class="challenge-slide">
               <div class="challenge-hero-container">
                 <div class="profile-card-background">
@@ -79,7 +79,7 @@
       <!-- Integrated Navigation -->
       <div class="integrated-navigation">
         <div class="nav-dots">
-          @for (navChallenge of challenges; track navChallenge.id; let navI = $index) {
+          @for (navChallenge of challenges(); track navChallenge.id; let navI = $index) {
             <button
               class="nav-dot"
               [class.active]="navI === currentIndex"
@@ -97,7 +97,7 @@
 
   <!-- Mastery Challenges -->
   <div class="mastery-container">
-    @for (challenge of masteryChallenges; track $index) {
+    @for (challenge of masteryChallenges(); track $index) {
       <div class="mastery-card" [class]="challenge.isReverse ? 'reverse' : 'normal'">
         @if(!challenge.isReverse) {
           <span class="mastery-title">Whispers of Mastery</span>
@@ -179,18 +179,18 @@
         </div>
         <div class="weekly-count-chip">
           <mat-icon class="weekly-icon">calendar_today</mat-icon>
-          <span class="weekly-title">Week {{ weekly.week }}</span>
+          <span class="weekly-title">Week {{ weekly.value()?.week }}</span>
         </div>
       </div>
 
       <div class="weekly-conditions-container">
-        @for (condition of weekly?.condtions; track $index){
+        @for (condition of weekly.value()?.condtions; track $index){
           <div class="weekly-condition-card">
             <span class="title" [class]="'condition'+($index + 1)">Objective {{$index + 1}}</span>
             <span class="task"> {{ ChallengeHelper.getWeeklyPrefix(condition.type) }}</span>
             <img src="{{getWeeklyCompletionImage($index, condition.value, condition.type)}}" class="weekly-img">
             <div class="values-card">
-              @let progress = this.weeklyProgress?.progress?.[$index];
+              @let progress = this.weeklyProgress.value()?.progress?.[$index];
 
               @if(progress){
                 <span class="condition-value" [class]="'condition'+($index + 1)">{{ progress.currentProgress.toLocaleString('en-US') }}</span>
@@ -208,10 +208,10 @@
         <span class="progress-container">
           <span class="progress">{{getWeeklyObjectiveCompletedCount()}}</span>
           <span class="divider">/</span>
-          <span class="total">{{weekly?.condtions?.length ?? 0}} Objectives Completed</span>
+          <span class="total">{{weekly.value()?.condtions?.length ?? 0}} Objectives Completed</span>
         </span>
         <div class="bar">
-          <div class="bar-fill" [style.width]="ChallengeHelper.getWeeklyObjectiveCompletedCountPercentage(weekly, weeklyProgress) + '%'"></div>
+          <div class="bar-fill" [style.width]="ChallengeHelper.getWeeklyObjectiveCompletedCountPercentage((weekly.value() ?? null), weeklyProgress.value() ?? null) + '%'"></div>
         </div>
       </div>
     </div>

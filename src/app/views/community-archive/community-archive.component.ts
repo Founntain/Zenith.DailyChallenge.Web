@@ -1,27 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, inject, signal} from '@angular/core';
 import {ArchiveService} from '../../services/network/archive.service';
 import {CommunityChallengeArchive} from '../../services/network/data/interfaces/CommunityChallengeArchive';
-import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderCellDef,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow, MatRowDef, MatTable
-} from '@angular/material/table';
 import {RouterLink} from '@angular/router';
 import {ConditionType} from '../../services/network/data/enums/ConditionType';
 import {MatIcon} from '@angular/material/icon';
 import {MatRipple} from '@angular/material/core';
 import {
   MatExpansionPanel,
-  MatExpansionPanelDescription,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
+import {map} from 'rxjs';
+import {rxResource} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-community-archive',
@@ -29,31 +19,28 @@ import {
     MatIcon,
     MatRipple,
     MatExpansionPanel,
-    MatExpansionPanelDescription,
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     RouterLink
   ],
   templateUrl: './community-archive.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './community-archive.component.scss'
 })
 
-export class CommunityArchiveComponent implements OnInit{
-  communityChallenge: CommunityChallengeArchive | any;
+export class CommunityArchiveComponent{
+  private readonly archiveService = inject(ArchiveService);
+
+  protected communityChallengeId = signal<string | null>(null);
+
+  communityChallenge = rxResource({
+    params: () => ({ id: this.communityChallengeId() }),
+    stream: ({ params }: { params: { id: string | null } }) => {
+      return this.archiveService.getPastCommunityChallenges(params.id).pipe(map(res => res as CommunityChallengeArchive | any))
+    }
+  })
 
   columns: string[] = ['Username', 'Contributions'];
-
-  constructor(private archiveService: ArchiveService) { }
-
-  ngOnInit(): void {
-    this.loadCommunityChallenge(null);
-  }
-
-  private loadCommunityChallenge(id: string | null) {
-    this.archiveService.getPastCommunityChallenges(id).subscribe(result => {
-      this.communityChallenge = result;
-    })
-  }
 
   getTypeSuffix(conditionType: any) {
     switch (conditionType) {
@@ -80,38 +67,9 @@ export class CommunityArchiveComponent implements OnInit{
     return "";
   }
 
-  conditionTypeString(conditionType: any) {
-    switch(conditionType){
-      case ConditionType.KOs:
-        return 'KO\'s';
-      case ConditionType.Height:
-        return 'Altitude';
-      case ConditionType.Quads:
-        return 'Quads';
-      case ConditionType.Spins:
-        return 'Spins';
-      case ConditionType.AllClears:
-        return 'All Clears';
-      case ConditionType.Apm:
-        return 'APM';
-      case ConditionType.Pps:
-        return 'PPS';
-      case ConditionType.Vs:
-        return 'VS';
-      case ConditionType.Finesse:
-        return 'FINESSE';
-      case ConditionType.Back2Back:
-        return 'Back2Back';
-      case ConditionType.TotalBonus:
-        return 'Bonus';
-      default:
-        return []
-    }
-  }
-
   goToPage(id: any) {
     if(id == null) return;
 
-    this.loadCommunityChallenge(id);
+    this.communityChallengeId.set(id);
   }
 }

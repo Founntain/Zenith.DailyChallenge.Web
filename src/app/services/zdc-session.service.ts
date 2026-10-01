@@ -1,5 +1,5 @@
 ﻿// user-session.service.ts
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, Service} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {UserProfileData} from './network/data/interfaces/UserProfileData';
 import {DailyChallenge} from './network/data/interfaces/DailyChallenge';
@@ -9,12 +9,12 @@ import {ZenithService} from './network/zenith.service';
 import {ZenithUserService} from './network/zenith-user.service';
 import {WeeklyChallenge, WeeklyChallengeProgress} from './network/data/interfaces/WeeklyChallenge';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {HttpClient} from '@angular/common/http';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ZdcSessionService {
-  constructor(private zenithService: ZenithService, private userService: ZenithUserService) {
-  }
-
+  private readonly zenithService = inject(ZenithService);
+  private readonly userService = inject(ZenithUserService);
   private _snackbar = inject(MatSnackBar);
 
   private readonly _user$ = new BehaviorSubject<UserProfileData | null>(null);

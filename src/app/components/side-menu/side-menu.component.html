@@ -17,21 +17,21 @@
       <div class="challenge-stats">
         <div class="stat-title">Today's Progress</div>
         <div class="challenge-icons">
-          <img [class]="[getCompletionCss(this.completions?.easyCompleted)]" src="/assets/clear_easy_2.png" class="challenge-icon" title="Easy" />
-          <img [class]="[getCompletionCss(this.completions?.normalCompleted)]" src="/assets/clear_normal_2.png" class="challenge-icon" title="Normal" />
-          <img [class]="[getCompletionCss(this.completions?.hardCompleted)]" src="/assets/clear_hard_2.png" class="challenge-icon" title="Hard" />
-          <img [class]="[getCompletionCss(this.completions?.expertCompleted)]" src="/assets/clear_expert.png" class="challenge-icon" title="Expert" />
-          <img [class]="[getCompletionCss(this.completions?.reverseCompleted)]" src="/assets/clear_reverse.png" class="challenge-icon" title="Reverse" />
+          <img [class]="[getCompletionCss(this.challengeCompletions.value()?.easyCompleted)]" src="/assets/clear_easy_2.png" class="challenge-icon" title="Easy" />
+          <img [class]="[getCompletionCss(this.challengeCompletions.value()?.normalCompleted)]" src="/assets/clear_normal_2.png" class="challenge-icon" title="Normal" />
+          <img [class]="[getCompletionCss(this.challengeCompletions.value()?.hardCompleted)]" src="/assets/clear_hard_2.png" class="challenge-icon" title="Hard" />
+          <img [class]="[getCompletionCss(this.challengeCompletions.value()?.expertCompleted)]" src="/assets/clear_expert.png" class="challenge-icon" title="Expert" />
+          <img [class]="[getCompletionCss(this.challengeCompletions.value()?.reverseCompleted)]" src="/assets/clear_reverse.png" class="challenge-icon" title="Reverse" />
         </div>
       </div>
 
-      @if (seasonPlacement > 0) {
+      @if (seasonPlacement() > 0) {
         <div class="season-ranking">
           <div class="ranking-badge">
-            <span class="rank-number">{{NumberUtils.toOrdinal(seasonPlacement)}}</span>
+            <span class="rank-number">{{NumberUtils.toOrdinal(seasonPlacement())}}</span>
             <span class="rank-label">place in</span>
           </div>
-          <span class="season-name">{{seasonName}}</span>
+          <span class="season-name">{{seasonName()}}</span>
         </div>
       }
 

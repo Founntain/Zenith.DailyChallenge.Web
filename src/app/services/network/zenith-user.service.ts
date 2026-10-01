@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {Observable} from 'rxjs';
 import {DailyChallenge} from './data/interfaces/DailyChallenge';
 import {HttpClient} from '@angular/common/http';
@@ -13,13 +13,13 @@ import {ZenithSplits} from './data/interfaces/ZenithSplits';
 import {DailyExtra} from './data/interfaces/DailyExtra';
 import {SeasonalUserData} from './data/interfaces/SeasonalUserData';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class ZenithUserService {
   baseUrl = environment.apiUrl + '/zenithUser/';
 
-  constructor(private http: HttpClient) { }
+  private readonly http = inject(HttpClient);
+
+  constructor() { }
 
   getProfile(username: string): Observable<UserProfileData>{
     return this.http.get<UserProfileData>(`${this.baseUrl}${username}/profile`);

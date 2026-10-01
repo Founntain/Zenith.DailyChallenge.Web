@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ZenithSplits} from '../../services/network/data/interfaces/ZenithSplits';
 import {ZenithUserService} from '../../services/network/zenith-user.service';
 import {MatChipAvatar, MatChipListbox, MatChipOption} from '@angular/material/chips';
@@ -16,6 +16,7 @@ import {RouterLink} from '@angular/router';
     RouterLink
   ],
   templateUrl: './zenith-splits.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './zenith-splits.component.scss'
 })
 export class ZenithSplitsComponent implements OnInit{

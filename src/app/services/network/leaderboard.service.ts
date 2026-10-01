@@ -1,19 +1,14 @@
-import { Injectable } from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {UserProfileData} from './data/interfaces/UserProfileData';
 import {environment} from '../../../environments/environment';
 import {GlobalLeaderboard, SeasonalLeaderboard, SeasonalPlacement} from './data/interfaces/GlobalLeaderboard';
-import {DailyChallengeArchive} from './data/interfaces/DailyChallengeArchive';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class LeaderboardService {
+  private readonly http = inject(HttpClient);
 
   baseUrl = environment.apiUrl + '/leaderboard';
-
-  constructor(private http: HttpClient) { }
 
   getLeaderboard(date: any = null): Observable<SeasonalLeaderboard>{
     if (date == null) return this.http.get<SeasonalLeaderboard>(`${this.baseUrl}`);

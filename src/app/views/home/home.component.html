@@ -64,18 +64,20 @@
       </div>
     </div>
   }
-  @if(this.seasonalInfo){
+  @if(!this.seasonalInfo.isLoading() && this.seasonalInfo.hasValue()){
+    @let info = this.seasonalInfo.value();
+
     <div class="seasonal-card">
       <div class="seasonal-header">
-        <span class="seasonal-title"> {{seasonalInfo.name}} </span>
+        <span class="seasonal-title"> {{info.name}} </span>
       </div>
       <div class="seasonal-players">
         <mat-icon class="seasonal-players-icon">group</mat-icon>
-        <span>{{seasonalInfo.participants}} players ranked</span>
+        <span>{{info.participants}} players ranked</span>
       </div>
 
       <div class="seasonal-leaderboard">
-        @for (user of seasonalInfo.leaderboard; track $index){
+        @for (user of info.leaderboard; track $index){
           <div class="seasonal-user">
             <span class="placement">#{{$index + 1}}</span>
             <span class="name">{{ user.username }}</span>
